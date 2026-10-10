@@ -58,7 +58,7 @@ Fallback: copy the `.apk` from the [release](https://github.com/sofatube/sofatub
 Developer Mode sessions **expire**: open the Developer Mode app now and then and extend the session, or the developer apps stop working.
 Fallback: the same steps with [webOS Dev Manager](https://github.com/webosbrew/dev-manager-desktop/releases/latest) on a Windows, Mac or Linux computer.
 
-#### Samsung TV (Tizen, 2017 or newer) — computer once
+#### Samsung TV (Tizen 4.0, 2018 or newer) — computer once
 
 Samsung needs **TizenBrew** (by Reis Can). It is installed once from a computer; after that Sofa Tube installs and updates on the TV itself.
 
@@ -128,7 +128,7 @@ Please report what works and what does not: [open an issue](https://github.com/s
 لجلسة وضع المطوّر مدة **تنتهي**: افتح تطبيق Developer Mode من حين لآخر ومدّد الجلسة، وإلا توقفت تطبيقات المطوّر عن العمل.
 البديل: الخطوات نفسها مع <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> على حاسوب (ويندوز أو ماك أو لينكس).
 
-#### تلفاز سامسونج ‏(Tizen، من 2017 فما بعد) — حاسوب مرة واحدة
+#### تلفاز سامسونج ‏(Tizen 4.0، من 2018 فما بعد) — حاسوب مرة واحدة
 
 يحتاج سامسونج إلى **TizenBrew** (من Reis Can). يُثبَّت مرة واحدة من حاسوب، وبعدها يُثبَّت صوفا تيوب ويتحدّث على التلفاز نفسه.
 

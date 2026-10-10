@@ -80,7 +80,7 @@ def footer(lang):
     if lang == 'ar':
         return f'''<footer class="site-foot"><div class="wrap">
 <p><b>للتواصل:</b> <a href="mailto:{MAIL}"><bdi>{MAIL}</bdi></a> · <a href="{ISSUES}">افتح بلاغًا (Issue) على GitHub</a></p>
-<p>صوفا تيوب مشروع مجاني برخصة <a href="{REPO}/blob/main/LICENSE"><bdi>GPL-3.0</bdi></a>، مبني على <a href="https://github.com/webosbrew/youtube-webos">webosbrew/youtube-webos</a> و<a href="https://github.com/reisxd/TizenBrew">TizenBrew</a> (من <bdi>Reis Can</bdi>) و<a href="https://github.com/reisxd/TizenTube">TizenTube</a> و<a href="https://github.com/reisxd/TizenTubeCobalt">TizenTube Cobalt</a>، ويستخدم <a href="https://sponsor.ajay.app/">SponsorBlock</a>. خط العناوين Baloo Bhaijaan 2 برخصة <a href="/assets/fonts/OFL.txt">SIL OFL</a>.</p>
+<p>صوفا تيوب مشروع مجاني برخصة <a href="{REPO}/blob/main/LICENSE"><bdi>GPL-3.0</bdi></a>، مبني على <a href="https://github.com/webosbrew/youtube-webos">webosbrew/youtube-webos</a> و<a href="https://github.com/reisxd/TizenBrew">TizenBrew</a> (لمطوّره <bdi>Reis Can</bdi>) و<a href="https://github.com/reisxd/TizenTube">TizenTube</a> و<a href="https://github.com/reisxd/TizenTubeCobalt">TizenTube Cobalt</a> (المبني على <bdi>Cobalt</bdi> من Google برخصة <bdi>Apache-2.0</bdi>)، ويستخدم <a href="https://sponsor.ajay.app/">SponsorBlock</a>. خط العناوين <bdi>Baloo Bhaijaan 2</bdi> برخصة <a href="/assets/fonts/OFL.txt">SIL OFL</a>.</p>
 <p>صوفا تيوب غير تابع لـYouTube أو Google أو LG أو سامسونج. YouTube علامة تجارية لشركة <bdi>Google LLC</bdi>.</p>
 <p><a href="{REPO}">github.com/sofatube/sofatube.github.io</a> · <a href="{RELEASES}">كل الملفات</a></p>
 </div></footer>'''
@@ -103,7 +103,7 @@ def test_note(lang):
 def old_android_note(lang):
     return L(lang,
              f'<div class="note" role="note"><p><b>Had the Sofa Tube 0.9.0 test app on Android?</b> Uninstall it first (Settings → Apps → Sofa Tube → Uninstall). {VER} has a new app ID (<code>io.github.sofatube.tv</code>), so it cannot update the old app; settings start fresh. On LG and Samsung it installs over 0.9.0 and settings stay.</p></div>',
-             f'<div class="note" role="note"><p><b>كان لديك تطبيق صوفا تيوب <bdi>0.9.0</bdi> التجريبي على أندرويد؟</b> احذفه أولًا (Settings ← Apps ← Sofa Tube ← Uninstall). للنسخة <bdi>{VER}</bdi> مُعرّف تطبيق جديد (<code dir="ltr">io.github.sofatube.tv</code>)، فلا تُحدِّث التطبيق القديم، وتبدأ الإعدادات من جديد. على LG وسامسونج يُثبَّت فوق <bdi>0.9.0</bdi> وتبقى الإعدادات.</p></div>')
+             f'<div class="note" role="note"><p><b>كان لديك تطبيق صوفا تيوب <bdi>0.9.0</bdi> التجريبي على أندرويد؟</b> احذفه أولًا (<bdi>Settings</bdi> ← <bdi>Apps</bdi> ← <bdi>Sofa Tube</bdi> ← <bdi>Uninstall</bdi>). للنسخة <bdi>{VER}</bdi> مُعرّف تطبيق جديد (<code dir="ltr">io.github.sofatube.tv</code>)، فلا تُحدِّث التطبيق القديم، وتبدأ الإعدادات من جديد. على LG وسامسونج يُثبَّت فوق <bdi>0.9.0</bdi> وتبقى الإعدادات.</p></div>')
 
 
 def remote_keys(lang):
@@ -114,8 +114,8 @@ def remote_keys(lang):
 <li><span class="key k-y"></span><b>الأصفر</b>: قائمة الإجراءات</li>
 <li><span class="key k-b"></span><b>الأزرق</b>: وضع الصوت فقط</li>
 </ul>
-<p>أزرار الأرقام من 1 إلى 9: الانتقال إلى نقطة من 10% إلى 90%، و0: العودة إلى البداية · زرّا القنوات (<bdi>CH</bdi>): الفصل التالي أو السابق · اضغط مطولًا على زر ملوّن لترى عمل كل زر.</p>
-<p>لا توجد أزرار ملونة؟ استخدم <b>★ صوفا تيوب</b> في القائمة الجانبية لـYouTube، أو زر ★ في شريط المشغل، أو صوفا تيوب أعلى صفحة إعدادات YouTube.</p>'''
+<p>أزرار الأرقام من 1 إلى 9: الانتقال إلى نقطة من 10% إلى 90%، و0: العودة إلى البداية · زرّا القنوات (<bdi>CH</bdi>): الفصل التالي أو السابق · اضغط مطولًا على زر ملوّن لترى وظيفة كل زر.</p>
+<p>لا توجد أزرار ملونة؟ استخدم <b>★ صوفا تيوب</b> في القائمة الجانبية لـYouTube، أو زر ★ بين أزرار التحكم، أو «صوفا تيوب» في أعلى صفحة إعدادات YouTube.</p>'''
     return '''<ul class="keys">
 <li><span class="key k-g"></span><b>Green</b>: settings</li>
 <li><span class="key k-r"></span><b>Red</b>: speed (while watching)</li>
@@ -145,7 +145,7 @@ def download_cards(lang):
 <p>لا ملف. ثبّت <b>TizenBrew</b> ثم أضف وحدة NPM باسم:</p>
 <p class="link">sofatube</p>
 <div class="row"><a class="btn" href="{i}#samsung">خطوات التثبيت</a></div>
-<p class="meta">تلفاز سامسونج من سنة 2017 أو أحدث</p></div>
+<p class="meta">تلفاز سامسونج من سنة 2018 أو أحدث</p></div>
 </div>
 <p><a href="{RELEASES}">كل الملفات</a> (صفحة الإصدار، ومنها ملف المصدر <bdi>source.zip</bdi>)</p>'''
     return f'''<div class="grid dl">
@@ -164,7 +164,7 @@ def download_cards(lang):
 <p>No file. Install <b>TizenBrew</b>, then add the NPM module:</p>
 <p class="link">sofatube</p>
 <div class="row"><a class="btn" href="{i}#samsung">Install steps</a></div>
-<p class="meta">Samsung TVs from 2017 or newer</p></div>
+<p class="meta">Samsung TVs from 2018 or newer</p></div>
 </div>
 <p><a href="{RELEASES}">All files</a> (release page, including the GPL source zip)</p>'''
 
@@ -180,7 +180,7 @@ FEATURES = [
      'من <bdi>0.25×</bdi> إلى <bdi>3×</bdi> بطبقة صوت طبيعية. اضغط الزر الأحمر أثناء المشاهدة، واختر السرعة.'),
     ('⚿', 'Locks and PIN', 'القفل والرمز السري',
      'Set a PIN on the Locks page. It protects the settings, the locks and the kids options. Lock the app, or lock to one video.',
-     'اضبط الرمز السري في صفحة القفل. يحمي الإعدادات والقفل وخيارات الأطفال. قفل التطبيق، ومنع الخروج من الفيديو.'),
+     'اضبط الرمز السري في صفحة القفل. يحمي الإعدادات والقفل وخيارات الأطفال. ويمكنك قفل التطبيق أو منع الخروج من الفيديو.'),
     ('⌂', 'Kid mode', 'وضع الأطفال',
      'Turn it on, then choose: family-safe only, longest video, hide search, kids list only, allowed hours and break reminder.',
      'فعّله ثم اختر: الفيديوهات الآمنة للعائلة فقط، وأطول فيديو، وإخفاء البحث، وقائمة الأطفال فقط، والساعات المسموح بها، والتذكير بالاستراحة.'),
@@ -201,13 +201,13 @@ FEATURES = [
      'يُعتِّم التعتيم الليلي الصورة، دائمًا أو بين وقتين. و«إطفاء الشاشة» يُطفئ الشاشة ويستمر الصوت، ويعيدها أي زر.'),
     ('☆', 'The ★ Sofa Tube menu', 'قائمة ★ صوفا تيوب',
      'For remotes without colour buttons: ★ Sofa Tube in YouTube\'s sidebar or the ★ button in the player bar.',
-     'لأجهزة التحكم التي ليست فيها أزرار ملونة: ★ صوفا تيوب في القائمة الجانبية لـYouTube أو زر ★ في شريط المشغل.'),
+     'لأجهزة التحكم الخالية من الأزرار الملونة: ★ صوفا تيوب في القائمة الجانبية لـYouTube أو زر ★ بين أزرار التحكم.'),
     ('⇥', 'Jump and chapters', 'الانتقال والفصول',
      'Number keys 1–9 jump to 10%–90%, 0 back to start. CH+ / CH− next or previous chapter.',
      'أزرار الأرقام من 1 إلى 9: الانتقال إلى نقطة من 10% إلى 90%، و0: العودة إلى البداية. زرّا القنوات (<bdi>CH</bdi>): الفصل التالي أو السابق.'),
     ('⌗', 'Learned buttons', 'أزرار مخصّصة',
      'Any spare button can run an action: press a button, then choose its action.',
-     'زر آخر في جهاز التحكم بوظيفة تختارها: اضغط الزر ثم اختر وظيفته.'),
+     'اجعل لأي زر لا تستخدمه في جهاز التحكم وظيفة تختارها: اضغط الزر ثم اختر وظيفته.'),
     ('⇄', 'Backup', 'النسخ الاحتياطي',
      'Export shows a code to photograph; Import restores it. The PIN is never included.',
      'يعرض التصدير رمز الإعدادات للتصوير، ويستعيد الاستيراد الإعدادات منه. ولا تتضمن النسخة الرمز السري أبدًا.'),
@@ -217,10 +217,10 @@ FEATURES = [
 ]
 
 SHOTS_TV = [
-    ('settings', 'Settings, Playback page', 'إعدادات صوفا تيوب، صفحة التشغيل'),
-    ('settings-ar', 'Settings in Arabic', 'إعدادات صوفا تيوب، صفحة التشغيل (العربية)'),
-    ('action-menu', '★ while watching: the Action menu', 'قائمة الإجراءات'),
-    ('action-menu-ar', 'The Action menu in Arabic', 'قائمة الإجراءات (العربية)'),
+    ('settings', 'Settings, Playback page', 'إعدادات صوفا تيوب، صفحة التشغيل (بالإنجليزية)'),
+    ('settings-ar', 'Settings in Arabic', 'إعدادات صوفا تيوب، صفحة التشغيل'),
+    ('action-menu', '★ while watching: the Action menu', 'قائمة الإجراءات (بالإنجليزية)'),
+    ('action-menu-ar', 'The Action menu in Arabic', 'قائمة الإجراءات'),
     ('speed', 'Speed picker', 'قائمة السرعة'),
     ('jump', 'Jump to 0%–90%', 'الانتقال إلى موضع في الفيديو'),
     ('sidebar-star', '★ Sofa Tube in the sidebar', '★ صوفا تيوب في القائمة الجانبية'),
@@ -229,7 +229,7 @@ SHOTS_TV = [
     ('video-lock', 'Locked to this video', 'منع الخروج من الفيديو'),
     ('kid-mode', 'Kids page', 'صفحة الأطفال'),
     ('kids-list', 'Kids video list', 'قائمة فيديوهات الأطفال'),
-    ('prayer', 'Prayer time pause', 'أوقات الصلاة'),
+    ('prayer', 'Prayer time pause', 'إيقاف الفيديو عند الأذان'),
     ('my-lists', 'My channels: new videos', 'قنواتي: الفيديوهات الجديدة'),
     ('phone-tv', 'Settings on your phone: the QR code', 'الإعدادات من الهاتف'),
     ('help', 'Help page', 'المساعدة'),
@@ -255,16 +255,16 @@ def home(lang):
 <img class="icon" src="/icon.svg" alt="شعار صوفا تيوب" width="112" height="112">
 <h1>صوفا تيوب<span class="alt" lang="en" dir="ltr">Sofa Tube</span></h1>
 <p class="pitch">تطبيق YouTube أفضل لتلفازك: دون إعلانات، وبسرعة تشغيل حقيقية، وقفل بالرمز السري، ووضع للأطفال، وأوقات الصلاة، وإعدادات من هاتفك.</p>
-<p class="sub">يفتح صفحة YouTube الخاصة بالتلفاز ويضيف إليها هذه الميزات. لأجهزة <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> وسامسونج وLG. بالعربية والإنجليزية.</p>
+<p class="sub">يفتح صفحة YouTube الخاصة بالتلفاز ويضيف إليها هذه الميزات. لأجهزة <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> وسامسونج وLG. بالعربية والإنجليزية. مجاني.</p>
 <p><span class="badge">نسخة تجريبية <bdi>{VER}</bdi></span></p>
 <div class="cta"><a class="btn" href="#download">تنزيل</a><a class="btn ghost" href="/ar/install/">خطوات التثبيت</a><a class="btn ghost" href="/ar/videos/">الفيديوهات</a></div>
 </section>'''
         return hero + test_note(lang) + f'''
-<h2 id="download">التثبيت: اختر تلفازك</h2>
+<h2 id="download">التنزيل: اختر تلفازك</h2>
 <p>روابط قصيرة (اكتبها في تطبيق <b>Downloader</b> على التلفاز أو في هاتفك):</p>
 {download_cards(lang)}
 {old_android_note(lang)}
-<h2 id="features">ما صوفا تيوب؟</h2>
+<h2 id="features">ماذا يقدّم صوفا تيوب؟</h2>
 <div class="grid">{feats}</div>
 <h2 id="remote">أزرار جهاز التحكم</h2>
 {remote_keys(lang)}
@@ -321,8 +321,8 @@ def install(lang):
 <li>على التلفاز، افتح متجر التطبيقات (Google Play، أو Appstore في Fire TV)، وابحث عن <b>Downloader</b> (من AFTVnews، أيقونة برتقالية) وثبّته.</li>
 <li>اسمح لـDownloader بتثبيت التطبيقات غير المعروفة:
 <ul>
-<li><b><bdi>Android TV</bdi> و<bdi>Google TV</bdi>:</b> Settings ← Apps ← Security &amp; restrictions ← Unknown sources ← فعّل Downloader. غير موجود؟ Settings ← System ← About واضغط على <bdi>Android TV OS build</bdi> سبع مرات، ثم أعد المحاولة. (تختلف الأسماء قليلًا حسب الشركة.)</li>
-<li><b>Fire TV:</b> Settings ← My Fire TV ← Developer options ← Install unknown apps ← فعّل Downloader. لا تظهر <bdi>Developer options</bdi>؟ Settings ← My Fire TV ← About واضغط على اسم الجهاز سبع مرات.</li>
+<li><b><bdi>Android TV</bdi> و<bdi>Google TV</bdi>:</b> <bdi>Settings</bdi> ← <bdi>Apps</bdi> ← <bdi>Security &amp; restrictions</bdi> ← <bdi>Unknown sources</bdi> ← فعّل <bdi>Downloader</bdi>. غير موجود؟ <bdi>Settings</bdi> ← <bdi>System</bdi> ← <bdi>About</bdi> واضغط على <bdi>Android TV OS build</bdi> سبع مرات، ثم أعد المحاولة. (تختلف الأسماء قليلًا حسب الشركة.)</li>
+<li><b>Fire TV:</b> <bdi>Settings</bdi> ← <bdi>My Fire TV</bdi> ← <bdi>Developer options</bdi> ← <bdi>Install unknown apps</bdi> ← فعّل <bdi>Downloader</bdi>. لا تظهر <bdi>Developer options</bdi>؟ <bdi>Settings</bdi> ← <bdi>My Fire TV</bdi> ← <bdi>About</bdi> واضغط على اسم الجهاز سبع مرات.</li>
 </ul></li>
 <li>افتح Downloader (واسمح له بالوصول إلى التخزين)، واختر خانة العنوان واكتب: <code dir="ltr">sofatube.github.io/tv</code> ثم اضغط <b>Go</b>.</li>
 <li>بعد اكتمال التنزيل اختر <b>Install</b> (تثبيت)، ثم <b>Open</b> (فتح). ثم يعرض Downloader حذف الملف المنزَّل: <b>Delete</b> يوفّر المساحة.</li>
@@ -331,7 +331,7 @@ def install(lang):
 <p>نزّل ملف apk من <a href="/tv/">sofatube.github.io/tv</a> وانسخه إلى ذاكرة USB، وافتحه على التلفاز بتطبيق لإدارة الملفات، واسمح له بتثبيت التطبيقات غير المعروفة، ثم تثبيت ففتح.</p>
 <h3>معلومات مفيدة</h3>
 <ul>
-<li>قد يُعاد تحميل YouTube مرة عند أول تشغيل، وهذا طبيعي. أغلب أجهزة التحكم في أندرويد ليس فيها أزرار ملونة: استخدم <b>★ صوفا تيوب</b> في القائمة الجانبية لـYouTube أو زر ★ في شريط المشغل.</li>
+<li>قد يُعاد تحميل YouTube مرة عند أول تشغيل، وهذا طبيعي. أغلب أجهزة التحكم في أندرويد ليس فيها أزرار ملونة: استخدم <b>★ صوفا تيوب</b> في القائمة الجانبية لـYouTube أو زر ★ بين أزرار التحكم.</li>
 <li>لا يحتاج الإعداد من الهاتف إلى تطبيق إضافي هنا: الإعدادات ← حول التطبيق والنسخ الاحتياطي ← الإعدادات من الهاتف.</li>
 <li>للتحديث: ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات.</li>
 </ul>
@@ -368,7 +368,7 @@ def install(lang):
 <div class="note"><p><b>الحالة:</b> نُشرت وحدة npm باسم <code dir="ltr">sofatube</code>، لكنها لم تُجرَّب على تلفاز سامسونج حقيقي بعد، فأنت من أوائل المجرّبين.</p></div>
 <h3>ما تحتاج إليه</h3>
 <ul>
-<li>تلفاز سامسونج من سنة 2017 أو أحدث (Tizen 3.0 أو أحدث).</li>
+<li>تلفاز سامسونج من سنة 2018 أو أحدث (Tizen 4.0 أو أحدث).</li>
 <li>حاسوب (ويندوز أو ماك أو لينكس) على شبكة الواي فاي نفسها التي يتصل بها التلفاز، <b>مرة واحدة</b> لتثبيت TizenBrew. وبعدها يجري كل شيء على التلفاز.</li>
 <li>أجهزة 2023 أو أحدث (Tizen 7 فما فوق): حساب سامسونج مجاني (يطلب المثبّت تسجيل الدخول).</li>
 </ul>
@@ -378,13 +378,13 @@ def install(lang):
 <li>على التلفاز: افتح <b>Apps</b> (التطبيقات)، واكتب <bdi>1 2 3 4 5</bdi> بجهاز التحكم، ثم اجعل <b>Developer mode</b> على <b>On</b>، وأدخل عنوان IP لحاسوبك في <b>Host PC IP</b>، واضغط OK، ثم أعد تشغيل التلفاز (اضغط مطولًا على زر التشغيل).</li>
 <li>على الحاسوب: نزّل <b>TizenBrew Installer</b> من <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">github.com/reisxd/TizenBrewInstaller/releases</a> (الملف المناسب لنظامك) وشغّله.</li>
 <li>اضغط <b>Install TizenBrew</b>. في أجهزة 2023 فما بعد، سجّل الدخول بحساب سامسونج عند الطلب.</li>
-<li>على التلفاز: <bdi>Apps ← 1 2 3 4 5</bdi> مرة أخرى، واجعل <b>Host PC IP</b> هو <code dir="ltr">127.0.0.1</code>، ثم أعد تشغيل التلفاز.</li>
+<li>على التلفاز: <bdi>Apps</bdi> ← <bdi>1 2 3 4 5</bdi> مرة أخرى، واجعل <b>Host PC IP</b> هو <code dir="ltr">127.0.0.1</code>، ثم أعد تشغيل التلفاز.</li>
 <li>افتح <b>TizenBrew</b>، واضغط <b>الزر الأخضر</b> (مدير الوحدات)، وأضف وحدة من نوع <b>NPM</b>، واكتب <code dir="ltr">sofatube</code>.</li>
 <li>يظهر الآن صوفا تيوب في TizenBrew. افتحه: تظهر شاشة البداية ثم YouTube.</li>
 </ol>
 <h3>معلومات مفيدة</h3>
 <ul>
-<li><b>لماذا الحاسوب؟</b> سُحب مثبّت TizenBrew القديم الذي كان يعمل من متصفح التلفاز (أجهزة 2017–2021)، ولا يذكر دليل TizenBrew الآن إلا المثبّت على الحاسوب.</li>
+<li><b>لماذا الحاسوب؟</b> سُحب مثبّت TizenBrew القديم الذي كان يعمل من متصفح التلفاز (أجهزة حتى 2021)، ولا يذكر دليل TizenBrew الآن إلا المثبّت على الحاسوب.</li>
 <li>التحديثات تلقائية: يحمّل TizenBrew أحدث نسخة من صوفا تيوب في كل مرة.</li>
 <li>افتح صوفا تيوب دائمًا من TizenBrew (لا من تطبيق YouTube العادي).</li>
 <li>قد ترفض أحدث أجهزة سامسونج تثبيت TizenBrew. إذا فشل المثبّت فأبلغ عن طراز تلفازك.</li>
@@ -457,7 +457,7 @@ def install(lang):
 <div class="note"><p><b>Status:</b> the npm module <code>sofatube</code> is published, but it has not been tried on a real Samsung TV yet, so you are one of the first.</p></div>
 <h3>You need</h3>
 <ul>
-<li>A Samsung TV from 2017 or newer (Tizen 3.0 or newer).</li>
+<li>A Samsung TV from 2018 or newer (Tizen 4.0 or newer).</li>
 <li>A Windows, Mac or Linux computer on the same Wi-Fi as the TV, <b>once</b>, to install TizenBrew. After that everything happens on the TV.</li>
 <li>TVs from 2023 or newer (Tizen 7+): a free Samsung account (the installer asks you to sign in).</li>
 </ul>
@@ -473,7 +473,7 @@ def install(lang):
 </ol>
 <h3>Good to know</h3>
 <ul>
-<li><b>Why a computer?</b> TizenBrew's old installer in the TV's web browser (2017–2021 TVs) has been withdrawn; TizenBrew's guide now lists only the computer installer.</li>
+<li><b>Why a computer?</b> TizenBrew's old installer in the TV's web browser (TVs up to 2021) has been withdrawn; TizenBrew's guide now lists only the computer installer.</li>
 <li>Updates are automatic: TizenBrew loads the newest Sofa Tube each time.</li>
 <li>Always open Sofa Tube from TizenBrew (not the normal YouTube app).</li>
 <li>The very newest Samsung TVs may refuse TizenBrew. If the installer fails, report your TV model.</li>
@@ -504,17 +504,17 @@ VIDEOS = [
      'Videos longer than five minutes continue where you stopped. Press 0 to start over.',
      'تبدأ الفيديوهات التي تزيد مدتها على خمس دقائق من حيث توقفت. وللبدء من جديد، اضغط زر الصفر.'),
     ('08', 'My-lists', 'My lists', 'قوائمي',
-     'My channels, Watch later, Start with.', 'قنواتي، المشاهدة لاحقًا، صفحة البدء.'),
+     'My channels, Watch later, Start with.', '«قنواتي»، و«المشاهدة لاحقًا»، و«صفحة البدء».'),
     ('09', 'Prayer-times', 'Prayer times', 'أوقات الصلاة',
      'Umm al-Qura, worked out on the TV.', 'تقويم أم القرى، يُحسب على التلفاز.'),
     ('10', 'Night-dim-screen-off', 'Night dim and screen off', 'التعتيم الليلي وإطفاء الشاشة',
-     'Night dim darkens the whole picture, from 20 to 65 percent.', 'يخفف التعتيم الليلي إضاءة الصورة كلها، من 20 إلى 65 في المئة.'),
+     'Night dim darkens the whole picture, from 20 to 65 percent.', 'يخفف التعتيم الليلي إضاءة الصورة كلها، من 20% إلى 65%.'),
     ('11', 'Star-menu', 'The ★ Sofa Tube menu', 'قائمة ★ صوفا تيوب',
-     'For remotes without colour buttons.', 'لأجهزة التحكم التي ليست فيها أزرار ملونة.'),
+     'For remotes without colour buttons.', 'لأجهزة التحكم الخالية من الأزرار الملونة.'),
     ('12', 'Jump-chapters', 'Jump and chapters', 'الانتقال والفصول',
      '0% to 90% in one press.', 'من 0% إلى 90% بضغطة واحدة.'),
     ('13', 'Learned-buttons', 'Learned remote buttons', 'الأزرار المخصّصة',
-     'Any spare button can run an action.', 'زر آخر في جهاز التحكم بوظيفة تختارها.'),
+     'Any spare button can run an action.', 'اجعل لأي زر لا تستخدمه في جهاز التحكم وظيفة تختارها.'),
     ('14', 'More-from-phone', 'More from your phone', 'المزيد من الهاتف',
      'Learned buttons, screen off, order, channels, hours.', 'الأزرار المخصّصة، إطفاء الشاشة، الترتيب، القنوات، الساعات.'),
 ]
@@ -537,7 +537,7 @@ def videos(lang):
 </article>''')
     intro = L(lang,
               '<h1>Videos</h1><p>Narrated tutorials for Sofa Tube 0.9: 15 videos in English, recorded on LG\'s webOS TV Emulator, with the remote buttons to press and the phone screen. The same 15 videos in Arabic: <a href="/ar/videos/" hreflang="ar" lang="ar">الفيديوهات بالعربية</a>.</p>',
-              '<h1>الفيديوهات</h1><p>شروح مصوّرة بالصوت لصوفا تيوب <bdi>0.9</bdi>: خمسة عشر فيديو بالعربية، سُجّلت على محاكي تلفاز LG ‏(webOS)، مع أزرار جهاز التحكم التي تضغطها وشاشة الهاتف. والفيديوهات نفسها بالإنجليزية: <a href="/videos/" hreflang="en" lang="en">Videos in English</a>.</p>')
+              '<h1>الفيديوهات</h1><p>شروح بالفيديو مع تعليق صوتي لصوفا تيوب <bdi>0.9</bdi>: خمسة عشر فيديو بالعربية، سُجّلت على محاكي تلفاز LG ‏(webOS)، وتُظهر أزرار جهاز التحكم التي تضغطها وشاشة الهاتف. والفيديوهات نفسها بالإنجليزية: <a href="/videos/" hreflang="en" lang="en">Videos in English</a>.</p>')
     return intro + '<div class="videos">' + ''.join(cards) + '</div>'
 
 
@@ -558,21 +558,21 @@ CHECK = [
     (6, False, 'SponsorBlock.', 'In a video with a sponsor part (many tech / vlog channels), the part is skipped with a short message.',
      'SponsorBlock.', 'في فيديو فيه مقطع رعاية (كثير من قنوات التقنية والمدوّنات المصوّرة)، يُتخطّى المقطع مع رسالة قصيرة.', '', ''),
     (7, False, 'Settings open', 'with Green, or with ★ Sofa Tube (sidebar, player bar, top of YouTube\'s Settings page). Back closes them.',
-     'تُفتح الإعدادات', 'بالزر الأخضر، أو بـ★ صوفا تيوب (القائمة الجانبية، وشريط المشغل، وأعلى صفحة إعدادات YouTube). ويغلقها زر الرجوع.', '', ''),
+     'تُفتح الإعدادات', 'بالزر الأخضر، أو بـ★ صوفا تيوب (القائمة الجانبية، وأزرار التحكم، وأعلى صفحة إعدادات YouTube). ويغلقها زر الرجوع.', '', ''),
     ('Speed and moving around', 'السرعة والتنقل'),
     (8, True, 'Fast speeds: sound at 1.5× and 2×.', 'Red (or ★ → Change speed) → 1.5×, then 2×. Does the sound keep playing, at normal pitch? Watch 1 minute each.',
      'السرعات العالية: الصوت عند <bdi>1.5×</bdi> و<bdi>2×</bdi>.', 'الزر الأحمر (أو ★ ← تغيير السرعة) ← <bdi>1.5×</bdi> ثم <bdi>2×</bdi>. هل يستمر الصوت بطبقة الصوت الطبيعية؟ شاهد دقيقة لكل سرعة.', 'Samsung · Android', 'سامسونج · أندرويد'),
     (9, True, 'Slow speeds: 0.75× and 0.5×.', 'Sound clear, no crackle, normal pitch? On LG also try Playback → Sound at other speeds: Smooth / Classic.',
      'السرعات البطيئة: <bdi>0.75×</bdi> و<bdi>0.5×</bdi>.', 'هل الصوت واضح دون طقطقة وبطبقته الطبيعية؟ في LG جرّب أيضًا التشغيل ← الصوت عند السرعات الأخرى: سلس أو كلاسيكي.', 'Samsung · Android', 'سامسونج · أندرويد'),
     (10, False, 'If the sound cuts out in 8 or 9:', 'Playback → Speed method → Re-timing, try again, and note which method works.',
-     'إذا انقطع الصوت في 8 أو 9:', 'التشغيل ← طريقة تغيير السرعة ← إعادة التوقيت، ثم جرّب مرة أخرى، ودوّن الطريقة التي نجحت.', '', ''),
+     'إذا انقطع الصوت في 8 أو 9:', 'التشغيل ← طريقة تغيير السرعة ← «عبر التطبيق»، ثم جرّب مرة أخرى، ودوّن الطريقة التي نجحت.', '', ''),
     (11, False, 'Jump and chapters.', 'While watching: ★ → Jump to 0%–90% (◀▶ and OK, or a number key). Number keys 1–9 jump directly. In a video with chapters: ★ → Chapters list; CH+ / CH− skip chapters.',
      'الانتقال والفصول.', 'أثناء المشاهدة: ★ ← الانتقال إلى موضع في الفيديو (‎◀▶‎ وOK، أو زر رقم). وأزرار الأرقام من 1 إلى 9 تنتقل مباشرة. في فيديو فيه فصول: ★ ← قائمة الفصول؛ وزرّا القنوات (<bdi>CH</bdi>) ينتقلان بين الفصول.', '', ''),
     (12, False, 'Action menu and button guide.', 'Yellow while watching opens the Action menu. Hold a colour button: a guide shows what every button does.',
-     'قائمة الإجراءات ودليل الأزرار.', 'الزر الأصفر أثناء المشاهدة يفتح قائمة الإجراءات. اضغط مطولًا على زر ملوّن: يظهر دليل يشرح عمل كل زر.', '', ''),
+     'قائمة الإجراءات ودليل الأزرار.', 'الزر الأصفر أثناء المشاهدة يفتح قائمة الإجراءات. اضغط مطولًا على زر ملوّن: يظهر دليل يشرح وظيفة كل زر.', '', ''),
     ('Locks and kids', 'القفل والأطفال'),
     (13, False, 'PIN and app lock.', 'Locks page: set a PIN (entered twice), try Practise entering the PIN with the arrows and OK, turn on Lock the app. Close and reopen the app: the PIN is asked.',
-     'الرمز السري وقفل التطبيق.', 'صفحة القفل: اضبط رمزًا سريًا (يُدخل مرتين)، وجرّب تدرّب على إدخال الرمز بالأسهم وOK، ثم فعّل قفل التطبيق. أغلق التطبيق وافتحه: يُطلب الرمز.', '', ''),
+     'الرمز السري وقفل التطبيق.', 'صفحة القفل: اضبط رمزًا سريًا (يُدخل مرتين)، واستخدم «تجربة إدخال الرمز السري» بالأسهم وOK، ثم فعّل قفل التطبيق. أغلق التطبيق وافتحه: يُطلب الرمز.', '', ''),
     (14, True, 'Locks again after you leave.', 'With Lock the app on: press Home, wait more than 30 seconds, go back to Sofa Tube: the PIN is asked again. Also try turning the TV off and on.',
      'يُقفل من جديد بعد الخروج.', 'مع تفعيل قفل التطبيق: اضغط زر الشاشة الرئيسية، وانتظر أكثر من 30 ثانية، ثم عُد إلى صوفا تيوب: يُطلب الرمز مرة أخرى. وجرّب أيضًا إطفاء التلفاز وتشغيله.', '', ''),
     (15, False, 'Kid mode and allowed hours.', 'Kids page: turn on Kid mode, set Allowed hours so that now is outside them: a lock screen appears. Extra time with the PIN works?',
@@ -702,19 +702,19 @@ def faq(lang):
     if lang == 'ar':
         qs = [
             ('ما أجهزة التلفاز المدعومة؟',
-             '<p>أجهزة <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> (ملف apk)، وتلفاز سامسونج من سنة 2017 أو أحدث عبر TizenBrew، وتلفاز LG ‏(webOS) عبر وضع المطوّر. <a href="/ar/install/">خطوات التثبيت</a>.</p>'),
+             '<p>أجهزة <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> (ملف apk)، وتلفاز سامسونج من سنة 2018 أو أحدث عبر TizenBrew، وتلفاز LG ‏(webOS) عبر وضع المطوّر. <a href="/ar/install/">خطوات التثبيت</a>.</p>'),
             ('هل هو مجاني؟',
-             f'<p>نعم. صوفا تيوب مشروع مجاني برخصة <bdi>GPL-3.0</bdi>، دون إعلانات ودون حساب. مع كل إصدار ملف المصدر <bdi>SofaTube-&lt;version&gt;-source.zip</bdi> في <a href="{RELEASES}">صفحة الإصدار</a>.</p>'),
-            ('لماذا ليس في متجر تطبيقات التلفاز؟',
+             f'<p>نعم. صوفا تيوب مشروع مجاني برخصة <bdi>GPL-3.0</bdi>، دون إعلانات ودون حساب. يُرفق بكل إصدار ملف المصدر <bdi>SofaTube-&lt;version&gt;-source.zip</bdi> في <a href="{RELEASES}">صفحة الإصدار</a>، والمصدر الكامل متاح عند الطلب.</p>'),
+            ('لماذا لا أجده في متجر تطبيقات التلفاز؟',
              '<p>صوفا تيوب يفتح صفحة YouTube الخاصة بالتلفاز ويضيف إليها ميزات (منها حجب الإعلانات)، فيُثبَّت من خارج المتجر: بتطبيق Downloader في أندرويد، وبـTizenBrew في سامسونج، وبوضع المطوّر في LG.</p>'),
             ('كيف أحدّث التطبيق؟',
-             '<ul><li><b>أندرويد:</b> ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات. (من <bdi>0.9.0</bdi> إلى <bdi>0.9.1</bdi> فقط: احذف التطبيق القديم أولًا.)</li><li><b>سامسونج:</b> التحديثات تلقائية: يحمّل TizenBrew أحدث نسخة من صوفا تيوب في كل مرة.</li><li><b>LG:</b> ثبّت ملف ipk الجديد بالطريقة نفسها، وتبقى إعداداتك كما هي.</li></ul><p>الروابط القصيرة (<code dir="ltr">sofatube.github.io/tv</code> و<code dir="ltr">/lg</code> و<code dir="ltr">/lg-phone</code>) تشير دائمًا إلى أحدث إصدار.</p>'),
+             '<ul><li><b>أندرويد:</b> ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات. (من <bdi>0.9.0</bdi> إلى <bdi>0.9.1</bdi> فقط: احذف التطبيق القديم أولًا.)</li><li><b>سامسونج:</b> التحديثات تلقائية: يحمّل TizenBrew أحدث نسخة من صوفا تيوب في كل مرة.</li><li><b>LG:</b> ثبّت ملف ipk الجديد بالطريقة نفسها، وتبقى إعداداتك كما هي.</li></ul><p>لا يبحث التطبيق عن التحديثات بنفسه؛ والروابط القصيرة (<code dir="ltr">sofatube.github.io/tv</code> و<code dir="ltr">/lg</code> و<code dir="ltr">/lg-phone</code>) تشير دائمًا إلى أحدث إصدار.</p>'),
             ('هل أحتاج إلى حساب؟ وأين تُحفظ إعداداتي؟',
-             '<p>لا حاجة إلى حساب: تابع القنوات دون تسجيل الدخول («قنواتي»). تبقى الإعدادات وسجل المشاهدة على التلفاز. صفحة الهاتف تعمل من التلفاز نفسه على شبكة الواي فاي نفسها، ويبقى الرمز السري على التلفاز، ولا تتضمن النسخة الاحتياطية الرمز السري أبدًا.</p><p>يتصل التطبيق بـYouTube، وبخدمات SponsorBlock وReturn YouTube Dislike وDeArrow للفيديو الذي تشاهده.</p>'),
+             '<p>لا حاجة إلى حساب: تابع القنوات دون تسجيل الدخول («قنواتي»). تبقى الإعدادات وسجل مشاهدة الأطفال على التلفاز. صفحة الهاتف يقدّمها التلفاز نفسه عبر شبكة الواي فاي في بيتك، ويبقى الرمز السري على التلفاز، ولا تتضمن النسخة الاحتياطية الرمز السري أبدًا.</p><p>يتصل التطبيق بـYouTube، وبخدمات SponsorBlock وReturn YouTube Dislike وDeArrow للفيديو الذي تشاهده.</p>'),
             ('هل يضر بالتلفاز؟',
              '<p>لا شيء هنا يضر بالتلفاز؛ أسوأ ما قد يحدث أن ميزة ما لا تعمل. في LG احذف تطبيق YouTube الرسمي أولًا (يستخدم صوفا تيوب مُعرّف التطبيق نفسه).</p>'),
             ('حل المشكلات',
-             '<ul><li><b>لا توجد أزرار ملونة؟</b> استخدم ★ صوفا تيوب في القائمة الجانبية لـYouTube أو زر ★ في شريط المشغل.</li><li><b>LG: لا تُفتح التطبيقات التي ثبّتّها؟</b> لجلسة وضع المطوّر مدة تنتهي: افتح تطبيق Developer Mode ومدّد الجلسة.</li><li><b>ينقطع الصوت عند بعض السرعات؟</b> التشغيل ← طريقة تغيير السرعة ← إعادة التوقيت.</li><li><b>أوقات الصلاة غير صحيحة؟</b> اضبط التلفاز على المنطقة الزمنية الصحيحة.</li><li><b>الهاتف لا يتصل؟</b> يجب أن يكون الهاتف على شبكة الواي فاي نفسها التي يتصل بها التلفاز.</li><li><b>أندرويد: لا يُثبَّت؟</b> احذف تطبيق <bdi>0.9.0</bdi> أولًا، واسمح لـDownloader بتثبيت التطبيقات غير المعروفة.</li></ul>'),
+             '<ul><li><b>لا توجد أزرار ملونة؟</b> استخدم ★ صوفا تيوب في القائمة الجانبية لـYouTube أو زر ★ بين أزرار التحكم.</li><li><b>LG: لا تُفتح التطبيقات التي ثبّتّها؟</b> لجلسة وضع المطوّر مدة تنتهي: افتح تطبيق Developer Mode ومدّد الجلسة.</li><li><b>ينقطع الصوت عند بعض السرعات؟</b> التشغيل ← طريقة تغيير السرعة ← «عبر التطبيق».</li><li><b>أوقات الصلاة غير صحيحة؟</b> اضبط التلفاز على المنطقة الزمنية الصحيحة.</li><li><b>الهاتف لا يتصل؟</b> يجب أن يكون الهاتف على شبكة الواي فاي نفسها التي يتصل بها التلفاز.</li><li><b>أندرويد: لا يُثبَّت؟</b> احذف تطبيق <bdi>0.9.0</bdi> أولًا، واسمح لـDownloader بتثبيت التطبيقات غير المعروفة.</li></ul>'),
             ('كيف أتواصل معكم؟',
              f'<p>راسلنا على <a href="mailto:{MAIL}"><bdi>{MAIL}</bdi></a> أو <a href="{ISSUES}">افتح بلاغًا (Issue)</a>.</p>'),
         ]
@@ -722,7 +722,7 @@ def faq(lang):
     else:
         qs = [
             ('Which TVs does it work on?',
-             '<p>Android TV, Google TV and Fire TV (the .apk; 32-bit ARM, runs on 32- and 64-bit devices), Samsung TVs from 2017 or newer through TizenBrew, and LG webOS TVs through Developer Mode. <a href="/install/">Install steps</a>.</p>'),
+             '<p>Android TV, Google TV and Fire TV (the .apk; 32-bit ARM, runs on 32- and 64-bit devices), Samsung TVs from 2018 or newer through TizenBrew, and LG webOS TVs through Developer Mode. <a href="/install/">Install steps</a>.</p>'),
             ('Is it free?',
              f'<p>Yes. Sofa Tube is a free GPL-3.0 project, with no ads and no account. Each release carries a <code>SofaTube-&lt;version&gt;-source.zip</code> on the <a href="{RELEASES}">release page</a>; the full source is available on request.</p>'),
             ('Why is it not in the TV\'s app store?',
@@ -770,7 +770,7 @@ def main():
     for lang in ('en', 'ar'):
         page(lang, '', L(lang, 'Sofa Tube', 'صوفا تيوب'),
              L(lang, 'Sofa Tube: a better YouTube app for your TV. No ads, real playback speed, PIN locks, kid mode, prayer times and settings from your phone. Android TV, Google TV, Fire TV, Samsung and LG.',
-               'صوفا تيوب: تطبيق YouTube أفضل لتلفازك: دون إعلانات، وبسرعة تشغيل حقيقية، وقفل بالرمز السري، ووضع للأطفال، وأوقات الصلاة، وإعدادات من هاتفك.'),
+               'صوفا تيوب، تطبيق YouTube أفضل لتلفازك: دون إعلانات، وبسرعة تشغيل حقيقية، وقفل بالرمز السري، ووضع للأطفال، وأوقات الصلاة، وإعدادات من هاتفك.'),
              home(lang))
         page(lang, 'install/', L(lang, 'Install', 'التثبيت'),
              L(lang, 'Install Sofa Tube on Android TV, Google TV, Fire TV, LG (webOS) and Samsung (Tizen), step by step.',
@@ -778,9 +778,9 @@ def main():
         page(lang, 'videos/', L(lang, 'Videos', 'الفيديوهات'),
              L(lang, '15 narrated Sofa Tube tutorials in English and Arabic.', 'شروح صوفا تيوب المصوّرة بالعربية والإنجليزية.'), videos(lang))
         page(lang, 'testers/', L(lang, 'Testers', 'للمجرّبين'),
-             L(lang, 'Sofa Tube tester guide, checklist, how to report and what has been tested.', 'دليل التجربة وقائمة الفحص وطريقة التقرير.'), testers(lang))
+             L(lang, 'Sofa Tube tester guide, checklist, how to report and what has been tested.', 'دليل التجربة وقائمة الفحص وطريقة إرسال التقرير وما الذي جُرِّب.'), testers(lang))
         page(lang, 'faq/', L(lang, 'FAQ', 'الأسئلة الشائعة'),
-             L(lang, 'Sofa Tube questions: which TVs, cost, updates, privacy, troubleshooting.', 'أسئلة شائعة عن صوفا تيوب.'), faq(lang))
+             L(lang, 'Sofa Tube questions: which TVs, cost, updates, privacy, troubleshooting.', 'أسئلة شائعة عن صوفا تيوب: الأجهزة المدعومة، والتكلفة، والتحديث، والخصوصية، وحل المشكلات.'), faq(lang))
     not_found()
 
 
