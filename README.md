@@ -5,7 +5,7 @@
 
 <p align="center">
   A better YouTube app for your TV: no ads, real playback speed, PIN locks, kid mode, prayer times and settings from your phone.<br>
-  <b>Downloads and install steps.</b> Latest: <a href="https://github.com/sofatube/sofatube.github.io/releases/latest">Releases</a>
+  <b>Website: <a href="https://sofatube.github.io/">sofatube.github.io</a></b> (install steps, videos, tester guide) · Latest: <a href="https://github.com/sofatube/sofatube.github.io/releases/latest">Releases</a>
 </p>
 
 > [!IMPORTANT]

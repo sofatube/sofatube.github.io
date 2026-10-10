@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>للمجرّبين · صوفا تيوب</title>
+<meta name="description" content="دليل التجربة وقائمة الفحص وطريقة التقرير.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FF8A00">
+<link rel="canonical" href="https://sofatube.github.io/ar/testers/">
+<link rel="alternate" hreflang="en" href="https://sofatube.github.io/testers/">
+<link rel="alternate" hreflang="ar" href="https://sofatube.github.io/ar/testers/">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta property="og:title" content="للمجرّبين · صوفا تيوب">
+<meta property="og:description" content="دليل التجربة وقائمة الفحص وطريقة التقرير.">
+<meta property="og:image" content="https://sofatube.github.io/assets/shots/settings.jpg">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">انتقل إلى المحتوى</a>
+<header class="site-head"><div class="wrap">
+<a class="logo" href="/ar/"><img src="/icon.svg" alt="" width="40" height="40"><span class="brand">صوفا تيوب</span></a>
+<nav class="nav" aria-label="الموقع"><a href="/ar/">الرئيسية</a><a href="/ar/install/">التثبيت</a><a href="/ar/videos/">الفيديوهات</a><a href="/ar/testers/" aria-current="page">للمجرّبين</a><a href="/ar/faq/">الأسئلة الشائعة</a><a class="lang" href="/testers/" hreflang="en" lang="en">English</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<h1>للمجرّبين</h1>
+<p><b>شكرًا لمساعدتك في التجربة!</b> هذه نسخة تجريبية. بعض أجزائها جُرِّبت على محاكيات فقط (نسخ برمجية من التلفاز)، ولم تُجرَّب على تلفاز حقيقي بعد، ولهذا نحتاج إليك. لا شيء هنا يضر بالتلفاز؛ أسوأ ما قد يحدث أن ميزة ما لا تعمل.</p>
+<div class="cta" style="justify-content:flex-start"><a class="btn" href="/testers/guide.html">دليل التجربة (HTML)</a><a class="btn ghost" href="/testers/SofaTube-Tester-Guide.pdf" download>دليل التجربة (PDF، للطباعة)</a></div>
+<p>الدليل بالعربية والإنجليزية: التثبيت لكل تلفاز، وقائمة الفحص، وصفحة التقرير.</p>
+
+<h2 id="status">ما الذي جُرِّب</h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">التلفاز</th><th scope="col">الحالة في <bdi>0.9.1</bdi></th></tr></thead><tbody><tr><td>LG ‏(webOS)</td><td>محاكي LG ‏(webOS 4)؛ والإصدارات السابقة على تلفاز LG حقيقي.</td></tr><tr><td>سامسونج (TizenBrew، وحدة <code dir="ltr">sofatube</code>)</td><td>محاكي سامسونج فقط. <b>لم يُجرَّب على تلفاز سامسونج حقيقي.</b></td></tr><tr><td><bdi>Android TV</bdi> و<bdi>Google TV</bdi></td><td>محاكي Google TV فقط. <b>ملف ARM هذا لم يعمل على جهاز حقيقي بعد.</b></td></tr><tr><td>Fire TV</td><td><b>لم يُجرَّب.</b></td></tr><tr><td>التثبيت بـwebOS Dev Manager من الهاتف</td><td><b>لم نجرّبه بعد.</b></td></tr></tbody></table></div>
+
+<h2 id="new">الجديد في الإصدار <bdi>0.9.1</bdi></h2>
+<p>مظهر جديد بألوان التطبيق في كل الشاشات (تحديد برتقالي وعناوين بخط التطبيق)، وتسمية «وضع الصوت فقط»، وصياغة عربية مُراجَعة. على LG وسامسونج يُثبَّت فوق <bdi>0.9.0</bdi> وتبقى الإعدادات. أندرويد: مُعرّف تطبيق جديد، فاحذف تطبيق <bdi>0.9.0</bdi> أولًا.</p>
+<p><a href="/ar/install/">خطوات التثبيت</a></p>
+
+<h2 id="checklist">قائمة الفحص</h2>
+<p>ضع علامة في OK أو ✗ لكل سطر، وتجاوز ما لا تستطيع تجربته. الأسطر المعلَّمة بـ<span class="tag">تلفاز حقيقي</span> هي الأهم: لم يجرّبها أحد على تلفاز حقيقي بعد. اكتب رقم كل ✗ في التقرير.</p>
+<h3>الأساسيات</h3><ol class="check">
+<li><span class="n" aria-hidden="true">1</span><div><b>يُثبَّت ويُفتح.</b> <span class="tag">تلفاز حقيقي</span> <span class="tag soft">أندرويد: ملف ARM · سامسونج</span><span class="how">يظهر صوفا تيوب في قائمة التطبيقات بأيقونة الأريكة البرتقالية ويفتح YouTube. أغلقه وافتحه مرة أخرى: هل ما زال يعمل؟</span></div></li>
+<li><span class="n" aria-hidden="true">2</span><div><b>شاشة البداية.</b><span class="how">سامسونج · أندرويد: يظهر الشعار، ثم ينبض زر التشغيل، ثم يرتفع «Sofa Tube / صوفا تيوب». هل الحركة سلسة، أم متقطعة أو لا تظهر؟ (في LG صورة ثابتة.)</span></div></li>
+<li><span class="n" aria-hidden="true">3</span><div><b>الإعداد الأول.</b><span class="how">في التثبيت الجديد يسأل عن اللغة والرمز السري ووضع الأطفال. هل كان سهلًا؟</span></div></li>
+<li><span class="n" aria-hidden="true">4</span><div><b>تعمل الفيديوهات</b><span class="how">بالصورة والصوت، بجودة جيدة ودون تقطّع. جرّب فيديو طويلًا وبثًّا مباشرًا.</span></div></li>
+<li><span class="n" aria-hidden="true">5</span><div><b>لا إعلانات</b><span class="how">قبل الفيديو أو أثناءه، ولا مربّع «Sponsored» في الصفحة الرئيسية.</span></div></li>
+<li><span class="n" aria-hidden="true">6</span><div><b>SponsorBlock.</b><span class="how">في فيديو فيه مقطع رعاية (كثير من قنوات التقنية والمدوّنات المصوّرة)، يُتخطّى المقطع مع رسالة قصيرة.</span></div></li>
+<li><span class="n" aria-hidden="true">7</span><div><b>تُفتح الإعدادات</b><span class="how">بالزر الأخضر، أو بـ★ صوفا تيوب (القائمة الجانبية، وشريط المشغل، وأعلى صفحة إعدادات YouTube). ويغلقها زر الرجوع.</span></div></li>
+</ol>
+<h3>السرعة والتنقل</h3><ol class="check">
+<li><span class="n" aria-hidden="true">8</span><div><b>السرعات العالية: الصوت عند <bdi>1.5×</bdi> و<bdi>2×</bdi>.</b> <span class="tag">تلفاز حقيقي</span> <span class="tag soft">سامسونج · أندرويد</span><span class="how">الزر الأحمر (أو ★ ← تغيير السرعة) ← <bdi>1.5×</bdi> ثم <bdi>2×</bdi>. هل يستمر الصوت بطبقة الصوت الطبيعية؟ شاهد دقيقة لكل سرعة.</span></div></li>
+<li><span class="n" aria-hidden="true">9</span><div><b>السرعات البطيئة: <bdi>0.75×</bdi> و<bdi>0.5×</bdi>.</b> <span class="tag">تلفاز حقيقي</span> <span class="tag soft">سامسونج · أندرويد</span><span class="how">هل الصوت واضح دون طقطقة وبطبقته الطبيعية؟ في LG جرّب أيضًا التشغيل ← الصوت عند السرعات الأخرى: سلس أو كلاسيكي.</span></div></li>
+<li><span class="n" aria-hidden="true">10</span><div><b>إذا انقطع الصوت في 8 أو 9:</b><span class="how">التشغيل ← طريقة تغيير السرعة ← إعادة التوقيت، ثم جرّب مرة أخرى، ودوّن الطريقة التي نجحت.</span></div></li>
+<li><span class="n" aria-hidden="true">11</span><div><b>الانتقال والفصول.</b><span class="how">أثناء المشاهدة: ★ ← الانتقال إلى موضع في الفيديو (‎◀▶‎ وOK، أو زر رقم). وأزرار الأرقام من 1 إلى 9 تنتقل مباشرة. في فيديو فيه فصول: ★ ← قائمة الفصول؛ وزرّا القنوات (<bdi>CH</bdi>) ينتقلان بين الفصول.</span></div></li>
+<li><span class="n" aria-hidden="true">12</span><div><b>قائمة الإجراءات ودليل الأزرار.</b><span class="how">الزر الأصفر أثناء المشاهدة يفتح قائمة الإجراءات. اضغط مطولًا على زر ملوّن: يظهر دليل يشرح عمل كل زر.</span></div></li>
+</ol>
+<h3>القفل والأطفال</h3><ol class="check">
+<li><span class="n" aria-hidden="true">13</span><div><b>الرمز السري وقفل التطبيق.</b><span class="how">صفحة القفل: اضبط رمزًا سريًا (يُدخل مرتين)، وجرّب تدرّب على إدخال الرمز بالأسهم وOK، ثم فعّل قفل التطبيق. أغلق التطبيق وافتحه: يُطلب الرمز.</span></div></li>
+<li><span class="n" aria-hidden="true">14</span><div><b>يُقفل من جديد بعد الخروج.</b> <span class="tag">تلفاز حقيقي</span><span class="how">مع تفعيل قفل التطبيق: اضغط زر الشاشة الرئيسية، وانتظر أكثر من 30 ثانية، ثم عُد إلى صوفا تيوب: يُطلب الرمز مرة أخرى. وجرّب أيضًا إطفاء التلفاز وتشغيله.</span></div></li>
+<li><span class="n" aria-hidden="true">15</span><div><b>وضع الأطفال والساعات المسموح بها.</b><span class="how">صفحة الأطفال: فعّل وضع الأطفال، واضبط الساعات المسموح بها بحيث يكون الوقت الحالي خارجها: تظهر شاشة قفل. هل يعمل الوقت الإضافي بالرمز السري؟</span></div></li>
+</ol>
+<h3>الهاتف والأزرار واللغة</h3><ol class="check">
+<li><span class="n" aria-hidden="true">16</span><div><b>الإعدادات من الهاتف.</b> <span class="tag">تلفاز حقيقي</span> <span class="tag soft">سامسونج: الأهم</span><span class="how">في LG: افتح تطبيق <bdi>Sofa Tube Phone</bdi>. في سامسونج وأندرويد: الإعدادات ← حول التطبيق والنسخ الاحتياطي ← الإعدادات من الهاتف. امسح رمز QR بهاتف حقيقي على شبكة الواي فاي نفسها، وغيّر إعدادًا: هل يتغيّر على التلفاز فورًا؟</span></div></li>
+<li><span class="n" aria-hidden="true">17</span><div><b>الأزرار المخصّصة.</b><span class="how">أزرار جهاز التحكم ← أزرار مخصّصة ← تخصيص زر، واضغط زرًّا لا تستخدمه (مثل أحد أزرار الوسائط)، واختر إجراءً، ثم جرّبه أثناء المشاهدة. ما الأزرار التي رُفضت؟</span></div></li>
+<li><span class="n" aria-hidden="true">18</span><div><b>العربية.</b><span class="how">حول التطبيق والنسخ الاحتياطي ← اللغة ← العربية. هل النص من اليمين إلى اليسار، والحروف متصلة، ولا شيء مقطوع، والخط سهل القراءة من الأريكة؟</span></div></li>
+<li><span class="n" aria-hidden="true">19</span><div><b>أوقات الصلاة (إن كنت تستخدمها).</b><span class="how">صفحة أوقات الصلاة: اختر مدينتك؛ هل أوقات اليوم صحيحة؟ يظهر تذكير (أو يتوقف الفيديو) عند الأذان. يجب أن تكون ساعة التلفاز ومنطقته الزمنية صحيحتين.</span></div></li>
+<li><span class="n" aria-hidden="true">20</span><div><b>التعتيم الليلي وإطفاء الشاشة.</b><span class="how">مظهر الفيديو: يُعتِّم التعتيم الليلي الصورة. وإطفاء الشاشة (من قائمة الإجراءات) يُبقي الصوت، ويعيد أي زر الصورة.</span></div></li>
+<li><span class="n" aria-hidden="true">21</span><div><b>سهرة استخدام عادي.</b><span class="how">هل حدث تجمّد أو شاشة سوداء أو انهيار أو إغلاق ذاتي للتطبيق؟ بعد خروج التلفاز من وضع الاستعداد، هل يعود الفيديو؟</span></div></li>
+</ol>
+
+<h2 id="report">التقرير: ماذا ترسل إلينا</h2>
+<p>أرسل صفحة التقرير في الدليل (تكفي صورة لها)، ولكل ما لم ينجح <b>صورة أو فيديو قصيرًا لشاشة التلفاز</b>. الفيديو أنفع لمشكلات الصوت والسرعة.</p>
+<ul>
+<li>شركة التلفاز وطرازه، وسنة صنع التلفاز</li>
+<li>إصدار النظام (<bdi>webOS / Tizen / Android / Fire OS</bdi>)</li>
+<li>جهاز التحكم (أزرار ملونة؟ Magic Remote؟)</li>
+<li>هل نجح التثبيت؟</li>
+<li>أرقام الأسطر التي عليها ✗</li>
+<li>لكل مشكلة: رقم السطر، وما فعلته، وما توقعته، وما حدث.</li>
+<li>ما الذي أعجبك؟ وما الذي يجب تغييره؟</li>
+</ul>
+<p>تجد الطراز والإصدار عادةً في الإعدادات ← … ← حول في التلفاز (يختلف الاسم حسب الشركة).</p>
+<div class="card"><p><b>أرسل النتائج إلى:</b> <a href="mailto:sofatube.app@proton.me"><bdi>sofatube.app@proton.me</bdi></a></p><p>أو افتح بلاغًا: <a href="https://github.com/sofatube/sofatube.github.io/issues">github.com/sofatube/sofatube.github.io/issues</a></p></div>
+</div></main>
+<footer class="site-foot"><div class="wrap">
+<p><b>للتواصل:</b> <a href="mailto:sofatube.app@proton.me"><bdi>sofatube.app@proton.me</bdi></a> · <a href="https://github.com/sofatube/sofatube.github.io/issues">افتح بلاغًا (Issue) على GitHub</a></p>
+<p>صوفا تيوب مشروع مجاني برخصة <a href="https://github.com/sofatube/sofatube.github.io/blob/main/LICENSE"><bdi>GPL-3.0</bdi></a>، مبني على <a href="https://github.com/webosbrew/youtube-webos">webosbrew/youtube-webos</a> و<a href="https://github.com/reisxd/TizenBrew">TizenBrew</a> (من <bdi>Reis Can</bdi>) و<a href="https://github.com/reisxd/TizenTube">TizenTube</a> و<a href="https://github.com/reisxd/TizenTubeCobalt">TizenTube Cobalt</a>، ويستخدم <a href="https://sponsor.ajay.app/">SponsorBlock</a>. خط العناوين Baloo Bhaijaan 2 برخصة <a href="/assets/fonts/OFL.txt">SIL OFL</a>.</p>
+<p>صوفا تيوب غير تابع لـYouTube أو Google أو LG أو سامسونج. YouTube علامة تجارية لشركة <bdi>Google LLC</bdi>.</p>
+<p><a href="https://github.com/sofatube/sofatube.github.io">github.com/sofatube/sofatube.github.io</a> · <a href="https://github.com/sofatube/sofatube.github.io/releases/latest">كل الملفات</a></p>
+</div></footer>
+</body>
+</html>

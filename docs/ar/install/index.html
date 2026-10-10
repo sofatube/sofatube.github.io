@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>التثبيت · صوفا تيوب</title>
+<meta name="description" content="خطوات تثبيت صوفا تيوب على Android TV وGoogle TV وFire TV وLG وسامسونج.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FF8A00">
+<link rel="canonical" href="https://sofatube.github.io/ar/install/">
+<link rel="alternate" hreflang="en" href="https://sofatube.github.io/install/">
+<link rel="alternate" hreflang="ar" href="https://sofatube.github.io/ar/install/">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta property="og:title" content="التثبيت · صوفا تيوب">
+<meta property="og:description" content="خطوات تثبيت صوفا تيوب على Android TV وGoogle TV وFire TV وLG وسامسونج.">
+<meta property="og:image" content="https://sofatube.github.io/assets/shots/settings.jpg">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">انتقل إلى المحتوى</a>
+<header class="site-head"><div class="wrap">
+<a class="logo" href="/ar/"><img src="/icon.svg" alt="" width="40" height="40"><span class="brand">صوفا تيوب</span></a>
+<nav class="nav" aria-label="الموقع"><a href="/ar/">الرئيسية</a><a href="/ar/install/" aria-current="page">التثبيت</a><a href="/ar/videos/">الفيديوهات</a><a href="/ar/testers/">للمجرّبين</a><a href="/ar/faq/">الأسئلة الشائعة</a><a class="lang" href="/install/" hreflang="en" lang="en">English</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<h1>التثبيت</h1>
+<p>اختر تلفازك. الخطوات نفسها التي في دليل التجربة.</p>
+<ul class="toc"><li><a href="#android">أندرويد تي في · جوجل تي في · فاير تي في</a></li><li><a href="#lg">تلفاز LG</a></li><li><a href="#samsung">تلفاز سامسونج</a></li></ul>
+<div class="note" role="note"><p><b>كان لديك تطبيق صوفا تيوب <bdi>0.9.0</bdi> التجريبي على أندرويد؟</b> احذفه أولًا (Settings ← Apps ← Sofa Tube ← Uninstall). للنسخة <bdi>0.9.1</bdi> مُعرّف تطبيق جديد (<code dir="ltr">io.github.sofatube.tv</code>)، فلا تُحدِّث التطبيق القديم، وتبدأ الإعدادات من جديد. على LG وسامسونج يُثبَّت فوق <bdi>0.9.0</bdi> وتبقى الإعدادات.</p></div>
+
+<section class="tv-section" id="android">
+<h2>أندرويد تي في · جوجل تي في · فاير تي في</h2>
+<div class="note"><p><b>الحالة:</b> جُرِّب على محاكي Google TV فقط. لم يُشغَّل هذا الملف على أي جهاز حقيقي بعد، ولم يُجرَّب على Fire TV. إذا لم يُثبَّت أو لم يُفتح أصلًا فهذه نتيجة مهمة: <a href="/ar/testers/#report">أخبرنا بها</a>.</p></div>
+<h3>ما تحتاج إليه</h3>
+<ul>
+<li>جهاز Android TV أو Google TV أو Fire TV (تلفاز أو عصا أو صندوق) متصل بالإنترنت. دون حاسوب.</li>
+<li>مساحة فارغة نحو 200 ميغابايت (حجم التطبيق نحو 95 ميغابايت). يعمل بجانب تطبيق YouTube العادي.</li>
+<li>إذا كان <bdi>TizenTube Cobalt</bdi> مثبّتًا فاحذفه أولًا (يستخدم التطبيقان منفذ الاتصال بالهاتف نفسه).</li>
+<li>كان لديك تطبيق صوفا تيوب <bdi>0.9.0</bdi> التجريبي؟ احذفه أولًا. للنسخة <bdi>0.9.1</bdi> مُعرّف تطبيق جديد (<code dir="ltr">io.github.sofatube.tv</code>)، فلا تُحدِّث التطبيق القديم، وتبدأ الإعدادات من جديد.</li>
+</ul>
+<h3>الأسهل: تطبيق Downloader (دون حاسوب)</h3>
+<ol class="steps">
+<li>على التلفاز، افتح متجر التطبيقات (Google Play، أو Appstore في Fire TV)، وابحث عن <b>Downloader</b> (من AFTVnews، أيقونة برتقالية) وثبّته.</li>
+<li>اسمح لـDownloader بتثبيت التطبيقات غير المعروفة:
+<ul>
+<li><b><bdi>Android TV</bdi> و<bdi>Google TV</bdi>:</b> Settings ← Apps ← Security &amp; restrictions ← Unknown sources ← فعّل Downloader. غير موجود؟ Settings ← System ← About واضغط على <bdi>Android TV OS build</bdi> سبع مرات، ثم أعد المحاولة. (تختلف الأسماء قليلًا حسب الشركة.)</li>
+<li><b>Fire TV:</b> Settings ← My Fire TV ← Developer options ← Install unknown apps ← فعّل Downloader. لا تظهر <bdi>Developer options</bdi>؟ Settings ← My Fire TV ← About واضغط على اسم الجهاز سبع مرات.</li>
+</ul></li>
+<li>افتح Downloader (واسمح له بالوصول إلى التخزين)، واختر خانة العنوان واكتب: <code dir="ltr">sofatube.github.io/tv</code> ثم اضغط <b>Go</b>.</li>
+<li>بعد اكتمال التنزيل اختر <b>Install</b> (تثبيت)، ثم <b>Open</b> (فتح). ثم يعرض Downloader حذف الملف المنزَّل: <b>Delete</b> يوفّر المساحة.</li>
+</ol>
+<h3>البديل: ذاكرة USB (تحتاج إلى حاسوب)</h3>
+<p>نزّل ملف apk من <a href="/tv/">sofatube.github.io/tv</a> وانسخه إلى ذاكرة USB، وافتحه على التلفاز بتطبيق لإدارة الملفات، واسمح له بتثبيت التطبيقات غير المعروفة، ثم تثبيت ففتح.</p>
+<h3>معلومات مفيدة</h3>
+<ul>
+<li>قد يُعاد تحميل YouTube مرة عند أول تشغيل، وهذا طبيعي. أغلب أجهزة التحكم في أندرويد ليس فيها أزرار ملونة: استخدم <b>★ صوفا تيوب</b> في القائمة الجانبية لـYouTube أو زر ★ في شريط المشغل.</li>
+<li>لا يحتاج الإعداد من الهاتف إلى تطبيق إضافي هنا: الإعدادات ← حول التطبيق والنسخ الاحتياطي ← الإعدادات من الهاتف.</li>
+<li>للتحديث: ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات.</li>
+</ul>
+</section>
+
+<section class="tv-section" id="lg">
+<h2>تلفاز LG ‏(webOS)</h2>
+<div class="note"><p><b>أولًا:</b> احذف تطبيق YouTube الرسمي من التلفاز؛ فصوفا تيوب يستخدم مُعرّف التطبيق نفسه (<code dir="ltr">youtube.leanback.v4</code>)، ولا يمكن تثبيتهما معًا. <b>جديد:</b> لم نجرّب التثبيت من الهاتف بعد؛ أخبرنا كيف جرى.</p></div>
+<h3>ما تحتاج إليه</h3>
+<p>تلفاز LG بنظام webOS، وهاتف أندرويد على شبكة الواي فاي نفسها (أو حاسوب). حساب مطوّر مجاني من LG وتطبيق Developer Mode من LG. لا حاجة إلى كسر الحماية (root) ولا إلى Homebrew Channel.</p>
+<h3>الأسهل: بهاتف أندرويد</h3>
+<ol class="steps">
+<li>على الهاتف، أنشئ حساب مطوّر من LG في <a href="https://webostv.developer.lge.com/">webostv.developer.lge.com</a>.</li>
+<li>على التلفاز، ثبّت تطبيق <b>Developer Mode</b> من متجر LG Content Store، وافتحه وسجّل الدخول بذلك الحساب.</li>
+<li>فعّل <b>Dev Mode Status</b> (يُعاد تشغيل التلفاز)، ثم افتح التطبيق مجددًا وفعّل <b>Key Server</b>. دوّن <b>عنوان IP</b> و<b>عبارة المرور</b> (Passphrase).</li>
+<li>على الهاتف، ثبّت <b>webOS Dev Manager</b>: <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">github.com/webosbrew/dev-manager-desktop</a> ← Releases ← الملف المنتهي بـ<code dir="ltr">universal.apk</code>. واسمح لمتصفحك بتثبيت التطبيقات غير المعروفة عند السؤال.</li>
+<li>في webOS Dev Manager، أضف التلفاز بعنوان IP وعبارة المرور.</li>
+<li>في متصفح الهاتف، افتح <a href="/lg/"><bdi>sofatube.github.io/lg</bdi></a> و<a href="/lg-phone/"><bdi>sofatube.github.io/lg-phone</bdi></a>: يُنزَّل الملفان.</li>
+<li>في webOS Dev Manager، ثبّت ملف ipk للتطبيق الرئيسي، ثم ملف تطبيق الهاتف، من مجلد التنزيلات في الهاتف.</li>
+<li>على التلفاز، افتح <b>Sofa Tube</b>. يسألك الإعداد الأول عن اللغة والرمز السري ووضع الأطفال. الزر الأخضر يفتح الإعدادات.</li>
+</ol>
+<h3>البديل: بحاسوب</h3>
+<p>الخطوات نفسها، مع <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> لويندوز أو ماك أو لينكس (من الصفحة نفسها) وملفَّي ipk من الرابطين أعلاه.</p>
+<h3>معلومات مفيدة</h3>
+<ul>
+<li>لجلسة وضع المطوّر مدة <b>تنتهي</b>، وبعدها لا تُفتح التطبيقات التي ثبّتّها. افتح تطبيق Developer Mode من حين لآخر ومدّد الجلسة.</li>
+<li><bdi>Sofa Tube Phone</bdi> تطبيق ثانٍ: افتحه لتغيير الإعدادات من هاتفك (رمز QR). وتحتاج ميزة إطفاء الشاشة أيضًا إلى فتحه مرة واحدة بعد تشغيل التلفاز.</li>
+<li>للتحديث لاحقًا: ثبّت ملف ipk الجديد بالطريقة نفسها، وتبقى إعداداتك كما هي.</li>
+</ul>
+</section>
+
+<section class="tv-section" id="samsung">
+<h2>تلفاز سامسونج ‏(Tizen)</h2>
+<div class="note"><p><b>الحالة:</b> نُشرت وحدة npm باسم <code dir="ltr">sofatube</code>، لكنها لم تُجرَّب على تلفاز سامسونج حقيقي بعد، فأنت من أوائل المجرّبين.</p></div>
+<h3>ما تحتاج إليه</h3>
+<ul>
+<li>تلفاز سامسونج من سنة 2017 أو أحدث (Tizen 3.0 أو أحدث).</li>
+<li>حاسوب (ويندوز أو ماك أو لينكس) على شبكة الواي فاي نفسها التي يتصل بها التلفاز، <b>مرة واحدة</b> لتثبيت TizenBrew. وبعدها يجري كل شيء على التلفاز.</li>
+<li>أجهزة 2023 أو أحدث (Tizen 7 فما فوق): حساب سامسونج مجاني (يطلب المثبّت تسجيل الدخول).</li>
+</ul>
+<p>لديك TizenBrew مسبقًا (من TizenTube مثلًا)؟ لا حاجة إلى حاسوب: انتقل إلى الخطوة 5.</p>
+<h3>الخطوات</h3>
+<ol class="steps">
+<li>على التلفاز: افتح <b>Apps</b> (التطبيقات)، واكتب <bdi>1 2 3 4 5</bdi> بجهاز التحكم، ثم اجعل <b>Developer mode</b> على <b>On</b>، وأدخل عنوان IP لحاسوبك في <b>Host PC IP</b>، واضغط OK، ثم أعد تشغيل التلفاز (اضغط مطولًا على زر التشغيل).</li>
+<li>على الحاسوب: نزّل <b>TizenBrew Installer</b> من <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">github.com/reisxd/TizenBrewInstaller/releases</a> (الملف المناسب لنظامك) وشغّله.</li>
+<li>اضغط <b>Install TizenBrew</b>. في أجهزة 2023 فما بعد، سجّل الدخول بحساب سامسونج عند الطلب.</li>
+<li>على التلفاز: <bdi>Apps ← 1 2 3 4 5</bdi> مرة أخرى، واجعل <b>Host PC IP</b> هو <code dir="ltr">127.0.0.1</code>، ثم أعد تشغيل التلفاز.</li>
+<li>افتح <b>TizenBrew</b>، واضغط <b>الزر الأخضر</b> (مدير الوحدات)، وأضف وحدة من نوع <b>NPM</b>، واكتب <code dir="ltr">sofatube</code>.</li>
+<li>يظهر الآن صوفا تيوب في TizenBrew. افتحه: تظهر شاشة البداية ثم YouTube.</li>
+</ol>
+<h3>معلومات مفيدة</h3>
+<ul>
+<li><b>لماذا الحاسوب؟</b> سُحب مثبّت TizenBrew القديم الذي كان يعمل من متصفح التلفاز (أجهزة 2017–2021)، ولا يذكر دليل TizenBrew الآن إلا المثبّت على الحاسوب.</li>
+<li>التحديثات تلقائية: يحمّل TizenBrew أحدث نسخة من صوفا تيوب في كل مرة.</li>
+<li>افتح صوفا تيوب دائمًا من TizenBrew (لا من تطبيق YouTube العادي).</li>
+<li>قد ترفض أحدث أجهزة سامسونج تثبيت TizenBrew. إذا فشل المثبّت فأبلغ عن طراز تلفازك.</li>
+</ul>
+</section>
+</div></main>
+<footer class="site-foot"><div class="wrap">
+<p><b>للتواصل:</b> <a href="mailto:sofatube.app@proton.me"><bdi>sofatube.app@proton.me</bdi></a> · <a href="https://github.com/sofatube/sofatube.github.io/issues">افتح بلاغًا (Issue) على GitHub</a></p>
+<p>صوفا تيوب مشروع مجاني برخصة <a href="https://github.com/sofatube/sofatube.github.io/blob/main/LICENSE"><bdi>GPL-3.0</bdi></a>، مبني على <a href="https://github.com/webosbrew/youtube-webos">webosbrew/youtube-webos</a> و<a href="https://github.com/reisxd/TizenBrew">TizenBrew</a> (من <bdi>Reis Can</bdi>) و<a href="https://github.com/reisxd/TizenTube">TizenTube</a> و<a href="https://github.com/reisxd/TizenTubeCobalt">TizenTube Cobalt</a>، ويستخدم <a href="https://sponsor.ajay.app/">SponsorBlock</a>. خط العناوين Baloo Bhaijaan 2 برخصة <a href="/assets/fonts/OFL.txt">SIL OFL</a>.</p>
+<p>صوفا تيوب غير تابع لـYouTube أو Google أو LG أو سامسونج. YouTube علامة تجارية لشركة <bdi>Google LLC</bdi>.</p>
+<p><a href="https://github.com/sofatube/sofatube.github.io">github.com/sofatube/sofatube.github.io</a> · <a href="https://github.com/sofatube/sofatube.github.io/releases/latest">كل الملفات</a></p>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testers · Sofa Tube</title>
+<meta name="description" content="Sofa Tube tester guide, checklist, how to report and what has been tested.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FF8A00">
+<link rel="canonical" href="https://sofatube.github.io/testers/">
+<link rel="alternate" hreflang="en" href="https://sofatube.github.io/testers/">
+<link rel="alternate" hreflang="ar" href="https://sofatube.github.io/ar/testers/">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta property="og:title" content="Testers · Sofa Tube">
+<meta property="og:description" content="Sofa Tube tester guide, checklist, how to report and what has been tested.">
+<meta property="og:image" content="https://sofatube.github.io/assets/shots/settings.jpg">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head"><div class="wrap">
+<a class="logo" href="/"><img src="/icon.svg" alt="" width="40" height="40"><span class="brand">Sofa Tube</span></a>
+<nav class="nav" aria-label="Site"><a href="/">Home</a><a href="/install/">Install</a><a href="/videos/">Videos</a><a href="/testers/" aria-current="page">Testers</a><a href="/faq/">FAQ</a><a class="lang" href="/ar/testers/" hreflang="ar" lang="ar">العربية</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<h1>Testers</h1>
+<p><b>Thank you for testing!</b> This is a test version. Some parts have only been tried on TV emulators (software copies of a TV), never on a real TV. That is exactly why we need you. Nothing here can harm your TV; at worst a feature does not work.</p>
+<div class="cta" style="justify-content:flex-start"><a class="btn" href="/testers/guide.html">Tester guide (HTML)</a><a class="btn ghost" href="/testers/SofaTube-Tester-Guide.pdf" download>Tester guide (PDF, to print)</a></div>
+<p>The guide is in English and Arabic: install steps for each TV, the checklist and a report page.</p>
+
+<h2 id="status">What has been tested</h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">TV</th><th scope="col">Status for 0.9.1</th></tr></thead><tbody><tr><td>LG webOS</td><td>LG emulator (webOS 4); earlier versions on a real LG TV.</td></tr><tr><td>Samsung (TizenBrew, npm <code>sofatube</code>)</td><td>Samsung emulator only. <b>Never tried on a real Samsung TV.</b></td></tr><tr><td>Android TV / Google TV</td><td>Google TV emulator (x86 build) only. <b>This ARM .apk has not run on a real device yet.</b></td></tr><tr><td>Fire TV</td><td><b>Untested.</b></td></tr><tr><td>Install with webOS Dev Manager on a phone</td><td><b>Not tried by us yet.</b></td></tr></tbody></table></div>
+
+<h2 id="new">What's new in 0.9.1</h2>
+<p>A new look in the brand colours on every screen (orange focus, brand headings), “Audio only” wording, and reviewed Arabic wording. On LG and Samsung it installs over 0.9.0 and settings stay. Android: new app ID, so uninstall the 0.9.0 app first.</p>
+<p><a href="/install/">Install steps</a></p>
+
+<h2 id="checklist">Test checklist</h2>
+<p>Tick OK or ✗ for each line; skip what you cannot try. Rows marked <span class="tag">real TV</span> are the most important: nobody has tested them on a real TV yet. Write the number of every ✗ in your report.</p>
+<h3>Basics</h3><ol class="check">
+<li><span class="n" aria-hidden="true">1</span><div><b>Installs and opens.</b> <span class="tag">real TV</span> <span class="tag soft">Android: ARM file · Samsung</span><span class="how">Sofa Tube appears in the apps list with the orange sofa icon and opens YouTube. Close it and open it again: still fine?</span></div></li>
+<li><span class="n" aria-hidden="true">2</span><div><b>Start screen.</b><span class="how">Samsung · Android: logo pops in, play button pulses, “Sofa Tube / صوفا تيوب” rises in. Smooth, or jerky / skipped? (LG shows a still picture.)</span></div></li>
+<li><span class="n" aria-hidden="true">3</span><div><b>First-time setup.</b><span class="how">On a new install it asks for language, PIN and kid mode. Easy to follow?</span></div></li>
+<li><span class="n" aria-hidden="true">4</span><div><b>Videos play</b><span class="how">with picture and sound, good quality, no stutter. Try a long video and a live one.</span></div></li>
+<li><span class="n" aria-hidden="true">5</span><div><b>No ads</b><span class="how">before or during videos, and no “Sponsored” tile on Home.</span></div></li>
+<li><span class="n" aria-hidden="true">6</span><div><b>SponsorBlock.</b><span class="how">In a video with a sponsor part (many tech / vlog channels), the part is skipped with a short message.</span></div></li>
+<li><span class="n" aria-hidden="true">7</span><div><b>Settings open</b><span class="how">with Green, or with ★ Sofa Tube (sidebar, player bar, top of YouTube's Settings page). Back closes them.</span></div></li>
+</ol>
+<h3>Speed and moving around</h3><ol class="check">
+<li><span class="n" aria-hidden="true">8</span><div><b>Fast speeds: sound at 1.5× and 2×.</b> <span class="tag">real TV</span> <span class="tag soft">Samsung · Android</span><span class="how">Red (or ★ → Change speed) → 1.5×, then 2×. Does the sound keep playing, at normal pitch? Watch 1 minute each.</span></div></li>
+<li><span class="n" aria-hidden="true">9</span><div><b>Slow speeds: 0.75× and 0.5×.</b> <span class="tag">real TV</span> <span class="tag soft">Samsung · Android</span><span class="how">Sound clear, no crackle, normal pitch? On LG also try Playback → Sound at other speeds: Smooth / Classic.</span></div></li>
+<li><span class="n" aria-hidden="true">10</span><div><b>If the sound cuts out in 8 or 9:</b><span class="how">Playback → Speed method → Re-timing, try again, and note which method works.</span></div></li>
+<li><span class="n" aria-hidden="true">11</span><div><b>Jump and chapters.</b><span class="how">While watching: ★ → Jump to 0%–90% (◀▶ and OK, or a number key). Number keys 1–9 jump directly. In a video with chapters: ★ → Chapters list; CH+ / CH− skip chapters.</span></div></li>
+<li><span class="n" aria-hidden="true">12</span><div><b>Action menu and button guide.</b><span class="how">Yellow while watching opens the Action menu. Hold a colour button: a guide shows what every button does.</span></div></li>
+</ol>
+<h3>Locks and kids</h3><ol class="check">
+<li><span class="n" aria-hidden="true">13</span><div><b>PIN and app lock.</b><span class="how">Locks page: set a PIN (entered twice), try Practise entering the PIN with the arrows and OK, turn on Lock the app. Close and reopen the app: the PIN is asked.</span></div></li>
+<li><span class="n" aria-hidden="true">14</span><div><b>Locks again after you leave.</b> <span class="tag">real TV</span><span class="how">With Lock the app on: press Home, wait more than 30 seconds, go back to Sofa Tube: the PIN is asked again. Also try turning the TV off and on.</span></div></li>
+<li><span class="n" aria-hidden="true">15</span><div><b>Kid mode and allowed hours.</b><span class="how">Kids page: turn on Kid mode, set Allowed hours so that now is outside them: a lock screen appears. Extra time with the PIN works?</span></div></li>
+</ol>
+<h3>Phone, buttons, language</h3><ol class="check">
+<li><span class="n" aria-hidden="true">16</span><div><b>Settings from your phone.</b> <span class="tag">real TV</span> <span class="tag soft">Samsung: most important</span><span class="how">LG: open the Sofa Tube Phone app. Samsung / Android: Settings → Backup and about → Settings on your phone. Scan the QR code with a real phone on the same Wi-Fi, change a setting: does the TV follow at once?</span></div></li>
+<li><span class="n" aria-hidden="true">17</span><div><b>Learned buttons.</b><span class="how">Remote buttons → Learned buttons → Learn a button, press a button you never use (e.g. a media key), pick an action, then try it while watching. Which buttons were refused?</span></div></li>
+<li><span class="n" aria-hidden="true">18</span><div><b>Arabic.</b><span class="how">Backup and about → Language → العربية. Text right-to-left, letters joined, nothing cut off, font easy to read from the sofa?</span></div></li>
+<li><span class="n" aria-hidden="true">19</span><div><b>Prayer times (if you use them).</b><span class="how">Prayer times page: pick your city; today's times are right? A reminder (or pause) comes at the adhan. The TV clock and time zone must be right.</span></div></li>
+<li><span class="n" aria-hidden="true">20</span><div><b>Night dim and screen off.</b><span class="how">Player look: night dim darkens the picture. Screen off (Action menu) keeps the sound; any button brings the picture back.</span></div></li>
+<li><span class="n" aria-hidden="true">21</span><div><b>An evening of normal use.</b><span class="how">Any freeze, black screen, crash, or the app closing by itself? After the TV wakes from standby, does the video come back?</span></div></li>
+</ol>
+
+<h2 id="report">Report: what to send back</h2>
+<p>Send the report page from the guide (a photo is fine) and, for anything that failed, a <b>photo or short video of the TV screen</b>. Videos help most for sound and speed problems.</p>
+<ul>
+<li>TV brand and model, and the year of the TV</li>
+<li>System version (webOS / Tizen / Android / Fire OS)</li>
+<li>Remote (colour buttons? Magic Remote?)</li>
+<li>Install went OK?</li>
+<li>Numbers with ✗</li>
+<li>For each problem: the line number, what you did, what you expected, what happened.</li>
+<li>What did you like? What should change?</li>
+</ul>
+<p>Where to find the model and version: usually in the TV's Settings → … → About (the name differs by brand).</p>
+<div class="card"><p><b>Send results to:</b> <a href="mailto:sofatube.app@proton.me">sofatube.app@proton.me</a></p><p>or open an issue: <a href="https://github.com/sofatube/sofatube.github.io/issues">github.com/sofatube/sofatube.github.io/issues</a></p></div>
+</div></main>
+<footer class="site-foot"><div class="wrap">
+<p><b>Contact:</b> <a href="mailto:sofatube.app@proton.me">sofatube.app@proton.me</a> · <a href="https://github.com/sofatube/sofatube.github.io/issues">GitHub Issues</a></p>
+<p>Sofa Tube is a free <a href="https://github.com/sofatube/sofatube.github.io/blob/main/LICENSE">GPL-3.0</a> project built on <a href="https://github.com/webosbrew/youtube-webos">webosbrew/youtube-webos</a>, <a href="https://github.com/reisxd/TizenBrew">TizenBrew</a> by Reis Can, <a href="https://github.com/reisxd/TizenTube">TizenTube</a> and <a href="https://github.com/reisxd/TizenTubeCobalt">TizenTube Cobalt</a> (based on Google's Cobalt, Apache-2.0), and uses <a href="https://sponsor.ajay.app/">SponsorBlock</a>. Headings use Baloo Bhaijaan 2 (<a href="/assets/fonts/OFL.txt">SIL OFL</a>).</p>
+<p>Not affiliated with YouTube, Google, LG or Samsung. YouTube is a trademark of Google LLC; Sofa Tube (صوفا تيوب) is not a Google product.</p>
+<p><a href="https://github.com/sofatube/sofatube.github.io">github.com/sofatube/sofatube.github.io</a> · <a href="https://github.com/sofatube/sofatube.github.io/releases/latest">All files (releases)</a></p>
+</div></footer>
+</body>
+</html>

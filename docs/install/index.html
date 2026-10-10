@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install · Sofa Tube</title>
+<meta name="description" content="Install Sofa Tube on Android TV, Google TV, Fire TV, LG (webOS) and Samsung (Tizen), step by step.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FF8A00">
+<link rel="canonical" href="https://sofatube.github.io/install/">
+<link rel="alternate" hreflang="en" href="https://sofatube.github.io/install/">
+<link rel="alternate" hreflang="ar" href="https://sofatube.github.io/ar/install/">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta property="og:title" content="Install · Sofa Tube">
+<meta property="og:description" content="Install Sofa Tube on Android TV, Google TV, Fire TV, LG (webOS) and Samsung (Tizen), step by step.">
+<meta property="og:image" content="https://sofatube.github.io/assets/shots/settings.jpg">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head"><div class="wrap">
+<a class="logo" href="/"><img src="/icon.svg" alt="" width="40" height="40"><span class="brand">Sofa Tube</span></a>
+<nav class="nav" aria-label="Site"><a href="/">Home</a><a href="/install/" aria-current="page">Install</a><a href="/videos/">Videos</a><a href="/testers/">Testers</a><a href="/faq/">FAQ</a><a class="lang" href="/ar/install/" hreflang="ar" lang="ar">العربية</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<h1>Install</h1>
+<p>Pick your TV. Same steps as in the tester guide.</p>
+<ul class="toc"><li><a href="#android">Android TV · Google TV · Fire TV</a></li><li><a href="#lg">LG TV</a></li><li><a href="#samsung">Samsung TV</a></li></ul>
+<div class="note" role="note"><p><b>Had the Sofa Tube 0.9.0 test app on Android?</b> Uninstall it first (Settings → Apps → Sofa Tube → Uninstall). 0.9.1 has a new app ID (<code>io.github.sofatube.tv</code>), so it cannot update the old app; settings start fresh. On LG and Samsung it installs over 0.9.0 and settings stay.</p></div>
+
+<section class="tv-section" id="android">
+<h2>Android TV · Google TV · Fire TV</h2>
+<div class="note"><p><b>Status:</b> tried on a Google TV emulator only. This file has not run on any real device yet, and Fire TV is untested. If it does not install or open at all, that is an important result: <a href="/testers/#report">tell us</a>.</p></div>
+<h3>You need</h3>
+<ul>
+<li>An Android TV, Google TV or Fire TV device (TV, stick or box) with internet. No computer.</li>
+<li>About 200 MB free space (the app is 95 MB). It runs next to the normal YouTube app.</li>
+<li>If TizenTube Cobalt is installed, uninstall it first (both use the same phone-link port).</li>
+<li>Had the Sofa Tube 0.9.0 test app? Uninstall it first. 0.9.1 has a new app ID (<code>io.github.sofatube.tv</code>), so it cannot update the old app; settings start fresh.</li>
+</ul>
+<h3>Easiest: the Downloader app (no computer)</h3>
+<ol class="steps">
+<li>On the TV, open the app store (Google Play, or the Appstore on Fire TV), search <b>Downloader</b> (by AFTVnews, orange icon) and install it.</li>
+<li>Allow Downloader to <b>install unknown apps</b>:
+<ul>
+<li><b>Android TV / Google TV:</b> Settings → Apps → Security &amp; restrictions → Unknown sources → Downloader on. Not there? Settings → System → About → press <i>Android TV OS build</i> 7 times, then try again. (Names differ a little by brand.)</li>
+<li><b>Fire TV:</b> Settings → My Fire TV → Developer options → Install unknown apps → Downloader on. No Developer options? Settings → My Fire TV → About → press the device name 7 times.</li>
+</ul></li>
+<li>Open Downloader (allow its storage request), select the address box and type: <code>sofatube.github.io/tv</code> then press <b>Go</b>.</li>
+<li>When the download ends, choose <b>Install</b>, then <b>Open</b>. Downloader then offers to delete the downloaded file: <b>Delete</b> saves space.</li>
+</ol>
+<h3>Fallback: USB stick (needs a computer)</h3>
+<p>Download the .apk from <a href="/tv/">sofatube.github.io/tv</a>, copy it to a USB stick, open it on the TV with a file manager app, allow that app to install unknown apps, then Install, Open.</p>
+<h3>Good to know</h3>
+<ul>
+<li>The first start may reload YouTube once; that is normal. Most Android remotes have <b>no colour buttons</b>: use <b>★ Sofa Tube</b> in YouTube's sidebar or the ★ button in the player bar.</li>
+<li>Phone settings need no extra app here: Settings → Backup and about → Settings on your phone.</li>
+<li>Updates: install the new .apk over this one the same way; settings stay.</li>
+</ul>
+</section>
+
+<section class="tv-section" id="lg">
+<h2>LG TV (webOS)</h2>
+<div class="note"><p><b>First:</b> uninstall the official YouTube app from the TV. Sofa Tube uses the same app ID (<code>youtube.leanback.v4</code>), so both cannot be installed together. <b>New:</b> installing from a phone has not been tried by us yet; tell us how it went.</p></div>
+<h3>You need</h3>
+<p>An LG webOS TV and an Android phone on the same Wi-Fi (or a computer). A free LG Developer account and LG's Developer Mode app. No rooting, no Homebrew Channel.</p>
+<h3>Easiest: with an Android phone</h3>
+<ol class="steps">
+<li>On the phone, create an LG Developer account at <a href="https://webostv.developer.lge.com/">webostv.developer.lge.com</a>.</li>
+<li>On the TV, install <b>Developer Mode</b> from the LG Content Store, open it and sign in with that account.</li>
+<li>Turn on <b>Dev Mode Status</b> (the TV restarts), open the app again and turn on <b>Key Server</b>. Write down the <b>IP address</b> and the <b>passphrase</b>.</li>
+<li>On the phone, install <b>webOS Dev Manager</b>: <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">github.com/webosbrew/dev-manager-desktop</a> → Releases → the file ending <code>universal.apk</code>. Allow your browser to install unknown apps when asked.</li>
+<li>In webOS Dev Manager, add the TV with that IP and passphrase.</li>
+<li>In the phone's browser, open <a href="/lg/">sofatube.github.io/lg</a> and <a href="/lg-phone/">sofatube.github.io/lg-phone</a>: both files download.</li>
+<li>In webOS Dev Manager, install the main app .ipk, then the Phone app .ipk, from the phone's Downloads.</li>
+<li>On the TV, open <b>Sofa Tube</b>. The first-time setup asks for language, PIN and kid mode. Green opens the settings.</li>
+</ol>
+<h3>Fallback: with a computer</h3>
+<p>Same steps, with <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> for Windows, Mac or Linux (same page) and the two .ipk files from the links above.</p>
+<h3>Good to know</h3>
+<ul>
+<li>Developer Mode sessions <b>expire</b>, and then the apps you installed stop opening. Open the Developer Mode app now and then and extend the session.</li>
+<li>Sofa Tube Phone is a second app: open it to change settings from your phone (QR code). Screen off also needs it opened once after the TV starts.</li>
+<li>Updating later: install the new .ipk the same way; your settings stay.</li>
+</ul>
+</section>
+
+<section class="tv-section" id="samsung">
+<h2>Samsung TV (Tizen)</h2>
+<div class="note"><p><b>Status:</b> the npm module <code>sofatube</code> is published, but it has not been tried on a real Samsung TV yet, so you are one of the first.</p></div>
+<h3>You need</h3>
+<ul>
+<li>A Samsung TV from 2017 or newer (Tizen 3.0 or newer).</li>
+<li>A Windows, Mac or Linux computer on the same Wi-Fi as the TV, <b>once</b>, to install TizenBrew. After that everything happens on the TV.</li>
+<li>TVs from 2023 or newer (Tizen 7+): a free Samsung account (the installer asks you to sign in).</li>
+</ul>
+<p>Already have TizenBrew (for example from TizenTube)? No computer needed: go to step 5.</p>
+<h3>Steps</h3>
+<ol class="steps">
+<li>On the TV: open <b>Apps</b>, type <b>1 2 3 4 5</b> on the remote, set <b>Developer mode</b> to <b>On</b>, enter your computer's IP as <b>Host PC IP</b>, OK, then restart the TV (hold the Power button).</li>
+<li>On the computer: download <b>TizenBrew Installer</b> from <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">github.com/reisxd/TizenBrewInstaller/releases</a> (the file for your system) and run it.</li>
+<li>Click <b>Install TizenBrew</b>. On 2023+ TVs, sign in to your Samsung account when asked.</li>
+<li>On the TV: Apps → 1 2 3 4 5 again, set <b>Host PC IP</b> to <code>127.0.0.1</code>, restart the TV.</li>
+<li>Open <b>TizenBrew</b>, press the <b>Green</b> button (module manager), add an <b>NPM</b> module and type <code>sofatube</code>.</li>
+<li>Sofa Tube now appears in TizenBrew. Open it: start screen, then YouTube.</li>
+</ol>
+<h3>Good to know</h3>
+<ul>
+<li><b>Why a computer?</b> TizenBrew's old installer in the TV's web browser (2017–2021 TVs) has been withdrawn; TizenBrew's guide now lists only the computer installer.</li>
+<li>Updates are automatic: TizenBrew loads the newest Sofa Tube each time.</li>
+<li>Always open Sofa Tube from TizenBrew (not the normal YouTube app).</li>
+<li>The very newest Samsung TVs may refuse TizenBrew. If the installer fails, report your TV model.</li>
+</ul>
+</section>
+</div></main>
+<footer class="site-foot"><div class="wrap">
+<p><b>Contact:</b> <a href="mailto:sofatube.app@proton.me">sofatube.app@proton.me</a> · <a href="https://github.com/sofatube/sofatube.github.io/issues">GitHub Issues</a></p>
+<p>Sofa Tube is a free <a href="https://github.com/sofatube/sofatube.github.io/blob/main/LICENSE">GPL-3.0</a> project built on <a href="https://github.com/webosbrew/youtube-webos">webosbrew/youtube-webos</a>, <a href="https://github.com/reisxd/TizenBrew">TizenBrew</a> by Reis Can, <a href="https://github.com/reisxd/TizenTube">TizenTube</a> and <a href="https://github.com/reisxd/TizenTubeCobalt">TizenTube Cobalt</a> (based on Google's Cobalt, Apache-2.0), and uses <a href="https://sponsor.ajay.app/">SponsorBlock</a>. Headings use Baloo Bhaijaan 2 (<a href="/assets/fonts/OFL.txt">SIL OFL</a>).</p>
+<p>Not affiliated with YouTube, Google, LG or Samsung. YouTube is a trademark of Google LLC; Sofa Tube (صوفا تيوب) is not a Google product.</p>
+<p><a href="https://github.com/sofatube/sofatube.github.io">github.com/sofatube/sofatube.github.io</a> · <a href="https://github.com/sofatube/sofatube.github.io/releases/latest">All files (releases)</a></p>
+</div></footer>
+</body>
+</html>
