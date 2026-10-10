@@ -164,3 +164,7 @@ Sofa Tube is built on [webosbrew/youtube-webos](https://github.com/webosbrew/you
 Licensed under **GPL-3.0-only**; see [LICENSE](LICENSE). Any copy you share must keep this licence and make its source available.
 
 Not affiliated with YouTube, Google, LG or Samsung. YouTube is a trademark of Google LLC; Sofa Tube (صوفا تيوب) is not a Google product.
+
+## Publishing a release (maintainers)
+
+Releases are published by GitHub Actions ([`.github/workflows/release.yml`](.github/workflows/release.yml)), so they show `github-actions[bot]` as the author. Create a branch `release-staging` from `main` with `release/release.env` (`TAG`, `TITLE`, `PRERELEASE`), `release/notes.md`, `release/sums.txt` (`sha256sum` output) and the files in `release/assets/`, then push it. The workflow checks the sums, tags `main` and creates the release (or updates the files of an existing one). Delete `release-staging` when it is done. Keep the file names the same so the short links keep working.

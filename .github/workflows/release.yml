@@ -1,0 +1,78 @@
+# Publishes a GitHub release as github-actions[bot].
+#
+# How to use (see README "Publishing a release"):
+#   1. Create a branch `release-staging` from main.
+#   2. Add release/release.env (TAG, TITLE, PRERELEASE), release/notes.md,
+#      release/sums.txt (sha256sum output) and the files under release/assets/.
+#   3. Push the branch. This workflow verifies the checksums and creates the
+#      release (or updates it if the tag already has one), tagging main.
+#   4. Delete the `release-staging` branch afterwards.
+name: release
+
+on:
+  push:
+    branches: [release-staging]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: release-staging
+
+      - name: Read release settings
+        run: |
+          set -euo pipefail
+          test -f release/release.env
+          test -f release/notes.md
+          test -f release/sums.txt
+          # shellcheck disable=SC1091
+          . release/release.env
+          : "${TAG:?TAG missing in release/release.env}"
+          : "${TITLE:?TITLE missing in release/release.env}"
+          {
+            echo "TAG=$TAG"
+            echo "TITLE=$TITLE"
+            echo "PRERELEASE=${PRERELEASE:-false}"
+          } >> "$GITHUB_ENV"
+
+      - name: Verify checksums
+        working-directory: release/assets
+        run: |
+          set -euo pipefail
+          sed 's/\r$//' ../sums.txt | sha256sum -c -
+          # every asset must be listed in sums.txt
+          for f in *; do grep -q " \*\?$f\$" <(sed 's/\r$//' ../sums.txt) || { echo "not in sums.txt: $f"; exit 1; }; done
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          pre=()
+          if [ "$PRERELEASE" = "true" ]; then pre=(--prerelease); else pre=(--latest); fi
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --title "$TITLE" --notes-file release/notes.md "${pre[@]}"
+            gh release upload "$TAG" release/assets/* --clobber
+          else
+            gh release create "$TAG" release/assets/* \
+              --target main --title "$TITLE" --notes-file release/notes.md "${pre[@]}"
+          fi
+
+      - name: Check uploaded files
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/check && cd /tmp/check
+          gh release download "$TAG" -R "$GITHUB_REPOSITORY"
+          sed 's/\r$//' "$GITHUB_WORKSPACE/release/sums.txt" | sha256sum -c -
+          gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json author,url -q '"\(.url) by \(.author.login)"'
