@@ -42,8 +42,6 @@ Short links (type them in the TV's **Downloader** app or on your phone):
 3. Open Downloader, type **`sofatube.github.io/tv`**, press **Go**.
 4. When the download ends: **Install**, then **Open**.
 
-**Had the 0.9.0 test app?** Uninstall it first (Settings → Apps → Sofa Tube → Uninstall). 0.9.1 has a new app ID (`io.github.sofatube.tv`), so it installs as a separate app and does not keep the 0.9.0 settings.
-
 Fallback: copy the `.apk` from the [release](https://github.com/sofatube/sofatube.github.io/releases/latest) to a USB stick and open it with a file manager on the TV.
 
 #### LG TV (webOS) — with an Android phone
@@ -111,8 +109,6 @@ Please report what works and what does not: [open an issue](https://github.com/s
    - **Fire TV:** <bdi>Settings → My Fire TV → Developer options → Install unknown apps</bdi> ← فعّل Downloader. (لا تظهر <bdi>Developer options</bdi>؟ <bdi>Settings → My Fire TV → About</bdi> واضغط على اسم الجهاز سبع مرات.)
 3. افتح Downloader واكتب <code dir="ltr">sofatube.github.io/tv</code> واضغط **Go**.
 4. بعد اكتمال التنزيل: **Install** (تثبيت) ثم **Open** (فتح).
-
-**كان لديك تطبيق النسخة التجريبية <bdi>0.9.0</bdi>؟** احذفه أولًا (<bdi>Settings → Apps → Sofa Tube → Uninstall</bdi>). للنسخة <bdi>0.9.1</bdi> مُعرّف تطبيق جديد (<code dir="ltr">io.github.sofatube.tv</code>)، فتُثبَّت تطبيقًا منفصلًا ولا تنتقل إليها إعدادات <bdi>0.9.0</bdi>.
 
 البديل: انسخ ملف apk من <a href="https://github.com/sofatube/sofatube.github.io/releases/latest">صفحة الإصدار</a> إلى ذاكرة USB وافتحه بمدير ملفات على التلفاز.
 

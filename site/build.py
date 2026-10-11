@@ -100,12 +100,6 @@ def test_note(lang):
              f'<div class="note" role="note"><p><b>هذه نسخة تجريبية (<bdi>{VER}</bdi>).</b> بعض أجزائها جُرِّبت على محاكيات فقط (نسخ برمجية من التلفاز)، ولم تُجرَّب على تلفاز حقيقي بعد. <a href="/ar/testers/#status">ما الذي جُرِّب</a>.</p></div>')
 
 
-def old_android_note(lang):
-    return L(lang,
-             f'<div class="note" role="note"><p><b>Had the Sofa Tube 0.9.0 test app on Android?</b> Uninstall it first (Settings → Apps → Sofa Tube → Uninstall). {VER} has a new app ID (<code>io.github.sofatube.tv</code>), so it cannot update the old app; settings start fresh. On LG and Samsung it installs over 0.9.0 and settings stay.</p></div>',
-             f'<div class="note" role="note"><p><b>كان لديك تطبيق صوفا تيوب <bdi>0.9.0</bdi> التجريبي على أندرويد؟</b> احذفه أولًا (<bdi>Settings</bdi> ← <bdi>Apps</bdi> ← <bdi>Sofa Tube</bdi> ← <bdi>Uninstall</bdi>). للنسخة <bdi>{VER}</bdi> مُعرّف تطبيق جديد (<code dir="ltr">io.github.sofatube.tv</code>)، فلا تُحدِّث التطبيق القديم، وتبدأ الإعدادات من جديد. على LG وسامسونج يُثبَّت فوق <bdi>0.9.0</bdi> وتبقى الإعدادات.</p></div>')
-
-
 def remote_keys(lang):
     if lang == 'ar':
         return '''<ul class="keys">
@@ -263,7 +257,6 @@ def home(lang):
 <h2 id="download">التنزيل: اختر تلفازك</h2>
 <p>روابط قصيرة (اكتبها في تطبيق <b>Downloader</b> على التلفاز أو في هاتفك):</p>
 {download_cards(lang)}
-{old_android_note(lang)}
 <h2 id="features">ماذا يقدّم صوفا تيوب؟</h2>
 <div class="grid">{feats}</div>
 <h2 id="remote">أزرار جهاز التحكم</h2>
@@ -285,7 +278,6 @@ def home(lang):
 <h2 id="download">Download: pick your TV</h2>
 <p>Short links (type them in the TV's <b>Downloader</b> app or on your phone):</p>
 {download_cards(lang)}
-{old_android_note(lang)}
 <h2 id="features">What it does</h2>
 <div class="grid">{feats}</div>
 <h2 id="remote">Remote buttons</h2>
@@ -304,7 +296,6 @@ def install(lang):
         return f'''<h1>التثبيت</h1>
 <p>اختر تلفازك. الخطوات نفسها التي في دليل التجربة.</p>
 <ul class="toc"><li><a href="#android">أندرويد تي في · جوجل تي في · فاير تي في</a></li><li><a href="#lg">تلفاز LG</a></li><li><a href="#samsung">تلفاز سامسونج</a></li></ul>
-{old_android_note(lang)}
 
 <section class="tv-section" id="android">
 <h2>أندرويد تي في · جوجل تي في · فاير تي في</h2>
@@ -314,7 +305,6 @@ def install(lang):
 <li>جهاز Android TV أو Google TV أو Fire TV (تلفاز أو عصا أو صندوق) متصل بالإنترنت. دون حاسوب.</li>
 <li>مساحة فارغة نحو 200 ميغابايت (حجم التطبيق نحو 95 ميغابايت). يعمل بجانب تطبيق YouTube العادي.</li>
 <li>إذا كان <bdi>TizenTube Cobalt</bdi> مثبّتًا فاحذفه أولًا (يستخدم التطبيقان منفذ الاتصال بالهاتف نفسه).</li>
-<li>كان لديك تطبيق صوفا تيوب <bdi>0.9.0</bdi> التجريبي؟ احذفه أولًا. للنسخة <bdi>{VER}</bdi> مُعرّف تطبيق جديد (<code dir="ltr">io.github.sofatube.tv</code>)، فلا تُحدِّث التطبيق القديم، وتبدأ الإعدادات من جديد.</li>
 </ul>
 <h3>الأسهل: تطبيق Downloader (دون حاسوب)</h3>
 <ol class="steps">
@@ -393,7 +383,6 @@ def install(lang):
     return f'''<h1>Install</h1>
 <p>Pick your TV. Same steps as in the tester guide.</p>
 <ul class="toc"><li><a href="#android">Android TV · Google TV · Fire TV</a></li><li><a href="#lg">LG TV</a></li><li><a href="#samsung">Samsung TV</a></li></ul>
-{old_android_note(lang)}
 
 <section class="tv-section" id="android">
 <h2>Android TV · Google TV · Fire TV</h2>
@@ -403,7 +392,6 @@ def install(lang):
 <li>An Android TV, Google TV or Fire TV device (TV, stick or box) with internet. No computer.</li>
 <li>About 200 MB free space (the app is 95 MB). It runs next to the normal YouTube app.</li>
 <li>If TizenTube Cobalt is installed, uninstall it first (both use the same phone-link port).</li>
-<li>Had the Sofa Tube 0.9.0 test app? Uninstall it first. {VER} has a new app ID (<code>io.github.sofatube.tv</code>), so it cannot update the old app; settings start fresh.</li>
 </ul>
 <h3>Easiest: the Downloader app (no computer)</h3>
 <ol class="steps">
@@ -644,8 +632,6 @@ def testers(lang):
 <h2 id="status">ما الذي جُرِّب</h2>
 {status_table(lang)}
 
-<h2 id="new">الجديد في الإصدار <bdi>{VER}</bdi></h2>
-<p>مظهر جديد بألوان التطبيق في كل الشاشات (تحديد برتقالي وعناوين بخط التطبيق)، وتسمية «وضع الصوت فقط»، وصياغة عربية مُراجَعة. على LG وسامسونج يُثبَّت فوق <bdi>0.9.0</bdi> وتبقى الإعدادات. أندرويد: مُعرّف تطبيق جديد، فاحذف تطبيق <bdi>0.9.0</bdi> أولًا.</p>
 <p><a href="/ar/install/">خطوات التثبيت</a></p>
 
 <h2 id="checklist">قائمة الفحص</h2>
@@ -673,8 +659,6 @@ def testers(lang):
 <h2 id="status">What has been tested</h2>
 {status_table(lang)}
 
-<h2 id="new">What's new in {VER}</h2>
-<p>A new look in the brand colours on every screen (orange focus, brand headings), “Audio only” wording, and reviewed Arabic wording. On LG and Samsung it installs over 0.9.0 and settings stay. Android: new app ID, so uninstall the 0.9.0 app first.</p>
 <p><a href="/install/">Install steps</a></p>
 
 <h2 id="checklist">Test checklist</h2>
@@ -708,13 +692,13 @@ def faq(lang):
             ('لماذا لا أجده في متجر تطبيقات التلفاز؟',
              '<p>صوفا تيوب يفتح صفحة YouTube الخاصة بالتلفاز ويضيف إليها ميزات (منها حجب الإعلانات)، فيُثبَّت من خارج المتجر: بتطبيق Downloader في أندرويد، وبـTizenBrew في سامسونج، وبوضع المطوّر في LG.</p>'),
             ('كيف أحدّث التطبيق؟',
-             '<ul><li><b>أندرويد:</b> ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات. (من <bdi>0.9.0</bdi> إلى <bdi>0.9.1</bdi> فقط: احذف التطبيق القديم أولًا.)</li><li><b>سامسونج:</b> التحديثات تلقائية: يحمّل TizenBrew أحدث نسخة من صوفا تيوب في كل مرة.</li><li><b>LG:</b> ثبّت ملف ipk الجديد بالطريقة نفسها، وتبقى إعداداتك كما هي.</li></ul><p>لا يبحث التطبيق عن التحديثات بنفسه؛ والروابط القصيرة (<code dir="ltr">sofatube.github.io/tv</code> و<code dir="ltr">/lg</code> و<code dir="ltr">/lg-phone</code>) تشير دائمًا إلى أحدث إصدار.</p>'),
+             '<ul><li><b>أندرويد:</b> ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات.</li><li><b>سامسونج:</b> التحديثات تلقائية: يحمّل TizenBrew أحدث نسخة من صوفا تيوب في كل مرة.</li><li><b>LG:</b> ثبّت ملف ipk الجديد بالطريقة نفسها، وتبقى إعداداتك كما هي.</li></ul><p>لا يبحث التطبيق عن التحديثات بنفسه؛ والروابط القصيرة (<code dir="ltr">sofatube.github.io/tv</code> و<code dir="ltr">/lg</code> و<code dir="ltr">/lg-phone</code>) تشير دائمًا إلى أحدث إصدار.</p>'),
             ('هل أحتاج إلى حساب؟ وأين تُحفظ إعداداتي؟',
              '<p>لا حاجة إلى حساب: تابع القنوات دون تسجيل الدخول («قنواتي»). تبقى الإعدادات وسجل مشاهدة الأطفال على التلفاز. صفحة الهاتف يقدّمها التلفاز نفسه عبر شبكة الواي فاي في بيتك، ويبقى الرمز السري على التلفاز، ولا تتضمن النسخة الاحتياطية الرمز السري أبدًا.</p><p>يتصل التطبيق بـYouTube، وبخدمات SponsorBlock وReturn YouTube Dislike وDeArrow للفيديو الذي تشاهده.</p>'),
             ('هل يضر بالتلفاز؟',
              '<p>لا شيء هنا يضر بالتلفاز؛ أسوأ ما قد يحدث أن ميزة ما لا تعمل. في LG احذف تطبيق YouTube الرسمي أولًا (يستخدم صوفا تيوب مُعرّف التطبيق نفسه).</p>'),
             ('حل المشكلات',
-             '<ul><li><b>لا توجد أزرار ملونة؟</b> استخدم ★ صوفا تيوب في القائمة الجانبية لـYouTube أو زر ★ بين أزرار التحكم.</li><li><b>LG: لا تُفتح التطبيقات التي ثبّتّها؟</b> لجلسة وضع المطوّر مدة تنتهي: افتح تطبيق Developer Mode ومدّد الجلسة.</li><li><b>ينقطع الصوت عند بعض السرعات؟</b> التشغيل ← طريقة تغيير السرعة ← «عبر التطبيق».</li><li><b>أوقات الصلاة غير صحيحة؟</b> اضبط التلفاز على المنطقة الزمنية الصحيحة.</li><li><b>الهاتف لا يتصل؟</b> يجب أن يكون الهاتف على شبكة الواي فاي نفسها التي يتصل بها التلفاز.</li><li><b>أندرويد: لا يُثبَّت؟</b> احذف تطبيق <bdi>0.9.0</bdi> أولًا، واسمح لـDownloader بتثبيت التطبيقات غير المعروفة.</li></ul>'),
+             '<ul><li><b>لا توجد أزرار ملونة؟</b> استخدم ★ صوفا تيوب في القائمة الجانبية لـYouTube أو زر ★ بين أزرار التحكم.</li><li><b>LG: لا تُفتح التطبيقات التي ثبّتّها؟</b> لجلسة وضع المطوّر مدة تنتهي: افتح تطبيق Developer Mode ومدّد الجلسة.</li><li><b>ينقطع الصوت عند بعض السرعات؟</b> التشغيل ← طريقة تغيير السرعة ← «عبر التطبيق».</li><li><b>أوقات الصلاة غير صحيحة؟</b> اضبط التلفاز على المنطقة الزمنية الصحيحة.</li><li><b>الهاتف لا يتصل؟</b> يجب أن يكون الهاتف على شبكة الواي فاي نفسها التي يتصل بها التلفاز.</li><li><b>أندرويد: لا يُثبَّت؟</b> اسمح لـDownloader بتثبيت التطبيقات غير المعروفة.</li></ul>'),
             ('كيف أتواصل معكم؟',
              f'<p>راسلنا على <a href="mailto:{MAIL}"><bdi>{MAIL}</bdi></a> أو <a href="{ISSUES}">افتح بلاغًا (Issue)</a>.</p>'),
         ]
@@ -728,13 +712,13 @@ def faq(lang):
             ('Why is it not in the TV\'s app store?',
              '<p>Sofa Tube opens YouTube\'s own TV page and adds features on top (ad blocking among them), so it is installed from outside the store: with the Downloader app on Android, TizenBrew on Samsung and Developer Mode on LG.</p>'),
             ('How do updates work?',
-             '<ul><li><b>Android:</b> install the new .apk over this one the same way; settings stay. (Only 0.9.0 → 0.9.1: uninstall the old app first.)</li><li><b>Samsung:</b> updates are automatic: TizenBrew loads the newest Sofa Tube each time.</li><li><b>LG:</b> install the new .ipk the same way; your settings stay.</li></ul><p>The app does not check for updates itself; the short links (<code>sofatube.github.io/tv</code>, <code>/lg</code>, <code>/lg-phone</code>) always point to the latest release.</p>'),
+             '<ul><li><b>Android:</b> install the new .apk over this one the same way; settings stay.</li><li><b>Samsung:</b> updates are automatic: TizenBrew loads the newest Sofa Tube each time.</li><li><b>LG:</b> install the new .ipk the same way; your settings stay.</li></ul><p>The app does not check for updates itself; the short links (<code>sofatube.github.io/tv</code>, <code>/lg</code>, <code>/lg-phone</code>) always point to the latest release.</p>'),
             ('Do I need an account? Where are my settings kept?',
              '<p>No account is needed: follow channels without signing in (My channels). Settings and the kids\' watch history stay on the TV. The phone page is served by the TV itself on your Wi-Fi; the PIN stays on the TV and is never in a backup.</p><p>The app talks to YouTube, and to the SponsorBlock, Return YouTube Dislike and DeArrow community services for the video you watch.</p>'),
             ('Can it harm my TV?',
              '<p>Nothing here can harm your TV; at worst a feature does not work. On LG, uninstall the official YouTube app first (Sofa Tube uses the same app ID).</p>'),
             ('Troubleshooting',
-             '<ul><li><b>No colour buttons?</b> Use ★ Sofa Tube in YouTube\'s sidebar or the ★ button in the player bar.</li><li><b>LG: the apps stopped opening?</b> The Developer Mode session expired: open the Developer Mode app and extend it.</li><li><b>Sound cuts out at some speeds?</b> Playback → Speed method → Re-timing.</li><li><b>Prayer times wrong?</b> Set the TV to the right time zone.</li><li><b>The phone can\'t connect?</b> The phone must be on the same Wi-Fi as the TV.</li><li><b>Android: won\'t install?</b> Uninstall the 0.9.0 app first, and allow Downloader to install unknown apps.</li></ul>'),
+             '<ul><li><b>No colour buttons?</b> Use ★ Sofa Tube in YouTube\'s sidebar or the ★ button in the player bar.</li><li><b>LG: the apps stopped opening?</b> The Developer Mode session expired: open the Developer Mode app and extend it.</li><li><b>Sound cuts out at some speeds?</b> Playback → Speed method → Re-timing.</li><li><b>Prayer times wrong?</b> Set the TV to the right time zone.</li><li><b>The phone can\'t connect?</b> The phone must be on the same Wi-Fi as the TV.</li><li><b>Android: won\'t install?</b> Allow Downloader to install unknown apps.</li></ul>'),
             ('How do I contact you?',
              f'<p>Write to <a href="mailto:{MAIL}">{MAIL}</a> or <a href="{ISSUES}">open an issue</a>.</p>'),
         ]
