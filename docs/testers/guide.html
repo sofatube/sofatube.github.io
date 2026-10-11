@@ -135,6 +135,34 @@ bdi { unicode-bidi: isolate; }
 .roomy [dir="rtl"], .roomy .ar { font-size: 9.9pt; }
 .roomy li { margin-bottom: 2.5pt; }
 
+/* dark theme: screen only, follows the device setting; print/PDF stays light */
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #1D140E;
+    --ink: #FBF4E8;
+    --cream: #2A1D14;
+    --cream-2: #3A281B;
+    --line: #4A3424;
+    --muted: #CDB8A3;
+    --brown: #FFB866;
+    --brown-ink: #FFE2BF;
+    --warn-bg: #3A2412;
+  }
+  a { color: #FFB866; }
+  .band, .band h1, .band .t h2, .band .sub, .band .t .brand { color: #2B1D14; }
+  .band svg { box-shadow: 0 2px 6px rgba(0,0,0,.35); }
+  .box.warn { border-color: #8A5A1E; }
+  .box.note { background: #241811; }
+  code, .file { color: var(--ink); }
+  .tag.real { background: var(--orange); color: #1D140E; }
+  .tag.tv { color: #FFC78A; }
+  .check td.n { color: var(--orange); }
+  .check tr.hi td { background: #33231A; }
+  .sq { background: transparent; }
+  .sendto { border-color: var(--orange); }
+}
+
 @page { size: A4; margin: 9mm 9mm 9mm; }
 @media print { .wrap { max-width: none; padding: 0; } html, body { background: #fff; } }
 @media screen and (max-width: 720px) {
