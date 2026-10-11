@@ -12,7 +12,7 @@ REPO = 'https://github.com/sofatube/sofatube.github.io'
 ISSUES = REPO + '/issues'
 RELEASES = REPO + '/releases/latest'
 MAIL = 'sofatube.app@proton.me'
-VER = '0.9.1'
+VER = '0.9.2'
 
 PAGES = [('', 'Home', 'الرئيسية'), ('install/', 'Install', 'التثبيت'), ('videos/', 'Videos', 'الفيديوهات'),
          ('testers/', 'Testers', 'للمجرّبين'), ('faq/', 'FAQ', 'الأسئلة الشائعة')]

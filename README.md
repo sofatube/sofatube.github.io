@@ -9,7 +9,7 @@
 </p>
 
 > [!IMPORTANT]
-> **0.9.1 is a test version.** Parts of it have only run on TV _emulators_ so far. See [What has been tested](#what-has-been-tested).
+> **0.9.2 is a test version.** Parts of it have only run on TV _emulators_ so far. See [What has been tested](#what-has-been-tested).
 
 **[English](#english) · [العربية](#العربية)**
 
@@ -69,7 +69,7 @@ Already have TizenBrew (for example from TizenTube)? Do step 4 only. The newest 
 
 ### What has been tested
 
-| TV                                | Status for 0.9.1                                                                                       |
+| TV                                | Status for 0.9.2                                                                                       |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | LG webOS                          | LG emulator (webOS 4); earlier versions on a real LG TV.                                               |
 | Samsung (TizenBrew, npm `sofatube`) | Samsung emulator only. **Never tried on a real Samsung TV.**                                           |
@@ -137,7 +137,7 @@ Please report what works and what does not: [open an issue](https://github.com/s
 
 ### ما الذي جُرِّب
 
-| التلفاز | الحالة في <bdi>0.9.1</bdi> |
+| التلفاز | الحالة في <bdi>0.9.2</bdi> |
 | --- | --- |
 | LG ‏(webOS) | محاكي LG ‏(webOS 4)؛ والإصدارات السابقة على تلفاز LG حقيقي. |
 | سامسونج (TizenBrew، وحدة <code dir="ltr">sofatube</code>) | محاكي سامسونج فقط. **لم يُجرَّب على تلفاز سامسونج حقيقي.** |
