@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Sofa Tube</title>
+    <!--
+      A video shared from another app (the manifest's share_target, GET
+      share?title=&text=&url=). The service worker answers this address
+      itself (so the link never reaches the site); this page is only for a
+      phone whose service worker is not running yet: the shared link moves
+      after # on the main page.
+    -->
+    <script>
+      location.replace(
+        './#share=1&' + location.search.replace(/^\?/, '') + location.hash
+      );
+    </script>
+  </head>
+  <body>
+    <p><a href="./">Sofa Tube</a></p>
+  </body>
+</html>

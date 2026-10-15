@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "version": "0.9.3",
+  "date": "2026-10-15",
+  "notes": "https://github.com/sofatube/sofatube.github.io/releases/tag/v0.9.3",
+  "android": {
+    "version": "0.9.3",
+    "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.3/SofaTube-0.9.3-AndroidTV-arm.apk",
+    "sha256": "2ba77707afd8902563411226ff8b8d7c81243bcedcf8b47ffd57385e5ab0b246",
+    "size": 95470548,
+    "minSdk": 24
+  },
+  "lg": {
+    "version": "0.9.3",
+    "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.3/SofaTube-0.9.3-LG.ipk",
+    "sha256": "932d36e2a9b91489cabafd8f379cdb0d8b77034ce8cba84beeccf1c4cbaa46f9",
+    "size": 1836914,
+    "minOs": "webOS 4"
+  },
+  "lgPhone": {
+    "version": "1.1.3",
+    "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.3/SofaTube-Phone-1.1.3-LG.ipk",
+    "sha256": "b0509a1e1624338a7891e5c9e5c0736b9a6b22d8bb6dd7d835b7716b79f1bffc",
+    "size": 278184
+  },
+  "samsung": {
+    "version": "0.9.3",
+    "npm": "sofatube"
+  }
+}

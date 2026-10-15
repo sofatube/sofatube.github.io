@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Sofa Tube remote</title>
+    <meta
+      name="description"
+      content="Opens the Sofa Tube remote on your phone and finds your TV on your Wi-Fi."
+    />
+    <!-- the Arabic page swaps this for manifest-ar.webmanifest -->
+    <link id="manifest" rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta
+      name="theme-color"
+      content="#fbf4e8"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#170e08"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Sofa Tube" />
+    <style>
+      :root {
+        /* Sofa Tube palette (phone page, src/theme.css) */
+        --bg: #fbf4e8;
+        --card: #ffffff;
+        --line: #eadfcd;
+        --text: #1f140d;
+        --muted: #6f5a47;
+        --field: #f5ecdf;
+        --field-line: #e0d0b9;
+        --accent: #a84500;
+        --accent-ink: #ffffff;
+        --title: #93441a;
+        --ok: #1b7f37;
+        --bad: #c62828;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #170e08;
+          --card: #24180f;
+          --line: #3a2819;
+          --text: #fbf4e8;
+          --muted: #b9a690;
+          --field: #2f2015;
+          --field-line: #4e3624;
+          --accent: #ff8a00;
+          --accent-ink: #1f140d;
+          --title: #fbf4e8;
+          --ok: #4cc26a;
+          --bad: #ff6b6b;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          16px/1.5 system-ui,
+          -apple-system,
+          'Segoe UI',
+          Roboto,
+          'Noto Sans Arabic',
+          sans-serif;
+      }
+      html[lang='ar'] body {
+        font-size: 17px;
+        line-height: 1.65;
+      }
+      main {
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 16px 16px 40px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 8px 0 16px;
+      }
+      header img {
+        width: 52px;
+        height: 52px;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0;
+        color: var(--title);
+        flex: 1;
+      }
+      h2 {
+        font-size: 16px;
+        margin: 0 0 6px;
+        color: var(--title);
+      }
+      p {
+        margin: 0 0 10px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px 16px;
+        margin: 12px 0;
+      }
+      .muted,
+      .small {
+        color: var(--muted);
+      }
+      .small {
+        font-size: 14px;
+      }
+      .btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .btn {
+        background: var(--accent);
+        color: var(--accent-ink);
+        border: 0;
+        border-radius: 10px;
+        padding: 11px 16px;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+      }
+      .btn.ghost {
+        background: var(--field);
+        color: var(--text);
+        border: 1px solid var(--field-line);
+      }
+      .btn.small {
+        padding: 6px 10px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      #status {
+        font-weight: 600;
+      }
+      #status:empty,
+      #detail:empty {
+        display: none;
+      }
+      #status.ok {
+        color: var(--ok);
+      }
+      #status.bad {
+        color: var(--bad);
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 0;
+        border-top: 1px solid var(--line);
+      }
+      li:first-child {
+        border-top: 0;
+      }
+      li .addr {
+        flex: 1;
+        direction: ltr;
+        unicode-bidi: isolate;
+        text-align: start;
+        font-variant-numeric: tabular-nums;
+      }
+      form {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      input {
+        flex: 1;
+        min-width: 0;
+        font: inherit;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--field-line);
+        background: var(--field);
+        color: var(--text);
+        direction: ltr;
+      }
+      .hidden {
+        display: none;
+      }
+      #share-card {
+        border: 2px solid var(--accent);
+      }
+      #share-what {
+        direction: ltr;
+        unicode-bidi: isolate;
+        font-variant-numeric: tabular-nums;
+        word-break: break-all;
+      }
+      li.live .addr::after {
+        content: ' ●';
+        color: var(--ok);
+      }
+      #scanbox video {
+        width: 100%;
+        max-height: 60vh;
+        border-radius: 10px;
+        background: #000;
+        margin-top: 10px;
+      }
+      #lang {
+        background: none;
+        border: 1px solid var(--field-line);
+        color: var(--text);
+        border-radius: 8px;
+        padding: 6px 10px;
+        font: inherit;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <img src="icon-192.png" alt="" />
+        <h1 id="title"></h1>
+        <button id="lang" type="button"></button>
+      </header>
+      <p id="lead" class="muted"></p>
+
+      <!-- a video shared from another app (Android's Share menu) -->
+      <section class="card hidden" id="share-card">
+        <h2 id="share-title"></h2>
+        <p id="share-what" class="small"></p>
+      </section>
+
+      <section class="card">
+        <p id="status" role="status" aria-live="polite"></p>
+        <p id="detail" class="small"></p>
+        <div class="btns">
+          <button id="find" class="btn hidden" type="button"></button>
+          <button id="scan" class="btn ghost hidden" type="button"></button>
+        </div>
+        <div id="scanbox" class="hidden">
+          <video id="scanvideo" playsinline muted></video>
+          <div class="btns">
+            <button id="scan-stop" class="btn ghost" type="button"></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="known-card">
+        <h2 id="known-title"></h2>
+        <ul id="known"></ul>
+        <form id="manual">
+          <input
+            id="addr"
+            inputmode="url"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder="192.168.1.20"
+          />
+          <button class="btn ghost" type="submit" id="manual-btn"></button>
+        </form>
+        <p id="manual-hint" class="small" style="margin-top: 6px"></p>
+      </section>
+
+      <section class="card">
+        <h2 id="home-title"></h2>
+        <p id="home" class="small"></p>
+      </section>
+
+      <section class="card">
+        <h2 id="dhcp-title"></h2>
+        <p id="dhcp" class="small"></p>
+      </section>
+
+      <p id="privacy" class="small muted"></p>
+    </main>
+    <script src="share-link.js"></script>
+    <script>
+      /*
+       * Sofa Tube "Find my TV" page (F5): a fixed https address for the phone's
+       * home screen. The TV's phone page is plain http at http://<TV IP>:8686,
+       * and the IP can change. This page remembers the TV's addresses (only in
+       * this browser) and, where the browser allows it (Chrome's "local
+       * network access" permission), asks http://<address>/hello on the Wi-Fi
+       * to find the TV again, then opens its remote. Nothing is sent anywhere
+       * else: the TV's address arrives after # (never sent to the site).
+       *
+       * Share from YouTube (Android): installed, this page is in Android's
+       * Share menu (the manifest's share_target -> ./share, which sw.js or
+       * share.html turns into #share=1&title=&text=&url=). It finds the TV
+       * the same way and opens the TV's phone page with the video after #
+       * (#send=<id>&list=&t=, share-link.js); the phone page sends it.
+       */
+      (function () {
+        'use strict';
+        var T = {
+          en: {
+            title: 'Sofa Tube remote',
+            other: 'العربية',
+            lead: 'Opens the Sofa Tube remote on this phone, even after the TV’s address on your Wi-Fi changes.',
+            saved:
+              'Your TV is saved on this page. Now add this page to your home screen (below).',
+            searching: 'Looking for your TV…',
+            progress: 'Addresses checked: {n} of {m}',
+            found: 'Found your TV. Opening the remote…',
+            ask: 'Tap “Find my TV”. Chrome asks to look for devices on your Wi-Fi: allow it, so this page can find the TV.',
+            find: 'Find my TV',
+            again: 'Search again',
+            denied: 'This page may not look for devices on your Wi-Fi.',
+            deniedHow:
+              'To allow it: tap the icon next to the page address, then Permissions → Local network access. Or open a saved address below.',
+            noSearch: 'This browser can’t look for the TV on your Wi-Fi.',
+            noSearchHow:
+              'The remote opens at the TV’s last address. If that fails, scan the code on the TV again and use the “Find my TV page” link on the phone page.',
+            opening: 'Opening {a}…',
+            notFound: 'Your TV was not found.',
+            notFoundHow:
+              'Check that the TV is on with Sofa Tube open, and that this phone is on the same Wi-Fi. Then search again.',
+            first: 'This page doesn’t know your TV yet.',
+            firstHow:
+              'On the TV open Sofa Tube → Settings → Phone remote and scan the code. On the phone page tap “If the TV’s address changes”, then “Find my TV page”. Or type the TV’s address below.',
+            known: 'Your TVs',
+            open: 'Open',
+            forget: 'Remove',
+            manual: 'Add',
+            manualHint:
+              'The TV’s address is the line under the code on the TV’s “Phone remote” page, e.g. http://192.168.1.20:8686.',
+            badAddr: 'Not a home network address of a TV (like 192.168.1.20).',
+            homeTitle: 'One tap from your home screen',
+            home: 'Add this page to your home screen: Chrome menu ⋮ → “Add to home screen” → “Install”. Then Sofa Tube appears in YouTube’s Share menu too: Share → Sofa Tube sends the video to your TV (Android only). On iPhone: Share → “Add to Home Screen” (type your TV’s address once in the app; iPhone has no Share menu entry for it).',
+            shareTitle: 'Send to the TV',
+            shareVideo: 'YouTube video {v}',
+            shareList: 'YouTube playlist {l}',
+            shareAt: 'from {t}',
+            shareBad: 'This is not a link to a YouTube video.',
+            shareBadHow:
+              'Share a video from the YouTube app (Share → Sofa Tube), or open your TV’s remote below.',
+            shareFind: 'Find my TV and send',
+            sharePick:
+              'More than one TV answered. Tap Send next to the TV that should play the video.',
+            sharePickSaved: 'Which TV? Tap Send next to it.',
+            shareFound: 'Found your TV. Sending the video…',
+            shareFirst: 'This app doesn’t know your TV yet.',
+            shareFirstHow:
+              'On the TV open Sofa Tube → Settings → Phone remote, then tap “Scan the TV’s code” here. The video then goes to the TV, and next time this app finds the TV by itself.',
+            send: 'Send',
+            scan: 'Scan the TV’s code',
+            scanHow:
+              'Point the camera at the code on the TV’s “Phone remote” page.',
+            scanNo:
+              'This browser can’t scan a code here. Open the phone’s camera and scan the code on the TV: the phone page opens and remembers the TV. Then share the video again.',
+            scanBad:
+              'That is not the code of a Sofa Tube TV. Scan the code on the TV’s “Phone remote” page.',
+            scanStop: 'Cancel',
+            dhcpTitle: 'Stop the TV’s address from changing',
+            dhcp: 'In your router’s settings (often at 192.168.1.1 or 192.168.0.1) look for “DHCP reservation” (also “Address reservation” or “Static lease”) and reserve the TV’s current address. Then the TV keeps the same address, and a home-screen icon made on the phone page keeps working too.',
+            privacy:
+              'Private: your TV’s address is kept only in this browser, and the search stays on your Wi-Fi. Sofa Tube has no server.'
+          },
+          ar: {
+            title: 'جهاز التحكم صوفا تيوب',
+            other: 'English',
+            lead: 'يفتح جهاز التحكم صوفا تيوب على هذا الهاتف، حتى بعد تغيّر عنوان التلفاز في شبكة الواي فاي.',
+            saved:
+              'حُفظ التلفاز في هذه الصفحة. أضف الآن هذه الصفحة إلى الشاشة الرئيسية (أدناه).',
+            searching: 'جارٍ البحث عن التلفاز…',
+            progress: 'العناوين المفحوصة: {n} من {m}',
+            found: 'وُجد التلفاز. جارٍ فتح جهاز التحكم…',
+            ask: 'اضغط «ابحث عن التلفاز». سيطلب Chrome الإذن بالبحث عن الأجهزة في شبكة الواي فاي: اسمح بذلك لتتمكن هذه الصفحة من العثور على التلفاز.',
+            find: 'ابحث عن التلفاز',
+            again: 'ابحث مرة أخرى',
+            denied: 'لا يُسمح لهذه الصفحة بالبحث عن الأجهزة في شبكة الواي فاي.',
+            deniedHow:
+              'للسماح بذلك: اضغط الأيقونة بجانب عنوان الصفحة، ثم «الأذونات» ← «الوصول إلى الشبكة المحلية». أو افتح أحد العناوين المحفوظة أدناه.',
+            noSearch:
+              'لا يستطيع هذا المتصفح البحث عن التلفاز في شبكة الواي فاي.',
+            noSearchHow:
+              'يُفتح جهاز التحكم على آخر عنوان للتلفاز. وإذا لم يُفتح، فامسح رمز QR على التلفاز مرة أخرى واستخدم رابط «صفحة ابحث عن التلفاز» في صفحة الهاتف.',
+            opening: 'جارٍ فتح {a}…',
+            notFound: 'لم يُعثر على التلفاز.',
+            notFoundHow:
+              'تأكد من أن التلفاز يعمل وأن صوفا تيوب مفتوح عليه، ومن أن هذا الهاتف متصل بشبكة الواي فاي نفسها. ثم ابحث مرة أخرى.',
+            first: 'لا تعرف هذه الصفحة التلفاز بعد.',
+            firstHow:
+              'افتح على التلفاز صوفا تيوب ← الإعدادات ← جهاز التحكم من الهاتف، وامسح رمز QR. ثم اضغط في صفحة الهاتف «إذا تغيّر عنوان التلفاز» ثم «صفحة ابحث عن التلفاز». أو اكتب عنوان التلفاز أدناه.',
+            known: 'أجهزة التلفاز',
+            open: 'فتح',
+            forget: 'إزالة',
+            manual: 'إضافة',
+            manualHint:
+              'عنوان التلفاز هو السطر الظاهر تحت رمز QR في صفحة «جهاز التحكم من الهاتف» على التلفاز، مثل http://192.168.1.20:8686.',
+            badAddr: 'هذا ليس عنوان تلفاز في شبكة منزلية (مثل 192.168.1.20).',
+            homeTitle: 'بلمسة واحدة من الشاشة الرئيسية',
+            home: 'أضف هذه الصفحة إلى الشاشة الرئيسية: قائمة Chrome ⋮ ← «إضافة إلى الشاشة الرئيسية» ← «تثبيت». بعدها يظهر صوفا تيوب أيضًا في قائمة «مشاركة» في YouTube: «مشاركة» ← صوفا تيوب يرسل الفيديو إلى التلفاز (في أندرويد فقط). وفي iPhone: «مشاركة» ← «إضافة إلى الشاشة الرئيسية» (واكتب عنوان التلفاز مرة واحدة في التطبيق؛ ولا يظهر في قائمة «مشاركة» في iPhone).',
+            shareTitle: 'إرسال إلى التلفاز',
+            shareVideo: 'فيديو YouTube {v}',
+            shareList: 'قائمة تشغيل YouTube {l}',
+            shareAt: 'من {t}',
+            shareBad: 'هذا ليس رابط فيديو من YouTube.',
+            shareBadHow:
+              'شارك فيديو من تطبيق YouTube («مشاركة» ← صوفا تيوب)، أو افتح جهاز التحكم بالتلفاز أدناه.',
+            shareFind: 'ابحث عن التلفاز وأرسل',
+            sharePick:
+              'أجاب أكثر من تلفاز. اضغط «إرسال» بجانب التلفاز الذي سيعرض الفيديو.',
+            sharePickSaved: 'أي تلفاز؟ اضغط «إرسال» بجانبه.',
+            shareFound: 'وُجد التلفاز. جارٍ إرسال الفيديو…',
+            shareFirst: 'لا يعرف هذا التطبيق التلفاز بعد.',
+            shareFirstHow:
+              'افتح على التلفاز صوفا تيوب ← الإعدادات ← جهاز التحكم من الهاتف، ثم اضغط هنا «امسح رمز QR على التلفاز». فيذهب الفيديو إلى التلفاز، وفي المرة القادمة يجد هذا التطبيق التلفاز وحده.',
+            send: 'إرسال',
+            scan: 'امسح رمز QR على التلفاز',
+            scanHow:
+              'وجّه الكاميرا إلى رمز QR في صفحة «جهاز التحكم من الهاتف» على التلفاز.',
+            scanNo:
+              'لا يستطيع هذا المتصفح مسح الرمز هنا. افتح كاميرا الهاتف وامسح رمز QR على التلفاز: فتُفتح صفحة الهاتف وتتذكر التلفاز. ثم شارك الفيديو مرة أخرى.',
+            scanBad:
+              'هذا ليس رمز تلفاز عليه صوفا تيوب. امسح رمز QR في صفحة «جهاز التحكم من الهاتف» على التلفاز.',
+            scanStop: 'إلغاء',
+            dhcpTitle: 'منع تغيّر عنوان التلفاز',
+            dhcp: 'في إعدادات الراوتر (غالبًا على 192.168.1.1 أو 192.168.0.1) ابحث عن «حجز عنوان DHCP» (ويُسمى أيضًا «حجز العنوان» أو «Static lease») واحجز عنوان التلفاز الحالي. فيبقى للتلفاز العنوان نفسه، وتستمر أيضًا الأيقونة التي أُضيفت من صفحة الهاتف في العمل.',
+            privacy:
+              'خصوصية: يُحفظ عنوان التلفاز في هذا المتصفح فقط، ويجري البحث داخل شبكة الواي فاي. ولا يملك صوفا تيوب أي خادم.'
+          }
+        };
+
+        var KEY = 'sofatube-tvs'; // [{a: '192.168.1.20:8686', at: ms}]
+        var LANG_KEY = 'sofatube-lang';
+        var PORTS = [8686, 8687, 8688, 8689, 8690];
+        var TIMEOUT = 2000;
+        var PARALLEL = 32;
+        var lang = 'en';
+        var searching = false;
+        var welcome = false; // just sent here by the phone page: stay here
+        var gen = 0;
+        // a video shared from another app: share = true; link = what to
+        // send (null: not a YouTube link); sendHash = "send=..." for the TV
+        var share = false;
+        var link = null;
+        var sendHash = '';
+        var hits = []; // share: the saved addresses that answered
+
+        function $(id) {
+          return document.getElementById(id);
+        }
+        function tr(k, v) {
+          var s = T[lang][k];
+          for (var n in v || {}) s = s.replace('{' + n + '}', v[n]);
+          return s;
+        }
+        // the address keeps its order inside Arabic text
+        function iso(a) {
+          return '⁨' + a + '⁩';
+        }
+
+        /* ---------- addresses ---------- */
+        function privateIp(ip) {
+          var p = ip.split('.').map(Number);
+          if (p.length !== 4) return false;
+          for (var i = 0; i < 4; i++)
+            if (
+              !(p[i] >= 0 && p[i] <= 255) ||
+              String(p[i]) !== ip.split('.')[i]
+            )
+              return false;
+          return (
+            p[0] === 10 ||
+            (p[0] === 172 && p[1] >= 16 && p[1] <= 31) ||
+            (p[0] === 192 && p[1] === 168)
+          );
+        }
+        /** "192.168.1.20", "192.168.1.20:8687" or the TV's whole link → "ip:port" */
+        function parseAddr(text) {
+          var m = String(text || '')
+            .trim()
+            .replace(/^https?:\/\//i, '')
+            .match(/^([0-9.]+)(?::(\d+))?(?:[/?#].*)?$/);
+          if (!m || !privateIp(m[1])) return null;
+          var port = m[2] ? Number(m[2]) : 8686;
+          if (PORTS.indexOf(port) < 0) return null;
+          return m[1] + ':' + port;
+        }
+        function load() {
+          try {
+            var list = JSON.parse(localStorage.getItem(KEY) || '[]');
+            return Array.isArray(list)
+              ? list.filter(function (x) {
+                  return x && parseAddr(x.a) === x.a;
+                })
+              : [];
+          } catch (e) {
+            return [];
+          }
+        }
+        function save(list) {
+          try {
+            localStorage.setItem(KEY, JSON.stringify(list.slice(0, 6)));
+          } catch (e) {}
+        }
+        function remember(a) {
+          var list = load().filter(function (x) {
+            return x.a !== a;
+          });
+          list.unshift({ a: a, at: Date.now() });
+          save(list);
+          // the newest address also stays in this page's own address (after
+          // #), so a home-screen icon made now carries it (iPhone keeps the
+          // icon's storage apart from Safari's)
+          try {
+            history.replaceState(null, '', '#tv=' + encodeURIComponent(a));
+          } catch (e) {}
+        }
+        function forget(a) {
+          save(
+            load().filter(function (x) {
+              return x.a !== a;
+            })
+          );
+          draw();
+        }
+        // the TV's phone page (http; it moves on to its https page and
+        // keeps what is after #): with a shared video, #send=...
+        function remoteUrl(a) {
+          return 'http://' + a + '/?app=1' + (sendHash ? '#' + sendHash : '');
+        }
+        function go(a) {
+          remember(a);
+          setStatus(tr('opening', { a: iso(a) }), 'ok');
+          location.assign(remoteUrl(a));
+        }
+
+        /* ---------- looking on the Wi-Fi ---------- */
+        // Chrome's "local network access" permission (Chrome 142+; named
+        // "local-network" since 145). 'unsupported': no way to look.
+        function permission() {
+          if (!navigator.permissions || !navigator.permissions.query)
+            return Promise.resolve('unsupported');
+          var names = ['local-network', 'local-network-access'];
+          function next(i) {
+            if (i >= names.length) return Promise.resolve('unsupported');
+            return navigator.permissions.query({ name: names[i] }).then(
+              function (s) {
+                return s.state;
+              },
+              function () {
+                return next(i + 1);
+              }
+            );
+          }
+          return next(0);
+        }
+
+        /** Does Sofa Tube answer at "ip:port"? */
+        function probe(a) {
+          var ctl = window.AbortController ? new AbortController() : null;
+          var timer = setTimeout(function () {
+            if (ctl) ctl.abort();
+          }, TIMEOUT);
+          return fetch('http://' + a + '/hello', {
+            mode: 'cors',
+            credentials: 'omit',
+            cache: 'no-store',
+            targetAddressSpace: 'local',
+            signal: ctl ? ctl.signal : undefined
+          })
+            .then(function (r) {
+              return r.ok ? r.json() : null;
+            })
+            .then(
+              function (j) {
+                clearTimeout(timer);
+                return !!(j && j.app === 'sofatube');
+              },
+              function () {
+                clearTimeout(timer);
+                return false;
+              }
+            );
+        }
+
+        /** Tries the addresses, PARALLEL at a time; the first that answers. */
+        function sweep(addrs, my, done) {
+          var i = 0;
+          var running = 0;
+          var checked = 0;
+          var hit = null;
+          function pump() {
+            if (my !== gen) return;
+            if (hit) return;
+            if (i >= addrs.length && !running) return done(null);
+            while (running < PARALLEL && i < addrs.length) {
+              (function (a) {
+                running++;
+                probe(a).then(function (ok) {
+                  running--;
+                  checked++;
+                  if (my !== gen || hit) return;
+                  if (addrs.length > 10)
+                    $('detail').textContent = tr('progress', {
+                      n: checked,
+                      m: addrs.length
+                    });
+                  if (ok) {
+                    hit = a;
+                    return done(a);
+                  }
+                  pump();
+                });
+              })(addrs[i++]);
+            }
+          }
+          pump();
+        }
+
+        /** All the addresses that answer (share: more than one TV saved). */
+        function sweepAll(addrs, my, done) {
+          var left = addrs.length;
+          var ok = [];
+          if (!left) return done(ok);
+          addrs.forEach(function (a) {
+            probe(a).then(function (yes) {
+              if (my !== gen) return;
+              if (yes) ok.push(a);
+              if (--left === 0) done(ok);
+            });
+          });
+        }
+
+        function candidates(list) {
+          // 1. the saved addresses (each on all five ports: the TV takes the
+          //    next one when 8686 is busy)
+          var first = [];
+          list.forEach(function (x) {
+            var ip = x.a.split(':')[0];
+            var port = Number(x.a.split(':')[1]);
+            [port]
+              .concat(
+                PORTS.filter(function (p) {
+                  return p !== port;
+                })
+              )
+              .forEach(function (p) {
+                var a = ip + ':' + p;
+                if (first.indexOf(a) < 0) first.push(a);
+              });
+          });
+          // 2. the rest of each saved network (x.y.z.1-254), on its port
+          var rest = [];
+          list.forEach(function (x) {
+            var ip = x.a.split(':')[0];
+            var port = x.a.split(':')[1];
+            var net = ip.split('.').slice(0, 3).join('.');
+            for (var h = 1; h < 255; h++) {
+              var a = net + '.' + h + ':' + port;
+              if (first.indexOf(a) < 0 && rest.indexOf(a) < 0) rest.push(a);
+            }
+          });
+          return [first, rest];
+        }
+
+        function search() {
+          var list = load();
+          if (!list.length) return draw();
+          var my = ++gen;
+          searching = true;
+          setStatus(tr('searching'), '');
+          $('detail').textContent = '';
+          showFind(false);
+          var c = candidates(list);
+          (share ? sweepAll : sweep)(c[0], my, function (a) {
+            if (my !== gen) return;
+            if (share) {
+              // one entry per TV (a TV answers on one port only)
+              var ips = [];
+              hits = a.filter(function (x) {
+                var ip = x.split(':')[0];
+                if (ips.indexOf(ip) >= 0) return false;
+                ips.push(ip);
+                return true;
+              });
+              if (hits.length === 1) return found(hits[0]);
+              if (hits.length > 1) {
+                searching = false;
+                // the answering addresses go first in the list
+                hits.forEach(function (h) {
+                  var known = load().filter(function (x) {
+                    return x.a === h;
+                  });
+                  if (!known.length)
+                    save([{ a: h, at: Date.now() }].concat(load()));
+                });
+                setStatus(tr('sharePick'), '');
+                $('detail').textContent = '';
+                drawKnown();
+                return;
+              }
+              a = null;
+            }
+            if (a) return found(a);
+            sweep(c[1], my, function (b) {
+              if (my !== gen) return;
+              searching = false;
+              if (b) return found(b);
+              setStatus(tr('notFound'), 'bad');
+              $('detail').textContent = tr('notFoundHow');
+              showFind(true, tr('again'));
+              showScan(true);
+            });
+          });
+        }
+        function found(a) {
+          searching = false;
+          setStatus(tr(sendHash ? 'shareFound' : 'found'), 'ok');
+          $('detail').textContent = '';
+          go(a);
+        }
+
+        /* ---------- screen ---------- */
+        function setStatus(text, cls) {
+          $('status').textContent = text;
+          $('status').className = cls || '';
+        }
+        function showFind(on, label) {
+          $('find').classList.toggle('hidden', !on);
+          if (label) $('find').textContent = label;
+        }
+        function showScan(on) {
+          $('scan').classList.toggle('hidden', !on);
+        }
+
+        /* ---------- scanning the TV's code (its phone link QR) ---------- */
+        // Chrome on Android reads QR codes itself (BarcodeDetector). The
+        // code holds the TV's phone page: http(s)://<TV IP>:<port>/?t=<token>
+        // (https on 8696-8700; its http page is on that port - 10).
+        var scanStream = null;
+        var scanTimer = null;
+        function tvFromCode(text) {
+          var m = /^(https?):\/\/([0-9.]+):(\d+)\/(\?[^#\s]*)?$/i.exec(
+            String(text || '').trim()
+          );
+          if (!m || !privateIp(m[2])) return null;
+          var secure = m[1].toLowerCase() === 'https';
+          var a = parseAddr(m[2] + ':' + (Number(m[3]) - (secure ? 10 : 0)));
+          if (!a) return null;
+          return {
+            a: a,
+            url: (secure ? 'https' : 'http') + m[0].slice(m[1].length)
+          };
+        }
+        function scanEnd() {
+          clearTimeout(scanTimer);
+          if (scanStream)
+            scanStream.getTracks().forEach(function (t) {
+              t.stop();
+            });
+          scanStream = null;
+          $('scanbox').classList.add('hidden');
+        }
+        function scan() {
+          gen++; // a search on its way stops
+          searching = false;
+          showFind(false);
+          $('detail').textContent = '';
+          var md = navigator.mediaDevices;
+          var reader = null;
+          try {
+            if (window.BarcodeDetector && md && md.getUserMedia)
+              reader = new window.BarcodeDetector({ formats: ['qr_code'] });
+          } catch (e) {
+            reader = null;
+          }
+          if (!reader) return setStatus(tr('scanNo'), '');
+          setStatus(tr('scanHow'), '');
+          md.getUserMedia({
+            video: { facingMode: 'environment' },
+            audio: false
+          }).then(
+            function (stream) {
+              scanStream = stream;
+              var v = $('scanvideo');
+              v.srcObject = stream;
+              $('scanbox').classList.remove('hidden');
+              var playing = v.play();
+              if (playing && playing.catch) playing.catch(function () {});
+              function look() {
+                if (!scanStream) return;
+                reader.detect(v).then(
+                  function (codes) {
+                    if (!scanStream) return;
+                    for (var i = 0; i < codes.length; i++) {
+                      var tv = tvFromCode(codes[i].rawValue);
+                      if (tv) {
+                        scanEnd();
+                        remember(tv.a);
+                        setStatus(tr('opening', { a: iso(tv.a) }), 'ok');
+                        location.assign(
+                          tv.url + (sendHash ? '#' + sendHash : '')
+                        );
+                        return;
+                      }
+                    }
+                    if (codes.length) setStatus(tr('scanBad'), 'bad');
+                    scanTimer = setTimeout(look, 250);
+                  },
+                  function () {
+                    scanTimer = setTimeout(look, 500);
+                  }
+                );
+              }
+              look();
+            },
+            function () {
+              setStatus(tr('scanNo'), 'bad');
+            }
+          );
+        }
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) scanEnd();
+        });
+
+        function drawKnown() {
+          var ul = $('known');
+          ul.textContent = '';
+          load().forEach(function (x) {
+            var li = document.createElement('li');
+            if (hits.indexOf(x.a) >= 0) li.className = 'live';
+            var s = document.createElement('span');
+            s.className = 'addr';
+            s.textContent = x.a;
+            var open = document.createElement('a');
+            open.className = 'btn small';
+            open.href = remoteUrl(x.a);
+            open.textContent = tr(sendHash ? 'send' : 'open');
+            open.addEventListener('click', function () {
+              remember(x.a);
+            });
+            var del = document.createElement('button');
+            del.type = 'button';
+            del.className = 'btn ghost small';
+            del.textContent = tr('forget');
+            del.addEventListener('click', function () {
+              forget(x.a);
+            });
+            li.appendChild(s);
+            li.appendChild(open);
+            li.appendChild(del);
+            ul.appendChild(li);
+          });
+        }
+
+        function texts() {
+          document.documentElement.lang = lang;
+          document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+          document.title = tr('title');
+          $('manifest').setAttribute(
+            'href',
+            lang === 'ar' ? 'manifest-ar.webmanifest' : 'manifest.webmanifest'
+          );
+          $('title').textContent = tr('title');
+          $('lang').textContent = tr('other');
+          $('lead').textContent = tr('lead');
+          $('known-title').textContent = tr('known');
+          $('manual-btn').textContent = tr('manual');
+          $('manual-hint').textContent = tr('manualHint');
+          $('home-title').textContent = tr('homeTitle');
+          $('home').textContent = tr('home');
+          $('dhcp-title').textContent = tr('dhcpTitle');
+          $('dhcp').textContent = tr('dhcp');
+          $('privacy').textContent = tr('privacy');
+          $('scan').textContent = tr('scan');
+          $('scan-stop').textContent = tr('scanStop');
+          $('share-card').classList.toggle('hidden', !share);
+          if (share) {
+            $('share-title').textContent = tr('shareTitle');
+            $('share-what').textContent = !link
+              ? ''
+              : (link.v
+                  ? tr('shareVideo', { v: link.v })
+                  : tr('shareList', { l: link.list })) +
+                (link.t > 0 ? ' · ' + tr('shareAt', { t: clock(link.t) }) : '');
+            $('share-what').classList.toggle('hidden', !link);
+          }
+        }
+        function clock(t) {
+          var h = Math.floor(t / 3600);
+          var m = Math.floor(t / 60) % 60;
+          var x = t % 60;
+          return (
+            (h ? h + ':' + (m < 10 ? '0' : '') : '') +
+            m +
+            ':' +
+            (x < 10 ? '0' : '') +
+            x
+          );
+        }
+
+        // what to do now: look, ask first, or open the last address
+        function draw() {
+          texts();
+          drawKnown();
+          if (searching || scanStream) return;
+          var list = load();
+          showScan(!list.length);
+          if (share && !link) {
+            setStatus(tr('shareBad'), 'bad');
+            $('detail').textContent = tr('shareBadHow');
+            showFind(false);
+            return;
+          }
+          if (!list.length) {
+            setStatus(tr(share ? 'shareFirst' : 'first'), '');
+            $('detail').textContent = tr(share ? 'shareFirstHow' : 'firstHow');
+            showFind(false);
+            return;
+          }
+          if (welcome) {
+            setStatus(tr('saved'), 'ok');
+            $('detail').textContent = '';
+            showFind(true, tr('find'));
+            return;
+          }
+          permission().then(function (state) {
+            if (searching) return;
+            if (state === 'granted') return search();
+            if (state === 'prompt') {
+              setStatus('', '');
+              $('detail').textContent = tr('ask');
+              showFind(true, tr(share ? 'shareFind' : 'find'));
+              return;
+            }
+            if (state === 'denied') {
+              setStatus(tr('denied'), 'bad');
+              $('detail').textContent = tr('deniedHow');
+              showFind(true, tr('again'));
+              return;
+            }
+            // no permission to ask for (Safari, Firefox, older Chrome): one
+            // quick try in case the browser allows it, else the last address
+            // (a shared video with more than one TV saved: the phone picks)
+            if (share && list.length > 1) {
+              setStatus(tr('sharePickSaved'), '');
+              $('detail').textContent = '';
+              return;
+            }
+            var my = ++gen;
+            probe(list[0].a).then(function (ok) {
+              if (my !== gen) return;
+              if (ok) return found(list[0].a);
+              setStatus(tr('noSearch'), '');
+              $('detail').textContent = tr('noSearchHow');
+              setTimeout(function () {
+                if (my === gen) go(list[0].a);
+              }, 1500);
+            });
+          });
+        }
+
+        /* ---------- start ---------- */
+        var hash = {};
+        location.hash
+          .slice(1)
+          .split('&')
+          .forEach(function (kv) {
+            var i = kv.indexOf('=');
+            if (i > 0)
+              try {
+                hash[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1));
+              } catch (e) {}
+          });
+        try {
+          lang = localStorage.getItem(LANG_KEY) || '';
+        } catch (e) {}
+        if (hash.lang === 'ar' || hash.lang === 'en') {
+          // the phone page's language (the TV's), kept for the next visits
+          lang = hash.lang;
+          try {
+            localStorage.setItem(LANG_KEY, lang);
+          } catch (e) {}
+        }
+        if (lang !== 'ar' && lang !== 'en')
+          lang = /^ar\b/i.test(navigator.language || '') ? 'ar' : 'en';
+        if (hash.share) {
+          // Android's Share menu (sw.js / share.html put it after #)
+          share = true;
+          link = window.sofaShareLink
+            ? window.sofaShareLink({
+                // (a form's address: + is a space)
+                title: String(hash.title || '').replace(/\+/g, ' '),
+                text: String(hash.text || '').replace(/\+/g, ' '),
+                url: String(hash.url || '').replace(/\+/g, ' ')
+              })
+            : null;
+          sendHash = link ? window.sofaSendHash(link) : '';
+          // the shared link stays out of this page's address (and out of a
+          // home-screen icon made from it)
+          try {
+            var last = load()[0];
+            history.replaceState(
+              null,
+              '',
+              location.pathname +
+                (last ? '#tv=' + encodeURIComponent(last.a) : '')
+            );
+          } catch (e) {}
+          hash = {};
+        }
+        var fromTv = parseAddr(hash.tv);
+        if (fromTv) remember(fromTv);
+        // the phone page's link carries the language too; a home-screen
+        // icon only the address
+        welcome = !!(fromTv && hash.lang);
+
+        $('lang').addEventListener('click', function () {
+          lang = lang === 'ar' ? 'en' : 'ar';
+          try {
+            localStorage.setItem(LANG_KEY, lang);
+          } catch (e) {}
+          texts();
+          drawKnown();
+          if (!searching) draw();
+        });
+        $('find').addEventListener('click', function () {
+          welcome = false;
+          search();
+        });
+        $('scan').addEventListener('click', scan);
+        $('scan-stop').addEventListener('click', function () {
+          scanEnd();
+          draw();
+        });
+        $('manual').addEventListener('submit', function (e) {
+          e.preventDefault();
+          var a = parseAddr($('addr').value);
+          if (!a) {
+            $('manual-hint').textContent = tr('badAddr');
+            return;
+          }
+          $('addr').value = '';
+          $('manual-hint').textContent = tr('manualHint');
+          remember(a);
+          gen++;
+          searching = false;
+          draw();
+        });
+
+        if ('serviceWorker' in navigator)
+          navigator.serviceWorker.register('sw.js').catch(function () {});
+        draw();
+      })();
+    </script>
+  </body>
+</html>

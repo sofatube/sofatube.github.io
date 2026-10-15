@@ -12,7 +12,7 @@ REPO = 'https://github.com/sofatube/sofatube.github.io'
 ISSUES = REPO + '/issues'
 RELEASES = REPO + '/releases/latest'
 MAIL = 'sofatube.app@proton.me'
-VER = '0.9.2'
+VER = '0.9.3'
 
 PAGES = [('', 'Home', 'الرئيسية'), ('install/', 'Install', 'التثبيت'), ('videos/', 'Videos', 'الفيديوهات'),
          ('testers/', 'Testers', 'للمجرّبين'), ('faq/', 'FAQ', 'الأسئلة الشائعة')]
@@ -299,7 +299,7 @@ def install(lang):
 
 <section class="tv-section" id="android">
 <h2>أندرويد تي في · جوجل تي في · فاير تي في</h2>
-<div class="note"><p><b>الحالة:</b> جُرِّب على محاكي Google TV فقط. لم يُشغَّل هذا الملف على أي جهاز حقيقي بعد، ولم يُجرَّب على Fire TV. إذا لم يُثبَّت أو لم يُفتح أصلًا فهذه نتيجة مهمة: <a href="/ar/testers/#report">أخبرنا بها</a>.</p></div>
+<div class="note"><p><b>الحالة:</b> جُرِّب على محاكي Google TV، وجُرِّبت نسخ تجريبية منه على تلفاز أندرويد حقيقي واحد (TCL). لم يُجرَّب على Fire TV. إذا لم يُثبَّت أو لم يُفتح أصلًا فهذه نتيجة مهمة: <a href="/ar/testers/#report">أخبرنا بها</a>.</p></div>
 <h3>ما تحتاج إليه</h3>
 <ul>
 <li>جهاز Android TV أو Google TV أو Fire TV (تلفاز أو عصا أو صندوق) متصل بالإنترنت. دون حاسوب.</li>
@@ -322,7 +322,7 @@ def install(lang):
 <h3>معلومات مفيدة</h3>
 <ul>
 <li>قد يُعاد تحميل YouTube مرة عند أول تشغيل، وهذا طبيعي. أغلب أجهزة التحكم في أندرويد ليس فيها أزرار ملونة: استخدم <b>★ صوفا تيوب</b> في القائمة الجانبية لـYouTube أو زر ★ بين أزرار التحكم.</li>
-<li>لا يحتاج الإعداد من الهاتف إلى تطبيق إضافي هنا: الإعدادات ← حول التطبيق والنسخ الاحتياطي ← الإعدادات من الهاتف.</li>
+<li>لا يحتاج الإعداد من الهاتف إلى تطبيق إضافي هنا: الإعدادات ← جهاز التحكم من الهاتف (أول صفحة).</li>
 <li>للتحديث: ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات.</li>
 </ul>
 </section>
@@ -386,7 +386,7 @@ def install(lang):
 
 <section class="tv-section" id="android">
 <h2>Android TV · Google TV · Fire TV</h2>
-<div class="note"><p><b>Status:</b> tried on a Google TV emulator only. This file has not run on any real device yet, and Fire TV is untested. If it does not install or open at all, that is an important result: <a href="/testers/#report">tell us</a>.</p></div>
+<div class="note"><p><b>Status:</b> tried on a Google TV emulator, and test builds of it on one real Android TV (TCL). Fire TV is untested. If it does not install or open at all, that is an important result: <a href="/testers/#report">tell us</a>.</p></div>
 <h3>You need</h3>
 <ul>
 <li>An Android TV, Google TV or Fire TV device (TV, stick or box) with internet. No computer.</li>
@@ -409,7 +409,7 @@ def install(lang):
 <h3>Good to know</h3>
 <ul>
 <li>The first start may reload YouTube once; that is normal. Most Android remotes have <b>no colour buttons</b>: use <b>★ Sofa Tube</b> in YouTube's sidebar or the ★ button in the player bar.</li>
-<li>Phone settings need no extra app here: Settings → Backup and about → Settings on your phone.</li>
+<li>Phone settings need no extra app here: Settings → Phone remote (the first page).</li>
 <li>Updates: install the new .apk over this one the same way; settings stay.</li>
 </ul>
 </section>
@@ -566,8 +566,8 @@ CHECK = [
     (15, False, 'Kid mode and allowed hours.', 'Kids page: turn on Kid mode, set Allowed hours so that now is outside them: a lock screen appears. Extra time with the PIN works?',
      'وضع الأطفال والساعات المسموح بها.', 'صفحة الأطفال: فعّل وضع الأطفال، واضبط الساعات المسموح بها بحيث يكون الوقت الحالي خارجها: تظهر شاشة قفل. هل يعمل الوقت الإضافي بالرمز السري؟', '', ''),
     ('Phone, buttons, language', 'الهاتف والأزرار واللغة'),
-    (16, True, 'Settings from your phone.', 'LG: open the Sofa Tube Phone app. Samsung / Android: Settings → Backup and about → Settings on your phone. Scan the QR code with a real phone on the same Wi-Fi, change a setting: does the TV follow at once?',
-     'الإعدادات من الهاتف.', 'في LG: افتح تطبيق <bdi>Sofa Tube Phone</bdi>. في سامسونج وأندرويد: الإعدادات ← حول التطبيق والنسخ الاحتياطي ← الإعدادات من الهاتف. امسح رمز QR بهاتف حقيقي على شبكة الواي فاي نفسها، وغيّر إعدادًا: هل يتغيّر على التلفاز فورًا؟', 'Samsung: most important', 'سامسونج: الأهم'),
+    (16, True, 'Settings from your phone.', 'LG: open the Sofa Tube Phone app. Samsung / Android: Settings → Phone remote (the first page). Scan the QR code with a real phone on the same Wi-Fi, change a setting: does the TV follow at once?',
+     'الإعدادات من الهاتف.', 'في LG: افتح تطبيق <bdi>Sofa Tube Phone</bdi>. في سامسونج وأندرويد: الإعدادات ← جهاز التحكم من الهاتف (أول صفحة). امسح رمز QR بهاتف حقيقي على شبكة الواي فاي نفسها، وغيّر إعدادًا: هل يتغيّر على التلفاز فورًا؟', 'Samsung: most important', 'سامسونج: الأهم'),
     (17, False, 'Learned buttons.', 'Remote buttons → Learned buttons → Learn a button, press a button you never use (e.g. a media key), pick an action, then try it while watching. Which buttons were refused?',
      'الأزرار المخصّصة.', 'أزرار جهاز التحكم ← أزرار مخصّصة ← تخصيص زر، واضغط زرًّا لا تستخدمه (مثل أحد أزرار الوسائط)، واختر إجراءً، ثم جرّبه أثناء المشاهدة. ما الأزرار التي رُفضت؟', '', ''),
     (18, False, 'Arabic.', 'Backup and about → Language → العربية. Text right-to-left, letters joined, nothing cut off, font easy to read from the sofa?',
@@ -607,8 +607,8 @@ STATUS = [
      'LG ‏(webOS)', 'محاكي LG ‏(webOS 4)؛ والإصدارات السابقة على تلفاز LG حقيقي.'),
     ('Samsung (TizenBrew, npm <code>sofatube</code>)', 'Samsung emulator only. <b>Never tried on a real Samsung TV.</b>',
      'سامسونج (TizenBrew، وحدة <code dir="ltr">sofatube</code>)', 'محاكي سامسونج فقط. <b>لم يُجرَّب على تلفاز سامسونج حقيقي.</b>'),
-    ('Android TV / Google TV', 'Google TV emulator (x86 build) only. <b>This ARM .apk has not run on a real device yet.</b>',
-     '<bdi>Android TV</bdi> و<bdi>Google TV</bdi>', 'محاكي Google TV فقط. <b>ملف ARM هذا لم يعمل على جهاز حقيقي بعد.</b>'),
+    ('Android TV / Google TV', 'Google TV emulator, and test builds of 0.9.3 on one real Android TV (TCL). <b>Other brands untested.</b>',
+     '<bdi>Android TV</bdi> و<bdi>Google TV</bdi>', 'محاكي Google TV، ونسخ تجريبية من <bdi>0.9.3</bdi> على تلفاز أندرويد حقيقي واحد (TCL). <b>لم يُجرَّب على الشركات الأخرى.</b>'),
     ('Fire TV', '<b>Untested.</b>', 'Fire TV', '<b>لم يُجرَّب.</b>'),
     ('Install with webOS Dev Manager on a phone', '<b>Not tried by us yet.</b>',
      'التثبيت بـwebOS Dev Manager من الهاتف', '<b>لم نجرّبه بعد.</b>'),

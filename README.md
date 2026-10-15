@@ -9,7 +9,7 @@
 </p>
 
 > [!IMPORTANT]
-> **0.9.2 is a test version.** Parts of it have only run on TV _emulators_ so far. See [What has been tested](#what-has-been-tested).
+> **0.9.3 is a test version.** Parts of it have only run on TV _emulators_ so far. See [What has been tested](#what-has-been-tested).
 
 **[English](#english) · [العربية](#العربية)**
 
@@ -69,11 +69,11 @@ Already have TizenBrew (for example from TizenTube)? Do step 4 only. The newest 
 
 ### What has been tested
 
-| TV                                | Status for 0.9.2                                                                                       |
+| TV                                | Status for 0.9.3                                                                                       |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | LG webOS                          | LG emulator (webOS 4); earlier versions on a real LG TV.                                               |
 | Samsung (TizenBrew, npm `sofatube`) | Samsung emulator only. **Never tried on a real Samsung TV.**                                           |
-| Android TV / Google TV            | Google TV emulator (x86 build) only. **This ARM `.apk` has not run on a real device yet.**              |
+| Android TV / Google TV            | Google TV emulator, and test builds of 0.9.3 on one real Android TV (TCL). **Other brands untested.** |
 | Fire TV                           | **Untested.**                                                                                          |
 | Install with webOS Dev Manager on a phone | **Not tried by us yet.**                                                                        |
 
@@ -137,11 +137,11 @@ Please report what works and what does not: [open an issue](https://github.com/s
 
 ### ما الذي جُرِّب
 
-| التلفاز | الحالة في <bdi>0.9.2</bdi> |
+| التلفاز | الحالة في <bdi>0.9.3</bdi> |
 | --- | --- |
 | LG ‏(webOS) | محاكي LG ‏(webOS 4)؛ والإصدارات السابقة على تلفاز LG حقيقي. |
 | سامسونج (TizenBrew، وحدة <code dir="ltr">sofatube</code>) | محاكي سامسونج فقط. **لم يُجرَّب على تلفاز سامسونج حقيقي.** |
-| Android TV وGoogle TV | محاكي Google TV فقط. **ملف ARM هذا لم يعمل على جهاز حقيقي بعد.** |
+| Android TV وGoogle TV | محاكي Google TV، ونسخ تجريبية من <bdi>0.9.3</bdi> على تلفاز أندرويد حقيقي واحد (TCL). **لم يُجرَّب على الشركات الأخرى.** |
 | Fire TV | **لم يُجرَّب.** |
 | التثبيت بـwebOS Dev Manager من الهاتف | **لم نجرّبه بعد.** |
 
