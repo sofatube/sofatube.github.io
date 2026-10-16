@@ -136,9 +136,9 @@ def download_cards(lang):
 <div class="row"><a class="btn" href="/lg/">التطبيق الرئيسي (ipk)</a> <a class="btn ghost" href="/lg-phone/">تطبيق <bdi>Sofa Tube Phone</bdi> (اختياري)</a></div>
 <p class="meta"><a href="{i}#lg">خطوات التثبيت</a></p></div>
 <div class="card"><h3>تلفاز سامسونج ‏(Tizen)</h3>
-<p>لا ملف. ثبّت <b>TizenBrew</b> ثم أضف وحدة NPM باسم:</p>
-<p class="link">sofatube</p>
-<div class="row"><a class="btn" href="{i}#samsung">خطوات التثبيت</a></div>
+<p>نزّل الملف على هاتف أندرويد (أو حاسوب) وثبّته بـ<bdi>Apps2Samsung</bdi>:</p>
+<p class="link">sofatube.github.io/samsung</p>
+<div class="row"><a class="btn" href="/samsung/">تنزيل ملف wgt</a> <a class="btn ghost" href="{i}#samsung">خطوات التثبيت</a></div>
 <p class="meta">تلفاز سامسونج من سنة 2018 أو أحدث</p></div>
 </div>
 <p><a href="{RELEASES}">كل الملفات</a> (صفحة الإصدار، ومنها ملف المصدر <bdi>source.zip</bdi>)</p>'''
@@ -155,9 +155,9 @@ def download_cards(lang):
 <div class="row"><a class="btn" href="/lg/">Main app (.ipk)</a> <a class="btn ghost" href="/lg-phone/">Sofa Tube Phone (optional)</a></div>
 <p class="meta"><a href="{i}#lg">Install steps</a></p></div>
 <div class="card"><h3>Samsung TV (Tizen)</h3>
-<p>No file. Install <b>TizenBrew</b>, then add the NPM module:</p>
-<p class="link">sofatube</p>
-<div class="row"><a class="btn" href="{i}#samsung">Install steps</a></div>
+<p>Download on an Android phone (or a computer), install with <b>Apps2Samsung</b>:</p>
+<p class="link">sofatube.github.io/samsung</p>
+<div class="row"><a class="btn" href="/samsung/">Download .wgt</a> <a class="btn ghost" href="{i}#samsung">Install steps</a></div>
 <p class="meta">Samsung TVs from 2018 or newer</p></div>
 </div>
 <p><a href="{RELEASES}">All files</a> (release page, including the GPL source zip)</p>'''
@@ -355,29 +355,53 @@ def install(lang):
 
 <section class="tv-section" id="samsung">
 <h2>تلفاز سامسونج ‏(Tizen)</h2>
-<div class="note"><p><b>الحالة:</b> نُشرت وحدة npm باسم <code dir="ltr">sofatube</code>، لكنها لم تُجرَّب على تلفاز سامسونج حقيقي بعد، فأنت من أوائل المجرّبين.</p></div>
+<div class="note"><p><b>الحالة:</b> صوفا تيوب تطبيق مستقل على التلفاز (أيقونة في «التطبيقات»). جُرِّب تثبيته على محاكي تلفاز سامسونج، ولم يُجرَّب على تلفاز سامسونج حقيقي بعد، فأنت من أوائل المجرّبين: <a href="/ar/testers/#report">أخبرنا كيف جرى</a>.</p></div>
 <h3>ما تحتاج إليه</h3>
 <ul>
-<li>تلفاز سامسونج من سنة 2018 أو أحدث (Tizen 4.0 أو أحدث).</li>
-<li>حاسوب (ويندوز أو ماك أو لينكس) على شبكة الواي فاي نفسها التي يتصل بها التلفاز، <b>مرة واحدة</b> لتثبيت TizenBrew. وبعدها يجري كل شيء على التلفاز.</li>
-<li>أجهزة 2023 أو أحدث (Tizen 7 فما فوق): حساب سامسونج مجاني (يطلب المثبّت تسجيل الدخول).</li>
+<li>تلفاز سامسونج من سنة 2018 أو أحدث (Tizen 4.0 أو أحدث)، و<b>هاتف أندرويد</b> على شبكة الواي فاي نفسها. ليس لديك هاتف أندرويد (آيفون)؟ استخدم حاسوبًا بويندوز أو ماك (أدناه).</li>
+<li>إذا طلب المثبّت تسجيل الدخول إلى سامسونج (أجهزة Tizen 7 فما فوق، وأغلبها من 2023)، فحساب سامسونج مجاني. مرة واحدة.</li>
 </ul>
-<p>لديك TizenBrew مسبقًا (من TizenTube مثلًا)؟ لا حاجة إلى حاسوب: انتقل إلى الخطوة 5.</p>
-<h3>الخطوات</h3>
+<h3>بهاتف أندرويد (دون حاسوب): 6 خطوات</h3>
 <ol class="steps">
-<li>على التلفاز: افتح <b>Apps</b> (التطبيقات)، واكتب <bdi>1 2 3 4 5</bdi> بجهاز التحكم، ثم اجعل <b>Developer mode</b> على <b>On</b>، وأدخل عنوان IP لحاسوبك في <b>Host PC IP</b>، واضغط OK، ثم أعد تشغيل التلفاز (اضغط مطولًا على زر التشغيل).</li>
-<li>على الحاسوب: نزّل <b>TizenBrew Installer</b> من <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">github.com/reisxd/TizenBrewInstaller/releases</a> (الملف المناسب لنظامك) وشغّله.</li>
-<li>اضغط <b>Install TizenBrew</b>. في أجهزة 2023 فما بعد، سجّل الدخول بحساب سامسونج عند الطلب.</li>
-<li>على التلفاز: <bdi>Apps</bdi> ← <bdi>1 2 3 4 5</bdi> مرة أخرى، واجعل <b>Host PC IP</b> هو <code dir="ltr">127.0.0.1</code>، ثم أعد تشغيل التلفاز.</li>
-<li>افتح <b>TizenBrew</b>، واضغط <b>الزر الأخضر</b> (مدير الوحدات)، وأضف وحدة من نوع <b>NPM</b>، واكتب <code dir="ltr">sofatube</code>.</li>
-<li>يظهر الآن صوفا تيوب في TizenBrew. افتحه: تظهر شاشة البداية ثم YouTube.</li>
+<li><b>التلفاز:</b> افتح «<b>التطبيقات</b>» (<bdi>Apps</bdi>) واكتب <bdi>1 2 3 4 5</bdi> (بأزرار الأرقام، أو بزر <bdi>123</bdi> / زر الألوان لإظهار الأرقام على الشاشة). اجعل <bdi>Developer mode</bdi> على <bdi>On</bdi>، واكتب <b>عنوان IP للهاتف</b> في خانة <bdi>Host PC IP</bdi>، واضغط <bdi>OK</bdi>، ثم أعد تشغيل التلفاز: اضغط مطولًا على زر الطاقة حتى ينطفئ ثم يعمل من جديد. (عنوان IP للهاتف: الإعدادات ← الواي فاي ← شبكتك ← عنوان IP.)</li>
+<li><b>الهاتف:</b> ثبّت <b><bdi>Apps2Samsung</bdi></b>: <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest"><bdi>github.com/Apps2Samsung/Apps2Samsung/releases</bdi></a> ← الملف المنتهي بـ<code dir="ltr">-android.apk</code> (واسمح لمتصفحك بتثبيت التطبيقات غير المعروفة عند السؤال).</li>
+<li><b>الهاتف:</b> افتح <a href="/samsung/"><bdi>sofatube.github.io/samsung</bdi></a>: يُنزَّل ملف صوفا تيوب (<code dir="ltr">SofaTube-…-Samsung.wgt</code>).</li>
+<li><b><bdi>Apps2Samsung</bdi>:</b> في <bdi>App</bdi> اختر <bdi>📁 Custom WGT / TPK…</bdi> ثم ملف صوفا تيوب، وفي <bdi>Select TV</bdi> اختر تلفازك (<bdi>Rescan</bdi> إن لم يظهر)، ثم <bdi>Download &amp; Install</bdi>. إن طلب تسجيل الدخول إلى سامسونج فسجّل (مرة واحدة).</li>
+<li><b>التلفاز:</b> «التطبيقات» ← <bdi>1 2 3 4 5</bdi> مرة أخرى، واجعل <bdi>Host PC IP</bdi> هو <code dir="ltr">127.0.0.1</code>، ثم <bdi>OK</bdi>، ثم أعد تشغيل التلفاز (اضغط مطولًا على زر الطاقة). قوائم التلفاز العربية تعرض العنوان معكوسًا: اكتب <code dir="ltr">1.0.0.127</code>.</li>
+<li><b>التلفاز:</b> افتح <b>صوفا تيوب</b> من «التطبيقات». إن ظهرت شاشة «خطوة أخيرة على التلفاز» فاتبع ما فيها (تعرض قيمة <bdi>Host PC IP</bdi> التي وجدتها).</li>
 </ol>
+<div class="faq">
+<details><summary>ليس لديك هاتف أندرويد؟ بحاسوب ويندوز أو ماك (6 خطوات)</summary>
+<ol class="steps">
+<li><b>التلفاز:</b> الخطوة 1 أعلاه، مع <b>عنوان IP للحاسوب</b> في <bdi>Host PC IP</bdi> (ويندوز: الإعدادات ← الشبكة والإنترنت ← اتصالك ← عنوان IPv4؛ ماك: إعدادات النظام ← الواي فاي ← التفاصيل ← عنوان IP).</li>
+<li><b>الحاسوب:</b> ثبّت <b><bdi>Apps2Samsung</bdi></b> من <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest">صفحة إصداراته</a>: ويندوز <code dir="ltr">-win-x64.msi</code>، ماك <code dir="ltr">-macos-arm64.dmg</code> (معالج Apple) أو <code dir="ltr">-macos-x64.dmg</code> (معالج Intel).</li>
+<li><b>الحاسوب:</b> نزّل صوفا تيوب من <a href="/samsung/"><bdi>sofatube.github.io/samsung</bdi></a>.</li>
+<li><b><bdi>Apps2Samsung</bdi>:</b> <bdi>Select TV</bdi> (أو اكتب عنوان IP للتلفاز)، ثم <bdi>Custom WGT / TPK</bdi>، واختر ملف صوفا تيوب، ثم <bdi>Install</bdi>. سجّل الدخول إلى سامسونج إن طُلب منك (مرة واحدة).</li>
+<li><b>التلفاز:</b> <bdi>Host PC IP</bdi> = <code dir="ltr">127.0.0.1</code> (القوائم العربية: <code dir="ltr">1.0.0.127</code>)، ثم أعد تشغيل التلفاز.</li>
+<li><b>التلفاز:</b> افتح <b>صوفا تيوب</b> من «التطبيقات».</li>
+</ol>
+<p>يعمل أيضًا: <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest"><bdi>TizenBrew Installer</bdi></a> على الحاسوب ← افتح <code dir="ltr">http://localhost:8091/ui/dist/index.html</code> ← عنوان التلفاز ← <bdi>Install from GitHub</bdi> ← <code dir="ltr">sofatube/sofatube.github.io</code>. بالإنجليزية فقط؛ استخدم «<bdi>Install from GitHub</bdi>» لا «<bdi>Select file to install</bdi>» (خيار الملف ينسى شهادة سامسونج بعد تثبيت واحد).</p>
+</details>
+<details><summary>تستخدم TizenBrew؟ وحدة TizenBrew</summary>
+<p>في <b>TizenBrew</b> اضغط <b>الأخضر</b> وأضف وحدة <bdi>NPM</bdi> باسم <code dir="ltr">sofatube</code>. تتحدّث تلقائيًا؛ افتح صوفا تيوب من TizenBrew (ويمكن أن يفتحه TizenBrew مباشرة: <bdi>Settings</bdi> ← <bdi>Autolaunch</bdi>). أما تثبيت TizenBrew نفسه فيحتاج إلى حاسوب و<a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest"><bdi>TizenBrew Installer</bdi></a>.</p>
+</details>
+<details><summary>إذا حدثت مشكلة</summary>
+<ul>
+<li><b>«<bdi>TV detected, but Developer Mode is off</bdi>»</b>: أعد الخطوة 1 وأعد تشغيل التلفاز.</li>
+<li><b>«<bdi>Developer Mode IP doesn't match</bdi>»</b>: يجب أن تكون <bdi>Host PC IP</bdi> عنوان هذا الهاتف أو الحاسوب؛ اكتبه مرة أخرى وأعد تشغيل التلفاز.</li>
+<li><b>«<bdi>IP is in reversed order on the TV</bdi>»</b> (القوائم العربية): اكتب العنوان معكوسًا، مثلًا <code dir="ltr">192.168.1.5</code> ← <code dir="ltr">5.1.168.192</code>.</li>
+<li><b>«<bdi>debug port isn't responding … power-cycle</bdi>»</b>: افصل التلفاز عن الكهرباء 30 ثانية، ثم أعد وصله، ثم <bdi>Rescan</bdi>.</li>
+<li><b>«<bdi>Author Certificate mismatch</bdi>»</b> أو <b>«<bdi>already installed … doesn't allow replacing</bdi>»</b>: على التلفاز نسخة أقدم من صوفا تيوب بشهادة أخرى. على التلفاز: «التطبيقات» ← صوفا تيوب ← اضغط مطولًا على <bdi>OK</bdi> ← حذف، ثم ثبّته من جديد (تضيع إعداداته، فاحفظ رمز الإعدادات أولًا).</li>
+<li><b>لا يظهر التلفاز</b>: يجب أن يكون التلفاز والهاتف أو الحاسوب على الواي فاي نفسه؛ أوقف أي VPN؛ أو اكتب عنوان التلفاز (التلفاز: <bdi>Settings</bdi> ← <bdi>General</bdi> ← <bdi>Network</bdi> ← <bdi>Network Status</bdi> ← <bdi>IP Settings</bdi>).</li>
+<li><b>يفتح صوفا تيوب على «خطوة أخيرة على التلفاز»</b>: لم تُنفَّذ الخطوة 5 (يجب أن تكون <bdi>Host PC IP</bdi> هي <code dir="ltr">127.0.0.1</code>) أو لم يُعَد تشغيل التلفاز.</li>
+</ul>
+</details>
+</div>
 <h3>معلومات مفيدة</h3>
 <ul>
-<li><b>لماذا الحاسوب؟</b> سُحب مثبّت TizenBrew القديم الذي كان يعمل من متصفح التلفاز (أجهزة حتى 2021)، ولا يذكر دليل TizenBrew الآن إلا المثبّت على الحاسوب.</li>
-<li>التحديثات تلقائية: يحمّل TizenBrew أحدث نسخة من صوفا تيوب في كل مرة.</li>
-<li>افتح صوفا تيوب دائمًا من TizenBrew (لا من تطبيق YouTube العادي).</li>
-<li>قد ترفض أحدث أجهزة سامسونج تثبيت TizenBrew. إذا فشل المثبّت فأبلغ عن طراز تلفازك.</li>
+<li><b>البحث الصوتي:</b> لا ميكروفون في YouTube على سامسونج هنا. ابحث بصوتك من هاتفك: صفحة الهاتف ← <b>البحث</b> ← 🎤.</li>
+<li><b>التحديثات:</b> صوفا تيوب ← الإعدادات ← «حول التطبيق والنسخ الاحتياطي» ← <b>البحث عن تحديثات</b>. يُحدَّث على التلفاز نفسه حين يمكن ذلك، وإلا يعرض الخطوات (ثبّت الملف الجديد بالطريقة نفسها، وتبقى الإعدادات).</li>
+<li>يجب أن يبقى <bdi>Developer mode</bdi> على <bdi>On</bdi> و<bdi>Host PC IP</bdi> على <code dir="ltr">127.0.0.1</code>: يحتاج إليه صوفا تيوب في كل مرة يفتح فيها YouTube.</li>
 </ul>
 </section>'''
     return f'''<h1>Install</h1>
@@ -442,29 +466,53 @@ def install(lang):
 
 <section class="tv-section" id="samsung">
 <h2>Samsung TV (Tizen)</h2>
-<div class="note"><p><b>Status:</b> the npm module <code>sofatube</code> is published, but it has not been tried on a real Samsung TV yet, so you are one of the first.</p></div>
+<div class="note"><p><b>Status:</b> Sofa Tube is its own app on the TV (an icon in Apps). Installing it was tried on Samsung's TV emulator; it has not been tried on a real Samsung TV yet, so you are one of the first: <a href="/testers/#report">tell us how it went</a>.</p></div>
 <h3>You need</h3>
 <ul>
-<li>A Samsung TV from 2018 or newer (Tizen 4.0 or newer).</li>
-<li>A Windows, Mac or Linux computer on the same Wi-Fi as the TV, <b>once</b>, to install TizenBrew. After that everything happens on the TV.</li>
-<li>TVs from 2023 or newer (Tizen 7+): a free Samsung account (the installer asks you to sign in).</li>
+<li>A Samsung TV from 2018 or newer (Tizen 4.0 or newer), and an <b>Android phone</b> on the same Wi-Fi. No Android phone (iPhone)? Use a Windows or Mac computer instead (below).</li>
+<li>If the installer asks you to sign in to Samsung (TVs with Tizen 7 or newer, most TVs from 2023 on), a free Samsung account. Once.</li>
 </ul>
-<p>Already have TizenBrew (for example from TizenTube)? No computer needed: go to step 5.</p>
-<h3>Steps</h3>
+<h3>With an Android phone (no computer): 6 steps</h3>
 <ol class="steps">
-<li>On the TV: open <b>Apps</b>, type <b>1 2 3 4 5</b> on the remote, set <b>Developer mode</b> to <b>On</b>, enter your computer's IP as <b>Host PC IP</b>, OK, then restart the TV (hold the Power button).</li>
-<li>On the computer: download <b>TizenBrew Installer</b> from <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">github.com/reisxd/TizenBrewInstaller/releases</a> (the file for your system) and run it.</li>
-<li>Click <b>Install TizenBrew</b>. On 2023+ TVs, sign in to your Samsung account when asked.</li>
-<li>On the TV: Apps → 1 2 3 4 5 again, set <b>Host PC IP</b> to <code>127.0.0.1</code>, restart the TV.</li>
-<li>Open <b>TizenBrew</b>, press the <b>Green</b> button (module manager), add an <b>NPM</b> module and type <code>sofatube</code>.</li>
-<li>Sofa Tube now appears in TizenBrew. Open it: start screen, then YouTube.</li>
+<li><b>TV:</b> open <b>Apps</b>, type <b>1 2 3 4 5</b> (number keys, or the remote's <b>123</b> / colour button for on-screen numbers). Set <b>Developer mode</b> to <b>On</b>, type <b>the phone's IP address</b> in <b>Host PC IP</b>, press <b>OK</b>, then restart the TV: hold the remote's <b>Power</b> button until it turns off and on again. (The phone's IP: Settings → Wi-Fi → your network → IP address.)</li>
+<li><b>Phone:</b> install <b>Apps2Samsung</b>: <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest">github.com/Apps2Samsung/Apps2Samsung/releases</a> → the file ending <code>-android.apk</code> (allow your browser to install unknown apps when asked).</li>
+<li><b>Phone:</b> open <a href="/samsung/">sofatube.github.io/samsung</a>: the Sofa Tube file (<code>SofaTube-…-Samsung.wgt</code>) downloads.</li>
+<li><b>Apps2Samsung:</b> in <b>App</b> choose <b>📁 Custom WGT / TPK…</b> and pick the Sofa Tube file, in <b>Select TV</b> choose your TV (<b>Rescan</b> if it is missing), then <b>Download &amp; Install</b>. If it asks you to sign in to Samsung, do so (once).</li>
+<li><b>TV:</b> Apps → <b>1 2 3 4 5</b> again, <b>Host PC IP</b> = <code>127.0.0.1</code>, OK, restart the TV (hold Power). Arabic TV menus show the address reversed: type <code>1.0.0.127</code>.</li>
+<li><b>TV:</b> open <b>Sofa Tube</b> from Apps. If it shows "One last step on the TV", do what it says (it shows the Host PC IP it found).</li>
 </ol>
+<div class="faq">
+<details><summary>No Android phone? With a Windows or Mac computer (6 steps)</summary>
+<ol class="steps">
+<li><b>TV:</b> step 1 above, with <b>the computer's IP address</b> in <b>Host PC IP</b> (Windows: Settings → Network &amp; internet → your connection → IPv4 address; Mac: System Settings → Wi-Fi → Details → IP address).</li>
+<li><b>Computer:</b> install <b>Apps2Samsung</b> from <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest">its releases</a>: Windows <code>-win-x64.msi</code>, Mac <code>-macos-arm64.dmg</code> (Apple chip) or <code>-macos-x64.dmg</code> (Intel).</li>
+<li><b>Computer:</b> download Sofa Tube from <a href="/samsung/">sofatube.github.io/samsung</a>.</li>
+<li><b>Apps2Samsung:</b> <b>Select TV</b> (or type its IP), choose <b>Custom WGT / TPK</b>, pick the Sofa Tube file, <b>Install</b>. Sign in to Samsung if asked (once).</li>
+<li><b>TV:</b> Host PC IP = <code>127.0.0.1</code> (Arabic menus: <code>1.0.0.127</code>), restart the TV.</li>
+<li><b>TV:</b> open <b>Sofa Tube</b> from Apps.</li>
+</ol>
+<p>Also works: <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">TizenBrew Installer</a> on the computer → open <code>http://localhost:8091/ui/dist/index.html</code> → TV IP → <b>Install from GitHub</b> → <code>sofatube/sofatube.github.io</code>. English only; use "Install from GitHub" rather than "Select file to install" (the file option forgets your Samsung certificate after one install).</p>
+</details>
+<details><summary>Already use TizenBrew? The TizenBrew module</summary>
+<p>In <b>TizenBrew</b>, press <b>Green</b>, add an <b>NPM</b> module: <code>sofatube</code>. It updates itself; open Sofa Tube from TizenBrew (TizenBrew → Settings → Autolaunch can open it straight away). Installing TizenBrew itself needs a computer and <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">TizenBrew Installer</a>.</p>
+</details>
+<details><summary>If something goes wrong</summary>
+<ul>
+<li><b>"TV detected, but Developer Mode is off"</b>: do step 1 again and restart the TV.</li>
+<li><b>"Developer Mode IP doesn't match"</b>: Host PC IP must be the IP of this phone or computer; type it again, restart the TV.</li>
+<li><b>"IP is in reversed order on the TV"</b> (Arabic menus): type the address reversed, e.g. <code>192.168.1.5</code> → <code>5.1.168.192</code>.</li>
+<li><b>"debug port isn't responding … power-cycle"</b>: unplug the TV for 30 seconds, plug it in, Rescan.</li>
+<li><b>"Author Certificate mismatch"</b> or <b>"already installed … doesn't allow replacing"</b>: an older Sofa Tube with another certificate is on the TV. On the TV, Apps → Sofa Tube → hold OK → Delete, then install again (its settings are lost; save a settings code first).</li>
+<li><b>TV not found</b>: same Wi-Fi for TV and phone/computer; turn a VPN off; or type the TV's IP (TV: Settings → General → Network → Network Status → IP Settings).</li>
+<li><b>Sofa Tube opens "One last step on the TV"</b>: step 5 is missing (Host PC IP must be <code>127.0.0.1</code>) or the TV was not restarted.</li>
+</ul>
+</details>
+</div>
 <h3>Good to know</h3>
 <ul>
-<li><b>Why a computer?</b> TizenBrew's old installer in the TV's web browser (TVs up to 2021) has been withdrawn; TizenBrew's guide now lists only the computer installer.</li>
-<li>Updates are automatic: TizenBrew loads the newest Sofa Tube each time.</li>
-<li>Always open Sofa Tube from TizenBrew (not the normal YouTube app).</li>
-<li>The very newest Samsung TVs may refuse TizenBrew. If the installer fails, report your TV model.</li>
+<li><b>Voice search:</b> YouTube on Samsung has no microphone here. Search by voice from your phone: phone page → <b>Search</b> → 🎤.</li>
+<li><b>Updates:</b> Sofa Tube → Settings → Backup and about → <b>Check for updates</b>. When it can, it updates on the TV itself; otherwise it shows the steps (install the new file the same way; settings stay).</li>
+<li>Developer mode must stay <b>On</b> with Host PC IP <code>127.0.0.1</code>: Sofa Tube needs it every time it opens YouTube.</li>
 </ul>
 </section>'''
 
@@ -607,6 +655,8 @@ STATUS = [
      'LG ‏(webOS)', 'محاكي LG ‏(webOS 4)؛ والإصدارات السابقة على تلفاز LG حقيقي.'),
     ('Samsung (TizenBrew, npm <code>sofatube</code>)', 'Samsung emulator only. <b>Never tried on a real Samsung TV.</b>',
      'سامسونج (TizenBrew، وحدة <code dir="ltr">sofatube</code>)', 'محاكي سامسونج فقط. <b>لم يُجرَّب على تلفاز سامسونج حقيقي.</b>'),
+    ('Samsung app (<code>.wgt</code>)', 'Installed on the Samsung TV emulator with TizenBrew Installer (re-signed); its YouTube loader cannot run there. <b>Never tried on a real Samsung TV.</b>',
+     'تطبيق سامسونج (ملف <code dir="ltr">.wgt</code>)', 'ثُبّت على محاكي سامسونج بـ<bdi>TizenBrew Installer</bdi> (بعد إعادة التوقيع)؛ ولا يعمل فيه جزء فتح YouTube. <b>لم يُجرَّب على تلفاز سامسونج حقيقي.</b>'),
     ('Android TV / Google TV', 'Google TV emulator, and test builds of 0.9.3 on one real Android TV (TCL). <b>Other brands untested.</b>',
      '<bdi>Android TV</bdi> و<bdi>Google TV</bdi>', 'محاكي Google TV، ونسخ تجريبية من <bdi>0.9.3</bdi> على تلفاز أندرويد حقيقي واحد (TCL). <b>لم يُجرَّب على الشركات الأخرى.</b>'),
     ('Fire TV', '<b>Untested.</b>', 'Fire TV', '<b>لم يُجرَّب.</b>'),
@@ -686,13 +736,13 @@ def faq(lang):
     if lang == 'ar':
         qs = [
             ('ما أجهزة التلفاز المدعومة؟',
-             '<p>أجهزة <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> (ملف apk)، وتلفاز سامسونج من سنة 2018 أو أحدث عبر TizenBrew، وتلفاز LG ‏(webOS) عبر وضع المطوّر. <a href="/ar/install/">خطوات التثبيت</a>.</p>'),
+             '<p>أجهزة <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> (ملف apk)، وتلفاز سامسونج من سنة 2018 أو أحدث (تطبيق مستقل يُثبَّت بـ<bdi>Apps2Samsung</bdi>، أو وحدة TizenBrew)، وتلفاز LG ‏(webOS) عبر وضع المطوّر. <a href="/ar/install/">خطوات التثبيت</a>.</p>'),
             ('هل هو مجاني؟',
              f'<p>نعم. صوفا تيوب مشروع مجاني برخصة <bdi>GPL-3.0</bdi>، دون إعلانات ودون حساب. يُرفق بكل إصدار ملف المصدر <bdi>SofaTube-&lt;version&gt;-source.zip</bdi> في <a href="{RELEASES}">صفحة الإصدار</a>، والمصدر الكامل متاح عند الطلب.</p>'),
             ('لماذا لا أجده في متجر تطبيقات التلفاز؟',
-             '<p>صوفا تيوب يفتح صفحة YouTube الخاصة بالتلفاز ويضيف إليها ميزات (منها حجب الإعلانات)، فيُثبَّت من خارج المتجر: بتطبيق Downloader في أندرويد، وبـTizenBrew في سامسونج، وبوضع المطوّر في LG.</p>'),
+             '<p>صوفا تيوب يفتح صفحة YouTube الخاصة بالتلفاز ويضيف إليها ميزات (منها حجب الإعلانات)، فيُثبَّت من خارج المتجر: بتطبيق Downloader في أندرويد، وبـ<bdi>Apps2Samsung</bdi> (أو TizenBrew) في سامسونج، وبوضع المطوّر في LG.</p>'),
             ('كيف أحدّث التطبيق؟',
-             '<ul><li><b>أندرويد:</b> ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات.</li><li><b>سامسونج:</b> التحديثات تلقائية: يحمّل TizenBrew أحدث نسخة من صوفا تيوب في كل مرة.</li><li><b>LG:</b> ثبّت ملف ipk الجديد بالطريقة نفسها، وتبقى إعداداتك كما هي.</li></ul><p>لا يبحث التطبيق عن التحديثات بنفسه؛ والروابط القصيرة (<code dir="ltr">sofatube.github.io/tv</code> و<code dir="ltr">/lg</code> و<code dir="ltr">/lg-phone</code>) تشير دائمًا إلى أحدث إصدار.</p>'),
+             '<ul><li><b>أندرويد:</b> ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات.</li><li><b>سامسونج:</b> الإعدادات ← «حول التطبيق والنسخ الاحتياطي» ← البحث عن تحديثات (يُحدَّث على التلفاز حين يمكن ذلك، وإلا فثبّت الملف الجديد بـ<bdi>Apps2Samsung</bdi> بالطريقة نفسها، وتبقى الإعدادات). أما وحدة TizenBrew فتتحدّث تلقائيًا.</li><li><b>LG:</b> ثبّت ملف ipk الجديد بالطريقة نفسها، وتبقى إعداداتك كما هي.</li></ul><p>لا يُفحص شيء إلا إذا طلبت ذلك (أو فعّلت الفحص الأسبوعي). والروابط القصيرة (<code dir="ltr">sofatube.github.io/tv</code> و<code dir="ltr">/lg</code> و<code dir="ltr">/lg-phone</code> و<code dir="ltr">/samsung</code>) تشير دائمًا إلى أحدث إصدار.</p>'),
             ('هل أحتاج إلى حساب؟ وأين تُحفظ إعداداتي؟',
              '<p>لا حاجة إلى حساب: تابع القنوات دون تسجيل الدخول («قنواتي»). تبقى الإعدادات وسجل مشاهدة الأطفال على التلفاز. صفحة الهاتف يقدّمها التلفاز نفسه عبر شبكة الواي فاي في بيتك، ويبقى الرمز السري على التلفاز، ولا تتضمن النسخة الاحتياطية الرمز السري أبدًا.</p><p>يتصل التطبيق بـYouTube، وبخدمات SponsorBlock وReturn YouTube Dislike وDeArrow للفيديو الذي تشاهده.</p>'),
             ('هل يضر بالتلفاز؟',
@@ -706,13 +756,13 @@ def faq(lang):
     else:
         qs = [
             ('Which TVs does it work on?',
-             '<p>Android TV, Google TV and Fire TV (the .apk; 32-bit ARM, runs on 32- and 64-bit devices), Samsung TVs from 2018 or newer through TizenBrew, and LG webOS TVs through Developer Mode. <a href="/install/">Install steps</a>.</p>'),
+             '<p>Android TV, Google TV and Fire TV (the .apk; 32-bit ARM, runs on 32- and 64-bit devices), Samsung TVs from 2018 or newer (its own app, installed with Apps2Samsung; or the TizenBrew module), and LG webOS TVs through Developer Mode. <a href="/install/">Install steps</a>.</p>'),
             ('Is it free?',
              f'<p>Yes. Sofa Tube is a free GPL-3.0 project, with no ads and no account. Each release carries a <code>SofaTube-&lt;version&gt;-source.zip</code> on the <a href="{RELEASES}">release page</a>; the full source is available on request.</p>'),
             ('Why is it not in the TV\'s app store?',
-             '<p>Sofa Tube opens YouTube\'s own TV page and adds features on top (ad blocking among them), so it is installed from outside the store: with the Downloader app on Android, TizenBrew on Samsung and Developer Mode on LG.</p>'),
+             '<p>Sofa Tube opens YouTube\'s own TV page and adds features on top (ad blocking among them), so it is installed from outside the store: with the Downloader app on Android, Apps2Samsung (or TizenBrew) on Samsung and Developer Mode on LG.</p>'),
             ('How do updates work?',
-             '<ul><li><b>Android:</b> install the new .apk over this one the same way; settings stay.</li><li><b>Samsung:</b> updates are automatic: TizenBrew loads the newest Sofa Tube each time.</li><li><b>LG:</b> install the new .ipk the same way; your settings stay.</li></ul><p>The app does not check for updates itself; the short links (<code>sofatube.github.io/tv</code>, <code>/lg</code>, <code>/lg-phone</code>) always point to the latest release.</p>'),
+             '<ul><li><b>Android:</b> install the new .apk over this one the same way; settings stay.</li><li><b>Samsung:</b> Settings → Backup and about → Check for updates (it updates on the TV when it can; otherwise install the new file with Apps2Samsung the same way; settings stay). The TizenBrew module updates itself.</li><li><b>LG:</b> install the new .ipk the same way; your settings stay.</li></ul><p>Nothing is checked unless you ask (or turn on the weekly check). The short links (<code>sofatube.github.io/tv</code>, <code>/lg</code>, <code>/lg-phone</code>, <code>/samsung</code>) always point to the latest release.</p>'),
             ('Do I need an account? Where are my settings kept?',
              '<p>No account is needed: follow channels without signing in (My channels). Settings and the kids\' watch history stay on the TV. The phone page is served by the TV itself on your Wi-Fi; the PIN stays on the TV and is never in a backup.</p><p>The app talks to YouTube, and to the SponsorBlock, Return YouTube Dislike and DeArrow community services for the video you watch.</p>'),
             ('Can it harm my TV?',

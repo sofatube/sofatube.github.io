@@ -51,6 +51,10 @@ jobs:
           sed 's/\r$//' ../sums.txt | sha256sum -c -
           # every asset must be listed in sums.txt
           for f in *; do grep -q " \*\?$f\$" <(sed 's/\r$//' ../sums.txt) || { echo "not in sums.txt: $f"; exit 1; }; done
+          # TizenBrew Installer "Install from GitHub" installs the FIRST .wgt/.tpk
+          # of the latest release: exactly one Samsung package per release
+          n=$(ls | grep -ciE '\.(wgt|tpk)$' || true)
+          if [ "$n" -gt 1 ]; then echo "more than one .wgt/.tpk in a release"; exit 1; fi
 
       - name: Create or update release
         env:

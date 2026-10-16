@@ -32,6 +32,7 @@ Short links (type them in the TV's **Downloader** app or on your phone):
 | `sofatube.github.io/tv`       | Android TV / Google TV / Fire TV app (`.apk`, ~95 MB) |
 | `sofatube.github.io/lg`       | LG main app (`.ipk`)                                  |
 | `sofatube.github.io/lg-phone` | LG _Sofa Tube Phone_ app (`.ipk`, optional)           |
+| `sofatube.github.io/samsung`  | Samsung app (`.wgt`, install with Apps2Samsung)      |
 
 #### Android TV · Google TV · Fire TV (no computer)
 
@@ -56,16 +57,18 @@ Fallback: copy the `.apk` from the [release](https://github.com/sofatube/sofatub
 Developer Mode sessions **expire**: open the Developer Mode app now and then and extend the session, or the developer apps stop working.
 Fallback: the same steps with [webOS Dev Manager](https://github.com/webosbrew/dev-manager-desktop/releases/latest) on a Windows, Mac or Linux computer.
 
-#### Samsung TV (Tizen 4.0, 2018 or newer) — computer once
+#### Samsung TV (Tizen 4.0, 2018 or newer) — Android phone, no computer
 
-Samsung needs **TizenBrew** (by Reis Can). It is installed once from a computer; after that Sofa Tube installs and updates on the TV itself.
+Sofa Tube is its own app on the TV. You install it once with **Apps2Samsung** (free, MIT) on an Android phone on the same Wi-Fi. No Android phone (iPhone)? Use Apps2Samsung on a Windows or Mac computer: the same steps.
 
-1. On the TV: **Apps**, type **1 2 3 4 5**, **Developer mode** on, **Host PC IP** = your computer's IP, OK, restart the TV.
-2. On the computer: run **TizenBrew Installer** ([releases](https://github.com/reisxd/TizenBrewInstaller/releases/latest)) → **Install TizenBrew**. Tizen 7+ TVs (2023 on) ask you to sign in to a Samsung account.
-3. On the TV: **Apps → 1 2 3 4 5** again, **Host PC IP** = `127.0.0.1`, restart.
-4. Open **TizenBrew**, press 🟩 **Green**, add an **NPM** module: **`sofatube`**. Open Sofa Tube from TizenBrew.
+1. **TV:** **Apps**, type **1 2 3 4 5**, **Developer mode** On, **Host PC IP** = the phone's IP address (phone: Settings → Wi-Fi → your network), OK, restart the TV (hold Power).
+2. **Phone:** install [Apps2Samsung](https://github.com/Apps2Samsung/Apps2Samsung/releases/latest) (the `-android.apk`; computer: `-win-x64.msi` or the Mac `.dmg`).
+3. **Phone:** open **`sofatube.github.io/samsung`**: the Sofa Tube `.wgt` downloads.
+4. **Apps2Samsung:** App → **📁 Custom WGT / TPK…** → the Sofa Tube file → **Select TV** → **Download & Install**. Sign in to Samsung if it asks (Tizen 7+, most TVs from 2023 on; once).
+5. **TV:** **Apps → 1 2 3 4 5** again, **Host PC IP** = `127.0.0.1` (Arabic menus: `1.0.0.127`), restart the TV.
+6. **TV:** open **Sofa Tube** from Apps. If it says "One last step on the TV", follow it.
 
-Already have TizenBrew (for example from TizenTube)? Do step 4 only. The newest Samsung TVs may refuse TizenBrew. TizenBrew's old TV-browser installer no longer exists (its docs list only the installer above and Tizen Studio).
+Already use TizenBrew? Add the NPM module **`sofatube`** instead (Green → NPM). Voice search on Samsung: the phone page's **Search** tab (🎤). Full steps and troubleshooting: [sofatube.github.io/install](https://sofatube.github.io/install/#samsung).
 
 ### What has been tested
 
@@ -73,6 +76,7 @@ Already have TizenBrew (for example from TizenTube)? Do step 4 only. The newest 
 | --------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | LG webOS                          | LG emulator (webOS 4); earlier versions on a real LG TV.                                               |
 | Samsung (TizenBrew, npm `sofatube`) | Samsung emulator only. **Never tried on a real Samsung TV.**                                           |
+| Samsung app (`.wgt`)              | Installed on the Samsung TV emulator with TizenBrew Installer (re-signed); its YouTube loader cannot run there. **Never tried on a real Samsung TV.** |
 | Android TV / Google TV            | Google TV emulator, and test builds of 0.9.3 on one real Android TV (TCL). **Other brands untested.** |
 | Fire TV                           | **Untested.**                                                                                          |
 | Install with webOS Dev Manager on a phone | **Not tried by us yet.**                                                                        |
@@ -100,6 +104,7 @@ Please report what works and what does not: [open an issue](https://github.com/s
 | <code dir="ltr">sofatube.github.io/tv</code> | تطبيق Android TV وGoogle TV وFire TV (ملف apk، نحو 95 ميغابايت) |
 | <code dir="ltr">sofatube.github.io/lg</code> | تطبيق LG الرئيسي (ملف ipk) |
 | <code dir="ltr">sofatube.github.io/lg-phone</code> | تطبيق <bdi>Sofa Tube Phone</bdi> لـLG (ملف ipk، اختياري) |
+| <code dir="ltr">sofatube.github.io/samsung</code> | تطبيق سامسونج (ملف wgt، يُثبَّت بـ<bdi>Apps2Samsung</bdi>) |
 
 #### أندرويد تي في · جوجل تي في · فاير تي في (دون حاسوب)
 
@@ -124,16 +129,18 @@ Please report what works and what does not: [open an issue](https://github.com/s
 لجلسة وضع المطوّر مدة **تنتهي**: افتح تطبيق Developer Mode من حين لآخر ومدّد الجلسة، وإلا توقفت تطبيقات المطوّر عن العمل.
 البديل: الخطوات نفسها مع <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> على حاسوب (ويندوز أو ماك أو لينكس).
 
-#### تلفاز سامسونج ‏(Tizen 4.0، من 2018 فما بعد) — حاسوب مرة واحدة
+#### تلفاز سامسونج ‏(Tizen 4.0، من 2018 فما بعد) — بهاتف أندرويد، دون حاسوب
 
-يحتاج سامسونج إلى **TizenBrew** (من Reis Can). يُثبَّت مرة واحدة من حاسوب، وبعدها يُثبَّت صوفا تيوب ويتحدّث على التلفاز نفسه.
+صوفا تيوب تطبيق مستقل على التلفاز. تثبّته مرة واحدة بتطبيق **<bdi>Apps2Samsung</bdi>** (مجاني) على هاتف أندرويد متصل بالواي فاي نفسه. ليس لديك هاتف أندرويد (آيفون)؟ استخدم <bdi>Apps2Samsung</bdi> على حاسوب ويندوز أو ماك: الخطوات نفسها.
 
-1. على التلفاز: **Apps**، واكتب <bdi>1 2 3 4 5</bdi>، واجعل **Developer mode** على On، و**Host PC IP** = عنوان IP لحاسوبك، ثم OK، وأعد تشغيل التلفاز.
-2. على الحاسوب: شغّل **TizenBrew Installer** (<a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">الإصدارات</a>) ← **Install TizenBrew**. أجهزة Tizen 7 فما فوق (من 2023) تطلب تسجيل الدخول بحساب سامسونج.
-3. على التلفاز: <bdi>Apps → 1 2 3 4 5</bdi> مرة أخرى، و**Host PC IP** = <code dir="ltr">127.0.0.1</code>، ثم أعد التشغيل.
-4. افتح **TizenBrew**، واضغط 🟩 **الأخضر**، وأضف وحدة **NPM** باسم <code dir="ltr">sofatube</code>. افتح صوفا تيوب من TizenBrew.
+1. **التلفاز:** «التطبيقات» (<bdi>Apps</bdi>)، واكتب <bdi>1 2 3 4 5</bdi>، واجعل **<bdi>Developer mode</bdi>** على <bdi>On</bdi>، و**<bdi>Host PC IP</bdi>** = عنوان IP للهاتف (في الهاتف: الإعدادات ← الواي فاي ← شبكتك)، ثم <bdi>OK</bdi>، وأعد تشغيل التلفاز (اضغط مطولًا على زر الطاقة).
+2. **الهاتف:** ثبّت <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest"><bdi>Apps2Samsung</bdi></a> (ملف <code dir="ltr">-android.apk</code>؛ وللحاسوب: <code dir="ltr">-win-x64.msi</code> أو ملف <code dir="ltr">.dmg</code> لماك).
+3. **الهاتف:** افتح <code dir="ltr">sofatube.github.io/samsung</code>: يُنزَّل ملف صوفا تيوب (<code dir="ltr">.wgt</code>).
+4. **<bdi>Apps2Samsung</bdi>:** <bdi>App</bdi> ← <bdi>📁 Custom WGT / TPK…</bdi> ← ملف صوفا تيوب ← <bdi>Select TV</bdi> ← <bdi>Download &amp; Install</bdi>. سجّل الدخول إلى سامسونج إن طُلب منك (Tizen 7 فما فوق، وأغلبها من 2023؛ مرة واحدة).
+5. **التلفاز:** <bdi>Apps → 1 2 3 4 5</bdi> مرة أخرى، و**<bdi>Host PC IP</bdi>** = <code dir="ltr">127.0.0.1</code> (القوائم العربية: <code dir="ltr">1.0.0.127</code>)، ثم أعد تشغيل التلفاز.
+6. **التلفاز:** افتح **صوفا تيوب** من «التطبيقات». إن ظهرت «خطوة أخيرة على التلفاز» فاتبعها.
 
-لديك TizenBrew مسبقًا (من TizenTube مثلًا)؟ نفّذ الخطوة 4 فقط. قد ترفض أحدث أجهزة سامسونج تثبيت TizenBrew. ولم يعد مثبّت TizenBrew القديم عبر متصفح التلفاز متاحًا.
+تستخدم TizenBrew؟ أضف وحدة <bdi>NPM</bdi> باسم <code dir="ltr">sofatube</code> بدلًا من ذلك (الأخضر ← <bdi>NPM</bdi>). البحث الصوتي في سامسونج: تبويب **البحث** في صفحة الهاتف (🎤). الخطوات كاملة وحل المشكلات: <a href="https://sofatube.github.io/ar/install/#samsung"><bdi>sofatube.github.io/ar/install</bdi></a>.
 
 ### ما الذي جُرِّب
 
@@ -141,6 +148,7 @@ Please report what works and what does not: [open an issue](https://github.com/s
 | --- | --- |
 | LG ‏(webOS) | محاكي LG ‏(webOS 4)؛ والإصدارات السابقة على تلفاز LG حقيقي. |
 | سامسونج (TizenBrew، وحدة <code dir="ltr">sofatube</code>) | محاكي سامسونج فقط. **لم يُجرَّب على تلفاز سامسونج حقيقي.** |
+| تطبيق سامسونج (ملف <code dir="ltr">.wgt</code>) | ثُبّت على محاكي سامسونج بـ<bdi>TizenBrew Installer</bdi> (بعد إعادة التوقيع)؛ ولا يعمل فيه جزء فتح YouTube. **لم يُجرَّب على تلفاز سامسونج حقيقي.** |
 | Android TV وGoogle TV | محاكي Google TV، ونسخ تجريبية من <bdi>0.9.3</bdi> على تلفاز أندرويد حقيقي واحد (TCL). **لم يُجرَّب على الشركات الأخرى.** |
 | Fire TV | **لم يُجرَّب.** |
 | التثبيت بـwebOS Dev Manager من الهاتف | **لم نجرّبه بعد.** |
@@ -163,4 +171,4 @@ Not affiliated with YouTube, Google, LG or Samsung. YouTube is a trademark of Go
 
 ## Publishing a release (maintainers)
 
-Releases are published by GitHub Actions ([`.github/workflows/release.yml`](.github/workflows/release.yml)), so they show `github-actions[bot]` as the author. Create a branch `release-staging` from `main` with `release/release.env` (`TAG`, `TITLE`, `PRERELEASE`), `release/notes.md`, `release/sums.txt` (`sha256sum` output) and the files in `release/assets/`, then push it. The workflow checks the sums, tags `main` and creates the release (or updates the files of an existing one). Delete `release-staging` when it is done. Keep the file names the same so the short links keep working.
+Releases are published by GitHub Actions ([`.github/workflows/release.yml`](.github/workflows/release.yml)), so they show `github-actions[bot]` as the author. Create a branch `release-staging` from `main` with `release/release.env` (`TAG`, `TITLE`, `PRERELEASE`), `release/notes.md`, `release/sums.txt` (`sha256sum` output) and the files in `release/assets/`, then push it. The workflow checks the sums, tags `main` and creates the release (or updates the files of an existing one). Delete `release-staging` when it is done. Keep the file names the same so the short links keep working. A release carries exactly **one** `.wgt` (`SofaTube-<ver>-Samsung.wgt`) and no `.tpk`: TizenBrew Installer's "Install from GitHub" installs the first one it finds (the workflow refuses more than one).

@@ -88,29 +88,53 @@
 
 <section class="tv-section" id="samsung">
 <h2>Samsung TV (Tizen)</h2>
-<div class="note"><p><b>Status:</b> the npm module <code>sofatube</code> is published, but it has not been tried on a real Samsung TV yet, so you are one of the first.</p></div>
+<div class="note"><p><b>Status:</b> Sofa Tube is its own app on the TV (an icon in Apps). Installing it was tried on Samsung's TV emulator; it has not been tried on a real Samsung TV yet, so you are one of the first: <a href="/testers/#report">tell us how it went</a>.</p></div>
 <h3>You need</h3>
 <ul>
-<li>A Samsung TV from 2018 or newer (Tizen 4.0 or newer).</li>
-<li>A Windows, Mac or Linux computer on the same Wi-Fi as the TV, <b>once</b>, to install TizenBrew. After that everything happens on the TV.</li>
-<li>TVs from 2023 or newer (Tizen 7+): a free Samsung account (the installer asks you to sign in).</li>
+<li>A Samsung TV from 2018 or newer (Tizen 4.0 or newer), and an <b>Android phone</b> on the same Wi-Fi. No Android phone (iPhone)? Use a Windows or Mac computer instead (below).</li>
+<li>If the installer asks you to sign in to Samsung (TVs with Tizen 7 or newer, most TVs from 2023 on), a free Samsung account. Once.</li>
 </ul>
-<p>Already have TizenBrew (for example from TizenTube)? No computer needed: go to step 5.</p>
-<h3>Steps</h3>
+<h3>With an Android phone (no computer): 6 steps</h3>
 <ol class="steps">
-<li>On the TV: open <b>Apps</b>, type <b>1 2 3 4 5</b> on the remote, set <b>Developer mode</b> to <b>On</b>, enter your computer's IP as <b>Host PC IP</b>, OK, then restart the TV (hold the Power button).</li>
-<li>On the computer: download <b>TizenBrew Installer</b> from <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">github.com/reisxd/TizenBrewInstaller/releases</a> (the file for your system) and run it.</li>
-<li>Click <b>Install TizenBrew</b>. On 2023+ TVs, sign in to your Samsung account when asked.</li>
-<li>On the TV: Apps → 1 2 3 4 5 again, set <b>Host PC IP</b> to <code>127.0.0.1</code>, restart the TV.</li>
-<li>Open <b>TizenBrew</b>, press the <b>Green</b> button (module manager), add an <b>NPM</b> module and type <code>sofatube</code>.</li>
-<li>Sofa Tube now appears in TizenBrew. Open it: start screen, then YouTube.</li>
+<li><b>TV:</b> open <b>Apps</b>, type <b>1 2 3 4 5</b> (number keys, or the remote's <b>123</b> / colour button for on-screen numbers). Set <b>Developer mode</b> to <b>On</b>, type <b>the phone's IP address</b> in <b>Host PC IP</b>, press <b>OK</b>, then restart the TV: hold the remote's <b>Power</b> button until it turns off and on again. (The phone's IP: Settings → Wi-Fi → your network → IP address.)</li>
+<li><b>Phone:</b> install <b>Apps2Samsung</b>: <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest">github.com/Apps2Samsung/Apps2Samsung/releases</a> → the file ending <code>-android.apk</code> (allow your browser to install unknown apps when asked).</li>
+<li><b>Phone:</b> open <a href="/samsung/">sofatube.github.io/samsung</a>: the Sofa Tube file (<code>SofaTube-…-Samsung.wgt</code>) downloads.</li>
+<li><b>Apps2Samsung:</b> in <b>App</b> choose <b>📁 Custom WGT / TPK…</b> and pick the Sofa Tube file, in <b>Select TV</b> choose your TV (<b>Rescan</b> if it is missing), then <b>Download &amp; Install</b>. If it asks you to sign in to Samsung, do so (once).</li>
+<li><b>TV:</b> Apps → <b>1 2 3 4 5</b> again, <b>Host PC IP</b> = <code>127.0.0.1</code>, OK, restart the TV (hold Power). Arabic TV menus show the address reversed: type <code>1.0.0.127</code>.</li>
+<li><b>TV:</b> open <b>Sofa Tube</b> from Apps. If it shows "One last step on the TV", do what it says (it shows the Host PC IP it found).</li>
 </ol>
+<div class="faq">
+<details><summary>No Android phone? With a Windows or Mac computer (6 steps)</summary>
+<ol class="steps">
+<li><b>TV:</b> step 1 above, with <b>the computer's IP address</b> in <b>Host PC IP</b> (Windows: Settings → Network &amp; internet → your connection → IPv4 address; Mac: System Settings → Wi-Fi → Details → IP address).</li>
+<li><b>Computer:</b> install <b>Apps2Samsung</b> from <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest">its releases</a>: Windows <code>-win-x64.msi</code>, Mac <code>-macos-arm64.dmg</code> (Apple chip) or <code>-macos-x64.dmg</code> (Intel).</li>
+<li><b>Computer:</b> download Sofa Tube from <a href="/samsung/">sofatube.github.io/samsung</a>.</li>
+<li><b>Apps2Samsung:</b> <b>Select TV</b> (or type its IP), choose <b>Custom WGT / TPK</b>, pick the Sofa Tube file, <b>Install</b>. Sign in to Samsung if asked (once).</li>
+<li><b>TV:</b> Host PC IP = <code>127.0.0.1</code> (Arabic menus: <code>1.0.0.127</code>), restart the TV.</li>
+<li><b>TV:</b> open <b>Sofa Tube</b> from Apps.</li>
+</ol>
+<p>Also works: <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">TizenBrew Installer</a> on the computer → open <code>http://localhost:8091/ui/dist/index.html</code> → TV IP → <b>Install from GitHub</b> → <code>sofatube/sofatube.github.io</code>. English only; use "Install from GitHub" rather than "Select file to install" (the file option forgets your Samsung certificate after one install).</p>
+</details>
+<details><summary>Already use TizenBrew? The TizenBrew module</summary>
+<p>In <b>TizenBrew</b>, press <b>Green</b>, add an <b>NPM</b> module: <code>sofatube</code>. It updates itself; open Sofa Tube from TizenBrew (TizenBrew → Settings → Autolaunch can open it straight away). Installing TizenBrew itself needs a computer and <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">TizenBrew Installer</a>.</p>
+</details>
+<details><summary>If something goes wrong</summary>
+<ul>
+<li><b>"TV detected, but Developer Mode is off"</b>: do step 1 again and restart the TV.</li>
+<li><b>"Developer Mode IP doesn't match"</b>: Host PC IP must be the IP of this phone or computer; type it again, restart the TV.</li>
+<li><b>"IP is in reversed order on the TV"</b> (Arabic menus): type the address reversed, e.g. <code>192.168.1.5</code> → <code>5.1.168.192</code>.</li>
+<li><b>"debug port isn't responding … power-cycle"</b>: unplug the TV for 30 seconds, plug it in, Rescan.</li>
+<li><b>"Author Certificate mismatch"</b> or <b>"already installed … doesn't allow replacing"</b>: an older Sofa Tube with another certificate is on the TV. On the TV, Apps → Sofa Tube → hold OK → Delete, then install again (its settings are lost; save a settings code first).</li>
+<li><b>TV not found</b>: same Wi-Fi for TV and phone/computer; turn a VPN off; or type the TV's IP (TV: Settings → General → Network → Network Status → IP Settings).</li>
+<li><b>Sofa Tube opens "One last step on the TV"</b>: step 5 is missing (Host PC IP must be <code>127.0.0.1</code>) or the TV was not restarted.</li>
+</ul>
+</details>
+</div>
 <h3>Good to know</h3>
 <ul>
-<li><b>Why a computer?</b> TizenBrew's old installer in the TV's web browser (TVs up to 2021) has been withdrawn; TizenBrew's guide now lists only the computer installer.</li>
-<li>Updates are automatic: TizenBrew loads the newest Sofa Tube each time.</li>
-<li>Always open Sofa Tube from TizenBrew (not the normal YouTube app).</li>
-<li>The very newest Samsung TVs may refuse TizenBrew. If the installer fails, report your TV model.</li>
+<li><b>Voice search:</b> YouTube on Samsung has no microphone here. Search by voice from your phone: phone page → <b>Search</b> → 🎤.</li>
+<li><b>Updates:</b> Sofa Tube → Settings → Backup and about → <b>Check for updates</b>. When it can, it updates on the TV itself; otherwise it shows the steps (install the new file the same way; settings stay).</li>
+<li>Developer mode must stay <b>On</b> with Host PC IP <code>127.0.0.1</code>: Sofa Tube needs it every time it opens YouTube.</li>
 </ul>
 </section>
 </div></main>
