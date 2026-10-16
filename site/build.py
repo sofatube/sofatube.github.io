@@ -359,14 +359,14 @@ def install(lang):
 <h3>ما تحتاج إليه</h3>
 <ul>
 <li>تلفاز سامسونج من سنة 2018 أو أحدث (Tizen 4.0 أو أحدث)، و<b>هاتف أندرويد</b> على شبكة الواي فاي نفسها. ليس لديك هاتف أندرويد (آيفون)؟ استخدم حاسوبًا بويندوز أو ماك (أدناه).</li>
-<li>إذا طلب المثبّت تسجيل الدخول إلى سامسونج (أجهزة Tizen 7 فما فوق، وأغلبها من 2023)، فحساب سامسونج مجاني. مرة واحدة.</li>
+<li>حساب سامسونج (مجاني): يطلب <bdi>Apps2Samsung</bdi> على الهاتف تسجيل الدخول في أول تثبيت، مهما كان طراز التلفاز (وعلى الحاسوب لأجهزة Tizen 7 فما فوق فقط، وأغلبها من 2023). يصنع منه شهادة توقيع خاصة بك ويحتفظ بها، فتسجّل الدخول مرة واحدة.</li>
 </ul>
 <h3>بهاتف أندرويد (دون حاسوب): 6 خطوات</h3>
 <ol class="steps">
 <li><b>التلفاز:</b> افتح «<b>التطبيقات</b>» (<bdi>Apps</bdi>) واكتب <bdi>1 2 3 4 5</bdi> (بأزرار الأرقام، أو بزر <bdi>123</bdi> / زر الألوان لإظهار الأرقام على الشاشة). اجعل <bdi>Developer mode</bdi> على <bdi>On</bdi>، واكتب <b>عنوان IP للهاتف</b> في خانة <bdi>Host PC IP</bdi>، واضغط <bdi>OK</bdi>، ثم أعد تشغيل التلفاز: اضغط مطولًا على زر الطاقة حتى ينطفئ ثم يعمل من جديد. (عنوان IP للهاتف: الإعدادات ← الواي فاي ← شبكتك ← عنوان IP.)</li>
-<li><b>الهاتف:</b> ثبّت <b><bdi>Apps2Samsung</bdi></b>: <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest"><bdi>github.com/Apps2Samsung/Apps2Samsung/releases</bdi></a> ← الملف المنتهي بـ<code dir="ltr">-android.apk</code> (واسمح لمتصفحك بتثبيت التطبيقات غير المعروفة عند السؤال).</li>
+<li><b>الهاتف:</b> ثبّت <b><bdi>Apps2Samsung</bdi></b>: <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest"><bdi>github.com/Apps2Samsung/Apps2Samsung/releases</bdi></a> ← الملف المنتهي بـ<code dir="ltr">-android.apk</code>. يحذّر كروم «<bdi>File might be harmful</bdi>»: اضغط <bdi>Download anyway</bdi> ثم <bdi>Open</bdi>. إن قال الهاتف إنه لا يسمح بتثبيت تطبيقات غير معروفة من هذا المصدر: <bdi>Settings</bdi> ← فعّل <bdi>Allow from this source</bdi> ← رجوع ← <bdi>Install</bdi>. إن عرض <bdi>Apps2Samsung</bdi> عند فتحه تحديثًا (<bdi>Update Available</bdi>) فاختر ما شئت (<bdi>Later</bdi> يكفي). لعرضه بالعربية: ⚙ ← <bdi>Language</bdi> ← العربية.</li>
 <li><b>الهاتف:</b> افتح <a href="/samsung/"><bdi>sofatube.github.io/samsung</bdi></a>: يُنزَّل ملف صوفا تيوب (<code dir="ltr">SofaTube-…-Samsung.wgt</code>).</li>
-<li><b><bdi>Apps2Samsung</bdi>:</b> في <bdi>App</bdi> اختر <bdi>📁 Custom WGT / TPK…</bdi> ثم ملف صوفا تيوب، وفي <bdi>Select TV</bdi> اختر تلفازك (<bdi>Rescan</bdi> إن لم يظهر)، ثم <bdi>Download &amp; Install</bdi>. إن طلب تسجيل الدخول إلى سامسونج فسجّل (مرة واحدة).</li>
+<li><b><bdi>Apps2Samsung</bdi>:</b> اضغط خانة «التطبيق» (<bdi>App</bdi>) وانزل إلى <b>آخر</b> القائمة: <bdi>📁 Custom WGT / TPK…</bdi>، ثم اختر ملف صوفا تيوب (<code dir="ltr">SofaTube-…-Samsung.wgt</code>)؛ يظهر «حزمة مخصصة جاهزة». تحت <bdi>Select TV</bdi> يظهر عنوان تلفازك (اضغط ⟳ إن لم يظهر). اضغط <bdi>Download &amp; Install</bdi>. في المرة الأولى تُفتح صفحة <bdi>Samsung Account</bdi>: سجّل الدخول (أو <bdi>Sign in with Google</bdi>). ينتهي حين يقول «تم تثبيت … افتح قائمة تطبيقات التلفزيون لتشغيلها».</li>
 <li><b>التلفاز:</b> «التطبيقات» ← <bdi>1 2 3 4 5</bdi> مرة أخرى، واجعل <bdi>Host PC IP</bdi> هو <code dir="ltr">127.0.0.1</code>، ثم <bdi>OK</bdi>، ثم أعد تشغيل التلفاز (اضغط مطولًا على زر الطاقة). قوائم التلفاز العربية تعرض العنوان معكوسًا: اكتب <code dir="ltr">1.0.0.127</code>.</li>
 <li><b>التلفاز:</b> افتح <b>صوفا تيوب</b> من «التطبيقات». إن ظهرت شاشة «خطوة أخيرة على التلفاز» فاتبع ما فيها (تعرض قيمة <bdi>Host PC IP</bdi> التي وجدتها).</li>
 </ol>
@@ -376,7 +376,7 @@ def install(lang):
 <li><b>التلفاز:</b> الخطوة 1 أعلاه، مع <b>عنوان IP للحاسوب</b> في <bdi>Host PC IP</bdi> (ويندوز: الإعدادات ← الشبكة والإنترنت ← اتصالك ← عنوان IPv4؛ ماك: إعدادات النظام ← الواي فاي ← التفاصيل ← عنوان IP).</li>
 <li><b>الحاسوب:</b> ثبّت <b><bdi>Apps2Samsung</bdi></b> من <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest">صفحة إصداراته</a>: ويندوز <code dir="ltr">-win-x64.msi</code>، ماك <code dir="ltr">-macos-arm64.dmg</code> (معالج Apple) أو <code dir="ltr">-macos-x64.dmg</code> (معالج Intel).</li>
 <li><b>الحاسوب:</b> نزّل صوفا تيوب من <a href="/samsung/"><bdi>sofatube.github.io/samsung</bdi></a>.</li>
-<li><b><bdi>Apps2Samsung</bdi>:</b> <bdi>Select TV</bdi> (أو اكتب عنوان IP للتلفاز)، ثم <bdi>Custom WGT / TPK</bdi>، واختر ملف صوفا تيوب، ثم <bdi>Install</bdi>. سجّل الدخول إلى سامسونج إن طُلب منك (مرة واحدة).</li>
+<li><b><bdi>Apps2Samsung</bdi>:</b> <bdi>Select TV</bdi> (أو اكتب عنوان IP للتلفاز)، ثم <bdi>Custom WGT / TPK</bdi>، واختر ملف صوفا تيوب، ثم <bdi>Download &amp; Install</bdi>. سجّل الدخول إلى سامسونج إن طُلب منك (مرة واحدة).</li>
 <li><b>التلفاز:</b> <bdi>Host PC IP</bdi> = <code dir="ltr">127.0.0.1</code> (القوائم العربية: <code dir="ltr">1.0.0.127</code>)، ثم أعد تشغيل التلفاز.</li>
 <li><b>التلفاز:</b> افتح <b>صوفا تيوب</b> من «التطبيقات».</li>
 </ol>
@@ -387,12 +387,14 @@ def install(lang):
 </details>
 <details><summary>إذا حدثت مشكلة</summary>
 <ul>
-<li><b>«<bdi>TV detected, but Developer Mode is off</bdi>»</b>: أعد الخطوة 1 وأعد تشغيل التلفاز.</li>
-<li><b>«<bdi>Developer Mode IP doesn't match</bdi>»</b>: يجب أن تكون <bdi>Host PC IP</bdi> عنوان هذا الهاتف أو الحاسوب؛ اكتبه مرة أخرى وأعد تشغيل التلفاز.</li>
+<li><b>«تم اكتشاف التلفزيون، ولكن وضع المطور متوقف»</b> (<bdi>TV detected, but Developer Mode is off</bdi>): أعد الخطوة 1 وأعد تشغيل التلفاز.</li>
+<li><b>«… لا يتطابق مع هذا الكمبيوتر»</b> (<bdi>Developer Mode IP doesn't match</bdi>): يجب أن تكون <bdi>Host PC IP</bdi> عنوان هذا الهاتف أو الحاسوب؛ اكتبه مرة أخرى وأعد تشغيل التلفاز.</li>
 <li><b>«<bdi>IP is in reversed order on the TV</bdi>»</b> (القوائم العربية): اكتب العنوان معكوسًا، مثلًا <code dir="ltr">192.168.1.5</code> ← <code dir="ltr">5.1.168.192</code>.</li>
-<li><b>«<bdi>debug port isn't responding … power-cycle</bdi>»</b>: افصل التلفاز عن الكهرباء 30 ثانية، ثم أعد وصله، ثم <bdi>Rescan</bdi>.</li>
-<li><b>«<bdi>Author Certificate mismatch</bdi>»</b> أو <b>«<bdi>already installed … doesn't allow replacing</bdi>»</b>: على التلفاز نسخة أقدم من صوفا تيوب بشهادة أخرى. على التلفاز: «التطبيقات» ← صوفا تيوب ← اضغط مطولًا على <bdi>OK</bdi> ← حذف، ثم ثبّته من جديد (تضيع إعداداته، فاحفظ رمز الإعدادات أولًا).</li>
-<li><b>لا يظهر التلفاز</b>: يجب أن يكون التلفاز والهاتف أو الحاسوب على الواي فاي نفسه؛ أوقف أي VPN؛ أو اكتب عنوان التلفاز (التلفاز: <bdi>Settings</bdi> ← <bdi>General</bdi> ← <bdi>Network</bdi> ← <bdi>Network Status</bdi> ← <bdi>IP Settings</bdi>).</li>
+<li><b>«… منفذ التصحيح الخاص به لا يستجيب بعد»</b> (<bdi>debug port isn't responding … power-cycle</bdi>): افصل التلفاز عن الكهرباء 30 ثانية، ثم أعد وصله، ثم اضغط ⟳ (<bdi>Rescan</bdi>).</li>
+<li><b>«<bdi>Could not read a valid TV DUID</bdi>»</b>: اضغط <bdi>Download &amp; Install</bdi> مرة أخرى؛ وإن تكرّر فأعد تشغيل التلفاز.</li>
+<li><b>«تم إلغاء تسجيل الدخول»</b> (<bdi>Sign-in cancelled</bdi>): أُغلقت صفحة سامسونج قبل تسجيل الدخول؛ اضغط <bdi>Download &amp; Install</bdi> مرة أخرى وسجّل الدخول.</li>
+<li><b>«… مع شهادة توقيع مختلفة»</b> (<bdi>already installed with a different signing certificate</bdi>) أو <b>«مثبَّت بالفعل، وتلفازك لا يسمح باستبداله»</b>: على التلفاز نسخة أقدم من صوفا تيوب بشهادة أخرى. على التلفاز: «التطبيقات» ← صوفا تيوب ← اضغط مطولًا على <bdi>OK</bdi> ← حذف، ثم ثبّته من جديد (تضيع إعداداته، فاحفظ رمز الإعدادات أولًا).</li>
+<li><b>لا يظهر التلفاز</b> («لم يتم العثور على التلفزيون»): يجب أن يكون التلفاز والهاتف أو الحاسوب على الواي فاي نفسه؛ أوقف أي VPN؛ أو اضغط خانة <bdi>Select TV</bdi> واكتب عنوان التلفاز (التلفاز: <bdi>Settings</bdi> ← <bdi>General</bdi> ← <bdi>Network</bdi> ← <bdi>Network Status</bdi> ← <bdi>IP Settings</bdi>).</li>
 <li><b>يفتح صوفا تيوب على «خطوة أخيرة على التلفاز»</b>: لم تُنفَّذ الخطوة 5 (يجب أن تكون <bdi>Host PC IP</bdi> هي <code dir="ltr">127.0.0.1</code>) أو لم يُعَد تشغيل التلفاز.</li>
 </ul>
 </details>
@@ -470,14 +472,14 @@ def install(lang):
 <h3>You need</h3>
 <ul>
 <li>A Samsung TV from 2018 or newer (Tizen 4.0 or newer), and an <b>Android phone</b> on the same Wi-Fi. No Android phone (iPhone)? Use a Windows or Mac computer instead (below).</li>
-<li>If the installer asks you to sign in to Samsung (TVs with Tizen 7 or newer, most TVs from 2023 on), a free Samsung account. Once.</li>
+<li>A free Samsung account: Apps2Samsung on a phone asks you to sign in at the first install, for any TV (on a computer only for TVs with Tizen 7 or newer, most TVs from 2023 on). It makes your own signing certificate from it and keeps it, so you sign in once.</li>
 </ul>
 <h3>With an Android phone (no computer): 6 steps</h3>
 <ol class="steps">
 <li><b>TV:</b> open <b>Apps</b>, type <b>1 2 3 4 5</b> (number keys, or the remote's <b>123</b> / colour button for on-screen numbers). Set <b>Developer mode</b> to <b>On</b>, type <b>the phone's IP address</b> in <b>Host PC IP</b>, press <b>OK</b>, then restart the TV: hold the remote's <b>Power</b> button until it turns off and on again. (The phone's IP: Settings → Wi-Fi → your network → IP address.)</li>
-<li><b>Phone:</b> install <b>Apps2Samsung</b>: <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest">github.com/Apps2Samsung/Apps2Samsung/releases</a> → the file ending <code>-android.apk</code> (allow your browser to install unknown apps when asked).</li>
+<li><b>Phone:</b> install <b>Apps2Samsung</b>: <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest">github.com/Apps2Samsung/Apps2Samsung/releases</a> → the file ending <code>-android.apk</code>. Chrome warns "File might be harmful": tap <b>Download anyway</b>, then <b>Open</b>. If the phone says it isn't allowed to install unknown apps from this source: <b>Settings</b> → turn on <b>Allow from this source</b> → back → <b>Install</b>. If Apps2Samsung shows "Update Available" when it opens, either answer is fine (<b>Later</b> is enough).</li>
 <li><b>Phone:</b> open <a href="/samsung/">sofatube.github.io/samsung</a>: the Sofa Tube file (<code>SofaTube-…-Samsung.wgt</code>) downloads.</li>
-<li><b>Apps2Samsung:</b> in <b>App</b> choose <b>📁 Custom WGT / TPK…</b> and pick the Sofa Tube file, in <b>Select TV</b> choose your TV (<b>Rescan</b> if it is missing), then <b>Download &amp; Install</b>. If it asks you to sign in to Samsung, do so (once).</li>
+<li><b>Apps2Samsung:</b> tap the <b>App</b> box and scroll to the <b>end</b> of the list: <b>📁 Custom WGT / TPK…</b>, then pick the Sofa Tube file (<code>SofaTube-…-Samsung.wgt</code>); it says "Custom package ready". <b>Select TV</b> shows your TV's IP (tap ⟳ if it is missing). Tap <b>Download &amp; Install</b>. The first time a <b>Samsung Account</b> page opens: sign in (or <b>Sign in with Google</b>). Done when it says "Installed … Open the TV's Apps list to launch it."</li>
 <li><b>TV:</b> Apps → <b>1 2 3 4 5</b> again, <b>Host PC IP</b> = <code>127.0.0.1</code>, OK, restart the TV (hold Power). Arabic TV menus show the address reversed: type <code>1.0.0.127</code>.</li>
 <li><b>TV:</b> open <b>Sofa Tube</b> from Apps. If it shows "One last step on the TV", do what it says (it shows the Host PC IP it found).</li>
 </ol>
@@ -487,7 +489,7 @@ def install(lang):
 <li><b>TV:</b> step 1 above, with <b>the computer's IP address</b> in <b>Host PC IP</b> (Windows: Settings → Network &amp; internet → your connection → IPv4 address; Mac: System Settings → Wi-Fi → Details → IP address).</li>
 <li><b>Computer:</b> install <b>Apps2Samsung</b> from <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest">its releases</a>: Windows <code>-win-x64.msi</code>, Mac <code>-macos-arm64.dmg</code> (Apple chip) or <code>-macos-x64.dmg</code> (Intel).</li>
 <li><b>Computer:</b> download Sofa Tube from <a href="/samsung/">sofatube.github.io/samsung</a>.</li>
-<li><b>Apps2Samsung:</b> <b>Select TV</b> (or type its IP), choose <b>Custom WGT / TPK</b>, pick the Sofa Tube file, <b>Install</b>. Sign in to Samsung if asked (once).</li>
+<li><b>Apps2Samsung:</b> <b>Select TV</b> (or type its IP), choose <b>Custom WGT / TPK</b>, pick the Sofa Tube file, <b>Download &amp; Install</b>. Sign in to Samsung if asked (once).</li>
 <li><b>TV:</b> Host PC IP = <code>127.0.0.1</code> (Arabic menus: <code>1.0.0.127</code>), restart the TV.</li>
 <li><b>TV:</b> open <b>Sofa Tube</b> from Apps.</li>
 </ol>
@@ -501,9 +503,11 @@ def install(lang):
 <li><b>"TV detected, but Developer Mode is off"</b>: do step 1 again and restart the TV.</li>
 <li><b>"Developer Mode IP doesn't match"</b>: Host PC IP must be the IP of this phone or computer; type it again, restart the TV.</li>
 <li><b>"IP is in reversed order on the TV"</b> (Arabic menus): type the address reversed, e.g. <code>192.168.1.5</code> → <code>5.1.168.192</code>.</li>
-<li><b>"debug port isn't responding … power-cycle"</b>: unplug the TV for 30 seconds, plug it in, Rescan.</li>
-<li><b>"Author Certificate mismatch"</b> or <b>"already installed … doesn't allow replacing"</b>: an older Sofa Tube with another certificate is on the TV. On the TV, Apps → Sofa Tube → hold OK → Delete, then install again (its settings are lost; save a settings code first).</li>
-<li><b>TV not found</b>: same Wi-Fi for TV and phone/computer; turn a VPN off; or type the TV's IP (TV: Settings → General → Network → Network Status → IP Settings).</li>
+<li><b>"debug port isn't responding … power-cycle"</b>: unplug the TV for 30 seconds, plug it in, tap ⟳ (Rescan).</li>
+<li><b>"Could not read a valid TV DUID"</b>: tap <b>Download &amp; Install</b> again; if it repeats, restart the TV.</li>
+<li><b>"Sign-in cancelled."</b>: the Samsung page was closed before signing in; tap <b>Download &amp; Install</b> again and sign in.</li>
+<li><b>"already installed with a different signing certificate"</b> or <b>"already installed and your TV doesn't allow replacing"</b>: an older Sofa Tube with another certificate is on the TV. On the TV, Apps → Sofa Tube → hold OK → Delete, then install again (its settings are lost; save a settings code first).</li>
+<li><b>TV not found</b> ("No TVs found"): same Wi-Fi for TV and phone/computer; turn a VPN off; or tap the <b>Select TV</b> box and type the TV's IP (TV: Settings → General → Network → Network Status → IP Settings).</li>
 <li><b>Sofa Tube opens "One last step on the TV"</b>: step 5 is missing (Host PC IP must be <code>127.0.0.1</code>) or the TV was not restarted.</li>
 </ul>
 </details>
