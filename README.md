@@ -9,7 +9,7 @@
 </p>
 
 > [!IMPORTANT]
-> **0.9.3 is a test version.** Parts of it have only run on TV _emulators_ so far. See [What has been tested](#what-has-been-tested).
+> **0.9.4 is a test version.** Parts of it have only run on TV _emulators_ so far. See [What has been tested](#what-has-been-tested).
 
 **[English](#english) · [العربية](#العربية)**
 
@@ -31,7 +31,7 @@ Short links (type them in the TV's **Downloader** app or on your phone):
 | --------------------------------- | ----------------------------------------------------- |
 | `sofatube.github.io/tv`       | Android TV / Google TV / Fire TV app (`.apk`, ~95 MB) |
 | `sofatube.github.io/lg`       | LG main app (`.ipk`)                                  |
-| `sofatube.github.io/lg-phone` | LG _Sofa Tube Phone_ app (`.ipk`, optional)           |
+| `sofatube.github.io/lg-phone` | LG _Sofa Tube Phone_ app (`.ipk`): install this one, it installs Sofa Tube |
 | `sofatube.github.io/samsung`  | Samsung app (`.wgt`, install with Apps2Samsung)      |
 
 #### Android TV · Google TV · Fire TV (no computer)
@@ -51,7 +51,7 @@ Fallback: copy the `.apk` from the [release](https://github.com/sofatube/sofatub
 2. Create a free LG developer account at [webostv.developer.lge.com](https://webostv.developer.lge.com/).
 3. On the TV, install **Developer Mode** from the LG Content Store, open it and sign in. Turn **Dev Mode Status** on (the TV restarts), open it again and turn **Key Server** on. Note the **IP address** and the **passphrase**.
 4. On an Android phone on the same Wi-Fi, install **webOS Dev Manager** (Android `.apk` on its [GitHub releases page](https://github.com/webosbrew/dev-manager-desktop/releases/latest)), and add the TV with that IP and passphrase.
-5. On the phone, download **`sofatube.github.io/lg`** (and, optional, **`sofatube.github.io/lg-phone`**), then install them from webOS Dev Manager.
+5. On the phone, download **`sofatube.github.io/lg-phone`** and install it from webOS Dev Manager. On the TV, open **Sofa Tube Phone** and press **OK** at "Install Sofa Tube": it downloads, checks, installs and opens Sofa Tube (the TV needs internet). To install Sofa Tube yourself instead: `sofatube.github.io/lg`.
 6. On the TV, open **Sofa Tube**.
 
 Developer Mode sessions **expire**: open the Developer Mode app now and then and extend the session, or the developer apps stop working.
@@ -72,11 +72,11 @@ Already use TizenBrew? Add the NPM module **`sofatube`** instead (Green → NPM)
 
 ### What has been tested
 
-| TV                                | Status for 0.9.3                                                                                       |
+| TV                                | Status for 0.9.4                                                                                       |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| LG webOS                          | LG emulator (webOS 4); earlier versions on a real LG TV.                                               |
+| LG webOS                          | LG emulator (webOS 4), including installing Sofa Tube from the Sofa Tube Phone app; earlier versions on a real LG TV. |
+| Samsung app (`.wgt`)              | Three real Samsung TVs in Samsung's Remote Test Lab (2025 QN80F, 2022 QB80, 2020 QT80), installed with Apps2Samsung from an Android phone. Whole-TV control from the phone: not confirmed on a real TV yet. |
 | Samsung (TizenBrew, npm `sofatube`) | Samsung emulator only. **Never tried on a real Samsung TV.**                                           |
-| Samsung app (`.wgt`)              | Installed on the Samsung TV emulator with TizenBrew Installer (re-signed); its YouTube loader cannot run there. **Never tried on a real Samsung TV.** |
 | Android TV / Google TV            | Google TV emulator, and test builds of 0.9.3 on one real Android TV (TCL). **Other brands untested.** |
 | Fire TV                           | **Untested.**                                                                                          |
 | Install with webOS Dev Manager on a phone | **Not tried by us yet.**                                                                        |
@@ -103,7 +103,7 @@ Please report what works and what does not: [open an issue](https://github.com/s
 | --- | --- |
 | <code dir="ltr">sofatube.github.io/tv</code> | تطبيق Android TV وGoogle TV وFire TV (ملف apk، نحو 95 ميغابايت) |
 | <code dir="ltr">sofatube.github.io/lg</code> | تطبيق LG الرئيسي (ملف ipk) |
-| <code dir="ltr">sofatube.github.io/lg-phone</code> | تطبيق <bdi>Sofa Tube Phone</bdi> لـLG (ملف ipk، اختياري) |
+| <code dir="ltr">sofatube.github.io/lg-phone</code> | تطبيق <bdi>Sofa Tube Phone</bdi> لـLG (ملف ipk): ثبّته وحده، وهو يثبّت صوفا تيوب |
 | <code dir="ltr">sofatube.github.io/samsung</code> | تطبيق سامسونج (ملف wgt، يُثبَّت بـ<bdi>Apps2Samsung</bdi>) |
 
 #### أندرويد تي في · جوجل تي في · فاير تي في (دون حاسوب)
@@ -123,7 +123,7 @@ Please report what works and what does not: [open an issue](https://github.com/s
 2. أنشئ حساب مطوّر مجانيًا من LG في <a href="https://webostv.developer.lge.com/">webostv.developer.lge.com</a>.
 3. على التلفاز، ثبّت تطبيق **Developer Mode** من متجر LG Content Store، وافتحه وسجّل الدخول. فعّل **Dev Mode Status** (يُعاد تشغيل التلفاز)، ثم افتحه مجددًا وفعّل **Key Server**. دوّن **عنوان IP** و**عبارة المرور** (Passphrase).
 4. على هاتف أندرويد متصل بالواي فاي نفسه، ثبّت **webOS Dev Manager** (ملف apk لأندرويد في <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">صفحة إصداراته على GitHub</a>)، وأضف التلفاز بعنوان IP وعبارة المرور.
-5. على الهاتف، نزّل <code dir="ltr">sofatube.github.io/lg</code> (واختياريًا <code dir="ltr">sofatube.github.io/lg-phone</code>)، ثم ثبّتهما من webOS Dev Manager.
+5. على الهاتف، نزّل <code dir="ltr">sofatube.github.io/lg-phone</code> وثبّته من webOS Dev Manager. وعلى التلفاز، افتح **<bdi>Sofa Tube Phone</bdi>** واضغط **OK** عند «ثبّت صوفا تيوب»: ينزّل صوفا تيوب ويتحقق منه ويثبّته ويفتحه (يحتاج التلفاز إلى الإنترنت). وإن أردت تثبيت صوفا تيوب بنفسك: <code dir="ltr">sofatube.github.io/lg</code>.
 6. على التلفاز، افتح **Sofa Tube**.
 
 لجلسة وضع المطوّر مدة **تنتهي**: افتح تطبيق Developer Mode من حين لآخر ومدّد الجلسة، وإلا توقفت تطبيقات المطوّر عن العمل.
@@ -144,11 +144,11 @@ Please report what works and what does not: [open an issue](https://github.com/s
 
 ### ما الذي جُرِّب
 
-| التلفاز | الحالة في <bdi>0.9.3</bdi> |
+| التلفاز | الحالة في <bdi>0.9.4</bdi> |
 | --- | --- |
-| LG ‏(webOS) | محاكي LG ‏(webOS 4)؛ والإصدارات السابقة على تلفاز LG حقيقي. |
+| LG ‏(webOS) | محاكي LG ‏(webOS 4)، ومنه تثبيت صوفا تيوب من تطبيق <bdi>Sofa Tube Phone</bdi>؛ والإصدارات السابقة على تلفاز LG حقيقي. |
+| تطبيق سامسونج (ملف <code dir="ltr">.wgt</code>) | ثلاثة أجهزة تلفاز سامسونج حقيقية في مختبر سامسونج عن بُعد (<bdi>QN80F</bdi> من 2025، و<bdi>QB80</bdi> من 2022، و<bdi>QT80</bdi> من 2020)، ثُبّت عليها بـ<bdi>Apps2Samsung</bdi> من هاتف أندرويد. التحكم في التلفاز كله من الهاتف: لم يُتأكَّد منه بعدُ على تلفاز حقيقي. |
 | سامسونج (TizenBrew، وحدة <code dir="ltr">sofatube</code>) | محاكي سامسونج فقط. **لم يُجرَّب على تلفاز سامسونج حقيقي.** |
-| تطبيق سامسونج (ملف <code dir="ltr">.wgt</code>) | ثُبّت على محاكي سامسونج بـ<bdi>TizenBrew Installer</bdi> (بعد إعادة التوقيع)؛ ولا يعمل فيه جزء فتح YouTube. **لم يُجرَّب على تلفاز سامسونج حقيقي.** |
 | Android TV وGoogle TV | محاكي Google TV، ونسخ تجريبية من <bdi>0.9.3</bdi> على تلفاز أندرويد حقيقي واحد (TCL). **لم يُجرَّب على الشركات الأخرى.** |
 | Fire TV | **لم يُجرَّب.** |
 | التثبيت بـwebOS Dev Manager من الهاتف | **لم نجرّبه بعد.** |

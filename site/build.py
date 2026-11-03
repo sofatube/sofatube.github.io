@@ -12,7 +12,7 @@ REPO = 'https://github.com/sofatube/sofatube.github.io'
 ISSUES = REPO + '/issues'
 RELEASES = REPO + '/releases/latest'
 MAIL = 'sofatube.app@proton.me'
-VER = '0.9.3'
+VER = '0.9.4'
 
 PAGES = [('', 'Home', 'الرئيسية'), ('install/', 'Install', 'التثبيت'), ('videos/', 'Videos', 'الفيديوهات'),
          ('testers/', 'Testers', 'للمجرّبين'), ('faq/', 'FAQ', 'الأسئلة الشائعة')]
@@ -130,10 +130,9 @@ def download_cards(lang):
 <div class="row"><a class="btn" href="/tv/">تنزيل ملف apk</a></div>
 <p class="meta">نحو 95 ميغابايت · <a href="{i}#android">خطوات التثبيت</a></p></div>
 <div class="card"><h3>تلفاز LG ‏(webOS)</h3>
-<p>نزّل الملفين على هاتف أندرويد وثبّتهما بـ<bdi>webOS Dev Manager</bdi>:</p>
-<p class="link">sofatube.github.io/lg</p>
+<p>ثبّت تطبيقًا واحدًا، <bdi>Sofa Tube Phone</bdi>، بـ<bdi>webOS Dev Manager</bdi> من هاتف أندرويد، ثم افتحه على التلفاز: يثبّت صوفا تيوب بنفسه.</p>
 <p class="link">sofatube.github.io/lg-phone</p>
-<div class="row"><a class="btn" href="/lg/">التطبيق الرئيسي (ipk)</a> <a class="btn ghost" href="/lg-phone/">تطبيق <bdi>Sofa Tube Phone</bdi> (اختياري)</a></div>
+<div class="row"><a class="btn" href="/lg-phone/">تطبيق <bdi>Sofa Tube Phone</bdi> (ipk)</a> <a class="btn ghost" href="/lg/">صوفا تيوب وحده (ipk)</a></div>
 <p class="meta"><a href="{i}#lg">خطوات التثبيت</a></p></div>
 <div class="card"><h3>تلفاز سامسونج ‏(Tizen)</h3>
 <p>نزّل الملف على هاتف أندرويد (أو حاسوب) وثبّته بـ<bdi>Apps2Samsung</bdi>:</p>
@@ -149,10 +148,9 @@ def download_cards(lang):
 <div class="row"><a class="btn" href="/tv/">Download .apk</a></div>
 <p class="meta">about 95 MB · <a href="{i}#android">Install steps</a></p></div>
 <div class="card"><h3>LG TV (webOS)</h3>
-<p>Download on an Android phone, install with <b>webOS Dev Manager</b>:</p>
-<p class="link">sofatube.github.io/lg</p>
+<p>Install one app, <b>Sofa Tube Phone</b>, with <b>webOS Dev Manager</b> from an Android phone, then open it on the TV: it installs Sofa Tube itself.</p>
 <p class="link">sofatube.github.io/lg-phone</p>
-<div class="row"><a class="btn" href="/lg/">Main app (.ipk)</a> <a class="btn ghost" href="/lg-phone/">Sofa Tube Phone (optional)</a></div>
+<div class="row"><a class="btn" href="/lg-phone/">Sofa Tube Phone (.ipk)</a> <a class="btn ghost" href="/lg/">Sofa Tube only (.ipk)</a></div>
 <p class="meta"><a href="{i}#lg">Install steps</a></p></div>
 <div class="card"><h3>Samsung TV (Tizen)</h3>
 <p>Download on an Android phone (or a computer), install with <b>Apps2Samsung</b>:</p>
@@ -339,17 +337,18 @@ def install(lang):
 <li>فعّل <b>Dev Mode Status</b> (يُعاد تشغيل التلفاز)، ثم افتح التطبيق مجددًا وفعّل <b>Key Server</b>. دوّن <b>عنوان IP</b> و<b>عبارة المرور</b> (Passphrase).</li>
 <li>على الهاتف، ثبّت <b>webOS Dev Manager</b>: <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">github.com/webosbrew/dev-manager-desktop</a> ← Releases ← الملف المنتهي بـ<code dir="ltr">universal.apk</code>. واسمح لمتصفحك بتثبيت التطبيقات غير المعروفة عند السؤال.</li>
 <li>في webOS Dev Manager، أضف التلفاز بعنوان IP وعبارة المرور.</li>
-<li>في متصفح الهاتف، افتح <a href="/lg/"><bdi>sofatube.github.io/lg</bdi></a> و<a href="/lg-phone/"><bdi>sofatube.github.io/lg-phone</bdi></a>: يُنزَّل الملفان.</li>
-<li>في webOS Dev Manager، ثبّت ملف ipk للتطبيق الرئيسي، ثم ملف تطبيق الهاتف، من مجلد التنزيلات في الهاتف.</li>
-<li>على التلفاز، افتح <b>Sofa Tube</b>. يسألك الإعداد الأول عن اللغة والرمز السري ووضع الأطفال. الزر الأخضر يفتح الإعدادات.</li>
+<li>في متصفح الهاتف، افتح <a href="/lg-phone/"><bdi>sofatube.github.io/lg-phone</bdi></a>: يُنزَّل ملف تطبيق <bdi>Sofa Tube Phone</bdi>.</li>
+<li>في webOS Dev Manager، ثبّت هذا الملف من مجلد التنزيلات في الهاتف.</li>
+<li>على التلفاز، افتح <b><bdi>Sofa Tube Phone</bdi></b> واضغط <b>OK</b> عند «ثبّت صوفا تيوب»: ينزّل أحدث إصدار ويتحقق منه ويثبّته ثم يفتحه (يحتاج التلفاز إلى الإنترنت).</li>
+<li>يسألك الإعداد الأول في صوفا تيوب عن اللغة والرمز السري ووضع الأطفال. الزر الأخضر يفتح الإعدادات.</li>
 </ol>
 <h3>البديل: بحاسوب</h3>
-<p>الخطوات نفسها، مع <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> لويندوز أو ماك أو لينكس (من الصفحة نفسها) وملفَّي ipk من الرابطين أعلاه.</p>
+<p>الخطوات نفسها، مع <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> لويندوز أو ماك أو لينكس (من الصفحة نفسها) وملف <bdi>Sofa Tube Phone</bdi> من الرابط أعلاه. وإن أردت تثبيت صوفا تيوب بنفسك: <a href="/lg/"><bdi>sofatube.github.io/lg</bdi></a>.</p>
 <h3>معلومات مفيدة</h3>
 <ul>
 <li>لجلسة وضع المطوّر مدة <b>تنتهي</b>، وبعدها لا تُفتح التطبيقات التي ثبّتّها. افتح تطبيق Developer Mode من حين لآخر ومدّد الجلسة.</li>
-<li><bdi>Sofa Tube Phone</bdi> تطبيق ثانٍ: افتحه لتغيير الإعدادات من هاتفك (رمز QR). وتحتاج ميزة إطفاء الشاشة أيضًا إلى فتحه مرة واحدة بعد تشغيل التلفاز.</li>
-<li>للتحديث لاحقًا: ثبّت ملف ipk الجديد بالطريقة نفسها، وتبقى إعداداتك كما هي.</li>
+<li>لماذا تطبيقان؟ يحتاج صوفا تيوب إلى هوية تطبيق YouTube لدى LG، وهي تمنعه من تشغيل الخدمات. لذلك يشغّل <bdi>Sofa Tube Phone</bdi> الاتصال بالهاتف والتحديثات. افتحه مرة واحدة بعد تشغيل التلفاز إن احتجت إلى الهاتف أو إطفاء الشاشة أو التحديث.</li>
+<li>للتحديث: الإعدادات ← حول التطبيق والنسخ الاحتياطي ← البحث عن تحديثات؛ يثبّت <bdi>Sofa Tube Phone</bdi> الإصدار الجديد، وتبقى إعداداتك كما هي.</li>
 </ul>
 </section>
 
@@ -453,17 +452,18 @@ def install(lang):
 <li>Turn on <b>Dev Mode Status</b> (the TV restarts), open the app again and turn on <b>Key Server</b>. Write down the <b>IP address</b> and the <b>passphrase</b>.</li>
 <li>On the phone, install <b>webOS Dev Manager</b>: <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">github.com/webosbrew/dev-manager-desktop</a> → Releases → the file ending <code>universal.apk</code>. Allow your browser to install unknown apps when asked.</li>
 <li>In webOS Dev Manager, add the TV with that IP and passphrase.</li>
-<li>In the phone's browser, open <a href="/lg/">sofatube.github.io/lg</a> and <a href="/lg-phone/">sofatube.github.io/lg-phone</a>: both files download.</li>
-<li>In webOS Dev Manager, install the main app .ipk, then the Phone app .ipk, from the phone's Downloads.</li>
-<li>On the TV, open <b>Sofa Tube</b>. The first-time setup asks for language, PIN and kid mode. Green opens the settings.</li>
+<li>In the phone's browser, open <a href="/lg-phone/">sofatube.github.io/lg-phone</a>: the Sofa Tube Phone file downloads.</li>
+<li>In webOS Dev Manager, install that file from the phone's Downloads.</li>
+<li>On the TV, open <b>Sofa Tube Phone</b> and press <b>OK</b> at "Install Sofa Tube": it downloads the latest version, checks it, installs it and opens it (the TV needs internet).</li>
+<li>Sofa Tube's first-time setup asks for language, PIN and kid mode. Green opens the settings.</li>
 </ol>
 <h3>Fallback: with a computer</h3>
-<p>Same steps, with <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> for Windows, Mac or Linux (same page) and the two .ipk files from the links above.</p>
+<p>Same steps, with <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> for Windows, Mac or Linux (same page) and the Sofa Tube Phone file from the link above. To install Sofa Tube yourself instead: <a href="/lg/">sofatube.github.io/lg</a>.</p>
 <h3>Good to know</h3>
 <ul>
 <li>Developer Mode sessions <b>expire</b>, and then the apps you installed stop opening. Open the Developer Mode app now and then and extend the session.</li>
-<li>Sofa Tube Phone is a second app: open it to change settings from your phone (QR code). Screen off also needs it opened once after the TV starts.</li>
-<li>Updating later: install the new .ipk the same way; your settings stay.</li>
+<li>Why two apps? Sofa Tube needs LG's YouTube app identity, which keeps it from running services, so Sofa Tube Phone runs the phone link and the updates. Open it once after the TV starts when you need the phone, Screen off or an update.</li>
+<li>To update: Settings → Backup and about → Check for updates; Sofa Tube Phone installs the new version and your settings stay.</li>
 </ul>
 </section>
 
@@ -559,6 +559,46 @@ VIDEOS = [
      'Any spare button can run an action.', 'اجعل لأي زر لا تستخدمه في جهاز التحكم وظيفة تختارها.'),
     ('14', 'More-from-phone', 'More from your phone', 'المزيد من الهاتف',
      'Learned buttons, screen off, order, channels, hours.', 'الأزرار المخصّصة، إطفاء الشاشة، الترتيب، القنوات، الساعات.'),
+    ('15', 'Connect-phone', 'Connect your phone', 'توصيل هاتفك',
+     'Your phone becomes the remote', 'هاتفك يصبح جهاز التحكم'),
+    ('16', 'Phone-remote', 'The phone remote', 'جهاز التحكم من الهاتف',
+     'Arrows or touchpad, volume, More controls', 'الأسهم أو لوحة اللمس، والصوت، والمزيد من أزرار التحكم'),
+    ('17', 'My-buttons', 'My buttons', 'أزراري',
+     'Your own buttons, and learned remote buttons', 'أزرارك الخاصة، والأزرار المخصّصة'),
+    ('18', 'Whole-TV-setup', 'The whole TV: setting it up', 'التحكم في التلفاز كله: الإعداد',
+     'LG · Samsung · Android TV', 'LG · Samsung · Android TV'),
+    ('19', 'Whole-TV-use', 'The whole TV: using it', 'التحكم في التلفاز كله: الاستخدام',
+     'Keys, apps, typing, air mouse', 'الأزرار والتطبيقات والكتابة والماوس الهوائي'),
+    ('20', 'Parent-tools', 'Parent tools on the phone', 'أدوات ولي الأمر على الهاتف',
+     'Settings › Family › Parental controls', 'الإعدادات › العائلة › الرقابة الأبوية'),
+    ('21', 'Settings-code-backup', 'Settings code and backup', 'رمز الإعدادات والنسخ الاحتياطي',
+     'A short code, a QR code, a backup file', 'رمز قصير، ورمز QR، وملف نسخة احتياطية'),
+    ('22', 'Updates', 'Updates', 'التحديثات',
+     'Nothing goes online unless you ask', 'لا اتصال بالإنترنت إلا إذا طلبت'),
+    ('23', 'Player-look-DeArrow', 'Player look, dislikes and DeArrow', 'مظهر الفيديو وعدم الإعجاب و DeArrow',
+     '', ''),
+    ('24', 'Feed-filters-sidebar', 'Feed filters and sidebar', 'تصفية المحتوى والقائمة الجانبية',
+     '', ''),
+    ('25', 'Help-diagnostics', 'Help and diagnostics', 'المساعدة والتشخيص',
+     '', ''),
+    ('26', 'In-one-minute', 'Sofa Tube in one minute', 'صوفا تيوب في دقيقة',
+     'YouTube on your TV, your way', 'يوتيوب على تلفازك، كما تريد'),
+    ('27', 'Install-which-video', 'Install · Which video is mine?', 'التثبيت · أي فيديو يناسبني؟',
+     '', ''),
+    ('28', 'Install-Android-TV', 'Install · Android TV, Google TV, Fire TV', 'التثبيت · Android TV و Google TV و Fire TV',
+     'Remote only · about 5 minutes', 'جهاز التحكم فقط · نحو 5 دقائق'),
+    ('29', 'Install-LG', 'Install · LG (webOS)', 'التثبيت · إل جي (webOS)',
+     'Android phone or computer · about 15 minutes', 'هاتف Android أو حاسوب · نحو 15 دقيقة'),
+    ('30', 'Install-Samsung', 'Install · Samsung', 'التثبيت · سامسونج',
+     'Android phone, or a Windows / Mac computer · about 10 minutes', 'هاتف Android، أو حاسوب Windows / Mac · نحو 10 دقائق'),
+    ('31', 'Install-Samsung-TizenBrew', 'Install · Samsung with TizenBrew', 'التثبيت · سامسونج مع TizenBrew',
+     'Another way', 'طريق آخر'),
+    ('32', 'Install-troubleshooting', 'Install · If something goes wrong', 'التثبيت · إن لم ينجح شيء',
+     '', ''),
+    ('33', 'Privacy', 'Privacy: what Sofa Tube sends', 'الخصوصية: ماذا يرسل صوفا تيوب',
+     'What Sofa Tube sends', 'ماذا يرسل صوفا تيوب'),
+    ('34', 'Remove', 'Remove Sofa Tube', 'حذف صوفا تيوب',
+     '', ''),
 ]
 
 
@@ -578,8 +618,8 @@ def videos(lang):
 <p class="more"><a href="{f}.mp4" download>MP4</a> · <a href="{o}" hreflang="{ofolder}">{L(lang, 'Arabic version', 'النسخة الإنجليزية')}</a></p></div>
 </article>''')
     intro = L(lang,
-              '<h1>Videos</h1><p>Narrated tutorials for Sofa Tube 0.9: 15 videos in English, recorded on LG\'s webOS TV Emulator, with the remote buttons to press and the phone screen. The same 15 videos in Arabic: <a href="/ar/videos/" hreflang="ar" lang="ar">الفيديوهات بالعربية</a>.</p>',
-              '<h1>الفيديوهات</h1><p>شروح بالفيديو مع تعليق صوتي لصوفا تيوب <bdi>0.9</bdi>: خمسة عشر فيديو بالعربية، سُجّلت على محاكي تلفاز LG ‏(webOS)، وتُظهر أزرار جهاز التحكم التي تضغطها وشاشة الهاتف. والفيديوهات نفسها بالإنجليزية: <a href="/videos/" hreflang="en" lang="en">Videos in English</a>.</p>')
+              '<h1>Videos</h1><p>Narrated tutorials for Sofa Tube 0.9: 35 videos in English, from installing to every feature, with the remote buttons to press and the phone screen. The same 35 videos in Arabic: <a href="/ar/videos/" hreflang="ar" lang="ar">الفيديوهات بالعربية</a>.</p>',
+              '<h1>الفيديوهات</h1><p>شروح بالفيديو مع تعليق صوتي لصوفا تيوب <bdi>0.9</bdi>: خمسة وثلاثون فيديو بالعربية، من التثبيت إلى كل ميزة، تُظهر أزرار جهاز التحكم التي تضغطها وشاشة الهاتف. والفيديوهات نفسها بالإنجليزية: <a href="/videos/" hreflang="en" lang="en">Videos in English</a>.</p>')
     return intro + '<div class="videos">' + ''.join(cards) + '</div>'
 
 
@@ -657,12 +697,12 @@ def checklist(lang):
 
 
 STATUS = [
-    ('LG webOS', 'LG emulator (webOS 4); earlier versions on a real LG TV.',
-     'LG ‏(webOS)', 'محاكي LG ‏(webOS 4)؛ والإصدارات السابقة على تلفاز LG حقيقي.'),
+    ('LG webOS', 'LG emulator (webOS 4), including installing Sofa Tube from the Sofa Tube Phone app; earlier versions on a real LG TV.',
+     'LG ‏(webOS)', 'محاكي LG \u200f(webOS 4)، ومنه تثبيت صوفا تيوب من تطبيق <bdi>Sofa Tube Phone</bdi>؛ والإصدارات السابقة على تلفاز LG حقيقي.'),
+    ('Samsung app (<code>.wgt</code>)', "Three real Samsung TVs in Samsung's Remote Test Lab (2025 QN80F, 2022 QB80, 2020 QT80), installed with Apps2Samsung from an Android phone. Whole-TV control from the phone: not confirmed on a real TV yet.",
+     'تطبيق سامسونج (ملف <code dir="ltr">.wgt</code>)', 'ثلاثة أجهزة تلفاز سامسونج حقيقية في مختبر سامسونج عن بُعد (<bdi>QN80F</bdi> من 2025، و<bdi>QB80</bdi> من 2022، و<bdi>QT80</bdi> من 2020)، ثُبّت عليها بـ<bdi>Apps2Samsung</bdi> من هاتف أندرويد. التحكم في التلفاز كله من الهاتف: لم يُتأكَّد منه بعدُ على تلفاز حقيقي.'),
     ('Samsung (TizenBrew, npm <code>sofatube</code>)', 'Samsung emulator only. <b>Never tried on a real Samsung TV.</b>',
      'سامسونج (TizenBrew، وحدة <code dir="ltr">sofatube</code>)', 'محاكي سامسونج فقط. <b>لم يُجرَّب على تلفاز سامسونج حقيقي.</b>'),
-    ('Samsung app (<code>.wgt</code>)', 'Installed on the Samsung TV emulator with TizenBrew Installer (re-signed); its YouTube loader cannot run there. <b>Never tried on a real Samsung TV.</b>',
-     'تطبيق سامسونج (ملف <code dir="ltr">.wgt</code>)', 'ثُبّت على محاكي سامسونج بـ<bdi>TizenBrew Installer</bdi> (بعد إعادة التوقيع)؛ ولا يعمل فيه جزء فتح YouTube. <b>لم يُجرَّب على تلفاز سامسونج حقيقي.</b>'),
     ('Android TV / Google TV', 'Google TV emulator, and test builds of 0.9.3 on one real Android TV (TCL). <b>Other brands untested.</b>',
      '<bdi>Android TV</bdi> و<bdi>Google TV</bdi>', 'محاكي Google TV، ونسخ تجريبية من <bdi>0.9.3</bdi> على تلفاز أندرويد حقيقي واحد (TCL). <b>لم يُجرَّب على الشركات الأخرى.</b>'),
     ('Fire TV', '<b>Untested.</b>', 'Fire TV', '<b>لم يُجرَّب.</b>'),
