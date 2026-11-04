@@ -5,6 +5,7 @@
 import html
 import pathlib
 import re
+import struct
 
 DOCS = pathlib.Path(__file__).resolve().parent.parent / 'docs'
 SITE = 'https://sofatube.github.io'
@@ -96,8 +97,40 @@ def footer(lang):
 
 def test_note(lang):
     return L(lang,
-             f'<div class="note" role="note"><p><b>{VER} is a test version.</b> Some parts have only been tried on TV emulators (software copies of a TV), never on a real TV. <a href="/testers/#status">What has been tested</a>.</p></div>',
-             f'<div class="note" role="note"><p><b>هذه نسخة تجريبية (<bdi>{VER}</bdi>).</b> بعض أجزائها جُرِّبت على محاكيات فقط (نسخ برمجية من التلفاز)، ولم تُجرَّب على تلفاز حقيقي بعد. <a href="/ar/testers/#status">ما الذي جُرِّب</a>.</p></div>')
+             f'<div class="note" role="note"><p><b>{VER} is a test version.</b> It was tried on TV emulators (software copies of a TV) and on a few real TVs (one Android TV, three Samsung TVs), not yet on every brand and model. <a href="/testers/#status">What has been tested</a>.</p></div>',
+             f'<div class="note" role="note"><p><b>هذه نسخة تجريبية (<bdi>{VER}</bdi>).</b> جُرِّبت على محاكيات التلفاز (نسخ برمجية من التلفاز) وعلى بضعة أجهزة حقيقية (تلفاز أندرويد واحد وثلاثة أجهزة سامسونج)، ولم تُجرَّب بعد على كل الأنواع والطرازات. <a href="/ar/testers/#status">ما الذي جُرِّب</a>.</p></div>')
+
+
+def mp4_seconds(path):
+    # Reads the length from the mp4's mvhd box; no ffprobe needed.
+    b = path.read_bytes()
+    i = b.find(b'mvhd')
+    if b[i + 4] == 1:
+        scale, dur = struct.unpack('>IQ', b[i + 24:i + 36])
+    else:
+        scale, dur = struct.unpack('>II', b[i + 16:i + 24])
+    return round(dur / scale)
+
+
+def video_file(lang, n):
+    code = 'AR' if lang == 'ar' else 'EN'
+    return f'/videos/{lang}/SofaTube-{code}-{n}-{VNAME[n][0]}'
+
+
+def video_len(lang, n):
+    s = mp4_seconds(DOCS / (video_file(lang, n).lstrip('/') + '.mp4'))
+    return f'{s // 60}:{s % 60:02d}'
+
+
+def howto(lang, n, text, note=''):
+    # An install video next to the written steps: watch it once, then follow the steps.
+    f = video_file(lang, n)
+    title = L(lang, VNAME[n][1], VNAME[n][2])
+    note = f'<p class="warn">{note}</p>' if note else ''
+    return f'''<div class="howto">
+<video controls preload="none" playsinline poster="{f}.jpg" width="1280" height="720" aria-label="{html.escape(title)}"><source src="{f}.mp4" type="video/mp4"><a href="{f}.mp4">{L(lang, 'Download the video (MP4)', 'تنزيل الفيديو (MP4)')}</a></video>
+<div><p class="kicker">▶ {L(lang, 'Video', 'فيديو')} · <bdi>{video_len(lang, n)}</bdi></p><h3>{title}</h3><p>{text}</p>{note}</div>
+</div>'''
 
 
 def remote_keys(lang):
@@ -128,17 +161,17 @@ def download_cards(lang):
 <p>اكتب في تطبيق <b>Downloader</b> على التلفاز:</p>
 <p class="link">sofatube.github.io/tv</p>
 <div class="row"><a class="btn" href="/tv/">تنزيل ملف apk</a></div>
-<p class="meta">نحو 95 ميغابايت · <a href="{i}#android">خطوات التثبيت</a></p></div>
+<p class="meta">نحو 95 ميغابايت · <a href="{i}#android">خطوات التثبيت مع فيديو</a></p></div>
 <div class="card"><h3>تلفاز LG ‏(webOS)</h3>
 <p>ثبّت تطبيقًا واحدًا، <bdi>Sofa Tube Phone</bdi>، بـ<bdi>webOS Dev Manager</bdi> من هاتف أندرويد، ثم افتحه على التلفاز: يثبّت صوفا تيوب بنفسه.</p>
 <p class="link">sofatube.github.io/lg-phone</p>
 <div class="row"><a class="btn" href="/lg-phone/">تطبيق <bdi>Sofa Tube Phone</bdi> (ipk)</a> <a class="btn ghost" href="/lg/">صوفا تيوب وحده (ipk)</a></div>
-<p class="meta"><a href="{i}#lg">خطوات التثبيت</a></p></div>
+<p class="meta"><a href="{i}#lg">خطوات التثبيت مع فيديو</a></p></div>
 <div class="card"><h3>تلفاز سامسونج ‏(Tizen)</h3>
 <p>نزّل الملف على هاتف أندرويد (أو حاسوب) وثبّته بـ<bdi>Apps2Samsung</bdi>:</p>
 <p class="link">sofatube.github.io/samsung</p>
-<div class="row"><a class="btn" href="/samsung/">تنزيل ملف wgt</a> <a class="btn ghost" href="{i}#samsung">خطوات التثبيت</a></div>
-<p class="meta">تلفاز سامسونج من سنة 2018 أو أحدث</p></div>
+<div class="row"><a class="btn" href="/samsung/">تنزيل ملف wgt</a></div>
+<p class="meta">تلفاز سامسونج من سنة 2018 أو أحدث · <a href="{i}#samsung">خطوات التثبيت مع فيديو</a></p></div>
 </div>
 <p><a href="{RELEASES}">كل الملفات</a> (صفحة الإصدار، ومنها ملف المصدر <bdi>source.zip</bdi>)</p>'''
     return f'''<div class="grid dl">
@@ -146,17 +179,17 @@ def download_cards(lang):
 <p>Type this in the <b>Downloader</b> app on the TV:</p>
 <p class="link">sofatube.github.io/tv</p>
 <div class="row"><a class="btn" href="/tv/">Download .apk</a></div>
-<p class="meta">about 95 MB · <a href="{i}#android">Install steps</a></p></div>
+<p class="meta">about 95 MB · <a href="{i}#android">Install steps and video</a></p></div>
 <div class="card"><h3>LG TV (webOS)</h3>
 <p>Install one app, <b>Sofa Tube Phone</b>, with <b>webOS Dev Manager</b> from an Android phone, then open it on the TV: it installs Sofa Tube itself.</p>
 <p class="link">sofatube.github.io/lg-phone</p>
 <div class="row"><a class="btn" href="/lg-phone/">Sofa Tube Phone (.ipk)</a> <a class="btn ghost" href="/lg/">Sofa Tube only (.ipk)</a></div>
-<p class="meta"><a href="{i}#lg">Install steps</a></p></div>
+<p class="meta"><a href="{i}#lg">Install steps and video</a></p></div>
 <div class="card"><h3>Samsung TV (Tizen)</h3>
 <p>Download on an Android phone (or a computer), install with <b>Apps2Samsung</b>:</p>
 <p class="link">sofatube.github.io/samsung</p>
-<div class="row"><a class="btn" href="/samsung/">Download .wgt</a> <a class="btn ghost" href="{i}#samsung">Install steps</a></div>
-<p class="meta">Samsung TVs from 2018 or newer</p></div>
+<div class="row"><a class="btn" href="/samsung/">Download .wgt</a></div>
+<p class="meta">Samsung TVs from 2018 or newer · <a href="{i}#samsung">Install steps and video</a></p></div>
 </div>
 <p><a href="{RELEASES}">All files</a> (release page, including the GPL source zip)</p>'''
 
@@ -208,82 +241,169 @@ FEATURES = [
      'بالعربية والإنجليزية، والعربية من اليمين إلى اليسار.'),
 ]
 
+# Screenshots: frames from the 0.9.4 how-to videos (media/tutorials/cap_en, cap_ar), one set per language
+# in docs/assets/shots/en and /ar. The first six show on the home page, the rest under "More screenshots".
 SHOTS_TV = [
-    ('settings', 'Settings, Playback page', 'إعدادات صوفا تيوب، صفحة التشغيل (بالإنجليزية)'),
-    ('settings-ar', 'Settings in Arabic', 'إعدادات صوفا تيوب، صفحة التشغيل'),
-    ('action-menu', '★ while watching: the Action menu', 'قائمة الإجراءات (بالإنجليزية)'),
-    ('action-menu-ar', 'The Action menu in Arabic', 'قائمة الإجراءات'),
-    ('speed', 'Speed picker', 'قائمة السرعة'),
-    ('jump', 'Jump to 0%–90%', 'الانتقال إلى موضع في الفيديو'),
-    ('sidebar-star', '★ Sofa Tube in the sidebar', '★ صوفا تيوب في القائمة الجانبية'),
-    ('remote', 'Remote buttons page', 'صفحة أزرار جهاز التحكم'),
-    ('app-lock', 'App lock with the PIN keypad', 'قفل التطبيق'),
-    ('video-lock', 'Locked to this video', 'منع الخروج من الفيديو'),
-    ('kid-mode', 'Kids page', 'صفحة الأطفال'),
-    ('kids-list', 'Kids video list', 'قائمة فيديوهات الأطفال'),
-    ('prayer', 'Prayer time pause', 'إيقاف الفيديو عند الأذان'),
-    ('my-lists', 'My channels: new videos', 'قنواتي: الفيديوهات الجديدة'),
-    ('phone-tv', 'Settings on your phone: the QR code', 'الإعدادات من الهاتف'),
-    ('help', 'Help page', 'المساعدة'),
-    ('button-guide', 'Button guide', 'دليل الأزرار'),
-    ('setup', 'First-time setup', 'الإعداد الأولي'),
+    ('p_playback', 'Settings: the Playback page', 'الإعدادات: صفحة التشغيل'),
+    ('star_menu', 'The Action menu while watching', 'قائمة الإجراءات أثناء المشاهدة'),
+    ('prayer_lock', 'Prayer time: the video pauses at the adhan', 'وقت الصلاة: يتوقف الفيديو عند الأذان'),
+    ('p_kids_on', 'Kid mode and its options', 'وضع الأطفال وخياراته'),
+    ('lock_app1', 'App lock with the PIN', 'قفل التطبيق بالرمز السري'),
+    ('setup_phone', 'Connect your phone: scan the code', 'توصيل الهاتف: امسح الرمز'),
+    ('speed1', 'Playback speed', 'سرعة التشغيل'),
+    ('jump1', 'Jump to 0%–90%', 'الانتقال إلى موضع في الفيديو'),
+    ('chapters_list', 'Chapters', 'الفصول'),
+    ('kids_blocked', 'Kid mode: a video that is not allowed', 'وضع الأطفال: فيديو غير مسموح به'),
+    ('vlock_block', 'Locked to this video', 'منع الخروج من الفيديو'),
+    ('myfeed', 'My channels: new videos', 'قنواتي: الفيديوهات الجديدة'),
+    ('guide', 'Button guide', 'دليل الأزرار'),
+    ('help_open', 'Help page', 'المساعدة'),
+    ('p_look_night', 'Player look and night dim', 'مظهر الفيديو والتعتيم الليلي'),
+    ('setup0', 'First-time setup', 'الإعداد الأولي'),
+    ('sidebar_star', '★ Sofa Tube in the sidebar', '★ صوفا تيوب في القائمة الجانبية'),
+]
+SHOTS_PHONE = [
+    ('ph_now', 'Phone: Now playing', 'الهاتف: قيد التشغيل'),
+    ('ph_remote', 'Phone: the remote', 'الهاتف: جهاز التحكم'),
+    ('ph_search', 'Phone: search on the TV', 'الهاتف: البحث على التلفاز'),
+    ('ph_parental', 'Phone: parent controls', 'الهاتف: الرقابة الأبوية'),
+]
+SHOTS_WHOLE = [
+    ('ph_tv_remote', 'Keys that work anywhere on the TV', 'أزرار تعمل في أي مكان على التلفاز'),
+    ('ph_tv_apps', "The TV's apps and inputs", 'تطبيقات التلفاز ومصادر الإدخال'),
+    ('ph_tv_kbd', 'Type on the TV from the phone', 'الكتابة على التلفاز من الهاتف'),
+    ('ph_tv_air', 'Air mouse', 'الماوس الهوائي'),
+]
+SHOTS_WHOLE_TV = [
+    ('p_phone_wholetv', "Turned on in Sofa Tube's settings, for parents", 'يُفعَّل من إعدادات صوفا تيوب، للوالدين'),
+    ('lg_pair_prompt', 'The TV asks once (LG)', 'يسأل التلفاز مرة واحدة (LG)'),
 ]
 
 
+def shot(lang, f, ce, ca, phone=False):
+    w, h = (390, 844) if phone else (1280, 720)
+    cap = L(lang, ce, ca)
+    return f'<figure><img src="/assets/shots/{lang}/{f}.jpg" alt="{html.escape(cap)}" width="{w}" height="{h}" loading="lazy" decoding="async"><figcaption>{cap}</figcaption></figure>'
+
+
+def whole_tv(lang):
+    # The Whole TV feature gets its own section near the top: it is what sets Sofa Tube apart.
+    phones = ''.join(shot(lang, *s, phone=True) for s in SHOTS_WHOLE)
+    tvs = ''.join(shot(lang, *s) for s in SHOTS_WHOLE_TV)
+    v18, v19 = video_len(lang, '18'), video_len(lang, '19')
+    if lang == 'ar':
+        return f'''<section class="spot" id="whole-tv">
+<div class="spot-txt">
+<p class="kicker">جديد · التلفاز كله</p>
+<h2>هاتفك يتحكم في التلفاز كله</h2>
+<p class="lead">ليس YouTube فقط: الشاشة الرئيسية للتلفاز، وتطبيقاته الأخرى، والصوت، ومصادر الإدخال، والكتابة، وإطفاؤه، من الهاتف الذي في يدك.</p>
+<ul class="ticks">
+<li><b>أزرار تعمل في أي مكان:</b> الأسهم وOK والرجوع والرئيسية والقائمة والخروج والصوت والقنوات، ولو كان صوفا تيوب في الخلفية.</li>
+<li><b>التطبيقات ومصادر الإدخال:</b> افتح أي تطبيق على التلفاز، أو انتقل إلى جهاز آخر متصل به.</li>
+<li><b>الكتابة على التلفاز:</b> حين يُفتح مربع نص على التلفاز، اكتب من هاتفك.</li>
+<li><b>لوحة اللمس والماوس الهوائي:</b> حرّك مؤشرًا على الشاشة، كما في <bdi>Magic Remote</bdi> من LG.</li>
+<li><b>لولي الأمر:</b> غير مفعّل في البداية، ويُفعَّل من إعدادات صوفا تيوب؛ ولا يحصل عليه هاتف الأطفال.</li>
+</ul>
+<div class="row"><a class="btn ghost" href="/ar/videos/#v18">▶ الإعداد · <bdi>{v18}</bdi></a> <a class="btn ghost" href="/ar/videos/#v19">▶ الاستخدام · <bdi>{v19}</bdi></a></div>
+<p class="meta">لأجهزة LG وسامسونج و<bdi>Android TV</bdi>. جُرِّب على محاكيَي LG و<bdi>Google TV</bdi>، وجُرِّبت نسخة سابقة منه على تلفاز أندرويد حقيقي؛ ولم يُتأكَّد منه بعدُ على تلفاز سامسونج حقيقي.</p>
+</div>
+<div class="phones spot-phones">{phones}</div>
+<div class="shots two">{tvs}</div>
+</section>'''
+    return f'''<section class="spot" id="whole-tv">
+<div class="spot-txt">
+<p class="kicker">New · Whole TV</p>
+<h2>Your phone controls the whole TV</h2>
+<p class="lead">Not only YouTube: the TV's home screen, its other apps, volume, inputs, typing and turning it off, from the phone already in your hand.</p>
+<ul class="ticks">
+<li><b>Keys that work anywhere:</b> arrows, OK, Back, Home, Menu, Exit, volume and channels, even with Sofa Tube in the background.</li>
+<li><b>Apps and inputs:</b> open any app on the TV, or switch to another device connected to it.</li>
+<li><b>Type on the TV:</b> when a text box opens on the TV, type on your phone.</li>
+<li><b>Touchpad and air mouse:</b> move a pointer on the screen, like LG's Magic Remote.</li>
+<li><b>For parents:</b> off at first and turned on in Sofa Tube's settings; a kids phone never gets it.</li>
+</ul>
+<div class="row"><a class="btn ghost" href="/videos/#v18">▶ Setting it up · {v18}</a> <a class="btn ghost" href="/videos/#v19">▶ Using it · {v19}</a></div>
+<p class="meta">LG, Samsung and Android TV. Tried on the LG and Google TV emulators, and an earlier build on a real Android TV; on Samsung not yet confirmed on a real TV.</p>
+</div>
+<div class="phones spot-phones">{phones}</div>
+<div class="shots two">{tvs}</div>
+</section>'''
+
+
 def home(lang):
+    # The six main features as cards, the rest as a short list (a long wall of cards hid the main ones).
+    top, rest = FEATURES[:6], FEATURES[6:]
     feats = ''.join(
         f'<div class="card feature"><span class="ico" aria-hidden="true">{ico}</span><h3>{L(lang, te, ta)}</h3><p>{L(lang, de, da)}</p></div>'
-        for ico, te, ta, de, da in FEATURES)
-    order = SHOTS_TV if lang == 'en' else [SHOTS_TV[1], SHOTS_TV[0], SHOTS_TV[3], SHOTS_TV[2]] + SHOTS_TV[4:]
-    shots = ''.join(
-        f'<figure><img src="/assets/shots/{f}.jpg" alt="{html.escape(L(lang, ce, ca))}" width="1280" height="720" loading="lazy" decoding="async"><figcaption>{L(lang, ce, ca)}</figcaption></figure>'
-        for f, ce, ca in order)
-    phones = ''.join(
-        f'<figure><img src="/assets/shots/{f}.jpg" alt="{html.escape(L(lang, ce, ca))}" width="390" height="844" loading="lazy" decoding="async"><figcaption>{L(lang, ce, ca)}</figcaption></figure>'
-        for f, ce, ca in [('phone', 'Phone page: Now playing', 'صفحة الهاتف: قيد التشغيل'),
-                          ('phone-remote', 'Phone page: Remote', 'صفحة الهاتف: جهاز التحكم')])
+        for ico, te, ta, de, da in top)
+    more = ''.join(
+        f'<li><span class="ico" aria-hidden="true">{ico}</span><span><b>{L(lang, te, ta)}:</b> {L(lang, de, da)}</span></li>'
+        for ico, te, ta, de, da in rest)
+    shots = ''.join(shot(lang, *x) for x in SHOTS_TV[:6])
+    later = SHOTS_TV[6:]
+    shots_more = ''.join(shot(lang, *x) for x in later)
+    phones = ''.join(shot(lang, *x, phone=True) for x in SHOTS_PHONE)
+    v = video_file(lang, '26')
+    clip = f'''<figure class="hero-video"><video controls preload="none" playsinline poster="{v}.jpg" width="1280" height="720" aria-label="{html.escape(L(lang, VNAME['26'][1], VNAME['26'][2]))}"><source src="{v}.mp4" type="video/mp4"></video>
+<figcaption>▶ {L(lang, VNAME['26'][1], VNAME['26'][2])} · <bdi>{video_len(lang, '26')}</bdi></figcaption></figure>'''
     if lang == 'ar':
-        hero = f'''<section class="hero">
-<img class="icon" src="/icon.svg" alt="شعار صوفا تيوب" width="112" height="112">
-<h1>صوفا تيوب<span class="alt" lang="en" dir="ltr">Sofa Tube</span></h1>
-<p class="pitch">تطبيق YouTube أفضل لتلفازك: دون إعلانات، وبسرعة تشغيل حقيقية، وقفل بالرمز السري، ووضع للأطفال، وأوقات الصلاة، وإعدادات من هاتفك.</p>
-<p class="sub">يفتح صفحة YouTube الخاصة بالتلفاز ويضيف إليها هذه الميزات. لأجهزة <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> وسامسونج وLG. بالعربية والإنجليزية. مجاني.</p>
-<p><span class="badge">نسخة تجريبية <bdi>{VER}</bdi></span></p>
-<div class="cta"><a class="btn" href="#download">تنزيل</a><a class="btn ghost" href="/ar/install/">خطوات التثبيت</a><a class="btn ghost" href="/ar/videos/">الفيديوهات</a></div>
+        hero = f'''<section class="hero split">
+<div>
+<div class="title"><img class="icon" src="/icon.svg" alt="شعار صوفا تيوب" width="72" height="72"><h1>صوفا تيوب<span class="alt" lang="en" dir="ltr">Sofa Tube</span></h1></div>
+<p class="pitch">تطبيق YouTube أفضل لتلفازك: دون إعلانات، وبسرعة تشغيل حقيقية، وقفل بالرمز السري، ووضع للأطفال، وأوقات الصلاة، وهاتفك جهاز تحكم في التلفاز كله.</p>
+<p class="sub">لأجهزة <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> وسامسونج وLG. بالعربية والإنجليزية. مجاني ودون حساب.</p>
+<div class="cta"><a class="btn" href="#download">تنزيل</a><a class="btn ghost" href="/ar/install/">خطوات التثبيت</a></div>
+<p class="sub"><span class="badge">نسخة تجريبية <bdi>{VER}</bdi></span></p>
+</div>
+{clip}
 </section>'''
-        return hero + test_note(lang) + f'''
+        return hero + whole_tv(lang) + f'''
 <h2 id="download">التنزيل: اختر تلفازك</h2>
 <p>روابط قصيرة (اكتبها في تطبيق <b>Downloader</b> على التلفاز أو في هاتفك):</p>
 {download_cards(lang)}
+{test_note(lang)}
 <h2 id="features">ماذا يقدّم صوفا تيوب؟</h2>
+<p>يفتح صفحة YouTube الخاصة بالتلفاز ويضيف إليها هذه الميزات.</p>
 <div class="grid">{feats}</div>
+<h3>وأيضًا</h3>
+<ul class="feat-list">{more}</ul>
 <h2 id="remote">أزرار جهاز التحكم</h2>
 {remote_keys(lang)}
 <h2 id="screens">لقطات الشاشة</h2>
-<p>من محاكي تلفاز LG ‏(webOS)؛ وصفحة الهاتف واحدة على كل أجهزة التلفاز.</p>
+<p>من فيديوهات الشرح لإصدار <bdi>0.9.4</bdi>، على محاكي تلفاز LG ‏(webOS)؛ وصفحة الهاتف واحدة على كل أجهزة التلفاز.</p>
 <div class="shots">{shots}</div>
+<details class="more-shots"><summary>لقطات أخرى ({len(later)})</summary><div class="shots">{shots_more}</div></details>
 <div class="phones">{phones}</div>
+<div class="cta end"><a class="btn" href="#download">تنزيل</a><a class="btn ghost" href="/ar/videos/">كل الفيديوهات ({len(VIDEOS)})</a></div>
 '''
-    hero = f'''<section class="hero">
-<img class="icon" src="/icon.svg" alt="Sofa Tube logo" width="112" height="112">
-<h1>Sofa Tube<span class="alt" lang="ar" dir="rtl">صوفا تيوب</span></h1>
-<p class="pitch">A better YouTube app for your TV: no ads, real playback speed, PIN locks, kid mode, prayer times and settings from your phone.</p>
-<p class="sub">It opens YouTube's own TV page and adds these features on top. For Android TV / Google TV / Fire TV, Samsung and LG. English and Arabic. Free.</p>
-<p><span class="badge">Test version {VER}</span></p>
-<div class="cta"><a class="btn" href="#download">Download</a><a class="btn ghost" href="/install/">Install steps</a><a class="btn ghost" href="/videos/">Videos</a></div>
+    hero = f'''<section class="hero split">
+<div>
+<div class="title"><img class="icon" src="/icon.svg" alt="Sofa Tube logo" width="72" height="72"><h1>Sofa Tube<span class="alt" lang="ar" dir="rtl">صوفا تيوب</span></h1></div>
+<p class="pitch">A better YouTube app for your TV: no ads, real playback speed, PIN locks, kid mode, prayer times, and your phone as the remote for the whole TV.</p>
+<p class="sub">For Android TV / Google TV / Fire TV, Samsung and LG. English and Arabic. Free, no account.</p>
+<div class="cta"><a class="btn" href="#download">Download</a><a class="btn ghost" href="/install/">Install steps</a></div>
+<p class="sub"><span class="badge">Test version {VER}</span></p>
+</div>
+{clip}
 </section>'''
-    return hero + test_note(lang) + f'''
+    return hero + whole_tv(lang) + f'''
 <h2 id="download">Download: pick your TV</h2>
 <p>Short links (type them in the TV's <b>Downloader</b> app or on your phone):</p>
 {download_cards(lang)}
+{test_note(lang)}
 <h2 id="features">What it does</h2>
+<p>It opens YouTube's own TV page and adds these features on top.</p>
 <div class="grid">{feats}</div>
+<h3>And also</h3>
+<ul class="feat-list">{more}</ul>
 <h2 id="remote">Remote buttons</h2>
 {remote_keys(lang)}
 <h2 id="screens">Screenshots</h2>
-<p>From LG's webOS TV Emulator; the phone page is the same on every TV.</p>
+<p>From the 0.9.4 how-to videos, on LG's webOS TV Emulator; the phone page is the same on every TV.</p>
 <div class="shots">{shots}</div>
+<details class="more-shots"><summary>More screenshots ({len(later)})</summary><div class="shots">{shots_more}</div></details>
 <div class="phones">{phones}</div>
+<div class="cta end"><a class="btn" href="#download">Download</a><a class="btn ghost" href="/videos/">All {len(VIDEOS)} videos</a></div>
 '''
 
 
@@ -292,12 +412,18 @@ def home(lang):
 def install(lang):
     if lang == 'ar':
         return f'''<h1>التثبيت</h1>
-<p>اختر تلفازك. الخطوات نفسها التي في دليل التجربة.</p>
-<ul class="toc"><li><a href="#android">أندرويد تي في · جوجل تي في · فاير تي في</a></li><li><a href="#lg">تلفاز LG</a></li><li><a href="#samsung">تلفاز سامسونج</a></li></ul>
+<p>اختر تلفازك. لكل تلفاز فيديو قصير، ثم الخطوات مكتوبة.</p>
+<nav class="pick" aria-label="اختر تلفازك">
+<a href="#android"><b>أندرويد تي في · جوجل تي في · فاير تي في</b><span>جهاز التحكم فقط · نحو 5 دقائق</span></a>
+<a href="#lg"><b>تلفاز LG</b><span>هاتف أندرويد أو حاسوب · نحو 15 دقيقة</span></a>
+<a href="#samsung"><b>تلفاز سامسونج</b><span>هاتف أندرويد أو حاسوب · نحو 10 دقائق</span></a>
+</nav>
+<p class="meta">لا تعرف نوع تلفازك؟ <a href="/ar/videos/#v27">أي فيديو يناسبني؟</a> (<bdi>{video_len(lang, '27')}</bdi>)</p>
 
 <section class="tv-section" id="android">
 <h2>أندرويد تي في · جوجل تي في · فاير تي في</h2>
 <div class="note"><p><b>الحالة:</b> جُرِّب على محاكي Google TV، وجُرِّبت نسخ تجريبية منه على تلفاز أندرويد حقيقي واحد (TCL). لم يُجرَّب على Fire TV. إذا لم يُثبَّت أو لم يُفتح أصلًا فهذه نتيجة مهمة: <a href="/ar/testers/#report">أخبرنا بها</a>.</p></div>
+{howto(lang, '28', 'شاهده مرة، ثم اتبع الخطوات المكتوبة أدناه؛ ويمكنك إيقافه مؤقتًا عند كل خطوة.')}
 <h3>ما تحتاج إليه</h3>
 <ul>
 <li>جهاز Android TV أو Google TV أو Fire TV (تلفاز أو عصا أو صندوق) متصل بالإنترنت. دون حاسوب.</li>
@@ -327,7 +453,8 @@ def install(lang):
 
 <section class="tv-section" id="lg">
 <h2>تلفاز LG ‏(webOS)</h2>
-<div class="note"><p><b>أولًا:</b> احذف تطبيق YouTube الرسمي من التلفاز؛ فصوفا تيوب يستخدم مُعرّف التطبيق نفسه (<code dir="ltr">youtube.leanback.v4</code>)، ولا يمكن تثبيتهما معًا. <b>جديد:</b> لم نجرّب التثبيت من الهاتف بعد؛ أخبرنا كيف جرى.</p></div>
+<div class="note"><p><b>أولًا:</b> احذف تطبيق YouTube الرسمي من التلفاز؛ فصوفا تيوب يستخدم مُعرّف التطبيق نفسه (<code dir="ltr">youtube.leanback.v4</code>)، ولا يمكن تثبيتهما معًا. <b>جديد في <bdi>{VER}</bdi>:</b> يثبّت <bdi>Sofa Tube Phone</bdi> صوفا تيوب لك. جُرِّب على محاكي LG، ولم يُجرَّب بعد على تلفاز LG حقيقي: <a href="/ar/testers/#report">أخبرنا كيف جرى</a>.</p></div>
+{howto(lang, '29', 'شاهده مرة، ثم اتبع الخطوات المكتوبة أدناه؛ ويمكنك إيقافه مؤقتًا عند كل خطوة.', 'يُظهر الفيديو الطريقة السابقة: تثبيت ملفين. أما الآن فثبّت <bdi>Sofa Tube Phone</bdi> وحده، وهو يثبّت صوفا تيوب لك (الخطوة 8).')}
 <h3>ما تحتاج إليه</h3>
 <p>تلفاز LG بنظام webOS، وهاتف أندرويد على شبكة الواي فاي نفسها (أو حاسوب). حساب مطوّر مجاني من LG وتطبيق Developer Mode من LG. لا حاجة إلى كسر الحماية (root) ولا إلى Homebrew Channel.</p>
 <h3>الأسهل: بهاتف أندرويد</h3>
@@ -354,7 +481,8 @@ def install(lang):
 
 <section class="tv-section" id="samsung">
 <h2>تلفاز سامسونج ‏(Tizen)</h2>
-<div class="note"><p><b>الحالة:</b> صوفا تيوب تطبيق مستقل على التلفاز (أيقونة في «التطبيقات»). جُرِّب تثبيته على محاكي تلفاز سامسونج، ولم يُجرَّب على تلفاز سامسونج حقيقي بعد، فأنت من أوائل المجرّبين: <a href="/ar/testers/#report">أخبرنا كيف جرى</a>.</p></div>
+<div class="note"><p><b>الحالة:</b> صوفا تيوب تطبيق مستقل على التلفاز (أيقونة في «التطبيقات»). ثُبّت وجُرِّب بـ<bdi>Apps2Samsung</bdi> من هاتف أندرويد على ثلاثة أجهزة تلفاز سامسونج حقيقية (من 2025 و2022 و2020) في مختبر سامسونج عن بُعد. <a href="/ar/testers/#report">أخبرنا كيف جرى على تلفازك</a>.</p></div>
+{howto(lang, '30', 'شاهده مرة، ثم اتبع الخطوات المكتوبة أدناه؛ ويمكنك إيقافه مؤقتًا عند كل خطوة.')}
 <h3>ما تحتاج إليه</h3>
 <ul>
 <li>تلفاز سامسونج من سنة 2018 أو أحدث (Tizen 4.0 أو أحدث)، و<b>هاتف أندرويد</b> على شبكة الواي فاي نفسها. ليس لديك هاتف أندرويد (آيفون)؟ استخدم حاسوبًا بويندوز أو ماك (أدناه).</li>
@@ -382,9 +510,11 @@ def install(lang):
 <p>يعمل أيضًا: <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest"><bdi>TizenBrew Installer</bdi></a> على الحاسوب ← افتح <code dir="ltr">http://localhost:8091/ui/dist/index.html</code> ← عنوان التلفاز ← <bdi>Install from GitHub</bdi> ← <code dir="ltr">sofatube/sofatube.github.io</code>. بالإنجليزية فقط؛ استخدم «<bdi>Install from GitHub</bdi>» لا «<bdi>Select file to install</bdi>» (خيار الملف ينسى شهادة سامسونج بعد تثبيت واحد).</p>
 </details>
 <details><summary>تستخدم TizenBrew؟ وحدة TizenBrew</summary>
+{howto(lang, '31', 'إضافة وحدة <code dir="ltr">sofatube</code> في TizenBrew.')}
 <p>في <b>TizenBrew</b> اضغط <b>الأخضر</b> وأضف وحدة <bdi>NPM</bdi> باسم <code dir="ltr">sofatube</code>. تتحدّث تلقائيًا؛ افتح صوفا تيوب من TizenBrew (ويمكن أن يفتحه TizenBrew مباشرة: <bdi>Settings</bdi> ← <bdi>Autolaunch</bdi>). أما تثبيت TizenBrew نفسه فيحتاج إلى حاسوب و<a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest"><bdi>TizenBrew Installer</bdi></a>.</p>
 </details>
 <details><summary>إذا حدثت مشكلة</summary>
+{howto(lang, '32', 'أكثر الرسائل شيوعًا، وما تفعله عند كل منها.')}
 <ul>
 <li><b>«تم اكتشاف التلفزيون، ولكن وضع المطور متوقف»</b> (<bdi>TV detected, but Developer Mode is off</bdi>): أعد الخطوة 1 وأعد تشغيل التلفاز.</li>
 <li><b>«… لا يتطابق مع هذا الكمبيوتر»</b> (<bdi>Developer Mode IP doesn't match</bdi>): يجب أن تكون <bdi>Host PC IP</bdi> عنوان هذا الهاتف أو الحاسوب؛ اكتبه مرة أخرى وأعد تشغيل التلفاز.</li>
@@ -407,12 +537,18 @@ def install(lang):
 </ul>
 </section>'''
     return f'''<h1>Install</h1>
-<p>Pick your TV. Same steps as in the tester guide.</p>
-<ul class="toc"><li><a href="#android">Android TV · Google TV · Fire TV</a></li><li><a href="#lg">LG TV</a></li><li><a href="#samsung">Samsung TV</a></li></ul>
+<p>Pick your TV. Each one has a short video, then the written steps.</p>
+<nav class="pick" aria-label="Pick your TV">
+<a href="#android"><b>Android TV · Google TV · Fire TV</b><span>Remote only · about 5 minutes</span></a>
+<a href="#lg"><b>LG TV</b><span>Android phone or computer · about 15 minutes</span></a>
+<a href="#samsung"><b>Samsung TV</b><span>Android phone or computer · about 10 minutes</span></a>
+</nav>
+<p class="meta">Not sure which TV you have? <a href="/videos/#v27">Which video is mine?</a> ({video_len(lang, '27')})</p>
 
 <section class="tv-section" id="android">
 <h2>Android TV · Google TV · Fire TV</h2>
 <div class="note"><p><b>Status:</b> tried on a Google TV emulator, and test builds of it on one real Android TV (TCL). Fire TV is untested. If it does not install or open at all, that is an important result: <a href="/testers/#report">tell us</a>.</p></div>
+{howto(lang, '28', 'Watch it once, then follow the written steps below; pause the video at each step if you like.')}
 <h3>You need</h3>
 <ul>
 <li>An Android TV, Google TV or Fire TV device (TV, stick or box) with internet. No computer.</li>
@@ -442,7 +578,8 @@ def install(lang):
 
 <section class="tv-section" id="lg">
 <h2>LG TV (webOS)</h2>
-<div class="note"><p><b>First:</b> uninstall the official YouTube app from the TV. Sofa Tube uses the same app ID (<code>youtube.leanback.v4</code>), so both cannot be installed together. <b>New:</b> installing from a phone has not been tried by us yet; tell us how it went.</p></div>
+<div class="note"><p><b>First:</b> uninstall the official YouTube app from the TV. Sofa Tube uses the same app ID (<code>youtube.leanback.v4</code>), so both cannot be installed together. <b>New in {VER}:</b> Sofa Tube Phone installs Sofa Tube for you. Tried on LG's emulator, not yet on a real LG TV: <a href="/testers/#report">tell us how it went</a>.</p></div>
+{howto(lang, '29', 'Watch it once, then follow the written steps below; pause the video at each step if you like.', 'The video shows the older way, installing two files. Now you install only Sofa Tube Phone, and it installs Sofa Tube for you (step 8).')}
 <h3>You need</h3>
 <p>An LG webOS TV and an Android phone on the same Wi-Fi (or a computer). A free LG Developer account and LG's Developer Mode app. No rooting, no Homebrew Channel.</p>
 <h3>Easiest: with an Android phone</h3>
@@ -469,7 +606,8 @@ def install(lang):
 
 <section class="tv-section" id="samsung">
 <h2>Samsung TV (Tizen)</h2>
-<div class="note"><p><b>Status:</b> Sofa Tube is its own app on the TV (an icon in Apps). Installing it was tried on Samsung's TV emulator; it has not been tried on a real Samsung TV yet, so you are one of the first: <a href="/testers/#report">tell us how it went</a>.</p></div>
+<div class="note"><p><b>Status:</b> Sofa Tube is its own app on the TV (an icon in Apps). Installed and tested with Apps2Samsung from an Android phone on three real Samsung TVs (2025, 2022 and 2020) in Samsung's Remote Test Lab. <a href="/testers/#report">Tell us how it went on yours</a>.</p></div>
+{howto(lang, '30', 'Watch it once, then follow the written steps below; pause the video at each step if you like.')}
 <h3>You need</h3>
 <ul>
 <li>A Samsung TV from 2018 or newer (Tizen 4.0 or newer), and an <b>Android phone</b> on the same Wi-Fi. No Android phone (iPhone)? Use a Windows or Mac computer instead (below).</li>
@@ -497,9 +635,11 @@ def install(lang):
 <p>Also works: <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">TizenBrew Installer</a> on the computer → open <code>http://localhost:8091/ui/dist/index.html</code> → TV IP → <b>Install from GitHub</b> → <code>sofatube/sofatube.github.io</code>. English only; use "Install from GitHub" rather than "Select file to install" (the file option forgets your Samsung certificate after one install).</p>
 </details>
 <details><summary>Already use TizenBrew? The TizenBrew module</summary>
+{howto(lang, '31', 'Adding the <code>sofatube</code> module in TizenBrew.')}
 <p>In <b>TizenBrew</b>, press <b>Green</b>, add an <b>NPM</b> module: <code>sofatube</code>. It updates itself; open Sofa Tube from TizenBrew (TizenBrew → Settings → Autolaunch can open it straight away). Installing TizenBrew itself needs a computer and <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">TizenBrew Installer</a>.</p>
 </details>
 <details><summary>If something goes wrong</summary>
+{howto(lang, '32', 'The most common messages, and what to do for each.')}
 <ul>
 <li><b>"TV detected, but Developer Mode is off"</b>: do step 1 again and restart the TV.</li>
 <li><b>"Developer Mode IP doesn't match"</b>: Host PC IP must be the IP of this phone or computer; type it again, restart the TV.</li>
@@ -602,25 +742,46 @@ VIDEOS = [
 ]
 
 
+VNAME = {n: (name, te, ta) for n, name, te, ta, de, da in VIDEOS}
+
+# The videos page in topics, in the order people need them.
+VGROUPS = [
+    ('start', 'Start here', 'ابدأ من هنا', ['26', '00', '01']),
+    ('install', 'Install and remove', 'التثبيت والحذف', ['27', '28', '29', '30', '31', '32', '34']),
+    ('phone', 'Your phone', 'هاتفك', ['06', '15', '16', '17', '14', '18', '19']),
+    ('family', 'Family and locks', 'العائلة والقفل', ['04', '05', '20']),
+    ('watch', 'Watching', 'المشاهدة', ['02', '03', '07', '11', '12', '13', '08', '10', '09', '23', '24']),
+    ('more', 'Settings, updates and help', 'الإعدادات والتحديثات والمساعدة', ['21', '22', '25', '33']),
+]
+assert sorted(n for g in VGROUPS for n in g[3]) == sorted(VNAME), 'every video in exactly one topic'
+
+
 def videos(lang):
-    code = 'AR' if lang == 'ar' else 'EN'
-    folder = lang
-    ocode, ofolder = ('EN', 'en') if lang == 'ar' else ('AR', 'ar')
-    cards = []
-    for n, name, te, ta, de, da in VIDEOS:
-        f = f'/videos/{folder}/SofaTube-{code}-{n}-{name}'
-        o = f'/videos/{ofolder}/SofaTube-{ocode}-{n}-{name}.mp4'
-        title = L(lang, te, ta)
-        num = str(int(n))
-        cards.append(f'''<article class="video" id="v{n}">
-<video controls preload="metadata" playsinline poster="{f}.jpg" width="640" height="360" aria-label="{html.escape(title)}"><source src="{f}.mp4" type="video/mp4"><a href="{f}.mp4">{L(lang, 'Download the video (MP4)', 'تنزيل الفيديو (MP4)')}</a></video>
-<div class="txt"><h3>{num} · {title}</h3><p>{L(lang, de, da)}</p>
-<p class="more"><a href="{f}.mp4" download>MP4</a> · <a href="{o}" hreflang="{ofolder}">{L(lang, 'Arabic version', 'النسخة الإنجليزية')}</a></p></div>
+    ofolder = 'en' if lang == 'ar' else 'ar'
+    info = {n: (te, ta, de, da) for n, name, te, ta, de, da in VIDEOS}
+    groups = []
+    for gid, ge, ga, ns in VGROUPS:
+        cards = []
+        for n in ns:
+            te, ta, de, da = info[n]
+            f = video_file(lang, n)
+            o = video_file(ofolder, n) + '.mp4'
+            title = L(lang, te, ta)
+            note = ''
+            if n == '29':
+                note = L(lang, '<p class="warn">Shows the older way with two files. Now install only Sofa Tube Phone; it installs Sofa Tube.</p>',
+                         '<p class="warn">يُظهر الطريقة السابقة بملفين. أما الآن فثبّت <bdi>Sofa Tube Phone</bdi> وحده، وهو يثبّت صوفا تيوب.</p>')
+            cards.append(f'''<article class="video" id="v{n}">
+<video controls preload="none" playsinline poster="{f}.jpg" width="640" height="360" aria-label="{html.escape(title)}"><source src="{f}.mp4" type="video/mp4"><a href="{f}.mp4">{L(lang, 'Download the video (MP4)', 'تنزيل الفيديو (MP4)')}</a></video>
+<div class="txt"><h3>{int(n)} · {title}</h3><p>{L(lang, de, da)}</p>{note}
+<p class="more"><bdi>{video_len(lang, n)}</bdi> · <a href="{f}.mp4" download>MP4</a> · <a href="{o}" hreflang="{ofolder}">{L(lang, 'Arabic version', 'النسخة الإنجليزية')}</a></p></div>
 </article>''')
+        groups.append(f'<section class="vgroup" id="{gid}"><h2>{L(lang, ge, ga)} <span class="count">{len(ns)}</span></h2><div class="videos">{"".join(cards)}</div></section>')
+    chips = ''.join(f'<li><a href="#{gid}">{L(lang, ge, ga)}</a></li>' for gid, ge, ga, ns in VGROUPS)
     intro = L(lang,
-              '<h1>Videos</h1><p>Narrated tutorials for Sofa Tube 0.9: 35 videos in English, from installing to every feature, with the remote buttons to press and the phone screen. The same 35 videos in Arabic: <a href="/ar/videos/" hreflang="ar" lang="ar">الفيديوهات بالعربية</a>.</p>',
-              '<h1>الفيديوهات</h1><p>شروح بالفيديو مع تعليق صوتي لصوفا تيوب <bdi>0.9</bdi>: خمسة وثلاثون فيديو بالعربية، من التثبيت إلى كل ميزة، تُظهر أزرار جهاز التحكم التي تضغطها وشاشة الهاتف. والفيديوهات نفسها بالإنجليزية: <a href="/videos/" hreflang="en" lang="en">Videos in English</a>.</p>')
-    return intro + '<div class="videos">' + ''.join(cards) + '</div>'
+              f'<h1>Videos</h1><p>Narrated tutorials for Sofa Tube 0.9: {len(VIDEOS)} videos in English, from installing to every feature, with the remote buttons to press and the phone screen. The same videos in Arabic: <a href="/ar/videos/" hreflang="ar" lang="ar">الفيديوهات بالعربية</a>.</p>',
+              f'<h1>الفيديوهات</h1><p>شروح بالفيديو مع تعليق صوتي لصوفا تيوب <bdi>0.9</bdi>: خمسة وثلاثون فيديو بالعربية، من التثبيت إلى كل ميزة، تُظهر أزرار جهاز التحكم التي تضغطها وشاشة الهاتف. والفيديوهات نفسها بالإنجليزية: <a href="/videos/" hreflang="en" lang="en">Videos in English</a>.</p>')
+    return intro + f'<ul class="toc">{chips}</ul>' + ''.join(groups)
 
 
 # ------------------------------------------------------------------ testers

@@ -27,12 +27,21 @@
 </div></header>
 <main id="main"><div class="wrap">
 <h1>Install</h1>
-<p>Pick your TV. Same steps as in the tester guide.</p>
-<ul class="toc"><li><a href="#android">Android TV · Google TV · Fire TV</a></li><li><a href="#lg">LG TV</a></li><li><a href="#samsung">Samsung TV</a></li></ul>
+<p>Pick your TV. Each one has a short video, then the written steps.</p>
+<nav class="pick" aria-label="Pick your TV">
+<a href="#android"><b>Android TV · Google TV · Fire TV</b><span>Remote only · about 5 minutes</span></a>
+<a href="#lg"><b>LG TV</b><span>Android phone or computer · about 15 minutes</span></a>
+<a href="#samsung"><b>Samsung TV</b><span>Android phone or computer · about 10 minutes</span></a>
+</nav>
+<p class="meta">Not sure which TV you have? <a href="/videos/#v27">Which video is mine?</a> (0:46)</p>
 
 <section class="tv-section" id="android">
 <h2>Android TV · Google TV · Fire TV</h2>
 <div class="note"><p><b>Status:</b> tried on a Google TV emulator, and test builds of it on one real Android TV (TCL). Fire TV is untested. If it does not install or open at all, that is an important result: <a href="/testers/#report">tell us</a>.</p></div>
+<div class="howto">
+<video controls preload="none" playsinline poster="/videos/en/SofaTube-EN-28-Install-Android-TV.jpg" width="1280" height="720" aria-label="Install · Android TV, Google TV, Fire TV"><source src="/videos/en/SofaTube-EN-28-Install-Android-TV.mp4" type="video/mp4"><a href="/videos/en/SofaTube-EN-28-Install-Android-TV.mp4">Download the video (MP4)</a></video>
+<div><p class="kicker">▶ Video · <bdi>2:22</bdi></p><h3>Install · Android TV, Google TV, Fire TV</h3><p>Watch it once, then follow the written steps below; pause the video at each step if you like.</p></div>
+</div>
 <h3>You need</h3>
 <ul>
 <li>An Android TV, Google TV or Fire TV device (TV, stick or box) with internet. No computer.</li>
@@ -62,7 +71,11 @@
 
 <section class="tv-section" id="lg">
 <h2>LG TV (webOS)</h2>
-<div class="note"><p><b>First:</b> uninstall the official YouTube app from the TV. Sofa Tube uses the same app ID (<code>youtube.leanback.v4</code>), so both cannot be installed together. <b>New:</b> installing from a phone has not been tried by us yet; tell us how it went.</p></div>
+<div class="note"><p><b>First:</b> uninstall the official YouTube app from the TV. Sofa Tube uses the same app ID (<code>youtube.leanback.v4</code>), so both cannot be installed together. <b>New in 0.9.4:</b> Sofa Tube Phone installs Sofa Tube for you. Tried on LG's emulator, not yet on a real LG TV: <a href="/testers/#report">tell us how it went</a>.</p></div>
+<div class="howto">
+<video controls preload="none" playsinline poster="/videos/en/SofaTube-EN-29-Install-LG.jpg" width="1280" height="720" aria-label="Install · LG (webOS)"><source src="/videos/en/SofaTube-EN-29-Install-LG.mp4" type="video/mp4"><a href="/videos/en/SofaTube-EN-29-Install-LG.mp4">Download the video (MP4)</a></video>
+<div><p class="kicker">▶ Video · <bdi>2:05</bdi></p><h3>Install · LG (webOS)</h3><p>Watch it once, then follow the written steps below; pause the video at each step if you like.</p><p class="warn">The video shows the older way, installing two files. Now you install only Sofa Tube Phone, and it installs Sofa Tube for you (step 8).</p></div>
+</div>
 <h3>You need</h3>
 <p>An LG webOS TV and an Android phone on the same Wi-Fi (or a computer). A free LG Developer account and LG's Developer Mode app. No rooting, no Homebrew Channel.</p>
 <h3>Easiest: with an Android phone</h3>
@@ -89,7 +102,11 @@
 
 <section class="tv-section" id="samsung">
 <h2>Samsung TV (Tizen)</h2>
-<div class="note"><p><b>Status:</b> Sofa Tube is its own app on the TV (an icon in Apps). Installing it was tried on Samsung's TV emulator; it has not been tried on a real Samsung TV yet, so you are one of the first: <a href="/testers/#report">tell us how it went</a>.</p></div>
+<div class="note"><p><b>Status:</b> Sofa Tube is its own app on the TV (an icon in Apps). Installed and tested with Apps2Samsung from an Android phone on three real Samsung TVs (2025, 2022 and 2020) in Samsung's Remote Test Lab. <a href="/testers/#report">Tell us how it went on yours</a>.</p></div>
+<div class="howto">
+<video controls preload="none" playsinline poster="/videos/en/SofaTube-EN-30-Install-Samsung.jpg" width="1280" height="720" aria-label="Install · Samsung"><source src="/videos/en/SofaTube-EN-30-Install-Samsung.mp4" type="video/mp4"><a href="/videos/en/SofaTube-EN-30-Install-Samsung.mp4">Download the video (MP4)</a></video>
+<div><p class="kicker">▶ Video · <bdi>3:00</bdi></p><h3>Install · Samsung</h3><p>Watch it once, then follow the written steps below; pause the video at each step if you like.</p></div>
+</div>
 <h3>You need</h3>
 <ul>
 <li>A Samsung TV from 2018 or newer (Tizen 4.0 or newer), and an <b>Android phone</b> on the same Wi-Fi. No Android phone (iPhone)? Use a Windows or Mac computer instead (below).</li>
@@ -117,9 +134,17 @@
 <p>Also works: <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">TizenBrew Installer</a> on the computer → open <code>http://localhost:8091/ui/dist/index.html</code> → TV IP → <b>Install from GitHub</b> → <code>sofatube/sofatube.github.io</code>. English only; use "Install from GitHub" rather than "Select file to install" (the file option forgets your Samsung certificate after one install).</p>
 </details>
 <details><summary>Already use TizenBrew? The TizenBrew module</summary>
+<div class="howto">
+<video controls preload="none" playsinline poster="/videos/en/SofaTube-EN-31-Install-Samsung-TizenBrew.jpg" width="1280" height="720" aria-label="Install · Samsung with TizenBrew"><source src="/videos/en/SofaTube-EN-31-Install-Samsung-TizenBrew.mp4" type="video/mp4"><a href="/videos/en/SofaTube-EN-31-Install-Samsung-TizenBrew.mp4">Download the video (MP4)</a></video>
+<div><p class="kicker">▶ Video · <bdi>0:55</bdi></p><h3>Install · Samsung with TizenBrew</h3><p>Adding the <code>sofatube</code> module in TizenBrew.</p></div>
+</div>
 <p>In <b>TizenBrew</b>, press <b>Green</b>, add an <b>NPM</b> module: <code>sofatube</code>. It updates itself; open Sofa Tube from TizenBrew (TizenBrew → Settings → Autolaunch can open it straight away). Installing TizenBrew itself needs a computer and <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest">TizenBrew Installer</a>.</p>
 </details>
 <details><summary>If something goes wrong</summary>
+<div class="howto">
+<video controls preload="none" playsinline poster="/videos/en/SofaTube-EN-32-Install-troubleshooting.jpg" width="1280" height="720" aria-label="Install · If something goes wrong"><source src="/videos/en/SofaTube-EN-32-Install-troubleshooting.mp4" type="video/mp4"><a href="/videos/en/SofaTube-EN-32-Install-troubleshooting.mp4">Download the video (MP4)</a></video>
+<div><p class="kicker">▶ Video · <bdi>1:44</bdi></p><h3>Install · If something goes wrong</h3><p>The most common messages, and what to do for each.</p></div>
+</div>
 <ul>
 <li><b>"TV detected, but Developer Mode is off"</b>: do step 1 again and restart the TV.</li>
 <li><b>"Developer Mode IP doesn't match"</b>: Host PC IP must be the IP of this phone or computer; type it again, restart the TV.</li>
