@@ -2070,7 +2070,9 @@
 
     draw();
     loadPairs();
-    return { node: card, parentLive: parentLive };
+    // redraw: the phone page's language changed (its strings follow
+    // document.documentElement.lang)
+    return { node: card, parentLive: parentLive, redraw: draw };
   }
 
   function api(method, path, tok, body, cb, timeout) {
