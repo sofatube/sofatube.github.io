@@ -315,6 +315,8 @@ NEW_095 = [
 # 0.9.5 SHOTS HERE: the 0.9.5 feature screenshots (docs/assets/shots/en|ar/) go in this list, as
 # (file name without .jpg, English caption, Arabic caption); new_095() shows them as one row under the cards.
 SHOTS_095 = [
+    ('n95_setup', 'Ready-made settings in the first-time setup', 'الإعدادات الجاهزة في خطوات الإعداد الأولي'),
+    ('n95_help', 'Help from far away: the TV asks what the helper may do', 'المساعدة عن بُعد: يسألك التلفاز عمّا يُسمح للمساعد به'),
     ('n95_tip', 'A tip of the day on Home (Back hides it)', 'نصيحة اليوم على الشاشة الرئيسية (الرجوع يُخفيها)'),
     ('n95_simple', 'Simple mode: larger text and a thick yellow frame', 'الوضع المبسّط: نص أكبر وإطار تحديد أصفر عريض'),
     ('n95_away', 'Control from away: what is on now, more time, lock', 'التحكم من خارج المنزل: ما يُعرض الآن، ووقت إضافي، والقفل', True),
