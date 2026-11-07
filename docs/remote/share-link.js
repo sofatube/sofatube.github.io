@@ -9,6 +9,9 @@
  *   v     the video id (11 characters), '' for a playlist on its own
  *   list  the playlist id, or ''
  *   t     the start in seconds (0: from the start)
+ * sofaShareText({title, text, url}) -> the words to search for when no
+ *   YouTube link was shared (0.9.5), '' when none
+ * sofaSearchHash(text) -> "q=<text>": a search on the TV (after # too)
  * sofaSendHash(link) -> "send=<v>&list=<list>&t=<t>" (empty parts left
  *   out): what goes after # in the TV's phone page address (never in the
  *   query, so it never reaches a server).
@@ -119,6 +122,35 @@
     );
   }
 
+  /*
+   * Text shared without a YouTube link (0.9.5): the words to search for on
+   * the TV. Links are taken out (a web page shared from a browser brings
+   * its title and its address); what is left of the text, else the title.
+   * At most 200 characters; '' when nothing is left.
+   */
+  function sofaShareText(shared) {
+    const f = shared || {};
+    const clean = (s) =>
+      String(s || '')
+        .replace(/(?:https?:\/\/|www\.)[^\s<>"'«»“”]*/gi, ' ')
+        // eslint-disable-next-line no-control-regex -- control characters out
+        .replace(/[\u0000-\u001f\u007f]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/^["'«“]+|["'»”]+$/g, '')
+        .trim();
+    const text = clean(f.text) || clean(f.title) || clean(f.url);
+    return text.length > 200 ? text.slice(0, 200).replace(/\s+\S*$/, '') : text;
+  }
+
+  /** "q=<text>" for the TV's phone page (after #): a search there. */
+  function sofaSearchHash(text) {
+    const q = String(text || '').trim();
+    return q ? 'q=' + encodeURIComponent(q) : '';
+  }
+
   root.sofaShareLink = sofaShareLink;
+  root.sofaShareText = sofaShareText;
+  root.sofaSearchHash = sofaSearchHash;
   root.sofaSendHash = sofaSendHash;
 })(typeof window === 'undefined' ? globalThis : window);
