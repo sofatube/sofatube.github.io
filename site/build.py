@@ -807,18 +807,46 @@ VIDEOS = [
      'What Sofa Tube sends', 'ماذا يرسل صوفا تيوب'),
     ('34', 'Remove', 'Remove Sofa Tube', 'حذف صوفا تيوب',
      '', ''),
+    # 0.9.5: text on the screen, no voice
+    ('35', 'Control-from-away', 'Control from away', 'التحكم من خارج المنزل',
+     'Give more time, lock the TV or send a message from a parent’s phone, outside the home.',
+     'امنح وقتًا إضافيًا أو اقفل التلفاز أو أرسل رسالة من هاتف أحد الوالدين خارج المنزل.'),
+    ('36', 'Kids-TV-time', 'Kids’ TV time in every app', 'وقت تلفاز الأطفال في كل التطبيقات',
+     'A daily TV time that counts every app, not only YouTube.', 'وقت يومي على التلفاز يحسب كل التطبيقات، لا YouTube وحده.'),
+    ('37', 'Routines-reminders', 'Routines and reminders', 'الإجراءات الروتينية والتذكيرات',
+     'Several steps with one tap, or at a set time.', 'عدة خطوات بلمسة واحدة، أو في وقت محدد.'),
+    ('38', 'Photos-Simple-mode', 'Photos on the TV, Simple mode', 'الصور على التلفاز والوضع المبسّط',
+     'Your phone’s photos on the big screen, and a phone page that is easy for older viewers.',
+     'صور هاتفك على الشاشة الكبيرة، وصفحة هاتف سهلة لكبار السن.'),
+    ('39', 'Learn-memorise-listen', 'Learn: memorise and listen', 'التعلّم: الحفظ والاستماع',
+     'Repeat a part, stop after each line, or just listen.', 'كرّر جزءًا، أو توقّف بعد كل سطر، أو استمع فقط.'),
+    ('40', 'Share-another-TV', 'Share with another TV', 'المشاركة مع تلفاز آخر',
+     'Copy your settings and lists to another TV. No server.', 'انسخ إعداداتك وقوائمك إلى تلفاز آخر. دون أي خادم.'),
+    ('41', 'HDMI-soundbar', 'HDMI devices and soundbar', 'أجهزة HDMI ومكبر الصوت',
+     'Your game console, TV box and soundbar, from the same phone. Needs whole-TV control.',
+     'جهاز الألعاب وصندوق التلفاز ومكبر الصوت، من الهاتف نفسه. يحتاج إلى التحكم في التلفاز كله.'),
+    ('42', 'Remote-help', 'Help from far away', 'المساعدة عن بُعد',
+     'Someone you trust helps with your TV from their own phone, wherever they are.',
+     'شخص تثق به يساعدك في تلفازك من هاتفه، أينما كان.'),
+    ('43', 'More-while-watching', 'More while watching', 'المزيد أثناء المشاهدة',
+     'Repeat a part, jump to the most replayed part, save a moment.',
+     'كرّر جزءًا، وانتقل إلى الجزء الأكثر إعادة، واحفظ لحظة.'),
+    ('44', 'New-feed-filters', 'New feed filters', 'تصفية المحتوى: الجديد',
+     'New filters for the feed and for sponsors. Most are off until you turn them on.',
+     'خيارات جديدة لتصفية المحتوى ولمقاطع الرعاية. معظمها غير مفعّل حتى تفعّله.'),
 ]
 
 
 VNAME = {n: (name, te, ta) for n, name, te, ta, de, da in VIDEOS}
+TEXT_FROM, TEXT_TO = 35, 44  # text on the screen, no voice
 
 # The videos page in topics, in the order people need them.
 VGROUPS = [
     ('start', 'Start here', 'ابدأ من هنا', ['26', '00', '01']),
     ('install', 'Install and remove', 'التثبيت والحذف', ['27', '28', '29', '30', '31', '32', '34']),
-    ('phone', 'Your phone', 'هاتفك', ['06', '15', '16', '17', '14', '18', '19']),
-    ('family', 'Family and locks', 'العائلة والقفل', ['04', '05', '20']),
-    ('watch', 'Watching', 'المشاهدة', ['02', '03', '07', '11', '12', '13', '08', '10', '09', '23', '24']),
+    ('phone', 'Your phone', 'هاتفك', ['06', '15', '16', '17', '14', '37', '38', '40', '42', '18', '19', '41']),
+    ('family', 'Family and locks', 'العائلة والقفل', ['04', '05', '20', '36', '35']),
+    ('watch', 'Watching', 'المشاهدة', ['02', '03', '07', '11', '12', '13', '08', '10', '09', '23', '24', '43', '39', '44']),
     ('more', 'Settings, updates and help', 'الإعدادات والتحديثات والمساعدة', ['21', '22', '25', '33']),
 ]
 assert sorted(n for g in VGROUPS for n in g[3]) == sorted(VNAME), 'every video in exactly one topic'
@@ -836,6 +864,9 @@ def videos(lang):
             o = video_file(ofolder, n) + '.mp4'
             title = L(lang, te, ta)
             note = ''
+            if TEXT_FROM <= int(n) <= TEXT_TO:
+                note = L(lang, '<p class="meta">New in 0.9.5 · text on the screen, no voice</p>',
+                         '<p class="meta">جديد في <bdi>0.9.5</bdi> · نصّ على الشاشة دون تعليق صوتي</p>')
             if n == '33':
                 note = L(lang, '<p class="warn">Made for 0.9.4. What 0.9.5 adds online (Control from away, remote help, lyrics) is in the FAQ: <a href="/faq/#privacy">What goes online?</a></p>',
                          '<p class="warn">صُنع لإصدار <bdi>0.9.4</bdi>. وما يضيفه <bdi>0.9.5</bdi> من اتصال بالإنترنت («التحكم من خارج المنزل» و«المساعدة عن بُعد» وكلمات الأغنية) في الأسئلة الشائعة: <a href="/ar/faq/#privacy">ما الذي يتصل بالإنترنت؟</a></p>')
@@ -850,8 +881,8 @@ def videos(lang):
         groups.append(f'<section class="vgroup" id="{gid}"><h2>{L(lang, ge, ga)} <span class="count">{len(ns)}</span></h2><div class="videos">{"".join(cards)}</div></section>')
     chips = ''.join(f'<li><a href="#{gid}">{L(lang, ge, ga)}</a></li>' for gid, ge, ga, ns in VGROUPS)
     intro = L(lang,
-              f'<h1>Videos</h1><p>Narrated tutorials for Sofa Tube 0.9: {len(VIDEOS)} videos in English, from installing to every feature, with the remote buttons to press and the phone screen. The same videos in Arabic: <a href="/ar/videos/" hreflang="ar" lang="ar">الفيديوهات بالعربية</a>.</p>',
-              f'<h1>الفيديوهات</h1><p>شروح بالفيديو مع تعليق صوتي لصوفا تيوب <bdi>0.9</bdi>: خمسة وثلاثون فيديو بالعربية، من التثبيت إلى كل ميزة، تُظهر أزرار جهاز التحكم التي تضغطها وشاشة الهاتف. والفيديوهات نفسها بالإنجليزية: <a href="/videos/" hreflang="en" lang="en">Videos in English</a>.</p>')
+              f'<h1>Videos</h1><p>Tutorials for Sofa Tube 0.9: {len(VIDEOS)} videos in English, from installing to every feature, with the remote buttons to press and the phone screen. Videos {TEXT_FROM} to {TEXT_TO}, for 0.9.5, have text on the screen and no voice. The same videos in Arabic: <a href="/ar/videos/" hreflang="ar" lang="ar">الفيديوهات بالعربية</a>.</p>',
+              f'<h1>الفيديوهات</h1><p>شروح بالفيديو لصوفا تيوب <bdi>0.9</bdi>: <bdi>{len(VIDEOS)}</bdi> فيديوًا بالعربية، من التثبيت إلى كل ميزة، تُظهر أزرار جهاز التحكم التي تضغطها وشاشة الهاتف. والفيديوهات من <bdi>{TEXT_FROM}</bdi> إلى <bdi>{TEXT_TO}</bdi>، لإصدار <bdi>0.9.5</bdi>، فيها نصّ على الشاشة دون تعليق صوتي. والفيديوهات نفسها بالإنجليزية: <a href="/videos/" hreflang="en" lang="en">Videos in English</a>.</p>')
     return intro + f'<ul class="toc">{chips}</ul>' + ''.join(groups)
 
 
@@ -1213,7 +1244,7 @@ def main():
              L(lang, 'Install Sofa Tube on Android TV, Google TV, Fire TV, LG (webOS) and Samsung (Tizen), step by step.',
                'خطوات تثبيت صوفا تيوب على <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> وLG وسامسونج.'), install(lang))
         page(lang, 'videos/', L(lang, 'Videos', 'الفيديوهات'),
-             L(lang, f'{len(VIDEOS)} narrated Sofa Tube tutorials in English and Arabic.', 'شروح صوفا تيوب المصوّرة بالعربية والإنجليزية.'), videos(lang))
+             L(lang, f'{len(VIDEOS)} Sofa Tube tutorials in English and Arabic.', 'شروح صوفا تيوب المصوّرة بالعربية والإنجليزية.'), videos(lang))
         page(lang, 'testers/', L(lang, 'Testers', 'للمجرّبين'),
              L(lang, 'Sofa Tube tester guide, checklist, how to report and what has been tested.', 'دليل التجربة وقائمة الفحص وطريقة إرسال التقرير وما الذي جُرِّب.'), testers(lang))
         page(lang, 'faq/', L(lang, 'FAQ', 'الأسئلة الشائعة'),
