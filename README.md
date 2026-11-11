@@ -9,7 +9,7 @@
 </p>
 
 > [!IMPORTANT]
-> **0.9.4 is a test version.** Parts of it have only run on TV _emulators_ so far. See [What has been tested](#what-has-been-tested).
+> **0.9.5 is a test version.** Parts of it have only run on TV _emulators_ so far. See [What has been tested](#what-has-been-tested).
 
 **[English](#english) · [العربية](#العربية)**
 
@@ -72,12 +72,12 @@ Already use TizenBrew? Add the NPM module **`sofatube`** instead (Green → NPM)
 
 ### What has been tested
 
-| TV                                | Status for 0.9.4                                                                                       |
+| TV                                | Status for 0.9.5                                                                                       |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | LG webOS                          | LG emulator (webOS 4), including installing Sofa Tube from the Sofa Tube Phone app; earlier versions on a real LG TV. |
-| Samsung app (`.wgt`)              | Three real Samsung TVs in Samsung's Remote Test Lab (2025 QN80F, 2022 QB80, 2020 QT80), installed with Apps2Samsung from an Android phone. Whole-TV control from the phone: not confirmed on a real TV yet. |
+| Samsung app (`.wgt`)              | Real Samsung TVs in Samsung's Remote Test Lab (2025 QN80F, 2022 QB80, 2020 QT80) and a 2025 Q7F at home, installed with Apps2Samsung from an Android phone. Whole-TV control from the phone: newer Samsung TVs need a TV box, a computer at home or the parent's open phone page as a relay; the relay is not yet confirmed on a home TV. |
 | Samsung (TizenBrew, npm `sofatube`) | Samsung emulator only. **Never tried on a real Samsung TV.**                                           |
-| Android TV / Google TV            | Google TV emulator, and test builds of 0.9.3 on one real Android TV (TCL). **Other brands untested.** |
+| Android TV / Google TV            | Google TV emulator, and a 0.9.5 build on one real Android TV (TCL). **Other brands untested.** |
 | Fire TV                           | **Untested.**                                                                                          |
 | Install with webOS Dev Manager on a phone | **Not tried by us yet.**                                                                        |
 
@@ -144,12 +144,12 @@ Please report what works and what does not: [open an issue](https://github.com/s
 
 ### ما الذي جُرِّب
 
-| التلفاز | الحالة في <bdi>0.9.4</bdi> |
+| التلفاز | الحالة في <bdi>0.9.5</bdi> |
 | --- | --- |
 | LG ‏(webOS) | محاكي LG ‏(webOS 4)، ومنه تثبيت صوفا تيوب من تطبيق <bdi>Sofa Tube Phone</bdi>؛ والإصدارات السابقة على تلفاز LG حقيقي. |
-| تطبيق سامسونج (ملف <code dir="ltr">.wgt</code>) | ثلاثة أجهزة تلفاز سامسونج حقيقية في مختبر سامسونج عن بُعد (<bdi>QN80F</bdi> من 2025، و<bdi>QB80</bdi> من 2022، و<bdi>QT80</bdi> من 2020)، ثُبّت عليها بـ<bdi>Apps2Samsung</bdi> من هاتف أندرويد. التحكم في التلفاز كله من الهاتف: لم يُتأكَّد منه بعدُ على تلفاز حقيقي. |
+| تطبيق سامسونج (ملف <code dir="ltr">.wgt</code>) | أجهزة تلفاز سامسونج حقيقية في مختبر سامسونج عن بُعد (<bdi>QN80F</bdi> من 2025 و<bdi>QB80</bdi> من 2022 و<bdi>QT80</bdi> من 2020) وجهاز <bdi>Q7F</bdi> من 2025 في المنزل، ثُبّت بـ<bdi>Apps2Samsung</bdi> من هاتف أندرويد. التحكم في التلفاز كله من الهاتف: أجهزة سامسونج الأحدث تحتاج إلى جهاز Android TV أو حاسوب في المنزل أو صفحة هاتف أحد الوالدين مفتوحة وسيطًا؛ ولم يُتأكَّد من الوسيط بعدُ على تلفاز في المنزل. |
 | سامسونج (TizenBrew، وحدة <code dir="ltr">sofatube</code>) | محاكي سامسونج فقط. **لم يُجرَّب على تلفاز سامسونج حقيقي.** |
-| Android TV وGoogle TV | محاكي Google TV، ونسخ تجريبية من <bdi>0.9.3</bdi> على تلفاز أندرويد حقيقي واحد (TCL). **لم يُجرَّب على الشركات الأخرى.** |
+| Android TV وGoogle TV | محاكي Google TV، ونسخة من <bdi>0.9.5</bdi> على تلفاز أندرويد حقيقي واحد (TCL). **لم يُجرَّب على الشركات الأخرى.** |
 | Fire TV | **لم يُجرَّب.** |
 | التثبيت بـwebOS Dev Manager من الهاتف | **لم نجرّبه بعد.** |
 
