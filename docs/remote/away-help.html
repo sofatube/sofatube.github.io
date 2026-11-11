@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sofa Tube · How to connect from away</title>
+    <meta
+      name="description"
+      content="Control the family TV from outside the home: the standard way and the advanced ones, in plain words."
+    />
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+    <style>
+      :root {
+        --bg: #fbf4e8;
+        --card: #ffffff;
+        --line: #eadfcd;
+        --text: #1f140d;
+        --muted: #6f5a47;
+        --accent: #a84500;
+        --title: #93441a;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #170e08;
+          --card: #24180f;
+          --line: #3a2819;
+          --text: #fbf4e8;
+          --muted: #b9a690;
+          --accent: #ff8a00;
+          --title: #fbf4e8;
+        }
+      }
+      html,
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          16px/1.6 system-ui,
+          -apple-system,
+          'Segoe UI',
+          Roboto,
+          'Noto Sans Arabic',
+          sans-serif;
+      }
+      html[lang='ar'] body {
+        font-size: 17px;
+        line-height: 1.7;
+      }
+      main {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 16px 16px 48px;
+      }
+      h1 {
+        color: var(--title);
+        font-size: 24px;
+      }
+      h2 {
+        color: var(--title);
+        font-size: 18px;
+        margin: 0 0 8px;
+      }
+      section {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px 16px;
+        margin: 14px 0;
+      }
+      .tag {
+        display: inline-block;
+        font-size: 13px;
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        padding: 0 10px;
+        color: var(--muted);
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 15px;
+      }
+      th,
+      td {
+        border-top: 1px solid var(--line);
+        padding: 6px 4px;
+        text-align: start;
+        vertical-align: top;
+      }
+      a {
+        color: var(--accent);
+      }
+      [lang='ar'] .en,
+      [lang='en'] .ar {
+        display: none;
+      }
+      button {
+        font: inherit;
+        background: none;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 6px 10px;
+        color: var(--text);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <button id="lang" type="button"></button>
+
+      <!-- ===================== English ===================== -->
+      <div class="en">
+        <h1>How to connect from away</h1>
+        <p>
+          “Control from away” lets a parent’s phone reach the family TV from
+          outside the home: at work, on mobile data, at a friend’s. There is one
+          standard way that needs nothing set up, and two advanced ways for
+          families who want to run things themselves.
+        </p>
+
+        <section>
+          <h2>
+            1. Standard: Sofa Tube’s sealed mailbox
+            <span class="tag">recommended</span>
+          </h2>
+          <p>
+            The TV and your phone leave sealed letters for each other in a free
+            public mailbox (ntfy.sh). Only your TV and your phone have the keys.
+            The TV only ever calls out; nothing on the internet can call into
+            your TV.
+          </p>
+          <p>
+            <b>What the mailbox server sees:</b> the internet addresses of your
+            TV and phone, when a letter is left, and its size (always one of
+            three fixed sizes). <b>Never</b> what is in it: not the video, not
+            the app, not the time used, not your messages.
+          </p>
+          <p>
+            <b>Requests from the kids</b> (“more time”, “can I watch this?”,
+            “can I open this app?”) reach your phone as a notification sent by
+            the TV itself through your phone’s own notification service (Apple,
+            Google or Mozilla). That service also gets only a sealed letter.
+          </p>
+          <p>
+            <b>Set up:</b> on the TV, Settings → Kids → Control from away → Turn
+            on, then Add a phone. On the phone, add Sofa Tube to the Home Screen
+            (iPhone: Share → Add to Home Screen), open it from there, Control
+            from away → Scan the TV code. Check the same 4 words show on both,
+            then press OK on the TV and enter the PIN.
+          </p>
+          <p>
+            <b>While it is on</b>, the TV shows a small sign: “A parent’s phone
+            can see what’s on now”, and a short message each time a parent
+            looks. Nothing is kept: “Now” is made only when you ask.
+          </p>
+          <p>
+            <b>If the internet is down</b>, the rules (allowed hours, daily
+            limit, allowed apps, bedtime) keep working on the TV. The phone says
+            “The TV is not reachable now”.
+          </p>
+          <p>
+            <b>Some things stay at home:</b> changing the PIN, removing phones
+            and turning this off can only be done on the TV.
+          </p>
+          <p>
+            <b>LG, after the TV was unplugged or restarted:</b> if the phone
+            says “The TV is not reachable now”, open the Sofa Tube Phone app
+            once on the TV (opening Sofa Tube alone is not enough).
+          </p>
+        </section>
+
+        <section>
+          <h2>2. Advanced: your own Tailscale</h2>
+          <p>
+            Tailscale is a free app that joins your devices into one private
+            network, wherever they are. With it, your phone is “at home” even at
+            work, and the normal Sofa Tube phone page works exactly as on your
+            Wi-Fi. No mailbox server is used.
+          </p>
+          <p>
+            <b>You need:</b> Tailscale on your phone, and one device at home
+            that stays on and shares your home network with Tailscale (“subnet
+            router”): an Android TV box, a computer, a Raspberry Pi or a router
+            that supports it.
+          </p>
+          <ol>
+            <li>
+              Make a Tailscale account and install Tailscale on your phone and
+              on the home device. Sign in to the same account on both.
+            </li>
+            <li>
+              On the home device, turn on “subnet routes” for your home network
+              (for example 192.168.1.0/24) and approve it in Tailscale’s admin
+              page. Guide:
+              <a href="https://tailscale.com/kb/1019/subnets" rel="noopener"
+                >tailscale.com/kb/1019/subnets</a
+              >.
+            </li>
+            <li>
+              On the phone, turn Tailscale on, then open the Sofa Tube phone
+              page with the TV’s usual address (the Sofa Tube app on the Home
+              Screen remembers it).
+            </li>
+          </ol>
+          <p>
+            <b>Android TV only:</b> if Tailscale runs on the Android TV itself,
+            your phone can open Sofa Tube’s phone page on the TV’s Tailscale
+            address, and the page says “Connected through Tailscale (as if at
+            home)”.
+          </p>
+          <p>
+            <b>Trade-offs:</b> more to set up, and the home device must stay on.
+            Tailscale’s servers help the devices find each other; the traffic
+            itself is encrypted between your devices. LG and Samsung TVs can’t
+            run Tailscale themselves, so they need the home device.
+          </p>
+        </section>
+
+        <section>
+          <h2>3. Advanced: your own mailbox server</h2>
+          <p>
+            Prefer not to use the public ntfy.sh? Run your own ntfy server
+            (free, open source) at home or on a server you rent, and type its
+            address on the TV: Settings → Kids → Own mailbox server (for example
+            <code dir="ltr">https://ntfy.example.org</code>). Paired phones move
+            to it by themselves.
+          </p>
+          <p>
+            Guide:
+            <a href="https://docs.ntfy.sh/install/" rel="noopener"
+              >docs.ntfy.sh/install</a
+            >. It must be reachable from the internet over https for the phone
+            to use it away from home (a plain <code>http://</code> address only
+            works inside the home).
+          </p>
+          <p>
+            <b>Trade-offs:</b> only you see the addresses and times, but you
+            keep the server running and up to date.
+          </p>
+          <p>
+            <b>Optional:</b> also alert in the ntfy app. Pick a long,
+            hard-to-guess topic name, subscribe to it in the ntfy app, and type
+            it on the TV (Settings → Kids → Also alert in the ntfy app). It only
+            ever gets “Sofa Tube: new request, open the app”.
+          </p>
+        </section>
+
+        <section>
+          <h2>The TV maker’s own controls</h2>
+          <p>
+            They work together with Sofa Tube and cover things it can’t (such as
+            locking an app even before Sofa Tube starts):
+          </p>
+          <ul>
+            <li>
+              Google TV: kids profile and
+              <a href="https://families.google/familylink/" rel="noopener"
+                >Google Family Link</a
+              >.
+            </li>
+            <li>
+              Samsung: the TV’s own App Lock, and
+              <a href="https://www.smartthings.com/" rel="noopener"
+                >SmartThings</a
+              >
+              on the phone.
+            </li>
+            <li>
+              LG: the TV’s own App Lock (Settings → Safety), and the LG ThinQ
+              app on the phone.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Which one?</h2>
+          <table>
+            <tr>
+              <th></th>
+              <th>Set up</th>
+              <th>Who sees addresses and times</th>
+              <th>Works with</th>
+            </tr>
+            <tr>
+              <td>Mailbox (standard)</td>
+              <td>Nothing</td>
+              <td>ntfy.sh, your phone’s notification service</td>
+              <td>LG, Samsung, Android</td>
+            </tr>
+            <tr>
+              <td>Own Tailscale</td>
+              <td>Phone + a home device</td>
+              <td>Tailscale (helps connect)</td>
+              <td>LG, Samsung (via the home device), Android</td>
+            </tr>
+            <tr>
+              <td>Own mailbox server</td>
+              <td>Run ntfy</td>
+              <td>Only you</td>
+              <td>LG, Samsung, Android</td>
+            </tr>
+          </table>
+        </section>
+      </div>
+
+      <!-- ===================== العربية ===================== -->
+      <div class="ar">
+        <h1>طرق الاتصال من خارج المنزل</h1>
+        <p>
+          تتيح ميزة «التحكم من خارج المنزل» لهاتف أحد الوالدين الوصول إلى تلفاز
+          العائلة من خارج المنزل: في العمل أو عبر بيانات الجوال أو عند الأصدقاء.
+          هناك طريقة معتادة لا تحتاج إلى أي إعداد، وطريقتان متقدّمتان للعائلات
+          التي تفضّل إدارة الأمور بنفسها.
+        </p>
+
+        <section>
+          <h2>
+            1. الطريقة المعتادة: خادم الرسائل المشفّر في صوفا تيوب
+            <span class="tag">موصى بها</span>
+          </h2>
+          <p>
+            يترك التلفاز وهاتفك رسائل مختومة لبعضهما في صندوق بريد عام مجاني
+            (ntfy.sh). لا يملك المفاتيح إلا تلفازك وهاتفك. والتلفاز هو من يتصل
+            دائمًا؛ ولا يمكن لأي جهة على الإنترنت الاتصال بتلفازك.
+          </p>
+          <p>
+            <b>ما يراه خادم الرسائل:</b> عنوانا تلفازك وهاتفك على الإنترنت، ووقت
+            ترك الرسالة، وحجمها (وهو دائمًا أحد ثلاثة أحجام ثابتة).
+            <b>ولا يرى أبدًا</b> محتواها: لا الفيديو ولا التطبيق ولا الوقت
+            المستخدم ولا رسائلك.
+          </p>
+          <p>
+            <b>طلبات الأطفال</b> («وقت إضافي»، «هل أشاهد هذا؟»، «هل أفتح هذا
+            التطبيق؟») تصل إلى هاتفك إشعارًا يرسله التلفاز نفسه عبر خدمة
+            الإشعارات في هاتفك (Apple أو Google أو Mozilla). ولا يصل إلى تلك
+            الخدمة أيضًا إلا رسالة مختومة.
+          </p>
+          <p>
+            <b>الإعداد:</b> على التلفاز: الإعدادات ثم الأطفال ثم «التحكم من خارج
+            المنزل» ثم «تفعيل»، ثم «إضافة هاتف». على الهاتف: أضف صوفا تيوب إلى
+            الشاشة الرئيسية (iPhone: مشاركة ثم إضافة إلى الشاشة الرئيسية)،
+            وافتحه من هناك، ثم «التحكم من خارج المنزل» ثم «امسح رمز التلفاز».
+            تأكّد من ظهور الكلمات الأربع نفسها على الجهازين، ثم اضغط OK على
+            التلفاز وأدخل الرمز السري.
+          </p>
+          <p>
+            <b>أثناء تفعيلها</b> تظهر على التلفاز علامة صغيرة: «يمكن لهاتف أحد
+            الوالدين رؤية ما يُعرض الآن»، ورسالة قصيرة كلما اطّلع أحد الوالدين.
+            لا يُحفظ شيء: تُعدّ شاشة «الآن» فقط عندما تطلبها.
+          </p>
+          <p>
+            <b>إذا انقطع الإنترنت</b> تبقى القواعد (الساعات المسموح بها والحد
+            اليومي والتطبيقات المسموح بها وموعد النوم) سارية على التلفاز، ويظهر
+            على الهاتف «لا يمكن الوصول إلى التلفاز الآن».
+          </p>
+          <p>
+            <b>بعض الأمور تبقى في المنزل:</b> تغيير الرمز السري وإزالة الهواتف
+            وإيقاف هذه الميزة لا تتم إلا من التلفاز.
+          </p>
+          <p>
+            <b>تلفاز LG بعد فصله عن الكهرباء أو إعادة تشغيله:</b> إذا ظهر على
+            الهاتف «لا يمكن الوصول إلى التلفاز الآن» فافتح تطبيق صوفا تيوب
+            للهاتف (Sofa Tube Phone) مرة واحدة على التلفاز، فلا يكفي فتح صوفا
+            تيوب وحده.
+          </p>
+        </section>
+
+        <section>
+          <h2>2. متقدّم: شبكة Tailscale الخاصة بك</h2>
+          <p>
+            Tailscale تطبيق مجاني يضم أجهزتك في شبكة خاصة واحدة أينما كانت. وبه
+            يكون هاتفك «في المنزل» حتى وأنت في العمل، وتعمل صفحة صوفا تيوب
+            المعتادة على الهاتف تمامًا كما تعمل على شبكة الواي فاي. ولا يُستخدم
+            خادم رسائل.
+          </p>
+          <p>
+            <b>تحتاج إلى:</b> Tailscale على هاتفك، وجهاز واحد في المنزل يبقى
+            مشغّلًا ويشارك شبكة المنزل عبر Tailscale (ميزة «subnet router»):
+            جهاز تلفاز أندرويد أو حاسوب أو Raspberry Pi أو راوتر يدعمها.
+          </p>
+          <ol>
+            <li>
+              أنشئ حسابًا في Tailscale وثبّته على هاتفك وعلى جهاز المنزل، وسجّل
+              الدخول بالحساب نفسه على الجهازين.
+            </li>
+            <li>
+              على جهاز المنزل، فعّل «subnet routes» لشبكة المنزل (مثل
+              192.168.1.0/24) ووافق عليها في صفحة الإدارة في Tailscale. الدليل:
+              <a href="https://tailscale.com/kb/1019/subnets" rel="noopener"
+                >tailscale.com/kb/1019/subnets</a
+              >.
+            </li>
+            <li>
+              على الهاتف، شغّل Tailscale، ثم افتح صفحة صوفا تيوب على الهاتف
+              بعنوان التلفاز المعتاد (يتذكّره تطبيق صوفا تيوب على الشاشة
+              الرئيسية).
+            </li>
+          </ol>
+          <p>
+            <b>تلفاز أندرويد فقط:</b> إن كان Tailscale يعمل على تلفاز أندرويد
+            نفسه، يمكن لهاتفك فتح صفحة صوفا تيوب على عنوان التلفاز في Tailscale،
+            وتظهر في الصفحة عبارة «متصل عبر Tailscale (كأنك في المنزل)».
+          </p>
+          <p>
+            <b>المزايا والعيوب:</b> إعداد أكثر، ويجب أن يبقى جهاز المنزل
+            مشغّلًا. تساعد خوادم Tailscale الأجهزة على إيجاد بعضها، أما البيانات
+            نفسها فمشفّرة بين أجهزتك. لا يمكن تشغيل Tailscale على تلفازات LG
+            وSamsung نفسها، لذا تحتاج إلى جهاز المنزل.
+          </p>
+        </section>
+
+        <section>
+          <h2>3. متقدّم: خادم رسائل خاص بك</h2>
+          <p>
+            لا تفضّل استخدام ntfy.sh العام؟ شغّل خادم ntfy خاصًا بك (مجاني
+            ومفتوح المصدر) في المنزل أو على خادم تستأجره، واكتب عنوانه على
+            التلفاز: الإعدادات ثم الأطفال ثم «خادم رسائل خاص» (مثل
+            <code dir="ltr">https://ntfy.example.org</code>). تنتقل الهواتف
+            المقترنة إليه تلقائيًا.
+          </p>
+          <p>
+            الدليل:
+            <a href="https://docs.ntfy.sh/install/" rel="noopener"
+              >docs.ntfy.sh/install</a
+            >. يجب أن يكون متاحًا من الإنترنت عبر https ليستخدمه الهاتف خارج
+            المنزل (عنوان <code>http://</code> العادي يعمل داخل المنزل فقط).
+          </p>
+          <p>
+            <b>المزايا والعيوب:</b> لا يرى العناوين والأوقات أحد سواك، لكن عليك
+            إبقاء الخادم يعمل ومحدّثًا.
+          </p>
+          <p>
+            <b>اختياري:</b> تنبيه أيضًا في تطبيق ntfy. اختر اسم موضوع طويلًا
+            يصعب تخمينه، واشترك فيه في تطبيق ntfy، واكتبه على التلفاز (الإعدادات
+            ثم الأطفال ثم «تنبيه أيضًا في تطبيق ntfy»). لا يصله إلا «Sofa Tube:
+            new request, open the app».
+          </p>
+        </section>
+
+        <section>
+          <h2>أدوات الشركة المصنّعة للتلفاز</h2>
+          <p>
+            تعمل مع صوفا تيوب وتغطي ما لا يستطيعه (مثل قفل تطبيق حتى قبل تشغيل
+            صوفا تيوب):
+          </p>
+          <ul>
+            <li>
+              تلفاز Google: ملف الأطفال و<a
+                href="https://families.google/familylink/"
+                rel="noopener"
+                >Google Family Link</a
+              >.
+            </li>
+            <li>
+              Samsung: قفل التطبيقات في التلفاز نفسه، و<a
+                href="https://www.smartthings.com/"
+                rel="noopener"
+                >SmartThings</a
+              >
+              على الهاتف.
+            </li>
+            <li>
+              LG: قفل التطبيقات في التلفاز نفسه (الإعدادات ثم الأمان)، وتطبيق LG
+              ThinQ على الهاتف.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>أيّها أختار؟</h2>
+          <table>
+            <tr>
+              <th></th>
+              <th>الإعداد</th>
+              <th>من يرى العناوين والأوقات</th>
+              <th>يعمل مع</th>
+            </tr>
+            <tr>
+              <td>خادم الرسائل (المعتاد)</td>
+              <td>لا شيء</td>
+              <td>ntfy.sh وخدمة الإشعارات في هاتفك</td>
+              <td>LG وSamsung وأندرويد</td>
+            </tr>
+            <tr>
+              <td>شبكة Tailscale الخاصة بك</td>
+              <td>الهاتف وجهاز في المنزل</td>
+              <td>Tailscale (يساعد على الاتصال)</td>
+              <td>LG وSamsung (عبر جهاز المنزل) وأندرويد</td>
+            </tr>
+            <tr>
+              <td>خادم رسائل خاص</td>
+              <td>تشغيل ntfy</td>
+              <td>أنت فقط</td>
+              <td>LG وSamsung وأندرويد</td>
+            </tr>
+          </table>
+        </section>
+      </div>
+    </main>
+    <script>
+      (function () {
+        var b = document.getElementById('lang');
+        function set(l) {
+          document.documentElement.lang = l;
+          document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+          b.textContent = l === 'ar' ? 'English' : 'العربية';
+          document.title =
+            'Sofa Tube · ' +
+            (l === 'ar'
+              ? 'طرق الاتصال من خارج المنزل'
+              : 'How to connect from away');
+        }
+        var l =
+          /[#&]lang=ar/.test(location.hash) || /^ar/i.test(navigator.language)
+            ? 'ar'
+            : 'en';
+        set(l);
+        b.onclick = function () {
+          l = l === 'ar' ? 'en' : 'ar';
+          set(l);
+        };
+      })();
+    </script>
+  </body>
+</html>
