@@ -1,36 +1,36 @@
 {
   "schema": 1,
-  "version": "0.9.4",
-  "date": "2026-11-03",
-  "notes": "https://github.com/sofatube/sofatube.github.io/releases/tag/v0.9.4",
+  "version": "0.9.5",
+  "date": "2026-11-12",
+  "notes": "https://github.com/sofatube/sofatube.github.io/releases/tag/v0.9.5",
   "android": {
-    "version": "0.9.4",
-    "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.4/SofaTube-0.9.4-AndroidTV-arm.apk",
-    "sha256": "b27749119ef81c8f18e7cb32236b271d0b935b15983d94a4fada881674802b65",
-    "size": 95519817,
+    "version": "0.9.5",
+    "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.5/SofaTube-0.9.5-AndroidTV-arm.apk",
+    "sha256": "1656131608af506f838869abb4d4222346870d6cb2058a7e8cdbf2b312c7370a",
+    "size": 96553725,
     "minSdk": 24
   },
   "lg": {
-    "version": "0.9.4",
-    "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.4/SofaTube-0.9.4-LG.ipk",
-    "sha256": "3a969747e683409c238a48aa8c03747da91e53dabe6aaefdad0aa349d78893d3",
-    "size": 1841604,
+    "version": "0.9.5",
+    "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.5/SofaTube-0.9.5-LG.ipk",
+    "sha256": "9bc21b7e2fe3627271639a62e7801505137ad9aee71c61b40e8827f935fd5034",
+    "size": 2266284,
     "minOs": "webOS 4"
   },
   "lgPhone": {
-    "version": "1.1.4",
-    "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.4/SofaTube-Phone-1.1.4-LG.ipk",
-    "sha256": "fd64d67a61b55692db92bed26e00a81f0490d4e67fcbdc856d7d7ab1affe00bb",
-    "size": 288834
+    "version": "1.1.5",
+    "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.5/SofaTube-Phone-1.1.5-LG.ipk",
+    "sha256": "586dac6d7ecc63f7a7ae023ae1f9589086da2f6c0b10a89b30f8f30ed0ae4bbb",
+    "size": 487400
   },
   "samsung": {
-    "version": "0.9.4",
+    "version": "0.9.5",
     "npm": "sofatube"
   },
   "samsungWgt": {
-    "version": "0.9.4",
-    "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.4/SofaTube-0.9.4-Samsung.wgt",
-    "sha256": "cc98159c626386539c9db1b2a6475489faeb049c7cc097fd98e990f2f936cd90",
-    "size": 797319
+    "version": "0.9.5",
+    "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.5/SofaTube-0.9.5-Samsung.wgt",
+    "sha256": "e83df465b9f02b6139ef474f8d023353723d30a8f596bc1f1a5e933c801a71a6",
+    "size": 1115140
   }
 }
