@@ -52,6 +52,14 @@
         'The TV did not answer. Is the TV on and connected to the internet?',
       nowTitle: 'Now',
       refresh: 'Refresh',
+      // the whole phone page from away, over the direct channel (P2P)
+      fullOpen: 'Open the full remote',
+      fullTrying: 'Connecting straight to the TV…',
+      fullOn: 'Full remote · straight to the TV, encrypted',
+      fullNo:
+        'A direct connection to the TV did not work from this network: the simple view below still works.',
+      fullSimple: 'Simple view',
+      fullLost: 'The direct connection ended: the simple view works.',
       asking: 'Asking the TV…',
       unreachable: 'The TV is not reachable now (off, or no internet).',
       since: 'Last answer: {t}',
@@ -141,6 +149,13 @@
       pairFail: 'لم يُجب التلفاز. هل التلفاز مشغّل ومتصل بالإنترنت؟',
       nowTitle: 'الآن',
       refresh: 'تحديث',
+      fullOpen: 'افتح جهاز التحكم الكامل',
+      fullTrying: 'جارٍ الاتصال بالتلفاز مباشرة…',
+      fullOn: 'جهاز التحكم الكامل · اتصال مباشر ومشفّر بالتلفاز',
+      fullNo:
+        'لم ينجح الاتصال المباشر بالتلفاز من هذه الشبكة: العرض البسيط أدناه ما زال يعمل.',
+      fullSimple: 'العرض البسيط',
+      fullLost: 'انتهى الاتصال المباشر: العرض البسيط يعمل.',
       asking: 'جارٍ سؤال التلفاز…',
       unreachable: 'لا يمكن الوصول إلى التلفاز الآن (مطفأ أو بلا إنترنت).',
       since: 'آخر رد: {t}',
@@ -723,6 +738,7 @@
       $(id).classList.toggle('hidden', !paired);
     $('set-card').classList.remove('hidden');
     $('forget').classList.toggle('hidden', !paired);
+    $('full-open').classList.toggle('hidden', !paired);
     drawNotif();
   }
 
@@ -762,6 +778,8 @@
     set('words-wait', 'wordsWait');
     set('now-title', 'nowTitle');
     set('refresh', 'refresh');
+    set('full-open', 'fullOpen');
+    set('full-simple', 'fullSimple');
     set('reqs-title', 'reqsTitle');
     set('cmd-title', 'cmdTitle');
     set('more-label', 'moreLabel');
@@ -790,7 +808,148 @@
       await catchUp();
       listen();
       refresh();
+      // the whole phone page, straight to the TV when the network allows
+      openFull();
     }
+  }
+
+  /* ---------------- the whole phone page from away (P2P) ---------------- */
+
+  /*
+   * The phone's WebRTC offer goes to the TV once, sealed in the away link
+   * ({op: 'rtc'}); the TV answers and a direct, end-to-end encrypted data
+   * channel opens (DTLS; the TV checks this phone's certificate against the
+   * offer, the browser checks the TV's against the answer). The TV's own
+   * phone page then runs at ./tv/ inside this app: sw.js passes its
+   * requests here (BroadcastChannel 'sofatube-tv') and they go over the
+   * channel, as this phone's parent connection (the away PIN on the TV
+   * page first). Nothing of it reaches any server.
+   */
+  let rtc = null; // {pc, dc, waiting, n}
+  const bridge =
+    'BroadcastChannel' in self ? new BroadcastChannel('sofatube-tv') : null;
+  if (bridge)
+    bridge.onmessage = async (e) => {
+      const m = e.data || {};
+      if (m.kind !== 'req') return;
+      const out = { kind: 'res', id: m.id };
+      if (!rtc) {
+        out.code = 503;
+        out.data = { error: 'no direct connection' };
+        return bridge.postMessage(out);
+      }
+      const r = await chan(
+        { m: m.m, p: m.p, b: m.b, b64: m.b64, type: m.type },
+        45000
+      );
+      if (!r) {
+        out.code = 504;
+        out.data = { error: 'timeout' };
+      } else {
+        out.code = r.code;
+        out.type = r.type;
+        if (r.b64 !== undefined) out.b64 = r.b64;
+        else out.data = r.data;
+      }
+      bridge.postMessage(out);
+    };
+
+  function chan(msg, ms) {
+    return new Promise((ok) => {
+      if (!rtc || rtc.dc.readyState !== 'open') return ok(null);
+      const id = rtc.n++;
+      rtc.waiting[id] = ok;
+      setTimeout(() => {
+        if (rtc && rtc.waiting[id]) {
+          delete rtc.waiting[id];
+          ok(null);
+        }
+      }, ms || 20000);
+      rtc.dc.send(JSON.stringify(Object.assign({ id }, msg)));
+    });
+  }
+
+  async function direct() {
+    if (rtc && rtc.dc.readyState === 'open') return true;
+    if (!('RTCPeerConnection' in window) || !bridge) return false;
+    const pc = new RTCPeerConnection({
+      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+    });
+    const dc = pc.createDataChannel('ytx');
+    try {
+      await pc.setLocalDescription(await pc.createOffer());
+      await new Promise((ok) => {
+        if (pc.iceGatheringState === 'complete') return ok();
+        pc.onicegatheringstatechange = () =>
+          pc.iceGatheringState === 'complete' && ok();
+        setTimeout(ok, 3000);
+      });
+      // only what the TV needs: the offer without the phone's mDNS names
+      const sdp = pc.localDescription.sdp
+        .split('\r\n')
+        .filter((l) => !/^a=candidate:.* [0-9a-f-]+\.local /.test(l))
+        .join('\r\n');
+      const r = await ask({ op: 'rtc', offer: sdp }, 20000);
+      if (!r || !r.ok || !r.answer) throw new Error('no answer');
+      await pc.setRemoteDescription({ type: 'answer', sdp: r.answer });
+      const open = await new Promise((ok) => {
+        if (dc.readyState === 'open') return ok(true);
+        dc.onopen = () => ok(true);
+        setTimeout(() => ok(false), 15000);
+      });
+      if (!open) throw new Error('no route');
+    } catch {
+      pc.close();
+      return false;
+    }
+    const me = { pc, dc, waiting: {}, n: 1 };
+    dc.onmessage = (e) => {
+      let m;
+      try {
+        m = JSON.parse(e.data);
+      } catch {
+        return;
+      }
+      const w = me.waiting[m.id];
+      delete me.waiting[m.id];
+      if (w) w(m);
+    };
+    dc.onclose = () => {
+      if (rtc !== me) return;
+      rtc = null;
+      if (!$('full').classList.contains('hidden')) {
+        closeFull();
+        $('full-note').textContent = tr('fullLost');
+      }
+    };
+    rtc = me;
+    return true;
+  }
+
+  let fullBusy = false;
+  async function openFull() {
+    if (fullBusy) return;
+    fullBusy = true;
+    $('full-note').textContent = tr('fullTrying');
+    const ok = await direct();
+    fullBusy = false;
+    if (!ok) {
+      $('full-note').textContent = tr('fullNo');
+      return;
+    }
+    $('full-note').textContent = '';
+    $('full-state').textContent = tr('fullOn');
+    // the service worker must be in charge of ./tv/ before the page loads
+    if ('serviceWorker' in navigator) await navigator.serviceWorker.ready;
+    $('full-frame').src = 'tv/?t=00&app=1&lang=' + lang;
+    $('full').classList.remove('hidden');
+    document.documentElement.style.overflow = 'hidden'; // nothing scrolls behind it
+  }
+
+  function closeFull() {
+    document.documentElement.style.overflow = '';
+    $('full').classList.add('hidden');
+    $('full-frame').src = 'about:blank';
   }
 
   async function start() {
@@ -812,6 +971,8 @@
     $('scan').onclick = scan;
     $('scan-stop').onclick = scanEnd;
     $('refresh').onclick = refresh;
+    $('full-open').onclick = openFull;
+    $('full-simple').onclick = closeFull;
     document.querySelectorAll('[data-more]').forEach((b) => {
       b.onclick = () => run({ op: 'more', min: Number(b.dataset.more) });
     });

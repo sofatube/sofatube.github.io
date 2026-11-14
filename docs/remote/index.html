@@ -232,6 +232,15 @@
         font: inherit;
         font-size: 14px;
       }
+      /* 0.9.6: the code the TV shows too (Join with OK on the TV) */
+      .joincode {
+        font-size: 2.4rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-align: center;
+        margin: 10px 0;
+        font-family: ui-monospace, monospace;
+      }
     </style>
   </head>
   <body>
@@ -254,7 +263,16 @@
         <p id="detail" class="small"></p>
         <div class="btns">
           <button id="find" class="btn hidden" type="button"></button>
+          <a id="go-home" class="btn hidden" href="#"></a>
+          <a id="go-away" class="btn ghost hidden" href="away.html"></a>
           <button id="scan" class="btn ghost hidden" type="button"></button>
+        </div>
+        <div id="joinbox" class="hidden">
+          <p id="join-how" class="small"></p>
+          <p id="join-code" class="joincode" dir="ltr"></p>
+          <div class="btns">
+            <button id="join-stop" class="btn ghost" type="button"></button>
+          </div>
         </div>
         <div id="scanbox" class="hidden">
           <video id="scanvideo" playsinline muted></video>
@@ -279,6 +297,9 @@
           <button class="btn ghost" type="submit" id="manual-btn"></button>
         </form>
         <p id="manual-hint" class="small" style="margin-top: 6px"></p>
+        <div class="btns">
+          <button id="find-new" class="btn ghost hidden" type="button"></button>
+        </div>
       </section>
 
       <section class="card">
@@ -384,6 +405,34 @@
             scanBad:
               'That is not the code of a Sofa Tube TV. Scan the code on the TV’s “Phone remote” page.',
             scanStop: 'Cancel',
+            firstHowNew:
+              'Open Sofa Tube on the TV, then tap “Find my TV”. Chrome asks to look for devices on your Wi-Fi: allow it. Then press OK on the TV. Or scan the code on the TV (Settings → Phone remote).',
+            discovering: 'Looking for Sofa Tube on your Wi-Fi…',
+            newNotFound: 'No TV with Sofa Tube was found on this Wi-Fi.',
+            newNotFoundHow:
+              'Check that Sofa Tube is open on the TV and that this phone is on the same Wi-Fi. Or type the TV’s address below (it is under the code on the TV’s “Phone remote” page), or scan that code.',
+            joinAsking: 'Found your TV. Asking it…',
+            joinHow: 'On the TV: check that it shows this code, then press OK.',
+            joinCancel: 'Cancel',
+            joinNo: 'The TV said no.',
+            joinGone:
+              'No answer from the TV. Search again, then press OK on the TV within 2 minutes.',
+            joinNoTv:
+              'Sofa Tube is not open on the TV. Open it, then search again.',
+            joinBusy:
+              'The TV is answering another phone. Try again in a minute.',
+            joinWaitLong: 'Too many tries. Wait a few minutes, then try again.',
+            joinFail:
+              'Could not ask the TV. Update Sofa Tube on the TV, or scan the code on the TV (Settings → Phone remote).',
+            findAnother: 'Find another TV',
+            notHome: 'Your TV is not on this Wi-Fi.',
+            notHomeAway: 'Opening it from away…',
+            pickHomeAway:
+              'At home: open the remote. Away from home: open it from away.',
+            openHome: 'At home',
+            openAway: 'From away',
+            phoneAndroid: 'Android phone',
+            phoneOther: 'Phone',
             dhcpTitle: 'Stop the TV’s address from changing',
             dhcp: 'In your router’s settings (often at 192.168.1.1 or 192.168.0.1) look for “DHCP reservation” (also “Address reservation” or “Static lease”) and reserve the TV’s current address. Then the TV keeps the same address, and a home-screen icon made on the phone page keeps working too.',
             privacy:
@@ -453,6 +502,34 @@
             scanBad:
               'هذا ليس رمز تلفاز عليه صوفا تيوب. امسح رمز QR في صفحة «جهاز التحكم من الهاتف» على التلفاز.',
             scanStop: 'إلغاء',
+            firstHowNew:
+              'افتح صوفا تيوب على التلفاز، ثم اضغط «ابحث عن التلفاز». سيطلب Chrome الإذن بالبحث عن الأجهزة في شبكة الواي فاي: اسمح بذلك. ثم اضغط OK على التلفاز. أو امسح رمز QR على التلفاز (الإعدادات ← جهاز التحكم من الهاتف).',
+            discovering: 'جارٍ البحث عن صوفا تيوب في شبكة الواي فاي…',
+            newNotFound:
+              'لم يُعثر على تلفاز عليه صوفا تيوب في شبكة الواي فاي هذه.',
+            newNotFoundHow:
+              'تأكد من أن صوفا تيوب مفتوح على التلفاز، ومن أن هذا الهاتف متصل بشبكة الواي فاي نفسها. أو اكتب عنوان التلفاز أدناه (تجده تحت رمز QR في صفحة «جهاز التحكم من الهاتف» على التلفاز)، أو امسح ذلك الرمز.',
+            joinAsking: 'وُجد التلفاز. جارٍ الطلب منه…',
+            joinHow: 'على التلفاز: تأكد من ظهور هذا الرمز، ثم اضغط OK.',
+            joinCancel: 'إلغاء',
+            joinNo: 'رفض التلفاز الطلب.',
+            joinGone:
+              'لم يُجب التلفاز. ابحث مرة أخرى، ثم اضغط OK على التلفاز خلال دقيقتين.',
+            joinNoTv:
+              'صوفا تيوب غير مفتوح على التلفاز. افتحه ثم ابحث مرة أخرى.',
+            joinBusy: 'يجيب التلفاز على هاتف آخر. حاول مرة أخرى بعد دقيقة.',
+            joinWaitLong: 'محاولات كثيرة. انتظر بضع دقائق ثم حاول مرة أخرى.',
+            joinFail:
+              'تعذّر الطلب من التلفاز. حدّث صوفا تيوب على التلفاز، أو امسح رمز QR على التلفاز (الإعدادات ← جهاز التحكم من الهاتف).',
+            findAnother: 'ابحث عن تلفاز آخر',
+            notHome: 'التلفاز ليس على شبكة الواي فاي هذه.',
+            notHomeAway: 'جارٍ فتحه من خارج المنزل…',
+            pickHomeAway:
+              'في المنزل: افتح جهاز التحكم. خارج المنزل: افتحه من خارج المنزل.',
+            openHome: 'في المنزل',
+            openAway: 'من خارج المنزل',
+            phoneAndroid: 'هاتف أندرويد',
+            phoneOther: 'هاتف',
             dhcpTitle: 'منع تغيّر عنوان التلفاز',
             dhcp: 'في إعدادات الراوتر (غالبًا على 192.168.1.1 أو 192.168.0.1) ابحث عن «حجز عنوان DHCP» (ويُسمى أيضًا «حجز العنوان» أو «Static lease») واحجز عنوان التلفاز الحالي. فيبقى للتلفاز العنوان نفسه، وتستمر أيضًا الأيقونة التي أُضيفت من صفحة الهاتف في العمل.',
             privacy:
@@ -738,11 +815,36 @@
               if (my !== gen) return;
               searching = false;
               if (b) return found(b);
-              setStatus(tr('notFound'), 'bad');
-              $('detail').textContent = tr('notFoundHow');
-              showFind(true, tr('again'));
-              showScan(true);
+              // the TV's note through the relay (its address changed)
+              lanFind().then(function (list) {
+                if (my !== gen) return;
+                sweep(list, my, function (l) {
+                  if (my !== gen) return;
+                  if (l) return found(l);
+                  notHome(my);
+                });
+              });
             });
+          });
+        }
+        // the saved TV is not on this Wi-Fi: from away when paired
+        function notHome(my) {
+          searching = false;
+          awayPaired().then(function (away) {
+            if (my !== gen) return;
+            if (away && !share) {
+              setStatus(tr('notHome'), '');
+              $('detail').textContent = tr('notHomeAway');
+              showGo(null, true);
+              setTimeout(function () {
+                if (my === gen) location.assign('away.html');
+              }, 1200);
+              return;
+            }
+            setStatus(tr('notFound'), 'bad');
+            $('detail').textContent = tr('notFoundHow');
+            showFind(true, tr('again'));
+            showScan(true);
           });
         }
         function found(a) {
@@ -750,6 +852,401 @@
           setStatus(tr(sendHash ? 'shareFound' : 'found'), 'ok');
           $('detail').textContent = '';
           go(a);
+        }
+
+        /* ---------- a new TV: find it on the Wi-Fi, then OK on the TV ---------- */
+        // Sofa Tube 0.9.6: no QR code needed. The phone looks for Sofa Tube
+        // on the usual home networks, asks the TV to join with a code it
+        // shows, and a parent checks the same code on the TV and presses OK
+        // (then the PIN). The TV then gives the link its QR code shows.
+        var NETS = [
+          '192.168.1',
+          '192.168.0',
+          '10.0.0',
+          '192.168.8',
+          '192.168.100',
+          '192.168.68',
+          '192.168.86',
+          '192.168.2',
+          '10.0.1',
+          '192.168.31',
+          '192.168.50',
+          '192.168.88',
+          '192.168.10',
+          '192.168.3',
+          '10.1.1'
+        ];
+        function discoverList() {
+          var out = [];
+          NETS.forEach(function (net) {
+            for (var h = 1; h < 255; h++) out.push(net + '.' + h + ':8686');
+          });
+          return out;
+        }
+        function discover() {
+          var my = ++gen;
+          searching = true;
+          joinEnd();
+          setStatus(tr('discovering'), '');
+          $('detail').textContent = '';
+          showFind(false);
+          showScan(false);
+          showGo(null);
+          function notFound() {
+            searching = false;
+            setStatus(tr('newNotFound'), 'bad');
+            $('detail').textContent = tr('newNotFoundHow');
+            showFind(true, tr('again'));
+            showScan(true);
+          }
+          // 1. the TV's own note through the relay (any home network),
+          // 2. the usual home networks
+          lanFind().then(function (list) {
+            if (my !== gen) return;
+            sweep(list, my, function (a) {
+              if (my !== gen) return;
+              if (a) {
+                searching = false;
+                return join(a);
+              }
+              sweep(discoverList(), my, function (b) {
+                if (my !== gen) return;
+                if (b) {
+                  searching = false;
+                  return join(b);
+                }
+                notFound();
+              });
+            });
+          });
+        }
+
+        /*
+         * Find my TV through the relay (0.9.6): the TV posts its Wi-Fi
+         * address, sealed, on a relay topic made from the home's public
+         * address (service.js lanPublish). This phone, on the same Wi-Fi,
+         * has the same public address: it asks the same STUN server (the
+         * browser's own WebRTC), reads that topic and opens the note. The
+         * relay sees only sealed text; nothing about this phone is sent.
+         */
+        var LAN_RELAY = 'https://ntfy.sh';
+        function publicIp() {
+          return new Promise(function (ok) {
+            var done = false;
+            var pc = null;
+            function end(ip) {
+              if (done) return;
+              done = true;
+              try {
+                pc.close();
+              } catch (e) {}
+              ok(ip);
+            }
+            try {
+              pc = new RTCPeerConnection({
+                iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+              });
+              pc.createDataChannel('find');
+              pc.onicecandidate = function (e) {
+                if (!e.candidate) return end('');
+                var m =
+                  / ([0-9]{1,3}(?:\.[0-9]{1,3}){3}) [0-9]+ typ srflx/.exec(
+                    e.candidate.candidate
+                  );
+                if (m) end(m[1]);
+              };
+              pc.createOffer()
+                .then(function (o) {
+                  return pc.setLocalDescription(o);
+                })
+                .catch(function () {
+                  end('');
+                });
+              setTimeout(function () {
+                end('');
+              }, 4000);
+            } catch (e) {
+              end('');
+            }
+          });
+        }
+        function sha256(text) {
+          return crypto.subtle
+            .digest('SHA-256', new TextEncoder().encode(text))
+            .then(function (b) {
+              return new Uint8Array(b);
+            });
+        }
+        function fromB64u(t) {
+          var b = atob(
+            t.replace(/-/g, '+').replace(/_/g, '/') +
+              '==='.slice((t.length + 3) % 4)
+          );
+          var u = new Uint8Array(b.length);
+          for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i);
+          return u;
+        }
+        /** The addresses the TVs behind this router posted (newest first). */
+        function lanFind() {
+          if (!window.crypto || !crypto.subtle || !window.RTCPeerConnection)
+            return Promise.resolve([]);
+          return publicIp()
+            .then(function (ip) {
+              if (!ip) return [];
+              return Promise.all([
+                sha256('sofatube-lan-v1|' + ip),
+                sha256('sofatube-lan-key-v1|' + ip)
+              ]).then(function (h) {
+                var topic =
+                  'sofatube-lan-' +
+                  Array.prototype.map
+                    .call(h[0].slice(0, 16), function (x) {
+                      return (x < 16 ? '0' : '') + x.toString(16);
+                    })
+                    .join('');
+                return Promise.all([
+                  crypto.subtle.importKey('raw', h[1], 'AES-GCM', false, [
+                    'decrypt'
+                  ]),
+                  fetch(LAN_RELAY + '/' + topic + '/json?poll=1&since=13h', {
+                    cache: 'no-store',
+                    credentials: 'omit'
+                  }).then(function (r) {
+                    return r.ok ? r.text() : '';
+                  })
+                ]);
+              });
+            })
+            .then(function (got) {
+              if (!got || !got.length) return [];
+              var key = got[0];
+              var notes = String(got[1] || '')
+                .split('\n')
+                .map(function (l) {
+                  try {
+                    return JSON.parse(l);
+                  } catch (e) {
+                    return null;
+                  }
+                })
+                .filter(function (m) {
+                  return m && m.event === 'message' && m.message;
+                })
+                .reverse()
+                .slice(0, 10);
+              return Promise.all(
+                notes.map(function (m) {
+                  var raw;
+                  try {
+                    raw = fromB64u(String(m.message).trim());
+                  } catch (e) {
+                    return null;
+                  }
+                  if (raw.length < 29) return null;
+                  return crypto.subtle
+                    .decrypt(
+                      { name: 'AES-GCM', iv: raw.slice(0, 12) },
+                      key,
+                      raw.slice(12)
+                    )
+                    .then(
+                      function (b) {
+                        return JSON.parse(new TextDecoder().decode(b));
+                      },
+                      function () {
+                        return null;
+                      }
+                    );
+                })
+              );
+            })
+            .then(function (msgs) {
+              var out = [];
+              (msgs || []).forEach(function (o) {
+                ((o && o.a) || []).forEach(function (x) {
+                  var a = parseAddr(x);
+                  if (a && out.indexOf(a) < 0) out.push(a);
+                });
+              });
+              return out;
+            })
+            .catch(function () {
+              return [];
+            });
+        }
+
+        function tvFetch(a, path, body) {
+          var ctl = window.AbortController ? new AbortController() : null;
+          var timer = setTimeout(function () {
+            if (ctl) ctl.abort();
+          }, 8000);
+          return fetch('http://' + a + path, {
+            method: body ? 'POST' : 'GET',
+            // text/plain: a simple request (the TV reads it as JSON)
+            headers: body ? { 'Content-Type': 'text/plain' } : undefined,
+            body: body ? JSON.stringify(body) : undefined,
+            mode: 'cors',
+            credentials: 'omit',
+            cache: 'no-store',
+            targetAddressSpace: 'local',
+            signal: ctl ? ctl.signal : undefined
+          }).then(
+            function (r) {
+              clearTimeout(timer);
+              return r.json().then(
+                function (j) {
+                  return { code: r.status, data: j };
+                },
+                function () {
+                  return { code: r.status, data: null };
+                }
+              );
+            },
+            function () {
+              clearTimeout(timer);
+              return { code: 0, data: null };
+            }
+          );
+        }
+        // 4 letters and digits that cannot be mixed up (no 0/O, 1/I)
+        function joinCode() {
+          var A = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+          var b = new Uint8Array(4);
+          crypto.getRandomValues(b);
+          var c = '';
+          for (var i = 0; i < 4; i++) c += A[b[i] % 32];
+          return c;
+        }
+        function phoneName() {
+          var ua = navigator.userAgent || '';
+          var fallback = /Android/i.test(ua)
+            ? tr('phoneAndroid')
+            : /iPhone/.test(ua)
+              ? 'iPhone'
+              : /iPad/.test(ua)
+                ? 'iPad'
+                : tr('phoneOther');
+          var d = navigator.userAgentData;
+          if (!d || !d.getHighEntropyValues) return Promise.resolve(fallback);
+          return d.getHighEntropyValues(['model']).then(
+            function (v) {
+              var m = String((v && v.model) || '').trim();
+              return m ? m.slice(0, 40) : fallback;
+            },
+            function () {
+              return fallback;
+            }
+          );
+        }
+        var joinTimer = null;
+        function joinEnd() {
+          clearTimeout(joinTimer);
+          joinTimer = null;
+          $('joinbox').classList.add('hidden');
+        }
+        function joinFailed(key) {
+          joinEnd();
+          setStatus(tr(key), 'bad');
+          $('detail').textContent = '';
+          showFind(true, tr('again'));
+          showScan(true);
+        }
+        function join(a) {
+          var my = ++gen;
+          searching = false;
+          showFind(false);
+          showScan(false);
+          showGo(null);
+          var code = joinCode();
+          setStatus(tr('joinAsking'), 'ok');
+          $('detail').textContent = '';
+          phoneName()
+            .then(function (name) {
+              return tvFetch(a, '/join', { name: name, code: code });
+            })
+            .then(function (r) {
+              if (my !== gen) return;
+              if (r.code === 200 && r.data && r.data.w) {
+                setStatus('', '');
+                $('join-code').textContent = code;
+                $('joinbox').classList.remove('hidden');
+                return joinWait(a, r.data.w, my, Date.now() + 125000);
+              }
+              joinFailed(
+                r.code === 503
+                  ? 'joinNoTv'
+                  : r.code === 429 && r.data && r.data.error === 'wait'
+                    ? 'joinWaitLong'
+                    : r.code === 429
+                      ? 'joinBusy'
+                      : 'joinFail'
+              );
+            });
+        }
+        function joinWait(a, w, my, until) {
+          joinTimer = setTimeout(function () {
+            if (my !== gen) return;
+            tvFetch(a, '/join?w=' + encodeURIComponent(w)).then(function (r) {
+              if (my !== gen) return;
+              var st = r.data && r.data.state;
+              if (st === 'ok' && r.data.url) {
+                var tv = tvFromCode(r.data.url);
+                if (!tv) return joinFailed('joinFail');
+                joinEnd();
+                remember(a);
+                setStatus(tr(sendHash ? 'shareFound' : 'found'), 'ok');
+                location.assign(tv.url + (sendHash ? '#' + sendHash : ''));
+                return;
+              }
+              if (st === 'no') return joinFailed('joinNo');
+              if (st === 'gone' || Date.now() > until)
+                return joinFailed('joinGone');
+              // a lost answer (Wi-Fi): ask again
+              joinWait(a, w, my, until);
+            });
+          }, 1500);
+        }
+
+        /* ---------- away from home (0.9.6) ---------- */
+        // Paired for Control from away (away.html keeps it in IndexedDB):
+        // away from the home Wi-Fi, the remote opens from there (the whole
+        // phone page over the direct connection)
+        function awayPaired() {
+          return new Promise(function (ok) {
+            try {
+              var r = indexedDB.open('sofatube-away', 1);
+              r.onupgradeneeded = function () {
+                r.result.createObjectStore('kv');
+              };
+              r.onsuccess = function () {
+                try {
+                  var q = r.result
+                    .transaction('kv')
+                    .objectStore('kv')
+                    .get('tv');
+                  q.onsuccess = function () {
+                    ok(!!(q.result && q.result.paired));
+                  };
+                  q.onerror = function () {
+                    ok(false);
+                  };
+                } catch (e) {
+                  ok(false);
+                }
+              };
+              r.onerror = function () {
+                ok(false);
+              };
+            } catch (e) {
+              ok(false);
+            }
+          });
+        }
+        // the two ways, side by side ("at home" opens the saved address)
+        function showGo(a, away) {
+          $('go-home').classList.toggle('hidden', !a);
+          if (a) $('go-home').href = remoteUrl(a);
+          $('go-away').classList.toggle('hidden', !away);
         }
 
         /* ---------- screen ---------- */
@@ -887,6 +1384,11 @@
 
         function texts() {
           document.documentElement.lang = lang;
+          $('join-how').textContent = tr('joinHow');
+          $('join-stop').textContent = tr('joinCancel');
+          $('go-home').textContent = tr('openHome');
+          $('go-away').textContent = tr('openAway');
+          $('find-new').textContent = tr('findAnother');
           document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
           document.title = tr('title');
           $('manifest').setAttribute(
@@ -941,9 +1443,11 @@
         function draw() {
           texts();
           drawKnown();
-          if (searching || scanStream) return;
+          if (searching || scanStream || joinTimer) return;
           var list = load();
           showScan(!list.length);
+          showGo(null);
+          $('find-new').classList.toggle('hidden', !list.length || share);
           if (share && !link && !shareQ) {
             setStatus(tr('shareBad'), 'bad');
             $('detail').textContent = tr('shareBadHow');
@@ -954,6 +1458,13 @@
             setStatus(tr(share ? 'shareFirst' : 'first'), '');
             $('detail').textContent = tr(share ? 'shareFirstHow' : 'firstHow');
             showFind(false);
+            permission().then(function (state) {
+              if (searching || load().length) return;
+              if (state === 'unsupported' || state === 'denied') return;
+              // Chrome: look on the Wi-Fi, then OK on the TV
+              if (!share) $('detail').textContent = tr('firstHowNew');
+              showFind(true, tr(share ? 'shareFind' : 'find'));
+            });
             return;
           }
           if (welcome) {
@@ -989,11 +1500,21 @@
             probe(list[0].a).then(function (ok) {
               if (my !== gen) return;
               if (ok) return found(list[0].a);
-              setStatus(tr('noSearch'), '');
-              $('detail').textContent = tr('noSearchHow');
-              setTimeout(function () {
-                if (my === gen) go(list[0].a);
-              }, 1500);
+              awayPaired().then(function (away) {
+                if (my !== gen) return;
+                if (away && !share) {
+                  // this browser cannot tell home from away: two buttons
+                  setStatus(tr('noSearch'), '');
+                  $('detail').textContent = tr('pickHomeAway');
+                  showGo(list[0].a, true);
+                  return;
+                }
+                setStatus(tr('noSearch'), '');
+                $('detail').textContent = tr('noSearchHow');
+                setTimeout(function () {
+                  if (my === gen) go(list[0].a);
+                }, 1500);
+              });
             });
           });
         }
@@ -1074,7 +1595,18 @@
         });
         $('find').addEventListener('click', function () {
           welcome = false;
-          search();
+          if (load().length) search();
+          else discover();
+        });
+        $('find-new').addEventListener('click', function () {
+          welcome = false;
+          window.scrollTo(0, 0);
+          discover();
+        });
+        $('join-stop').addEventListener('click', function () {
+          gen++;
+          joinEnd();
+          draw();
         });
         $('scan').addEventListener('click', scan);
         $('scan-stop').addEventListener('click', function () {
@@ -1090,10 +1622,24 @@
           }
           $('addr').value = '';
           $('manual-hint').textContent = tr('manualHint');
-          remember(a);
-          gen++;
-          searching = false;
-          draw();
+          var known = load().some(function (x) {
+            return x.a === a;
+          });
+          if (known) {
+            gen++;
+            searching = false;
+            return draw();
+          }
+          // a new TV: ask it to join (OK on the TV); a browser that cannot
+          // reach it from here opens its address as before
+          var my = ++gen;
+          probe(a).then(function (ok) {
+            if (my !== gen) return;
+            if (ok) return join(a);
+            remember(a);
+            searching = false;
+            draw();
+          });
         });
 
         if ('serviceWorker' in navigator)
