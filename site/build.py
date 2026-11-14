@@ -13,7 +13,7 @@ REPO = 'https://github.com/sofatube/sofatube.github.io'
 ISSUES = REPO + '/issues'
 RELEASES = REPO + '/releases/latest'
 MAIL = 'sofatube.app@proton.me'
-VER = '0.9.5'
+VER = '0.9.6'
 
 PAGES = [('', 'Home', 'الرئيسية'), ('install/', 'Install', 'التثبيت'), ('videos/', 'Videos', 'الفيديوهات'),
          ('testers/', 'Testers', 'للمجرّبين'), ('faq/', 'FAQ', 'الأسئلة الشائعة')]
@@ -434,13 +434,13 @@ def new_095(lang):
     ph_shots = ''.join(shot(lang, *x[:3], phone=True) for x in SHOTS_095 if len(x) > 3)
     row = (f'<div class="shots">{tv_shots}</div>' if tv_shots else '') + (f'<div class="phones">{ph_shots}</div>' if ph_shots else '')
     if lang == 'ar':
-        return f'''<h2 id="new">الجديد في <bdi>0.9.5</bdi></h2>
-<p>يضيف إصدار <bdi>0.9.5</bdi> قواعد للعائلة على التلفاز كله، والتحكم من خارج المنزل، والهاتف شاشة ثانية، والمساعدة عن بُعد، وشاشات أسهل لكبار السن.</p>
+        return f'''<h2 id="new">الجديد في <bdi>0.9.6</bdi> و<bdi>0.9.5</bdi></h2>
+<p>يضيف إصدار <bdi>0.9.6</bdi> «ابحث عن التلفاز» ثم «موافق» على التلفاز (دون رمز QR)، وصفحة الهاتف كاملة من خارج المنزل، وتطبيقًا مثبَّتًا دون شريط المتصفح، وشاشة واحدة للمؤشر. وأضاف إصدار <bdi>0.9.5</bdi> قواعد للعائلة على التلفاز كله، والتحكم من خارج المنزل، والهاتف شاشة ثانية، والمساعدة عن بُعد، وشاشات أسهل لكبار السن.</p>
 <div class="grid">{cards}</div>
 {row}
 <p class="meta">بعض الأجزاء لم يُتأكَّد منها بعدُ على كل أنواع التلفاز الحقيقية، وما يقدر عليه كل نوع يختلف: <a href="/ar/faq/#limits">الحدود المعروفة</a>. وعلى LG حدّث تطبيق <bdi>Sofa Tube Phone</bdi> أيضًا: <a href="/ar/install/#lg-update">كيف</a>.</p>'''
-    return f'''<h2 id="new">New in 0.9.5</h2>
-<p>0.9.5 adds family rules for the whole TV, control from away, the phone as a second screen, remote help, and easier screens for elderly viewers.</p>
+    return f'''<h2 id="new">New in 0.9.6 and 0.9.5</h2>
+<p>0.9.6 adds Find my TV with OK on the TV (no QR code), the whole phone page from away, an installed app without the browser bar, and one Pointer screen. 0.9.5 added family rules for the whole TV, control from away, the phone as a second screen, remote help, and easier screens for elderly viewers.</p>
 <div class="grid">{cards}</div>
 {row}
 <p class="meta">Some parts are not yet confirmed on every real TV, and what each brand can do differs: <a href="/faq/#limits">known limits</a>. On LG, update the Sofa Tube Phone app too: <a href="/install/#lg-update">how</a>.</p>'''
@@ -1016,8 +1016,8 @@ STATUS = [
      'تطبيق سامسونج (ملف <code dir="ltr">.wgt</code>)', 'أجهزة تلفاز سامسونج حقيقية في مختبر سامسونج عن بُعد (<bdi>QN80F</bdi> من 2025، و<bdi>QB80</bdi> من 2022، و<bdi>QT80</bdi> من 2020) وجهاز <bdi>Q7F</bdi> من 2025 في المنزل، ثُبّت عليها بـ<bdi>Apps2Samsung</bdi> من هاتف أندرويد. التحكم في التلفاز كله من الهاتف: أجهزة سامسونج الأحدث تحتاج إلى جهاز Android TV أو حاسوب في المنزل أو صفحة هاتف أحد الوالدين مفتوحة وسيطًا؛ ولم يُتأكَّد من الوسيط بعدُ على تلفاز في المنزل.'),
     ('Samsung (TizenBrew, npm <code>sofatube</code>)', 'Samsung emulator only. <b>Never tried on a real Samsung TV.</b>',
      'سامسونج (TizenBrew، وحدة <code dir="ltr">sofatube</code>)', 'محاكي سامسونج فقط. <b>لم يُجرَّب على تلفاز سامسونج حقيقي.</b>'),
-    ('Android TV / Google TV', 'Google TV emulator, and a 0.9.5 build on one real Android TV (TCL). <b>Other brands untested.</b>',
-     '<bdi>Android TV</bdi> و<bdi>Google TV</bdi>', 'محاكي Google TV، ونسخة من <bdi>0.9.5</bdi> على تلفاز أندرويد حقيقي واحد (TCL). <b>لم يُجرَّب على الشركات الأخرى.</b>'),
+    ('Android TV / Google TV', 'Google TV emulator, and a 0.9.6 build on one real Android TV (TCL). <b>Other brands untested.</b>',
+     '<bdi>Android TV</bdi> و<bdi>Google TV</bdi>', 'محاكي Google TV، ونسخة من <bdi>0.9.6</bdi> على تلفاز أندرويد حقيقي واحد (TCL). <b>لم يُجرَّب على الشركات الأخرى.</b>'),
     ('Fire TV', '<b>Untested.</b>', 'Fire TV', '<b>لم يُجرَّب.</b>'),
     ('Install with webOS Dev Manager on a phone', '<b>Not tried by us yet.</b>',
      'التثبيت بـwebOS Dev Manager من الهاتف', '<b>لم نجرّبه بعد.</b>'),
@@ -1216,7 +1216,7 @@ def faq(lang):
             ('ما الذي يتصل بالإنترنت؟', AR_PRIVACY, 'privacy'),
             ('التحكم من خارج المنزل: من يرى ماذا؟', AR_AWAY, 'away'),
             ('المساعدة عن بُعد: ماذا يمر وأين؟', AR_HELP, 'help'),
-            ('الحدود المعروفة في <bdi>0.9.5</bdi>', AR_LIMITS, 'limits'),
+            ('الحدود المعروفة في <bdi>0.9.6</bdi>', AR_LIMITS, 'limits'),
             ('هل يضر بالتلفاز؟',
              '<p>لا شيء هنا يضر بالتلفاز؛ أسوأ ما قد يحدث أن ميزة ما لا تعمل. في LG احذف تطبيق YouTube الرسمي أولًا (يستخدم صوفا تيوب مُعرّف التطبيق نفسه).</p>'),
             ('حل المشكلات',
@@ -1240,7 +1240,7 @@ def faq(lang):
             ('What goes online?', EN_PRIVACY, 'privacy'),
             ('Control from away: who can see what?', EN_AWAY, 'away'),
             ('Remote help: what goes where?', EN_HELP, 'help'),
-            ('Known limits in 0.9.5', EN_LIMITS, 'limits'),
+            ('Known limits in 0.9.6', EN_LIMITS, 'limits'),
             ('Can it harm my TV?',
              '<p>Nothing here can harm your TV; at worst a feature does not work. On LG, uninstall the official YouTube app first (Sofa Tube uses the same app ID).</p>'),
             ('Troubleshooting',
