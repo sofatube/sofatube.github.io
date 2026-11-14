@@ -232,6 +232,19 @@
         font: inherit;
         font-size: 14px;
       }
+      /* 0.9.6: the TV's whole phone page inside the app (home channel) */
+      #full {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        background: var(--bg);
+      }
+      #full iframe {
+        display: block;
+        border: 0;
+        width: 100%;
+        height: 100%;
+      }
       /* 0.9.6: the code the TV shows too (Join with OK on the TV) */
       .joincode {
         font-size: 2.4rem;
@@ -322,7 +335,13 @@
 
       <p id="privacy" class="small muted"></p>
     </main>
+    <!-- 0.9.6: the TV's phone page inside the app (home.js) -->
+    <div id="full" class="hidden">
+      <iframe id="full-frame" title="Sofa Tube"></iframe>
+    </div>
     <script src="share-link.js"></script>
+    <script src="away-crypto.js"></script>
+    <script src="home.js"></script>
     <script>
       /*
        * Sofa Tube "Find my TV" page (F5): a fixed https address for the phone's
@@ -359,14 +378,14 @@
               'To allow it: tap the icon next to the page address, then Permissions → Local network access. Or open a saved address below.',
             noSearch: 'This browser can’t look for the TV on your Wi-Fi.',
             noSearchHow:
-              'The remote opens at the TV’s last address. If that fails, scan the code on the TV again and use the “Find my TV page” link on the phone page.',
+              'The remote opens at the TV’s last address. If that fails, scan the code on the TV again, then on the phone page tap Settings → This phone → Add to home screen → Get the app.',
             opening: 'Opening {a}…',
             notFound: 'Your TV was not found.',
             notFoundHow:
               'Check that the TV is on with Sofa Tube open, and that this phone is on the same Wi-Fi. Then search again.',
             first: 'This page doesn’t know your TV yet.',
             firstHow:
-              'On the TV open Sofa Tube → Settings → Phone remote and scan the code. On the phone page tap “If the TV’s address changes”, then “Find my TV page”. Or type the TV’s address below.',
+              'On the TV open Sofa Tube → Settings → Phone remote and scan the code. On the phone page tap Settings → This phone → Add to home screen → Get the app. Or type the TV’s address below.',
             known: 'Your TVs',
             open: 'Open',
             forget: 'Remove',
@@ -425,6 +444,9 @@
             joinFail:
               'Could not ask the TV. Update Sofa Tube on the TV, or scan the code on the TV (Settings → Phone remote).',
             findAnother: 'Find another TV',
+            connecting: 'Connecting to your TV…',
+            lost: 'The connection to the TV ended. Connecting again…',
+            reopen: 'Open the remote',
             notHome: 'Your TV is not on this Wi-Fi.',
             notHomeAway: 'Opening it from away…',
             pickHomeAway:
@@ -456,14 +478,14 @@
             noSearch:
               'لا يستطيع هذا المتصفح البحث عن التلفاز في شبكة الواي فاي.',
             noSearchHow:
-              'يُفتح جهاز التحكم على آخر عنوان للتلفاز. وإذا لم يُفتح، فامسح رمز QR على التلفاز مرة أخرى واستخدم رابط «صفحة ابحث عن التلفاز» في صفحة الهاتف.',
+              'يُفتح جهاز التحكم على آخر عنوان للتلفاز. وإذا لم يُفتح، فامسح رمز QR على التلفاز مرة أخرى، ثم اضغط في صفحة الهاتف: الإعدادات ← هذا الهاتف ← إضافة إلى الشاشة الرئيسية ← احصل على التطبيق.',
             opening: 'جارٍ فتح {a}…',
             notFound: 'لم يُعثر على التلفاز.',
             notFoundHow:
               'تأكد من أن التلفاز يعمل وأن صوفا تيوب مفتوح عليه، ومن أن هذا الهاتف متصل بشبكة الواي فاي نفسها. ثم ابحث مرة أخرى.',
             first: 'لا تعرف هذه الصفحة التلفاز بعد.',
             firstHow:
-              'افتح على التلفاز صوفا تيوب ← الإعدادات ← جهاز التحكم من الهاتف، وامسح رمز QR. ثم اضغط في صفحة الهاتف «إذا تغيّر عنوان التلفاز» ثم «صفحة ابحث عن التلفاز». أو اكتب عنوان التلفاز أدناه.',
+              'افتح على التلفاز صوفا تيوب ← الإعدادات ← جهاز التحكم من الهاتف، وامسح رمز QR. ثم اضغط في صفحة الهاتف: الإعدادات ← هذا الهاتف ← إضافة إلى الشاشة الرئيسية ← احصل على التطبيق. أو اكتب عنوان التلفاز أدناه.',
             known: 'أجهزة التلفاز',
             open: 'فتح',
             forget: 'إزالة',
@@ -522,6 +544,9 @@
             joinFail:
               'تعذّر الطلب من التلفاز. حدّث صوفا تيوب على التلفاز، أو امسح رمز QR على التلفاز (الإعدادات ← جهاز التحكم من الهاتف).',
             findAnother: 'ابحث عن تلفاز آخر',
+            connecting: 'جارٍ الاتصال بالتلفاز…',
+            lost: 'انقطع الاتصال بالتلفاز. جارٍ الاتصال من جديد…',
+            reopen: 'افتح جهاز التحكم',
             notHome: 'التلفاز ليس على شبكة الواي فاي هذه.',
             notHomeAway: 'جارٍ فتحه من خارج المنزل…',
             pickHomeAway:
@@ -553,6 +578,13 @@
         var sendHash = '';
         var shareQ = ''; // shared text without a YouTube link: the search
         var hits = []; // share: the saved addresses that answered
+        // Only Chromium lets an https page fetch http://<private IP> (with
+        // its local network access permission: exempt from mixed-content
+        // blocking). Safari and Firefox answer a "local-network" permission
+        // query too, but still block those requests as mixed content, so
+        // they can't look on the Wi-Fi from here. navigator.userAgentData is
+        // Chromium only (not Chrome on iPhone: that is WebKit).
+        var canLook = !!navigator.userAgentData;
 
         function $(id) {
           return document.getElementById(id);
@@ -591,6 +623,9 @@
             .match(/^([0-9.]+)(?::(\d+))?(?:[/?#].*)?$/);
           if (!m || !privateIp(m[1])) return null;
           var port = m[2] ? Number(m[2]) : 8686;
+          // the TV's https page (step 20) is its http port + 10: the phone
+          // page's link from there carries that one
+          if (PORTS.indexOf(port - 10) >= 0) port -= 10;
           if (PORTS.indexOf(port) < 0) return null;
           return m[1] + ':' + port;
         }
@@ -633,21 +668,106 @@
           draw();
         }
         // the TV's phone page (http; it moves on to its https page and
-        // keeps what is after #): with a shared video, #send=...
+        // keeps what is after #): with a shared video, #send=...; from=app
+        // tells the page that this phone has the app (no old-icon note)
         function remoteUrl(a) {
-          return 'http://' + a + '/?app=1' + (sendHash ? '#' + sendHash : '');
+          return (
+            'http://' +
+            a +
+            '/?app=1&from=app' +
+            (sendHash ? '#' + sendHash : '')
+          );
         }
-        function go(a) {
+        // the link from the TV (its code, or its answer to a join): the
+        // same mark (tvFromCode's links have no #)
+        function appMark(url) {
+          return url + (url.indexOf('?') < 0 ? '?' : '&') + 'from=app';
+        }
+        function go(a, url) {
           remember(a);
-          setStatus(tr('opening', { a: iso(a) }), 'ok');
-          location.assign(remoteUrl(a));
+          setStatus(tr('connecting'), 'ok');
+          // the TV's link from a join (its QR code's), else its address
+          var plain = url
+            ? appMark(url) + (sendHash ? '#' + sendHash : '')
+            : remoteUrl(a);
+          var my = gen;
+          inside(a).then(function (ok) {
+            if (ok || my !== gen) return;
+            setStatus(tr('opening', { a: iso(a) }), 'ok');
+            location.assign(plain);
+          });
         }
+
+        /* ---------- the TV's page inside the app (0.9.6, home.js) ---------- */
+        // With this phone's home key (from Find my TV + OK on the TV), the
+        // TV's whole phone page runs inside the app over a direct, end-to-end
+        // encrypted channel: the phone never opens the TV's own address, so
+        // no browser bar and no certificate; a new TV address changes
+        // nothing. Without it (an old TV, Safari, Firefox): the address.
+        var home =
+          window.sofaHome && window.sofaHome.supported()
+            ? window.sofaHome
+            : null;
+        function homeKnown() {
+          return home ? home.has() : Promise.resolve(false);
+        }
+        function inside(a) {
+          if (!home) return Promise.resolve(false);
+          return home.has().then(function (k) {
+            if (!k) return false;
+            return home.connect(a).then(function (ok) {
+              if (!ok) return false;
+              // the service worker must be in charge of ./tv/ first
+              return navigator.serviceWorker.ready.then(function () {
+                showFull();
+                return true;
+              });
+            });
+          });
+        }
+        function showFull() {
+          setStatus('', '');
+          $('full-frame').src =
+            'tv/?t=00&app=1&from=app&lang=' +
+            lang +
+            (sendHash ? '#' + sendHash : '');
+          sendHash = ''; // sent once (a reconnect opens the remote only)
+          $('full').classList.remove('hidden');
+          document.documentElement.style.overflow = 'hidden';
+        }
+        function hideFull() {
+          document.documentElement.style.overflow = '';
+          $('full').classList.add('hidden');
+          $('full-frame').src = 'about:blank';
+        }
+        var lostHidden = false;
+        if (home)
+          home.onLost = function () {
+            hideFull();
+            setStatus(tr('lost'), '');
+            showFind(true, tr('reopen'));
+            // connect again now, or when the app is back in front
+            if (document.hidden) lostHidden = true;
+            else
+              setTimeout(function () {
+                if (!searching) search();
+              }, 800);
+          };
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden || !lostHidden) return;
+          lostHidden = false;
+          if (!searching) search();
+        });
 
         /* ---------- looking on the Wi-Fi ---------- */
         // Chrome's "local network access" permission (Chrome 142+; named
         // "local-network" since 145). 'unsupported': no way to look.
         function permission() {
-          if (!navigator.permissions || !navigator.permissions.query)
+          if (
+            !canLook ||
+            !navigator.permissions ||
+            !navigator.permissions.query
+          )
             return Promise.resolve('unsupported');
           var names = ['local-network', 'local-network-access'];
           function next(i) {
@@ -666,6 +786,8 @@
 
         /** Does Sofa Tube answer at "ip:port"? */
         function probe(a) {
+          // (Safari, Firefox: blocked as mixed content; no request, no console error)
+          if (!canLook) return Promise.resolve(false);
           var ctl = window.AbortController ? new AbortController() : null;
           var timer = setTimeout(function () {
             if (ctl) ctl.abort();
@@ -847,11 +969,26 @@
             showScan(true);
           });
         }
+        // a browser that can't look: which saved TV the relay's notes name
+        // (a saved address first; one TV saved and one address: it moved)
+        function relayPick(list, now) {
+          for (var i = 0; i < list.length; i++)
+            if (now.indexOf(list[i].a) >= 0) return list[i].a;
+          if (list.length === 1 && now.length === 1) return now[0];
+          return '';
+        }
         function found(a) {
           searching = false;
           setStatus(tr(sendHash ? 'shareFound' : 'found'), 'ok');
           $('detail').textContent = '';
-          go(a);
+          // a TV this phone has no home key for yet (saved before 0.9.6, or
+          // from its QR code): OK on the TV once, then always inside the app
+          // (Safari, Firefox: no asking the TV from here, canLook)
+          if (share || !home || !home.canShow() || !canLook) return go(a);
+          homeKnown().then(function (k) {
+            if (k) return go(a);
+            join(a, true);
+          });
         }
 
         /* ---------- a new TV: find it on the Wi-Fi, then OK on the TV ---------- */
@@ -1108,15 +1245,6 @@
             }
           );
         }
-        // 4 letters and digits that cannot be mixed up (no 0/O, 1/I)
-        function joinCode() {
-          var A = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-          var b = new Uint8Array(4);
-          crypto.getRandomValues(b);
-          var c = '';
-          for (var i = 0; i < 4; i++) c += A[b[i] % 32];
-          return c;
-        }
         function phoneName() {
           var ua = navigator.userAgent || '';
           var fallback = /Android/i.test(ua)
@@ -1151,31 +1279,36 @@
           showFind(true, tr('again'));
           showScan(true);
         }
-        function join(a) {
+        // saved: a TV this phone knew already (no home key yet); when it
+        // can't ask, the TV's address opens as before
+        function join(a, saved) {
           var my = ++gen;
           searching = false;
           showFind(false);
           showScan(false);
           showGo(null);
-          var code = joinCode();
           setStatus(tr('joinAsking'), 'ok');
           $('detail').textContent = '';
+          if (!home) return joinFailed('joinFail');
           phoneName()
             .then(function (name) {
-              return tvFetch(a, '/join', { name: name, code: code });
+              // the code is made from both sides' keys (home.js)
+              return home.joinStart(a, name);
             })
             .then(function (r) {
               if (my !== gen) return;
-              if (r.code === 200 && r.data && r.data.w) {
+              if (r.code === 200) {
                 setStatus('', '');
-                $('join-code').textContent = code;
+                $('join-code').textContent = r.show;
                 $('joinbox').classList.remove('hidden');
-                return joinWait(a, r.data.w, my, Date.now() + 125000);
+                return joinWait(a, r.w, my, Date.now() + 125000, r.ctx);
               }
+              if (saved && !(r.code === 429 && r.error === 'wait'))
+                return go(a);
               joinFailed(
                 r.code === 503
                   ? 'joinNoTv'
-                  : r.code === 429 && r.data && r.data.error === 'wait'
+                  : r.code === 429 && r.error === 'wait'
                     ? 'joinWaitLong'
                     : r.code === 429
                       ? 'joinBusy'
@@ -1183,26 +1316,28 @@
               );
             });
         }
-        function joinWait(a, w, my, until) {
+        function joinWait(a, w, my, until, ctx) {
           joinTimer = setTimeout(function () {
             if (my !== gen) return;
             tvFetch(a, '/join?w=' + encodeURIComponent(w)).then(function (r) {
               if (my !== gen) return;
               var st = r.data && r.data.state;
-              if (st === 'ok' && r.data.url) {
-                var tv = tvFromCode(r.data.url);
-                if (!tv) return joinFailed('joinFail');
-                joinEnd();
-                remember(a);
-                setStatus(tr(sendHash ? 'shareFound' : 'found'), 'ok');
-                location.assign(tv.url + (sendHash ? '#' + sendHash : ''));
-                return;
+              if (st === 'ok') {
+                // the TV's link, sealed with this phone's new home key
+                return home.joinDone(ctx, a, r.data).then(function (got) {
+                  if (my !== gen) return;
+                  var tv = got && tvFromCode(got.url);
+                  if (!tv) return joinFailed('joinFail');
+                  joinEnd();
+                  setStatus(tr(sendHash ? 'shareFound' : 'found'), 'ok');
+                  go(a, tv.url);
+                });
               }
               if (st === 'no') return joinFailed('joinNo');
               if (st === 'gone' || Date.now() > until)
                 return joinFailed('joinGone');
               // a lost answer (Wi-Fi): ask again
-              joinWait(a, w, my, until);
+              joinWait(a, w, my, until, ctx);
             });
           }, 1500);
         }
@@ -1259,6 +1394,10 @@
           if (label) $('find').textContent = label;
         }
         function showScan(on) {
+          // no code reader here (Safari, Firefox): the phone's camera app
+          // reads the TV's code (the texts say so); a shared video keeps the
+          // button, its answer says how
+          if (!window.BarcodeDetector && !share) on = false;
           $('scan').classList.toggle('hidden', !on);
         }
 
@@ -1328,7 +1467,7 @@
                         remember(tv.a);
                         setStatus(tr('opening', { a: iso(tv.a) }), 'ok');
                         location.assign(
-                          tv.url + (sendHash ? '#' + sendHash : '')
+                          appMark(tv.url) + (sendHash ? '#' + sendHash : '')
                         );
                         return;
                       }
@@ -1365,8 +1504,11 @@
             open.className = 'btn small';
             open.href = remoteUrl(x.a);
             open.textContent = tr(sendHash ? 'send' : 'open');
-            open.addEventListener('click', function () {
-              remember(x.a);
+            open.addEventListener('click', function (e) {
+              e.preventDefault();
+              gen++;
+              searching = false;
+              go(x.a);
             });
             var del = document.createElement('button');
             del.type = 'button';
@@ -1447,7 +1589,10 @@
           var list = load();
           showScan(!list.length);
           showGo(null);
-          $('find-new').classList.toggle('hidden', !list.length || share);
+          $('find-new').classList.toggle(
+            'hidden',
+            !list.length || share || !canLook
+          );
           if (share && !link && !shareQ) {
             setStatus(tr('shareBad'), 'bad');
             $('detail').textContent = tr('shareBadHow');
@@ -1500,20 +1645,29 @@
             probe(list[0].a).then(function (ok) {
               if (my !== gen) return;
               if (ok) return found(list[0].a);
-              awayPaired().then(function (away) {
+              // the TV's sealed note on the relay (it needs no request to
+              // the Wi-Fi): a note for this home's public address = at home,
+              // and it names the TV's address now
+              setStatus(tr('searching'), '');
+              lanFind().then(function (now) {
                 if (my !== gen) return;
-                if (away && !share) {
-                  // this browser cannot tell home from away: two buttons
+                var pick = relayPick(list, now);
+                if (pick) return found(pick);
+                awayPaired().then(function (away) {
+                  if (my !== gen) return;
+                  if (away && !share) {
+                    // this browser cannot tell home from away: two buttons
+                    setStatus(tr('noSearch'), '');
+                    $('detail').textContent = tr('pickHomeAway');
+                    showGo(list[0].a, true);
+                    return;
+                  }
                   setStatus(tr('noSearch'), '');
-                  $('detail').textContent = tr('pickHomeAway');
-                  showGo(list[0].a, true);
-                  return;
-                }
-                setStatus(tr('noSearch'), '');
-                $('detail').textContent = tr('noSearchHow');
-                setTimeout(function () {
-                  if (my === gen) go(list[0].a);
-                }, 1500);
+                  $('detail').textContent = tr('noSearchHow');
+                  setTimeout(function () {
+                    if (my === gen) go(list[0].a);
+                  }, 1500);
+                });
               });
             });
           });

@@ -56,8 +56,35 @@
       fullOpen: 'Open the full remote',
       fullTrying: 'Connecting straight to the TV…',
       fullOn: 'Full remote · straight to the TV, encrypted',
+      fullRelay: 'Full remote · through your relay, encrypted end to end',
       fullNo:
-        'A direct connection to the TV did not work from this network: the simple view below still works.',
+        'This network blocks a direct connection to the TV, so the full remote can’t open here. The simple view below still works.',
+      fullNoTv:
+        'The TV did not answer the request for the full remote. The simple view below still works.',
+      fullNoRelay:
+        'The full remote could not connect here, not even through your relay. Check the relay details under “This phone”. The simple view below still works.',
+      fullMapOff:
+        'Tip: on the TV, turn on “Open a port on the home router for away access” (Settings → Phone remote): then more networks connect directly.',
+      fullMapCgnat:
+        'Your home internet shares one public address with other homes, so the TV can’t open a port on it.',
+      fullTips:
+        'For the full remote on this network: Tailscale, if your family uses it (see the guide below), or your own relay (This phone → Relay, advanced).',
+      relayTitle: 'Relay for hard networks (advanced)',
+      relayText:
+        'Only needed if the full remote does not connect on some networks. Enter your own TURN relay server (for example your own coturn, or a free Metered or Cloudflare account). Kept only on this phone; the TV needs nothing. The relay sees addresses and how much data passes, never what you watch or press: the connection is end-to-end encrypted.',
+      relayUrl: 'Relay address (turn: or turns:)',
+      relayUser: 'Username',
+      relayPass: 'Password (credential)',
+      relayKeep: 'Saved (leave empty to keep it)',
+      relaySave: 'Save the relay',
+      relayRemove: 'Remove the relay',
+      relaySaved: 'Relay saved on this phone.',
+      relayGone: 'Relay removed.',
+      relayBad:
+        'The address must start with turn: or turns: and needs a username and a password.',
+      relayIs: 'Relay on this phone: {h}',
+      fullNoBrowser:
+        'This browser can’t open the full remote from away: the simple view below still works.',
       fullSimple: 'Simple view',
       fullLost: 'The direct connection ended: the simple view works.',
       asking: 'Asking the TV…',
@@ -152,8 +179,36 @@
       fullOpen: 'افتح جهاز التحكم الكامل',
       fullTrying: 'جارٍ الاتصال بالتلفاز مباشرة…',
       fullOn: 'جهاز التحكم الكامل · اتصال مباشر ومشفّر بالتلفاز',
+      fullRelay:
+        'جهاز التحكم الكامل · عبر خادم الترحيل الخاص بك، مشفّر من طرف إلى طرف',
       fullNo:
-        'لم ينجح الاتصال المباشر بالتلفاز من هذه الشبكة: العرض البسيط أدناه ما زال يعمل.',
+        'تمنع هذه الشبكة الاتصال المباشر بالتلفاز، لذا لا يمكن فتح جهاز التحكم الكامل هنا. العرض البسيط أدناه ما زال يعمل.',
+      fullNoTv:
+        'لم يُجب التلفاز عن طلب جهاز التحكم الكامل. العرض البسيط أدناه ما زال يعمل.',
+      fullNoRelay:
+        'تعذّر اتصال جهاز التحكم الكامل هنا، حتى عبر خادم الترحيل الخاص بك. راجع بيانات خادم الترحيل في «هذا الهاتف». العرض البسيط أدناه ما زال يعمل.',
+      fullMapOff:
+        'تلميح: فعّل على التلفاز «فتح منفذ على راوتر المنزل للوصول من خارج المنزل» (الإعدادات ثم «جهاز التحكم من الهاتف»): عندها تتصل شبكات أكثر مباشرة.',
+      fullMapCgnat:
+        'يتشارك إنترنت منزلك عنوانًا عامًا واحدًا مع منازل أخرى، لذا لا يستطيع التلفاز فتح منفذ عليه.',
+      fullTips:
+        'لجهاز التحكم الكامل على هذه الشبكة: Tailscale إن كانت عائلتك تستخدمه (انظر الدليل أدناه)، أو خادم ترحيل خاص بك («هذا الهاتف» ثم «خادم ترحيل»، متقدّم).',
+      relayTitle: 'خادم ترحيل للشبكات الصعبة (متقدّم)',
+      relayText:
+        'لا تحتاج إليه إلا إذا لم يتصل جهاز التحكم الكامل على بعض الشبكات. أدخل خادم ترحيل \u2066TURN\u2069 خاصًا بك (مثل \u2066coturn\u2069 الخاص بك، أو حساب مجاني في \u2066Metered\u2069 أو \u2066Cloudflare\u2069). يُحفظ على هذا الهاتف فقط، ولا يحتاج التلفاز إلى شيء. يرى خادم الترحيل العناوين ومقدار البيانات، ولا يرى أبدًا ما تشاهده أو تضغطه: الاتصال مشفّر من طرف إلى طرف.',
+      relayUrl: 'عنوان خادم الترحيل (\u2066turn:\u2069 أو \u2066turns:\u2069)',
+      relayUser: 'اسم المستخدم',
+      relayPass: 'كلمة المرور',
+      relayKeep: 'محفوظة (اتركها فارغة لإبقائها)',
+      relaySave: 'حفظ خادم الترحيل',
+      relayRemove: 'إزالة خادم الترحيل',
+      relaySaved: 'حُفظ خادم الترحيل على هذا الهاتف.',
+      relayGone: 'أُزيل خادم الترحيل.',
+      relayBad:
+        'يجب أن يبدأ العنوان بـ \u2066turn:\u2069 أو \u2066turns:\u2069، ويلزمه اسم مستخدم وكلمة مرور.',
+      relayIs: 'خادم الترحيل على هذا الهاتف: {h}',
+      fullNoBrowser:
+        'لا يستطيع هذا المتصفح فتح جهاز التحكم الكامل من خارج المنزل: العرض البسيط أدناه ما زال يعمل.',
       fullSimple: 'العرض البسيط',
       fullLost: 'انتهى الاتصال المباشر: العرض البسيط يعمل.',
       asking: 'جارٍ سؤال التلفاز…',
@@ -792,6 +847,15 @@
     set('set-title', 'setTitle');
     set('notif', 'notifBtn');
     set('forget', 'forget');
+    set('relay-title', 'relayTitle');
+    set('relay-text', 'relayText');
+    set('relay-url-label', 'relayUrl');
+    set('relay-user-label', 'relayUser');
+    set('relay-pass-label', 'relayPass');
+    set('relay-save', 'relaySave');
+    set('relay-remove', 'relayRemove');
+    $('relay-url').placeholder = 'turns:relay.example.com:443?transport=tcp';
+    drawRelay();
     const help = $('help');
     help.textContent = tr('help');
     const a = document.createElement('a');
@@ -802,6 +866,8 @@
 
   async function unlocked() {
     tv = (await get('tv')) || null;
+    turn = (await get('turn')) || null;
+    drawRelay();
     $('lock-card').classList.add('hidden');
     show();
     if (tv && tv.paired) {
@@ -831,13 +897,10 @@
   if (bridge)
     bridge.onmessage = async (e) => {
       const m = e.data || {};
-      if (m.kind !== 'req') return;
+      // no channel here: the app's front page (home.js, at home) may hold
+      // one; the service worker gives up by itself
+      if (m.kind !== 'req' || !rtc) return;
       const out = { kind: 'res', id: m.id };
-      if (!rtc) {
-        out.code = 503;
-        out.data = { error: 'no direct connection' };
-        return bridge.postMessage(out);
-      }
       const r = await chan(
         { m: m.m, p: m.p, b: m.b, b64: m.b64, type: m.type },
         45000
@@ -869,20 +932,124 @@
     });
   }
 
+  /*
+   * The family's own relay (TURN), optional and advanced: kept only on this
+   * phone (IndexedDB 'turn'), used only by this phone's browser. The TV
+   * needs nothing: the relay's address is one more of the phone's
+   * candidates. No relay of Sofa Tube's own exists.
+   */
+  let turn = null; // {urls: [..], username, credential}
+  function turnUrls(text) {
+    return String(text || '')
+      .split(/[\s,]+/)
+      .filter(Boolean);
+  }
+  function drawRelay() {
+    if (!$('relay-state')) return;
+    $('relay-remove').classList.toggle('hidden', !turn);
+    $('relay-pass').placeholder = turn ? tr('relayKeep') : '';
+    $('relay-state').textContent = turn
+      ? tr('relayIs', {
+          // an address keeps its order inside Arabic text (bidi isolate)
+          h:
+            '\u2066' +
+            turn.urls
+              .map((u) => u.replace(/^turns?:/i, '').replace(/\?.*$/, ''))
+              .join(', ') +
+            '\u2069'
+        })
+      : '';
+  }
+  async function relaySave(e) {
+    e.preventDefault();
+    const urls = turnUrls($('relay-url').value);
+    const username = $('relay-user').value.trim();
+    const credential = $('relay-pass').value || (turn && turn.credential) || '';
+    if (
+      !urls.length ||
+      !urls.every((u) => /^turns?:\S+$/i.test(u)) ||
+      !username ||
+      !credential
+    ) {
+      $('relay-state').textContent = tr('relayBad');
+      return;
+    }
+    turn = { urls, username, credential };
+    await put('turn', turn);
+    $('relay-pass').value = '';
+    drawRelay();
+    $('relay-state').textContent += ' ' + tr('relaySaved');
+  }
+  async function relayRemove() {
+    turn = null;
+    await put('turn', undefined);
+    $('relay-url').value = '';
+    $('relay-user').value = '';
+    $('relay-pass').value = '';
+    drawRelay();
+    $('relay-state').textContent = tr('relayGone');
+  }
+
+  /** Is the connection's selected pair a relayed one (getStats)? */
+  async function viaRelay(pc) {
+    try {
+      const st = await pc.getStats();
+      let pair = null;
+      st.forEach((s) => {
+        if (s.type === 'transport' && s.selectedCandidatePairId)
+          pair = st.get(s.selectedCandidatePairId);
+      });
+      if (!pair)
+        st.forEach((s) => {
+          if (
+            s.type === 'candidate-pair' &&
+            (s.selected || (s.nominated && s.state === 'succeeded'))
+          )
+            pair = pair || s;
+        });
+      if (!pair) return false;
+      const l = st.get(pair.localCandidateId);
+      const r = st.get(pair.remoteCandidateId);
+      return (
+        (l && l.candidateType === 'relay') ||
+        (r && r.candidateType === 'relay') ||
+        false
+      );
+    } catch {
+      return false;
+    }
+  }
+
+  /** {ok} or {ok: false, why: 'tv' | 'route', net (what the TV said)} */
   async function direct() {
-    if (rtc && rtc.dc.readyState === 'open') return true;
-    if (!('RTCPeerConnection' in window) || !bridge) return false;
-    const pc = new RTCPeerConnection({
-      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
-    });
+    if (rtc && rtc.dc.readyState === 'open') return { ok: true };
+    if (!('RTCPeerConnection' in window) || !bridge)
+      return { ok: false, why: 'route' };
+    const iceServers = [{ urls: 'stun:stun.l.google.com:19302' }];
+    if (turn)
+      iceServers.push({
+        urls: turn.urls,
+        username: turn.username,
+        credential: turn.credential
+      });
+    let pc;
+    try {
+      pc = new RTCPeerConnection({ iceServers });
+    } catch {
+      // a relay address this browser does not take: without it
+      pc = new RTCPeerConnection({ iceServers: iceServers.slice(0, 1) });
+    }
     const dc = pc.createDataChannel('ytx');
+    let why = 'route';
+    let net = null;
     try {
       await pc.setLocalDescription(await pc.createOffer());
       await new Promise((ok) => {
         if (pc.iceGatheringState === 'complete') return ok();
         pc.onicegatheringstatechange = () =>
           pc.iceGatheringState === 'complete' && ok();
-        setTimeout(ok, 3000);
+        // a relay (TURN over TLS) takes longer to answer
+        setTimeout(ok, turn ? 6000 : 3000);
       });
       // only what the TV needs: the offer without the phone's mDNS names
       const sdp = pc.localDescription.sdp
@@ -890,7 +1057,11 @@
         .filter((l) => !/^a=candidate:.* [0-9a-f-]+\.local /.test(l))
         .join('\r\n');
       const r = await ask({ op: 'rtc', offer: sdp }, 20000);
-      if (!r || !r.ok || !r.answer) throw new Error('no answer');
+      if (!r || !r.ok || !r.answer) {
+        why = 'tv';
+        throw new Error('no answer');
+      }
+      net = r.net || null;
       await pc.setRemoteDescription({ type: 'answer', sdp: r.answer });
       const open = await new Promise((ok) => {
         if (dc.readyState === 'open') return ok(true);
@@ -900,9 +1071,26 @@
       if (!open) throw new Error('no route');
     } catch {
       pc.close();
-      return false;
+      return { ok: false, why, net };
     }
-    const me = { pc, dc, waiting: {}, n: 1 };
+    const me = { pc, dc, waiting: {}, n: 1, relay: await viaRelay(pc) };
+    // the path may change (a better pair, a network change): look again
+    me.watch = setInterval(async () => {
+      if (rtc !== me) return clearInterval(me.watch);
+      const v = await viaRelay(pc);
+      if (v === me.relay) return;
+      me.relay = v;
+      drawFullState();
+      // the TV page inside: the live view waits for a tap over a relay
+      try {
+        $('full-frame').contentWindow.postMessage(
+          { ytxRelay: v },
+          location.origin
+        );
+      } catch {
+        /* not loaded yet */
+      }
+    }, 10000);
     dc.onmessage = (e) => {
       let m;
       try {
@@ -915,6 +1103,7 @@
       if (w) w(m);
     };
     dc.onclose = () => {
+      clearInterval(me.watch);
       if (rtc !== me) return;
       rtc = null;
       if (!$('full').classList.contains('hidden')) {
@@ -923,25 +1112,60 @@
       }
     };
     rtc = me;
-    return true;
+    return { ok: true };
+  }
+
+  /** Why the full remote did not open, in plain words. */
+  function failText(res) {
+    if (res.why === 'tv') return tr('fullNoTv');
+    const out = [tr(turn ? 'fullNoRelay' : 'fullNo')];
+    const map = res.net && res.net.map;
+    if (map === 'off') out.push(tr('fullMapOff'));
+    else if (map === 'cgnat') out.push(tr('fullMapCgnat'));
+    if (!turn) out.push(tr('fullTips'));
+    return out.join(' ');
+  }
+
+  function drawFullState() {
+    $('full-state').textContent = tr(rtc && rtc.relay ? 'fullRelay' : 'fullOn');
+  }
+
+  // the service worker in charge of ./tv/ (none in Firefox's private
+  // windows, and one that fails to install never gets ready)
+  function swReady() {
+    if (!('serviceWorker' in navigator)) return Promise.resolve(false);
+    return Promise.race([
+      navigator.serviceWorker.ready.then(
+        (r) => !!(r && r.active),
+        () => false
+      ),
+      new Promise((ok) => setTimeout(() => ok(false), 10000))
+    ]);
   }
 
   let fullBusy = false;
   async function openFull() {
     if (fullBusy) return;
     fullBusy = true;
+    // the full page needs WebRTC, BroadcastChannel and the service worker:
+    // without one of them the simple view stays, and says why
+    if (!('RTCPeerConnection' in window) || !bridge || !(await swReady())) {
+      fullBusy = false;
+      $('full-note').textContent = tr('fullNoBrowser');
+      return;
+    }
     $('full-note').textContent = tr('fullTrying');
-    const ok = await direct();
+    const res = await direct();
     fullBusy = false;
-    if (!ok) {
-      $('full-note').textContent = tr('fullNo');
+    if (!res.ok) {
+      $('full-note').textContent = failText(res);
       return;
     }
     $('full-note').textContent = '';
-    $('full-state').textContent = tr('fullOn');
-    // the service worker must be in charge of ./tv/ before the page loads
-    if ('serviceWorker' in navigator) await navigator.serviceWorker.ready;
-    $('full-frame').src = 'tv/?t=00&app=1&lang=' + lang;
+    drawFullState();
+    // over a relay, the TV page keeps its live view off until a tap
+    $('full-frame').src =
+      'tv/?t=00&app=1&lang=' + lang + (rtc && rtc.relay ? '&relay=1' : '');
     $('full').classList.remove('hidden');
     document.documentElement.style.overflow = 'hidden'; // nothing scrolls behind it
   }
@@ -973,6 +1197,8 @@
     $('refresh').onclick = refresh;
     $('full-open').onclick = openFull;
     $('full-simple').onclick = closeFull;
+    $('relay-form').onsubmit = relaySave;
+    $('relay-remove').onclick = relayRemove;
     document.querySelectorAll('[data-more]').forEach((b) => {
       b.onclick = () => run({ op: 'more', min: Number(b.dataset.more) });
     });

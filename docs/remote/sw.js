@@ -4,7 +4,7 @@
  * and makes the page installable. Only this page's own files: the requests
  * to the TV (http://<address>/hello) are left alone.
  */
-const CACHE = 'sofatube-remote-v8';
+const CACHE = 'sofatube-remote-v11';
 const FILES = [
   './',
   'share-link.js',
@@ -12,6 +12,7 @@ const FILES = [
   'away.html', // Control from away (0.9.5, L41)
   'away.js',
   'away-crypto.js',
+  'home.js', // the TV's page inside the app at home (0.9.6)
   'away-help.html',
   'jsqr.min.js',
   'manifest.webmanifest',
@@ -45,11 +46,13 @@ self.addEventListener('activate', (e) => {
 });
 
 /*
- * The whole phone page from away (P2P): away.html holds the direct,
+ * The whole phone page over the direct channel (P2P): away.html (from away)
+ * or the app's front page with home.js (at home, 0.9.6) holds the direct,
  * end-to-end encrypted channel to the TV and shows the TV's own phone page
- * at ./tv/. Every request of that page (./tv/…) goes from here to away.html
- * (BroadcastChannel) and over the channel; nothing reaches the site's
- * server. The page's own absolute /api/ addresses become ./tv/api/ here.
+ * at ./tv/. Every request of that page (./tv/…) goes from here to the page
+ * that holds the channel (BroadcastChannel; a page without one stays
+ * silent) and over the channel; nothing reaches the site's server. The
+ * page's own absolute /api/ addresses become ./tv/api/ here.
  */
 const TV = new BroadcastChannel('sofatube-tv');
 const tvWait = {};

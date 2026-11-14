@@ -168,6 +168,29 @@
       .hidden {
         display: none !important;
       }
+      /* the family's own relay (advanced, this phone only) */
+      #relay-box {
+        margin-top: 12px;
+        border-top: 1px solid var(--line);
+        padding-top: 8px;
+      }
+      #relay-box summary {
+        cursor: pointer;
+        font-weight: 600;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+      }
+      #relay-form label {
+        display: block;
+        margin-top: 8px;
+      }
+      #relay-form input {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 4px;
+      }
       /* the whole phone page from away, over the direct channel (P2P) */
       #full {
         position: fixed;
@@ -363,6 +386,46 @@
           <button class="btn ghost" id="pin-set" type="button"></button>
           <button class="btn ghost" id="forget" type="button"></button>
         </div>
+        <details id="relay-box">
+          <summary id="relay-title"></summary>
+          <p class="small" id="relay-text"></p>
+          <form id="relay-form" autocomplete="off">
+            <label class="small" for="relay-url" id="relay-url-label"></label>
+            <input
+              id="relay-url"
+              dir="ltr"
+              inputmode="url"
+              autocapitalize="off"
+              spellcheck="false"
+              maxlength="400"
+            />
+            <label class="small" for="relay-user" id="relay-user-label"></label>
+            <input
+              id="relay-user"
+              dir="ltr"
+              autocapitalize="off"
+              spellcheck="false"
+              maxlength="200"
+            />
+            <label class="small" for="relay-pass" id="relay-pass-label"></label>
+            <input
+              id="relay-pass"
+              type="password"
+              dir="ltr"
+              autocomplete="new-password"
+              maxlength="400"
+            />
+            <div class="btns">
+              <button class="btn ghost" type="submit" id="relay-save"></button>
+              <button
+                class="btn ghost hidden"
+                type="button"
+                id="relay-remove"
+              ></button>
+            </div>
+            <p class="small" id="relay-state" role="status"></p>
+          </form>
+        </details>
         <p class="small" id="help"></p>
       </section>
     </main>
