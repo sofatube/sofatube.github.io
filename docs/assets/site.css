@@ -266,3 +266,8 @@ th { color: var(--muted); font-weight: 700; font-size: .95rem; }
 
 @media print { .site-head .nav, .cta { display: none; } }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+/* the phone remote link in the menu (2026-11-14): stands out as an action */
+.nav a.nav-remote { border: 1px solid var(--orange); color: var(--orange); }
+.nav a.nav-remote:hover { background: var(--orange); color: var(--on-orange); }
+.spot .steps { margin: .4em 0 1em; }

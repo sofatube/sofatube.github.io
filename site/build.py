@@ -33,6 +33,8 @@ def page(lang, slug, title, desc, body):
     nav = ''.join(
         f'<a href="{url(lang, s)}"{" aria-current=\"page\"" if s == slug else ""}>{L(lang, en, ar)}</a>'
         for s, en, ar in PAGES)
+    # the phone remote (a static web app at /remote/), always one tap away
+    nav += f'<a class="nav-remote" href="/remote/">{L(lang, "Phone remote", "جهاز التحكم من الهاتف")}</a>'
     switch = (f'<a class="lang" href="{url(other, slug)}" hreflang="{other}" lang="{other}">'
               f'{"English" if other == "en" else "العربية"}</a>')
     full_title = f'{title} · {L(lang, "Sofa Tube", "صوفا تيوب")}' if slug else L(
@@ -373,6 +375,54 @@ def whole_tv(lang):
 </section>'''
 
 
+def phone_app(lang, short=False):
+    # The phone remote at /remote/ (a web app, no app store): what it is and the three steps.
+    # Owner (2026-11-14): it existed but nothing on the site said so.
+    if lang == 'ar':
+        steps = '''<ol class="steps">
+<li>على هاتفك افتح <a href="/remote/"><bdi>sofatube.github.io/remote</bdi></a>&rlm; (<bdi>Chrome</bdi> في أندرويد، أو <bdi>Safari</bdi> في آيفون)، على شبكة الواي فاي نفسها التي يتصل بها التلفاز.</li>
+<li>أضفه إلى الشاشة الرئيسية فيصبح تطبيقًا: في <bdi>Chrome</bdi>: <bdi>⋮</bdi> ← <b>تثبيت التطبيق</b> (أو «إضافة إلى الشاشة الرئيسية»)؛ وفي <bdi>Safari</bdi>: <b>مشاركة</b> ← <b>إضافة إلى الشاشة الرئيسية</b>.</li>
+<li>اضغط <b>«العثور على تلفازي»</b>، أو امسح الرمز الظاهر على التلفاز (صوفا تيوب ← الإعدادات ← جهاز التحكم من الهاتف). يتذكّر التلفاز في المرة القادمة.</li>
+</ol>'''
+        if short:
+            return f'''<section class="tv-section" id="phone">
+<h2>بعد التثبيت: اربط هاتفك</h2>
+<p>جهاز التحكم من الهاتف تطبيق ويب، دون متجر تطبيقات:</p>
+{steps}
+<p><a class="btn" href="/remote/">فتح جهاز التحكم من الهاتف</a></p>
+</section>'''
+        return f'''<section class="spot" id="phone-remote">
+<div class="spot-txt">
+<p class="kicker">على هاتفك</p>
+<h2>جهاز التحكم على هاتفك، دون متجر تطبيقات</h2>
+<p class="lead"><bdi>sofatube.github.io/remote</bdi> هو جهاز التحكم في صوفا تيوب تطبيقَ ويب: يجد تلفازك على الواي فاي نفسه (أو يمسح الرمز الظاهر على التلفاز) ويفتح جهاز التحكم كاملًا: قيد التشغيل، والبحث، والأطفال، والتلفاز كله، والمؤشر.</p>
+{steps}
+<div class="row"><a class="btn" href="/remote/">فتح جهاز التحكم من الهاتف</a> <a class="btn ghost" href="/remote/away-help.html">من خارج المنزل</a></div>
+</div>
+</section>'''
+    steps = '''<ol class="steps">
+<li>On your phone, open <a href="/remote/">sofatube.github.io/remote</a> (Chrome on Android, Safari on iPhone), on the same Wi-Fi as the TV.</li>
+<li>Add it to your home screen and it becomes an app: in Chrome ⋮ → <b>Install app</b> (or “Add to Home screen”); in Safari <b>Share</b> → <b>Add to Home Screen</b>.</li>
+<li>Tap <b>Find my TV</b>, or scan the code on the TV (Sofa Tube → Settings → Phone remote). It remembers the TV next time.</li>
+</ol>'''
+    if short:
+        return f'''<section class="tv-section" id="phone">
+<h2>After installing: connect your phone</h2>
+<p>The phone remote is a web app, no app store:</p>
+{steps}
+<p><a class="btn" href="/remote/">Open the phone remote</a></p>
+</section>'''
+    return f'''<section class="spot" id="phone-remote">
+<div class="spot-txt">
+<p class="kicker">On your phone</p>
+<h2>The remote on your phone, no app store</h2>
+<p class="lead"><a href="/remote/">sofatube.github.io/remote</a> is Sofa Tube's remote as a web app. It finds your TV on the same Wi-Fi (or scans the code on the TV) and opens the full remote: Now playing, search, kids, Whole TV and the pointer.</p>
+{steps}
+<div class="row"><a class="btn" href="/remote/">Open the phone remote</a> <a class="btn ghost" href="/remote/away-help.html">From away</a></div>
+</div>
+</section>'''
+
+
 def new_095(lang):
     # What 0.9.5 adds, as cards in the same style as "What it does"; the screenshot row shows once
     # SHOTS_095 has entries (another session adds the 0.9.5 shots).
@@ -423,7 +473,7 @@ def home(lang):
 </div>
 {clip}
 </section>'''
-        return hero + whole_tv(lang) + f'''
+        return hero + whole_tv(lang) + phone_app(lang) + f'''
 <h2 id="download">التنزيل: اختر تلفازك</h2>
 <p>روابط قصيرة (اكتبها في تطبيق <b>Downloader</b> على التلفاز أو في هاتفك):</p>
 {download_cards(lang)}
@@ -453,7 +503,7 @@ def home(lang):
 </div>
 {clip}
 </section>'''
-    return hero + whole_tv(lang) + f'''
+    return hero + whole_tv(lang) + phone_app(lang) + f'''
 <h2 id="download">Download: pick your TV</h2>
 <p>Short links (type them in the TV's <b>Downloader</b> app or on your phone):</p>
 {download_cards(lang)}
@@ -1242,7 +1292,7 @@ def main():
              home(lang))
         page(lang, 'install/', L(lang, 'Install', 'التثبيت'),
              L(lang, 'Install Sofa Tube on Android TV, Google TV, Fire TV, LG (webOS) and Samsung (Tizen), step by step.',
-               'خطوات تثبيت صوفا تيوب على <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> وLG وسامسونج.'), install(lang))
+               'خطوات تثبيت صوفا تيوب على <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> وLG وسامسونج.'), install(lang) + phone_app(lang, short=True))
         page(lang, 'videos/', L(lang, 'Videos', 'الفيديوهات'),
              L(lang, f'{len(VIDEOS)} Sofa Tube tutorials in English and Arabic.', 'شروح صوفا تيوب المصوّرة بالعربية والإنجليزية.'), videos(lang))
         page(lang, 'testers/', L(lang, 'Testers', 'للمجرّبين'),
