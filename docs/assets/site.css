@@ -199,6 +199,10 @@ main { display: block; padding-bottom: 40px; }
 .shots figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .shots img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #1F140D; }
 .shots figcaption { padding: 8px 12px; font-size: .95rem; }
+/* real step screenshots (Setup): keep their own shape, top-aligned */
+.shots.free { align-items: start; }
+.shots.free img { aspect-ratio: auto; object-fit: contain; height: auto; }
+.shots.free.one { grid-template-columns: minmax(0, 640px); }
 .more-shots { margin-top: 12px; }
 .more-shots summary { cursor: pointer; font-weight: 700; padding: 8px 0; }
 .more-shots .shots { margin-top: 8px; }

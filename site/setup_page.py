@@ -5,6 +5,49 @@
 # marked; every other way stays visible (works without JavaScript too).
 
 
+# Real screens (0.9.6): Setup on Windows (its page in Chrome) and the Android phone app (emulator), both
+# driving LG's webOS TV Emulator, which is why the addresses are 127.0.0.1 / 10.0.2.2. A real TV's address
+# in the TV list was blurred. Files in docs/assets/shots/{en,ar}/setup_*.jpg; how they were made:
+# site/NOTES-newcomer.md.
+PICS = {
+    'pc': [('setup_pc_tvs', 720, 642, '1. Pick your TV, or type its address', '1. اختر تلفازك أو اكتب عنوانه'),
+           ('setup_pc_yes', 720, 770, '2. Setup says what to press on the TV', '2. يقول الإعداد ما تضغطه على التلفاز'),
+           ('setup_pc_done', 720, 979, '3. Done: scan the code for the phone remote', '3. انتهى: امسح الرمز لجهاز التحكم من الهاتف')],
+    'phone': [('setup_phone_address', 390, 663, "Type the TV's address if it is not in the list", 'اكتب عنوان التلفاز إن لم يكن في القائمة'),
+              ('setup_phone_yes', 390, 782, 'Press YES on the TV when it asks', 'اضغط YES على التلفاز حين يسأل'),
+              ('setup_phone_done', 390, 664, 'Sofa Tube runs: open the phone remote', 'صوفا تيوب يعمل: افتح جهاز التحكم من الهاتف')],
+}
+
+
+def _fig(lang, L, f, w, h, ce, ca, cls=''):
+    cap = L(lang, ce, ca)
+    return (f'<figure{cls}><img src="/assets/shots/{lang}/{f}.jpg" alt="{cap}" width="{w}" height="{h}" loading="lazy" '
+            f'decoding="async"><figcaption>{cap}</figcaption></figure>')
+
+
+def what_you_see(lang, L):
+    pc = ''.join(_fig(lang, L, *x) for x in PICS['pc'])
+    ph = ''.join(_fig(lang, L, *x) for x in PICS['phone'])
+    if lang == 'ar':
+        return f'''<h2 id="what-you-see">ما الذي تراه</h2>
+<h3>على الحاسوب</h3>
+<div class="shots free">{pc}</div>
+<h3>على هاتف أندرويد</h3>
+<div class="phones">{ph}</div>
+<p class="meta">شاشات حقيقية من الإعداد <bdi>0.9.6</bdi> مع محاكي تلفاز LG، ولذلك يظهر عنوان المحاكي (<bdi>127.0.0.1</bdi> و<bdi>10.0.2.2</bdi>)؛ وعلى تلفازك يظهر عنوانه هو.</p>'''
+    return f'''<h2 id="what-you-see">What you see</h2>
+<h3>On the computer</h3>
+<div class="shots free">{pc}</div>
+<h3>On an Android phone</h3>
+<div class="phones">{ph}</div>
+<p class="meta">Real screens of Setup 0.9.6 with LG's webOS TV Emulator, so they show the emulator's address (127.0.0.1, 10.0.2.2); with your TV you see its own address.</p>'''
+
+
+def lg_pic(lang, L):
+    return ('<div class="shots free one">' + _fig(lang, L, 'setup_lg_yes', 980, 316,
+            'On the TV: LG asks once, press YES', 'على التلفاز: يسأل تلفاز LG مرة واحدة، فاضغط YES') + '</div>')
+
+
 def setup_page(lang, ver, L, url):
     rel = f'https://github.com/sofatube/sofatube.github.io/releases/download/v{ver}/'
     win = rel + f'SofaTubeSetup-{ver}-Windows.exe'
@@ -68,6 +111,8 @@ def setup_page(lang, ver, L, url):
 <li><b>أندرويد:</b> السماح بتثبيت التطبيقات للمتصفح مرة واحدة (أعلاه).</li>
 </ul>
 
+{what_you_see(lang, L)}
+
 <h2>ما يطلبه الإعداد على كل تلفاز</h2>
 <section class="tv-section" id="setup-android">
 <h3><bdi>Android TV</bdi> · <bdi>Google TV</bdi></h3>
@@ -85,6 +130,7 @@ def setup_page(lang, ver, L, url):
 <li>فعّل <b>Dev Mode Status</b> (يُعاد تشغيل التلفاز)، ثم <b>Key Server</b>.</li>
 <li>اكتب في الإعداد عبارة المرور (Passphrase) الظاهرة على التلفاز: يثبّت الإعداد صوفا تيوب و«صوفا تيوب للهاتف» بنفسه ثم يفتحه.</li>
 </ol>
+{lg_pic(lang, L)}
 <p class="meta">لجلسة وضع المطوّر مدة تنتهي: <a href="{inst}#lg-update">كيف تبقى صالحة</a>.</p></section>
 <section class="tv-section" id="setup-samsung">
 <h3>تلفاز سامسونج ‏(Tizen)</h3>
@@ -135,6 +181,8 @@ def setup_page(lang, ver, L, url):
 <li><b>Android:</b> allow the browser to install apps once (above).</li>
 </ul>
 
+{what_you_see(lang, L)}
+
 <h2>What Setup asks on each TV</h2>
 <section class="tv-section" id="setup-android">
 <h3>Android TV · Google TV</h3>
@@ -152,6 +200,7 @@ def setup_page(lang, ver, L, url):
 <li>Turn on <b>Dev Mode Status</b> (the TV restarts), then <b>Key Server</b>.</li>
 <li>Type the Passphrase the TV shows in Setup: Setup installs Sofa Tube and Sofa Tube Phone itself and opens Sofa Tube.</li>
 </ol>
+{lg_pic(lang, L)}
 <p class="meta">The Developer Mode session runs out: <a href="{inst}#lg-update">how to keep it</a>.</p></section>
 <section class="tv-section" id="setup-samsung">
 <h3>Samsung TV (Tizen)</h3>
