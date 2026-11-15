@@ -427,6 +427,8 @@
             firstHowNew:
               'Open Sofa Tube on the TV, then tap “Find my TV”. Chrome asks to look for devices on your Wi-Fi: allow it. Then press OK on the TV. Or scan the code on the TV (Settings → Phone remote).',
             discovering: 'Looking for Sofa Tube on your Wi-Fi…',
+            discoveringBusy:
+              'Looking for Sofa Tube on your Wi-Fi… The free message server is busy for this internet connection now, so this can take a little longer.',
             newNotFound: 'No TV with Sofa Tube was found on this Wi-Fi.',
             newNotFoundHow:
               'Check that Sofa Tube is open on the TV and that this phone is on the same Wi-Fi. Or type the TV’s address below (it is under the code on the TV’s “Phone remote” page), or scan that code.',
@@ -527,6 +529,8 @@
             firstHowNew:
               'افتح صوفا تيوب على التلفاز، ثم اضغط «ابحث عن التلفاز». سيطلب Chrome الإذن بالبحث عن الأجهزة في شبكة الواي فاي: اسمح بذلك. ثم اضغط OK على التلفاز. أو امسح رمز QR على التلفاز (الإعدادات ← جهاز التحكم من الهاتف).',
             discovering: 'جارٍ البحث عن صوفا تيوب في شبكة الواي فاي…',
+            discoveringBusy:
+              'جارٍ البحث عن صوفا تيوب في شبكة الواي فاي… خادم الرسائل المجاني مشغول الآن لاتصال الإنترنت هذا، لذا قد يستغرق البحث وقتًا أطول قليلًا.',
             newNotFound:
               'لم يُعثر على تلفاز عليه صوفا تيوب في شبكة الواي فاي هذه.',
             newNotFoundHow:
@@ -1040,6 +1044,7 @@
           // 2. the usual home networks
           lanFind().then(function (list) {
             if (my !== gen) return;
+            if (list.limited) setStatus(tr('discoveringBusy'), '');
             sweep(list, my, function (a) {
               if (my !== gen) return;
               if (a) {
@@ -1065,8 +1070,15 @@
          * has the same public address: it asks the same STUN server (the
          * browser's own WebRTC), reads that topic and opens the note. The
          * relay sees only sealed text; nothing about this phone is sent.
+         * Every note the relay still keeps (12 h) is read and opened here:
+         * a busy topic (many TVs, or neighbours behind the same carrier
+         * address, who share the topic and the key) buries nothing; the
+         * newest addresses are tried first. HTTP 429 (the relay's limit
+         * for this address): no notes, the app looks on the Wi-Fi itself.
          */
         var LAN_RELAY = 'https://ntfy.sh';
+        var LAN_MAX_NOTES = 500; // ntfy.sh: ~250 messages a day per address
+        var LAN_MAX_ADDRS = 256; // (refused ones answer fast, 32 at a time)
         function publicIp() {
           return new Promise(function (ok) {
             var done = false;
@@ -1123,10 +1135,14 @@
           for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i);
           return u;
         }
-        /** The addresses the TVs behind this router posted (newest first). */
+        /**
+         * The addresses the TVs behind this router posted (newest first);
+         * .limited: the relay said 429.
+         */
         function lanFind() {
           if (!window.crypto || !crypto.subtle || !window.RTCPeerConnection)
             return Promise.resolve([]);
+          var limited = false;
           return publicIp()
             .then(function (ip) {
               if (!ip) return [];
@@ -1149,6 +1165,7 @@
                     cache: 'no-store',
                     credentials: 'omit'
                   }).then(function (r) {
+                    if (r.status === 429) limited = true;
                     return r.ok ? r.text() : '';
                   })
                 ]);
@@ -1170,7 +1187,7 @@
                   return m && m.event === 'message' && m.message;
                 })
                 .reverse()
-                .slice(0, 10);
+                .slice(0, LAN_MAX_NOTES);
               return Promise.all(
                 notes.map(function (m) {
                   var raw;
@@ -1202,13 +1219,17 @@
               (msgs || []).forEach(function (o) {
                 ((o && o.a) || []).forEach(function (x) {
                   var a = parseAddr(x);
-                  if (a && out.indexOf(a) < 0) out.push(a);
+                  if (a && out.indexOf(a) < 0 && out.length < LAN_MAX_ADDRS)
+                    out.push(a);
                 });
               });
+              out.limited = limited;
               return out;
             })
             .catch(function () {
-              return [];
+              var none = [];
+              none.limited = limited;
+              return none;
             });
         }
 
