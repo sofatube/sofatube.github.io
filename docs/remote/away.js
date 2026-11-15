@@ -89,6 +89,8 @@
       fullLost: 'The direct connection ended: the simple view works.',
       asking: 'Asking the TV…',
       unreachable: 'The TV is not reachable now (off, or no internet).',
+      relayBusy:
+        'The free message server (ntfy.sh) is busy for this internet connection now (its daily limit). Try again later, or from another network.',
       since: 'Last answer: {t}',
       never: 'No answer yet',
       failSafe:
@@ -213,6 +215,8 @@
       fullLost: 'انتهى الاتصال المباشر: العرض البسيط يعمل.',
       asking: 'جارٍ سؤال التلفاز…',
       unreachable: 'لا يمكن الوصول إلى التلفاز الآن (مطفأ أو بلا إنترنت).',
+      relayBusy:
+        'خادم الرسائل المجاني (ntfy.sh) مشغول الآن لاتصال الإنترنت هذا (بلغ حدّه اليومي). حاول مرة أخرى لاحقًا، أو من شبكة أخرى.',
       since: 'آخر رد: {t}',
       never: 'لا يوجد رد بعد',
       failSafe:
@@ -316,6 +320,7 @@
   let tv = null; // the paired TV (IndexedDB 'tv')
   let es = null; // EventSource on the outbox
   const waiting = {}; // counter -> resolve
+  let relayLimited = false; // the last post was refused with 429
 
   async function saveTv() {
     await put('tv', tv);
@@ -395,11 +400,15 @@
   }
 
   async function post(body) {
+    relayLimited = false;
     const r = await fetch(`${tv.relay}/${tv.inbox}`, {
       method: 'POST',
       body,
       headers: { Firebase: 'no' }
     });
+    // 429: the relay's limit for this phone's network (ntfy.sh: per public
+    // address, shared by everything behind it)
+    relayLimited = r.status === 429;
     if (!r.ok) throw new Error('relay ' + r.status);
   }
 
@@ -650,7 +659,7 @@
     const r = await ask({ op: 'now' });
     $('now').textContent = '';
     if (!r) {
-      status(tr('unreachable'), 'bad');
+      status(tr(relayLimited ? 'relayBusy' : 'unreachable'), 'bad');
       $('now-note').textContent =
         (tv.lastOk ? tr('since', { t: clock(tv.lastOk) }) : tr('never')) +
         ' · ' +
@@ -747,7 +756,8 @@
   async function run(msg) {
     status(tr('asking'));
     const r = await ask(msg);
-    if (!r) return status(tr('unreachable'), 'bad');
+    if (!r)
+      return status(tr(relayLimited ? 'relayBusy' : 'unreachable'), 'bad');
     if (r.ok) status(tr('done'), 'ok');
     else status(tr('fail', { e: why(r.error) }), 'bad');
     setTimeout(refresh, 800);
