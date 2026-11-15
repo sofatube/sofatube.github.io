@@ -1,27 +1,27 @@
 {
   "schema": 1,
   "version": "0.9.6",
-  "date": "2026-11-14",
+  "date": "2026-11-15",
   "notes": "https://github.com/sofatube/sofatube.github.io/releases/tag/v0.9.6",
   "android": {
     "version": "0.9.6",
     "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.6/SofaTube-0.9.6-AndroidTV-arm.apk",
-    "sha256": "cf0c670123ebc98ad72b7502030cd1bd712a8e142c13263179e8ad53612c02d5",
-    "size": 96748128,
+    "sha256": "2e586a84d380db58219339d897faa0da61273eeeff0d35fb07ab6c7bb3528247",
+    "size": 96782948,
     "minSdk": 24
   },
   "lg": {
     "version": "0.9.6",
     "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.6/SofaTube-0.9.6-LG.ipk",
-    "sha256": "bbb8243b32fe2492005812e5d980d2cf0447f7d1f950d978752130276169a52f",
-    "size": 2309994,
+    "sha256": "ff69db4d751fbbb012cad6f01d1eaa2d8e82aadb1547076fff444e227b79456d",
+    "size": 2320474,
     "minOs": "webOS 4"
   },
   "lgPhone": {
     "version": "1.1.6",
     "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.6/SofaTube-Phone-1.1.6-LG.ipk",
-    "sha256": "49c81aa3f6977f80e08488a58e6c91bb87eb2764b4fa90611a616492f31f45eb",
-    "size": 553740
+    "sha256": "734ea7814a49ffadd921549c7f001b9e49e1f249898aab53b4dcc77dc8827cdf",
+    "size": 570020
   },
   "samsung": {
     "version": "0.9.5",
@@ -30,8 +30,8 @@
   "samsungWgt": {
     "version": "0.9.6",
     "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.6/SofaTube-0.9.6-Samsung.wgt",
-    "sha256": "b7bc86df33463d3d9a5b0bcd4790a38277529bbba4f695f059646cfde755fc2b",
-    "size": 1191337
+    "sha256": "9e34c5bc9b2001e3dcd18f3c2827ea427d737ab330b26b0b1a97bada2fc02e37",
+    "size": 1208914
   },
-  "sig": {"alg":"ed25519","key":"st1","value":"8YJQKkJ8MXMtqzuc9XDvCRQ3Ydv9L7HyWunnPLMxKdhAlnE4jqOdPxMTzQgy6UaW/9PH/OA9wCzoVe8Pdz3ICw=="}
+  "sig": {"alg":"ed25519","key":"st1","value":"AGRqd0L5u3/SypNmT221DT0rRVtbEklF7rlWTi2VhAWMlxj5scCJqWWt5vts0Le7H/ltvU19kO824eUsTPAgCg=="}
 }
