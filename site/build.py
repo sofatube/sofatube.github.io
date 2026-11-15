@@ -274,7 +274,7 @@ SHOTS_WHOLE = [
     ('ph_tv_remote', 'Keys that work anywhere on the TV', 'أزرار تعمل في أي مكان على التلفاز'),
     ('ph_tv_apps', "The TV's apps and inputs", 'تطبيقات التلفاز ومصادر الإدخال'),
     ('ph_tv_kbd', 'Type on the TV from the phone', 'الكتابة على التلفاز من الهاتف'),
-    ('ph_tv_air', 'Air mouse', 'الماوس الهوائي'),
+    ('n96_pointer', 'The Pointer screen', 'شاشة المؤشر'),
 ]
 SHOTS_WHOLE_TV = [
     ('p_phone_wholetv', "Turned on in Sofa Tube's settings, for parents", 'يُفعَّل من إعدادات صوفا تيوب، للوالدين'),
@@ -325,17 +325,85 @@ SHOTS_095 = [
 ]
 
 
+# 0.9.6 SHOTS: phone page / remote app frames from tools/phone/vidcap096.mjs (stand-in TVs, a made-up video),
+# TV frames from tools/desktop/ui-shots.mjs (Sofa Tube's TV page in desktop Chromium); EN and AR each.
+SHOT_FIND = ('n96_find', 'Find my TV: the phone shows a code', '«ابحث عن التلفاز»: يُظهر الهاتف رمزًا')
+SHOT_TVASK = ('n96_tvask', 'The TV asks with the same code: OK, then the PIN', 'يسأل التلفاز بالرمز نفسه: OK ثم الرمز السري')
+SHOT_INSIDE = ('n96_inside', 'The TV’s page inside the Sofa Tube app, no browser bar', 'صفحة التلفاز داخل تطبيق صوفا تيوب، دون شريط المتصفح')
+SHOT_AWAY = ('n96_away', 'From away: the whole page, the parent PIN first', 'من خارج المنزل: الصفحة كاملة، والرمز السري لولي الأمر أولًا')
+SHOT_UPD = ('n96_updates', 'Updates card: one tap updates the TV (a sample version)', 'بطاقة «التحديثات»: لمسة واحدة تحدّث التلفاز (رقم إصدار للمثال)')
+SHOT_CHANNEL = ('n96_channel', 'On the TV: Update channel (Stable, Testing, Experimental)', 'على التلفاز: «قناة التحديثات» («المستقر» و«الاختبار» و«التجريبي»)')
+SHOTS_096_TV = [SHOT_TVASK, SHOT_CHANNEL]
+SHOTS_096_PHONE = [
+    SHOT_FIND, SHOT_INSIDE, SHOT_AWAY,
+    ('n96_pin', 'Live view pinned while you use the remote (Android TV)', 'العرض المباشر مثبّتًا أثناء استخدام جهاز التحكم (Android TV)'),
+    ('n96_pointer', 'Pointer: touchpad, hold to aim, keys under the thumb', 'المؤشر: لوحة لمس، والتوجيه بالضغط المطوّل، والأزرار تحت الإبهام'),
+    ('n96_more', 'More on this TV: the one step that turns a feature on', '«المزيد على هذا التلفاز»: الخطوة الواحدة التي تفعّل الميزة'),
+    SHOT_UPD,
+    ('n96_seek', 'Show on the TV: a seek bar for videos from the phone', '«العرض على التلفاز»: شريط الموضع لفيديوهات الهاتف'),
+]
+
+
 def shot(lang, f, ce, ca, phone=False):
     w, h = (390, 844) if phone else (1280, 720)
     cap = L(lang, ce, ca)
     return f'<figure><img src="/assets/shots/{lang}/{f}.jpg" alt="{html.escape(cap)}" width="{w}" height="{h}" loading="lazy" decoding="async"><figcaption>{cap}</figcaption></figure>'
 
 
+def away_shot(lang):
+    return f'<div class="phones">{shot(lang, *SHOT_AWAY, phone=True)}</div>'
+
+
+def join_shots(lang):
+    # Find my TV, OK on the TV, the page inside the app (0.9.6)
+    return (f'<div class="phones">{shot(lang, *SHOT_FIND, phone=True)}{shot(lang, *SHOT_INSIDE, phone=True)}</div>'
+            f'<div class="shots two">{shot(lang, *SHOT_TVASK)}</div>')
+
+
+def updates_096(lang):
+    # Update channels and one-tap updates (0.9.6; code repo CHANGELOG "Updates (every TV)", docs/steps/update-channels.md)
+    pics = f'<div class="phones">{shot(lang, *SHOT_UPD, phone=True)}</div><div class="shots two">{shot(lang, *SHOT_CHANNEL)}</div>'
+    v = video_len(lang, '47')
+    if lang == 'ar':
+        return f'''<section class="spot" id="updates">
+<div class="spot-txt">
+<p class="kicker">التحديثات</p>
+<h2>ثلاث قنوات للتحديثات، ولمسة واحدة من الهاتف</h2>
+<p class="lead">جديد في <bdi>0.9.6</bdi>: اختر متى يصل الإصدار الجديد إلى تلفازك، وحدّثه من الهاتف دون أن تقوم إلى التلفاز.</p>
+<ul class="ticks">
+<li><b>«المستقر»</b> (ما يصل إلى الجميع)، و<b>«الاختبار»</b> (الإصدار القادم قبل الجميع بأيام قليلة، للمساعدة في اكتشاف الأخطاء)، و<b>«التجريبي»</b> (تجارب مبكرة لميزات جديدة، قد يتعطّل فيها شيء). على التلفاز: الإعدادات ← «حول التطبيق والنسخ الاحتياطي» ← «قناة التحديثات».</li>
+<li><b>لا يتأخر التلفاز عن «المستقر» أبدًا:</b> يأخذ أحدث إصدار من قناته ومن القنوات الأكثر استقرارًا منها. وتغيير القناة لا يثبّت إصدارًا أقدم من تلقاء نفسه.</li>
+<li><b>«التجريبي» يحتاج إلى أحد الوالدين:</b> تحذير أولًا، ثم الرمز السري إن كان مضبوطًا، على التلفاز أو على هاتف أحد الوالدين.</li>
+<li><b>لمسة واحدة على الهاتف:</b> بطاقة «التحديثات» (لأحد الوالدين فقط: الإعدادات ← التطبيق ← حول التطبيق والنسخ الاحتياطي، وفي «قيد التشغيل» حين يكون التحديث جاهزًا) تقول «صوفا تيوب جاهز لهذا التلفاز» مع رقم الإصدار، و<b>«تحديث التلفاز»</b> يشغّل أداة التثبيت في التلفاز نفسه، وتُظهر البطاقة مدى تقدّمه. وفي أندرويد من 9 إلى 11 يسأل التلفاز: اضغط OK عليه (أو من الهاتف عبر «التلفاز كله»).</li>
+<li><b>ملف موقَّع:</b> ملف التحديثات موقَّع بمفتاح صوفا تيوب المحفوظ خارج الإنترنت، وترفض أجهزة التلفاز من <bdi>0.9.6</bdi> أي ملف غير موقَّع. ولا يُبحث عن شيء إلا حين يطلب أحد ذلك أو يكون البحث الأسبوعي مفعّلًا، وتبقى إعداداتك.</li>
+</ul>
+<div class="row"><a class="btn ghost" href="/ar/videos/#v47">▶ تحديث التلفاز من الهاتف · <bdi>{v}</bdi></a> <a class="btn ghost" href="/ar/faq/#updates">كل الطرق</a></div>
+</div>
+{pics}
+</section>'''
+    return f'''<section class="spot" id="updates">
+<div class="spot-txt">
+<p class="kicker">Updates</p>
+<h2>Three update channels, one tap from the phone</h2>
+<p class="lead">New in 0.9.6: choose how early your TV gets new versions, and update it from the phone without getting up.</p>
+<ul class="ticks">
+<li><b>Stable</b> (what everyone gets), <b>Testing</b> (the next version a few days early, to help find bugs) and <b>Experimental</b> (early tries of new features; things may break). On the TV: Settings → Backup and about → Update channel.</li>
+<li><b>Never behind Stable:</b> a TV takes the newest version of its channel and of the more stable ones. Changing the channel never installs an older version by itself.</li>
+<li><b>Experimental needs a parent:</b> a warning first, then the PIN when one is set, on the TV or on a parent's phone.</li>
+<li><b>One tap on the phone:</b> the Updates card (parents only: Settings → App → Backup and about, and on Now playing while an update is ready) says “Sofa Tube … is ready for this TV”; <b>Update the TV</b> starts the TV's own installer and the card shows how far it got. Android 9 to 11 ask on the TV: press OK there (or from the phone, through Whole TV).</li>
+<li><b>Signed:</b> the update file is signed with Sofa Tube's own key, kept offline; TVs from 0.9.6 refuse a file that is not. Nothing is checked unless someone asks or the weekly check is on, and your settings stay.</li>
+</ul>
+<div class="row"><a class="btn ghost" href="/videos/#v47">▶ Update the TV from the phone · {v}</a> <a class="btn ghost" href="/faq/#updates">All the ways</a></div>
+</div>
+{pics}
+</section>'''
+
+
 def whole_tv(lang):
     # The Whole TV feature gets its own section near the top: it is what sets Sofa Tube apart.
     phones = ''.join(shot(lang, *s, phone=True) for s in SHOTS_WHOLE)
     tvs = ''.join(shot(lang, *s) for s in SHOTS_WHOLE_TV)
-    v18, v19 = video_len(lang, '18'), video_len(lang, '19')
+    v18, v19, v46 = video_len(lang, '18'), video_len(lang, '19'), video_len(lang, '46')
     if lang == 'ar':
         return f'''<section class="spot" id="whole-tv">
 <div class="spot-txt">
@@ -346,10 +414,10 @@ def whole_tv(lang):
 <li><b>أزرار تعمل في أي مكان:</b> الأسهم وOK والرجوع والرئيسية والقائمة والخروج والصوت والقنوات، ولو كان صوفا تيوب في الخلفية.</li>
 <li><b>التطبيقات ومصادر الإدخال:</b> افتح أي تطبيق على التلفاز، أو انتقل إلى جهاز آخر متصل به.</li>
 <li><b>الكتابة على التلفاز:</b> حين يُفتح مربع نص على التلفاز، اكتب من هاتفك.</li>
-<li><b>لوحة اللمس والماوس الهوائي:</b> حرّك مؤشرًا على الشاشة، كما في <bdi>Magic Remote</bdi> من LG.</li>
+<li><b>المؤشر:</b> شاشة واحدة فيها لوحة لمس (اسحب، وانقر، وبإصبعين للتمرير)، و«اضغط مطولًا للتوجيه» ماوسًا هوائيًا، والرجوع والرئيسية و OK والقائمة تحت الإبهام، كما في <bdi>Magic Remote</bdi> من LG. و<b>«المزيد على هذا التلفاز»</b> يذكر الخطوة الواحدة التي تفعّل ميزة ناقصة.</li>
 <li><b>لولي الأمر:</b> غير مفعّل في البداية، ويُفعَّل من إعدادات صوفا تيوب؛ ولا يحصل عليه هاتف الأطفال.</li>
 </ul>
-<div class="row"><a class="btn ghost" href="/ar/videos/#v18">▶ الإعداد · <bdi>{v18}</bdi></a> <a class="btn ghost" href="/ar/videos/#v19">▶ الاستخدام · <bdi>{v19}</bdi></a></div>
+<div class="row"><a class="btn ghost" href="/ar/videos/#v18">▶ الإعداد · <bdi>{v18}</bdi></a> <a class="btn ghost" href="/ar/videos/#v19">▶ الاستخدام · <bdi>{v19}</bdi></a> <a class="btn ghost" href="/ar/videos/#v46">▶ المؤشر · <bdi>{v46}</bdi></a></div>
 <p class="meta">لأجهزة LG وسامسونج و<bdi>Android TV</bdi>. جُرِّب على محاكيَي LG و<bdi>Google TV</bdi>، وجُرِّبت نسخة سابقة منه على تلفاز أندرويد حقيقي؛ ولم يُتأكَّد منه بعدُ على تلفاز سامسونج حقيقي.</p>
 </div>
 <div class="phones spot-phones">{phones}</div>
@@ -364,10 +432,10 @@ def whole_tv(lang):
 <li><b>Keys that work anywhere:</b> arrows, OK, Back, Home, Menu, Exit, volume and channels, even with Sofa Tube in the background.</li>
 <li><b>Apps and inputs:</b> open any app on the TV, or switch to another device connected to it.</li>
 <li><b>Type on the TV:</b> when a text box opens on the TV, type on your phone.</li>
-<li><b>Touchpad and air mouse:</b> move a pointer on the screen, like LG's Magic Remote.</li>
+<li><b>Pointer:</b> one screen with a touchpad (slide, tap, two fingers to scroll), “Hold to aim” as an air mouse, and Back, Home, OK and Menu under your thumb, like LG's Magic Remote. <b>More on this TV</b> says the one step that turns a missing feature on.</li>
 <li><b>For parents:</b> off at first and turned on in Sofa Tube's settings; a kids phone never gets it.</li>
 </ul>
-<div class="row"><a class="btn ghost" href="/videos/#v18">▶ Setting it up · {v18}</a> <a class="btn ghost" href="/videos/#v19">▶ Using it · {v19}</a></div>
+<div class="row"><a class="btn ghost" href="/videos/#v18">▶ Setting it up · {v18}</a> <a class="btn ghost" href="/videos/#v19">▶ Using it · {v19}</a> <a class="btn ghost" href="/videos/#v46">▶ Pointer · {v46}</a></div>
 <p class="meta">LG, Samsung and Android TV. Tried on the LG and Google TV emulators, and an earlier build on a real Android TV; on Samsung not yet confirmed on a real TV.</p>
 </div>
 <div class="phones spot-phones">{phones}</div>
@@ -382,7 +450,7 @@ def phone_app(lang, short=False):
         steps = '''<ol class="steps">
 <li>على هاتفك افتح <a href="/remote/"><bdi>sofatube.github.io/remote</bdi></a>&rlm; (<bdi>Chrome</bdi> في أندرويد، أو <bdi>Safari</bdi> في آيفون)، على شبكة الواي فاي نفسها التي يتصل بها التلفاز.</li>
 <li>أضفه إلى الشاشة الرئيسية فيصبح تطبيقًا: في <bdi>Chrome</bdi>: <bdi>⋮</bdi> ← <b>تثبيت التطبيق</b> (أو «إضافة إلى الشاشة الرئيسية»)؛ وفي <bdi>Safari</bdi>: <b>مشاركة</b> ← <b>إضافة إلى الشاشة الرئيسية</b>.</li>
-<li>اضغط <b>«العثور على تلفازي»</b>، أو امسح الرمز الظاهر على التلفاز (صوفا تيوب ← الإعدادات ← جهاز التحكم من الهاتف). يتذكّر التلفاز في المرة القادمة.</li>
+<li>اضغط <b>«ابحث عن التلفاز»</b>: يظهر الرمز نفسه على الهاتف والتلفاز، فاضغط OK على التلفاز (ثم الرمز السري إن كان مضبوطًا). أو امسح الرمز الظاهر على التلفاز (صوفا تيوب ← الإعدادات ← جهاز التحكم من الهاتف). ويتذكّر التطبيقُ التلفازَ في المرة القادمة، ويعرض صفحته داخل التطبيق دون شريط المتصفح.</li>
 </ol>'''
         if short:
             return f'''<section class="tv-section" id="phone">
@@ -397,13 +465,14 @@ def phone_app(lang, short=False):
 <h2>جهاز التحكم على هاتفك، دون متجر تطبيقات</h2>
 <p class="lead"><bdi>sofatube.github.io/remote</bdi> هو جهاز التحكم في صوفا تيوب تطبيقَ ويب: يجد تلفازك على الواي فاي نفسه (أو يمسح الرمز الظاهر على التلفاز) ويفتح جهاز التحكم كاملًا: قيد التشغيل، والبحث، والأطفال، والتلفاز كله، والمؤشر.</p>
 {steps}
-<div class="row"><a class="btn" href="/remote/">فتح جهاز التحكم من الهاتف</a> <a class="btn ghost" href="/remote/away-help.html">من خارج المنزل</a></div>
+<div class="row"><a class="btn" href="/remote/">فتح جهاز التحكم من الهاتف</a> <a class="btn ghost" href="/remote/away-help.html">من خارج المنزل</a> <a class="btn ghost" href="/ar/videos/#v45">▶ ابحث عن التلفاز · <bdi>{video_len(lang, '45')}</bdi></a></div>
 </div>
+{join_shots(lang)}
 </section>'''
     steps = '''<ol class="steps">
 <li>On your phone, open <a href="/remote/">sofatube.github.io/remote</a> (Chrome on Android, Safari on iPhone), on the same Wi-Fi as the TV.</li>
 <li>Add it to your home screen and it becomes an app: in Chrome ⋮ → <b>Install app</b> (or “Add to Home screen”); in Safari <b>Share</b> → <b>Add to Home Screen</b>.</li>
-<li>Tap <b>Find my TV</b>, or scan the code on the TV (Sofa Tube → Settings → Phone remote). It remembers the TV next time.</li>
+<li>Tap <b>Find my TV</b>: the phone and the TV show the same code; press OK on the TV (then the PIN, if one is set). Or scan the code on the TV (Sofa Tube → Settings → Phone remote). The app remembers the TV next time and shows its page inside the app, with no browser bar.</li>
 </ol>'''
     if short:
         return f'''<section class="tv-section" id="phone">
@@ -418,8 +487,9 @@ def phone_app(lang, short=False):
 <h2>The remote on your phone, no app store</h2>
 <p class="lead"><a href="/remote/">sofatube.github.io/remote</a> is Sofa Tube's remote as a web app. It finds your TV on the same Wi-Fi (or scans the code on the TV) and opens the full remote: Now playing, search, kids, Whole TV and the pointer.</p>
 {steps}
-<div class="row"><a class="btn" href="/remote/">Open the phone remote</a> <a class="btn ghost" href="/remote/away-help.html">From away</a></div>
+<div class="row"><a class="btn" href="/remote/">Open the phone remote</a> <a class="btn ghost" href="/remote/away-help.html">From away</a> <a class="btn ghost" href="/videos/#v45">▶ Find my TV · {video_len(lang, '45')}</a></div>
 </div>
+{join_shots(lang)}
 </section>'''
 
 
@@ -433,14 +503,20 @@ def new_095(lang):
     tv_shots = ''.join(shot(lang, *x) for x in SHOTS_095 if len(x) < 4)
     ph_shots = ''.join(shot(lang, *x[:3], phone=True) for x in SHOTS_095 if len(x) > 3)
     row = (f'<div class="shots">{tv_shots}</div>' if tv_shots else '') + (f'<div class="phones">{ph_shots}</div>' if ph_shots else '')
+    row096 = ('<div class="shots two">' + ''.join(shot(lang, *x) for x in SHOTS_096_TV) + '</div>'
+              '<div class="phones">' + ''.join(shot(lang, *x, phone=True) for x in SHOTS_096_PHONE) + '</div>')
     if lang == 'ar':
         return f'''<h2 id="new">الجديد في <bdi>0.9.6</bdi> و<bdi>0.9.5</bdi></h2>
-<p>يضيف إصدار <bdi>0.9.6</bdi> «ابحث عن التلفاز» ثم «موافق» على التلفاز (دون رمز QR)، وصفحة الهاتف كاملة من خارج المنزل، وتطبيقًا مثبَّتًا دون شريط المتصفح، وشاشة واحدة للمؤشر. وأضاف إصدار <bdi>0.9.5</bdi> قواعد للعائلة على التلفاز كله، والتحكم من خارج المنزل، والهاتف شاشة ثانية، والمساعدة عن بُعد، وشاشات أسهل لكبار السن.</p>
+<p>يضيف إصدار <bdi>0.9.6</bdi> «ابحث عن التلفاز» ثم OK على التلفاز (دون رمز QR)، وصفحة الهاتف كاملة داخل تطبيق صوفا تيوب دون شريط المتصفح، في المنزل ومن خارجه (بالرمز السري لولي الأمر)، والعرض المباشر للتلفاز مثبّتًا أثناء استخدام بقية الصفحة، وثلاث قنوات للتحديثات مع التحديث بلمسة من الهاتف (<a href="#updates">كيف</a>)، وشريط الموضع في «العرض على التلفاز»، وشاشة واحدة للمؤشر.</p>
+{row096}
+<p>وأضاف إصدار <bdi>0.9.5</bdi> قواعد للعائلة على التلفاز كله، والتحكم من خارج المنزل، والهاتف شاشة ثانية، والمساعدة عن بُعد، وشاشات أسهل لكبار السن.</p>
 <div class="grid">{cards}</div>
 {row}
 <p class="meta">بعض الأجزاء لم يُتأكَّد منها بعدُ على كل أنواع التلفاز الحقيقية، وما يقدر عليه كل نوع يختلف: <a href="/ar/faq/#limits">الحدود المعروفة</a>. وعلى LG حدّث تطبيق <bdi>Sofa Tube Phone</bdi> أيضًا: <a href="/ar/install/#lg-update">كيف</a>.</p>'''
     return f'''<h2 id="new">New in 0.9.6 and 0.9.5</h2>
-<p>0.9.6 adds Find my TV with OK on the TV (no QR code), the whole phone page from away, an installed app without the browser bar, and one Pointer screen. 0.9.5 added family rules for the whole TV, control from away, the phone as a second screen, remote help, and easier screens for elderly viewers.</p>
+<p>0.9.6 adds Find my TV with OK on the TV (no QR code), the TV's whole phone page inside the Sofa Tube app with no browser bar, at home and from away (parent PIN first), a live view of the TV pinned while you use the rest, three update channels with one-tap updates from the phone (<a href="#updates">how</a>), a seek bar for Show on the TV, and one Pointer screen.</p>
+{row096}
+<p>0.9.5 added family rules for the whole TV, control from away, the phone as a second screen, remote help, and easier screens for elderly viewers.</p>
 <div class="grid">{cards}</div>
 {row}
 <p class="meta">Some parts are not yet confirmed on every real TV, and what each brand can do differs: <a href="/faq/#limits">known limits</a>. On LG, update the Sofa Tube Phone app too: <a href="/install/#lg-update">how</a>.</p>'''
@@ -473,7 +549,7 @@ def home(lang):
 </div>
 {clip}
 </section>'''
-        return hero + whole_tv(lang) + phone_app(lang) + f'''
+        return hero + whole_tv(lang) + phone_app(lang) + updates_096(lang) + f'''
 <h2 id="download">التنزيل: اختر تلفازك</h2>
 <p>روابط قصيرة (اكتبها في تطبيق <b>Downloader</b> على التلفاز أو في هاتفك):</p>
 {download_cards(lang)}
@@ -503,7 +579,7 @@ def home(lang):
 </div>
 {clip}
 </section>'''
-    return hero + whole_tv(lang) + phone_app(lang) + f'''
+    return hero + whole_tv(lang) + phone_app(lang) + updates_096(lang) + f'''
 <h2 id="download">Download: pick your TV</h2>
 <p>Short links (type them in the TV's <b>Downloader</b> app or on your phone):</p>
 {download_cards(lang)}
@@ -884,20 +960,30 @@ VIDEOS = [
     ('44', 'New-feed-filters', 'New feed filters', 'تصفية المحتوى: الجديد',
      'New filters for the feed and for sponsors. Most are off until you turn them on.',
      'خيارات جديدة لتصفية المحتوى ولمقاطع الرعاية. معظمها غير مفعّل حتى تفعّله.'),
+    # 0.9.6: text on the screen, no voice (code repo media/tutorials/storyboard_096.py)
+    ('45', 'Find-my-TV', 'Find my TV, then OK on the TV', 'ابحث عن التلفاز، ثم OK على التلفاز',
+     'A new phone connects without the QR code: the same code on both screens, then OK on the TV.',
+     'يتصل الهاتف الجديد دون رمز QR: الرمز نفسه على الشاشتين، ثم OK على التلفاز.'),
+    ('46', 'Pointer', 'The Pointer screen', 'شاشة المؤشر',
+     'Touchpad, air mouse and keys on one screen, and More on this TV.',
+     'لوحة اللمس والماوس الهوائي والأزرار في شاشة واحدة، و«المزيد على هذا التلفاز».'),
+    ('47', 'Update-from-phone', 'Update the TV from the phone', 'تحديث التلفاز من الهاتف',
+     'Three update channels, and one tap on the phone to update the TV.',
+     'ثلاث قنوات للتحديثات، ولمسة واحدة على الهاتف لتحديث التلفاز.'),
 ]
 
 
 VNAME = {n: (name, te, ta) for n, name, te, ta, de, da in VIDEOS}
-TEXT_FROM, TEXT_TO = 35, 44  # text on the screen, no voice
+TEXT_FROM, TEXT_TO = 35, 47  # text on the screen, no voice
 
 # The videos page in topics, in the order people need them.
 VGROUPS = [
     ('start', 'Start here', 'ابدأ من هنا', ['26', '00', '01']),
     ('install', 'Install and remove', 'التثبيت والحذف', ['27', '28', '29', '30', '31', '32', '34']),
-    ('phone', 'Your phone', 'هاتفك', ['06', '15', '16', '17', '14', '37', '38', '40', '42', '18', '19', '41']),
+    ('phone', 'Your phone', 'هاتفك', ['06', '15', '45', '16', '17', '14', '37', '38', '40', '42', '18', '19', '46', '41']),
     ('family', 'Family and locks', 'العائلة والقفل', ['04', '05', '20', '36', '35']),
     ('watch', 'Watching', 'المشاهدة', ['02', '03', '07', '11', '12', '13', '08', '10', '09', '23', '24', '43', '39', '44']),
-    ('more', 'Settings, updates and help', 'الإعدادات والتحديثات والمساعدة', ['21', '22', '25', '33']),
+    ('more', 'Settings, updates and help', 'الإعدادات والتحديثات والمساعدة', ['21', '22', '47', '25', '33']),
 ]
 assert sorted(n for g in VGROUPS for n in g[3]) == sorted(VNAME), 'every video in exactly one topic'
 
@@ -915,8 +1001,9 @@ def videos(lang):
             title = L(lang, te, ta)
             note = ''
             if TEXT_FROM <= int(n) <= TEXT_TO:
-                note = L(lang, '<p class="meta">New in 0.9.5 · text on the screen, no voice</p>',
-                         '<p class="meta">جديد في <bdi>0.9.5</bdi> · نصّ على الشاشة دون تعليق صوتي</p>')
+                nv = '0.9.6' if int(n) >= 45 else '0.9.5'
+                note = L(lang, f'<p class="meta">New in {nv} · text on the screen, no voice</p>',
+                         f'<p class="meta">جديد في <bdi>{nv}</bdi> · نصّ على الشاشة دون تعليق صوتي</p>')
             if n == '33':
                 note = L(lang, '<p class="warn">Made for 0.9.4. What 0.9.5 adds online (Control from away, remote help, lyrics) is in the FAQ: <a href="/faq/#privacy">What goes online?</a></p>',
                          '<p class="warn">صُنع لإصدار <bdi>0.9.4</bdi>. وما يضيفه <bdi>0.9.5</bdi> من اتصال بالإنترنت («التحكم من خارج المنزل» و«المساعدة عن بُعد» وكلمات الأغنية) في الأسئلة الشائعة: <a href="/ar/faq/#privacy">ما الذي يتصل بالإنترنت؟</a></p>')
@@ -931,8 +1018,8 @@ def videos(lang):
         groups.append(f'<section class="vgroup" id="{gid}"><h2>{L(lang, ge, ga)} <span class="count">{len(ns)}</span></h2><div class="videos">{"".join(cards)}</div></section>')
     chips = ''.join(f'<li><a href="#{gid}">{L(lang, ge, ga)}</a></li>' for gid, ge, ga, ns in VGROUPS)
     intro = L(lang,
-              f'<h1>Videos</h1><p>Tutorials for Sofa Tube 0.9: {len(VIDEOS)} videos in English, from installing to every feature, with the remote buttons to press and the phone screen. Videos {TEXT_FROM} to {TEXT_TO}, for 0.9.5, have text on the screen and no voice. The same videos in Arabic: <a href="/ar/videos/" hreflang="ar" lang="ar">الفيديوهات بالعربية</a>.</p>',
-              f'<h1>الفيديوهات</h1><p>شروح بالفيديو لصوفا تيوب <bdi>0.9</bdi>: <bdi>{len(VIDEOS)}</bdi> فيديوًا بالعربية، من التثبيت إلى كل ميزة، تُظهر أزرار جهاز التحكم التي تضغطها وشاشة الهاتف. والفيديوهات من <bdi>{TEXT_FROM}</bdi> إلى <bdi>{TEXT_TO}</bdi>، لإصدار <bdi>0.9.5</bdi>، فيها نصّ على الشاشة دون تعليق صوتي. والفيديوهات نفسها بالإنجليزية: <a href="/videos/" hreflang="en" lang="en">Videos in English</a>.</p>')
+              f'<h1>Videos</h1><p>Tutorials for Sofa Tube 0.9: {len(VIDEOS)} videos in English, from installing to every feature, with the remote buttons to press and the phone screen. Videos {TEXT_FROM} to {TEXT_TO}, for 0.9.5 and 0.9.6, have text on the screen and no voice. The same videos in Arabic: <a href="/ar/videos/" hreflang="ar" lang="ar">الفيديوهات بالعربية</a>.</p>',
+              f'<h1>الفيديوهات</h1><p>شروح بالفيديو لصوفا تيوب <bdi>0.9</bdi>: <bdi>{len(VIDEOS)}</bdi> فيديوًا بالعربية، من التثبيت إلى كل ميزة، تُظهر أزرار جهاز التحكم التي تضغطها وشاشة الهاتف. والفيديوهات من <bdi>{TEXT_FROM}</bdi> إلى <bdi>{TEXT_TO}</bdi>، لإصدارَي <bdi>0.9.5</bdi> و<bdi>0.9.6</bdi>، فيها نصّ على الشاشة دون تعليق صوتي. والفيديوهات نفسها بالإنجليزية: <a href="/videos/" hreflang="en" lang="en">Videos in English</a>.</p>')
     return intro + f'<ul class="toc">{chips}</ul>' + ''.join(groups)
 
 
@@ -1112,6 +1199,7 @@ EN_AWAY = f"""<p>Control from away is <b>off by default</b>. A parent turns it o
 <li><b>The server can be changed:</b> run your own ntfy server and type its address on the TV (Settings → Kids → Own mailbox server); paired phones move to it by themselves. Or use your own <b>Tailscale</b>: the phone is then “at home” and no mailbox server is used. The guide, in plain words: <a href="/remote/away-help.html">How to connect from away</a>.</li>
 <li><b>Kids' requests</b> (“more time”, “can I watch this?”, “can I open this app?”) reach the parent's phone as a notification that the TV itself sends through the phone's own notification service (Apple, Google or Mozilla). That service also gets only a sealed message.</li>
 <li><b>“Now” shows only what is on at that moment</b>, made when the parent asks; no history is kept. While Control from away is on, the TV shows a small sign (“A parent's phone can see what's on now”) and a short message each time a parent looks.</li>
+<li><b>The whole phone page from away (0.9.6):</b> the Sofa Tube app opens the TV's full phone page over a direct, end-to-end encrypted connection, with the parent PIN first; when no direct connection can be made, the simple view stays and says why. Through the family's own Tailscale it works as at home.</li>
 <li><b>Some things stay at home:</b> changing the PIN, removing phones and turning Control from away off can only be done on the TV. Turning the TV off from away needs “Control the whole TV from the phone”. If the internet is down, the rules keep working on the TV.</li>
 </ul>"""
 
@@ -1135,7 +1223,7 @@ EN_LIMITS = """<p><b>LG</b></p>
 <li>Reminders and a routine's message show only inside Sofa Tube, not over other apps. “Ask a parent” on a blocked app shows only on Sofa Tube's own screen.</li>
 <li>“On the TV now” is hidden on TVs whose app interface does not answer (the 2023 and newer TVs in Samsung's Remote Test Lab answered “not found” for every app).</li>
 <li>The TV volume number and the kids volume cap work only where the TV's network volume control answers, and are not yet confirmed on a real Samsung TV. Whole-TV pairing and the Soundbar badge also still need a check on a Samsung TV at home (the lab TVs refused new remote connections).</li>
-<li>No Next / Previous keys on the phone (Samsung has none). No most replayed part (YouTube does not send it to Samsung TVs), and “Even out loud and quiet parts” is hidden (the TV's sound can't be processed).</li>
+<li>No Next / Previous keys on the phone (Samsung has none). The most replayed part comes through Sofa Tube's own service on the TV, which asks youtube.com for it (YouTube does not send it to Samsung TVs); checked on the Samsung TV emulator, not yet on a real Samsung TV. “Even out loud and quiet parts” is hidden (the TV's sound can't be processed).</li>
 </ul>
 <p><b>All TVs</b></p>
 <ul>
@@ -1163,6 +1251,7 @@ AR_AWAY = f"""<p>«التحكم من خارج المنزل» <b>غير مفعّ�
 <li><b>يمكن تغيير الخادم:</b> شغّل خادم ntfy خاصًا بك واكتب عنوانه على التلفاز (الإعدادات ← الأطفال ← «خادم رسائل خاص»)، فتنتقل الهواتف المقترنة إليه تلقائيًا. أو استخدم شبكة <b>Tailscale</b> الخاصة بك: يكون الهاتف حينها «في المنزل» ولا يُستخدم خادم رسائل. الدليل بكلمات بسيطة: <a href="/remote/away-help.html">طرق الاتصال من خارج المنزل</a>.</li>
 <li><b>طلبات الأطفال</b> («وقت إضافي»، «هل أشاهد هذا؟»، «هل أفتح هذا التطبيق؟») تصل إلى هاتف أحد الوالدين إشعارًا يرسله التلفاز نفسه عبر خدمة الإشعارات في الهاتف (Apple أو Google أو Mozilla). ولا يصل إلى تلك الخدمة أيضًا إلا رسالة مختومة.</li>
 <li><b>«الآن» لا تُظهر إلا ما يُعرض في تلك اللحظة</b>، وتُعدّ فقط حين يطلبها أحد الوالدين، ولا يُحفظ أي سجل. وأثناء تفعيل الميزة تظهر على التلفاز علامة صغيرة («يمكن لهاتف أحد الوالدين رؤية ما يُعرض الآن»)، ورسالة قصيرة كلما اطّلع أحد الوالدين.</li>
+<li><b>صفحة الهاتف كاملة من خارج المنزل (<bdi>0.9.6</bdi>):</b> يفتح تطبيق صوفا تيوب صفحة الهاتف كاملة عبر اتصال مباشر مشفّر بين الطرفين، والرمز السري لولي الأمر أولًا؛ وإن تعذّر الاتصال المباشر تبقى الواجهة المبسّطة وتذكر السبب. ومع شبكة Tailscale الخاصة بالعائلة يعمل كما في المنزل.</li>
 <li><b>بعض الأمور تبقى في المنزل:</b> تغيير الرمز السري وإزالة الهواتف وإيقاف «التحكم من خارج المنزل» لا تكون إلا من التلفاز. ويتطلب إطفاء التلفاز من خارج المنزل تفعيل «التحكم في التلفاز كله من الهاتف». وإن انقطع الإنترنت تبقى القواعد سارية على التلفاز.</li>
 </ul>"""
 
@@ -1186,7 +1275,7 @@ AR_LIMITS = """<p><b>LG</b></p>
 <li>التذكيرات ورسالة الروتين لا تظهر إلا داخل صوفا تيوب، لا فوق التطبيقات الأخرى. و«اطلب من أحد الوالدين» على تطبيق محظور لا يظهر إلا على شاشة صوفا تيوب نفسه.</li>
 <li>تُخفى «على التلفاز الآن» على الأجهزة التي لا تجيب واجهة تطبيقاتها (أجابت أجهزة 2023 وما بعدها في مختبر سامسونج عن بُعد «غير موجود» لكل تطبيق).</li>
 <li>رقم مستوى صوت التلفاز و«أقصى مستوى للصوت» للأطفال يعملان فقط حيث يجيب التحكم في الصوت عبر الشبكة في التلفاز، ولم يُتأكَّد منهما بعدُ على تلفاز سامسونج حقيقي. ولا يزال الاقتران للتحكم في التلفاز كله وشارة «مكبر الصوت» يحتاجان إلى تجربة على تلفاز سامسونج في المنزل (رفضت أجهزة المختبر الاتصالات الجديدة بجهاز التحكم).</li>
-<li>لا زرّي التالي والسابق على الهاتف (لا يوجدان في سامسونج). ولا «الجزء الأكثر إعادة» (لا يرسله YouTube إلى أجهزة سامسونج)، وتُخفى «موازنة الأجزاء العالية والهادئة» (لا يمكن معالجة صوت التلفاز).</li>
+<li>لا زرّي التالي والسابق على الهاتف (لا يوجدان في سامسونج). ويصل «الجزء الأكثر إعادة» عبر خدمة صوفا تيوب نفسها على التلفاز، فهي تطلبه من <bdi>youtube.com</bdi> (لا يرسله YouTube إلى أجهزة سامسونج)؛ وجُرِّب ذلك على محاكي تلفاز سامسونج، ولم يُجرَّب بعدُ على تلفاز سامسونج حقيقي. وتُخفى «موازنة الأجزاء العالية والهادئة» (لا يمكن معالجة صوت التلفاز).</li>
 </ul>
 <p><b>كل أجهزة التلفاز</b></p>
 <ul>
@@ -1210,11 +1299,11 @@ def faq(lang):
             ('لماذا لا أجده في متجر تطبيقات التلفاز؟',
              '<p>صوفا تيوب يفتح صفحة YouTube الخاصة بالتلفاز ويضيف إليها ميزات (منها حجب الإعلانات)، فيُثبَّت من خارج المتجر: بتطبيق Downloader في أندرويد، وبـ<bdi>Apps2Samsung</bdi> (أو TizenBrew) في سامسونج، وبوضع المطوّر في LG.</p>'),
             ('كيف أحدّث التطبيق؟',
-             '<ul><li><b>أندرويد:</b> ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات.</li><li><b>سامسونج:</b> الإعدادات ← «حول التطبيق والنسخ الاحتياطي» ← البحث عن تحديثات (يُحدَّث على التلفاز حين يمكن ذلك، وإلا فثبّت الملف الجديد بـ<bdi>Apps2Samsung</bdi> بالطريقة نفسها، وتبقى الإعدادات). أما وحدة TizenBrew فتتحدّث تلقائيًا.</li><li><b>LG:</b> الإعدادات ← حول التطبيق والنسخ الاحتياطي ← البحث عن تحديثات (مع <bdi>Sofa Tube Phone</bdi>)، أو ثبّت ملفات ipk الجديدة بالطريقة نفسها، وتبقى إعداداتك كما هي. وحدّث <bdi>Sofa Tube Phone</bdi> أيضًا حين يطلب الإصدار ذلك (ويطلبه <bdi>0.9.5</bdi>): <a href="/ar/install/#lg-update">كيف</a>.</li></ul><p>لا يُفحص شيء إلا إذا طلبت ذلك (أو فعّلت الفحص الأسبوعي). والروابط القصيرة (<code dir="ltr">sofatube.github.io/tv</code> و<code dir="ltr">/lg</code> و<code dir="ltr">/lg-phone</code> و<code dir="ltr">/samsung</code>) تشير دائمًا إلى أحدث إصدار.</p>'),
+             '<p><b>جديد في <bdi>0.9.6</bdi>:</b> ثلاث قنوات للتحديثات («المستقر» و«الاختبار» و«التجريبي»؛ الإعدادات ← «حول التطبيق والنسخ الاحتياطي» ← «قناة التحديثات»)، وبطاقة «التحديثات» على هاتف أحد الوالدين: لمسة على «تحديث التلفاز» تشغّل التحديث على التلفاز نفسه، في كل أنواع التلفاز. <a href="/ar/#updates">التفاصيل</a>.</p><ul><li><b>أندرويد:</b> ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات.</li><li><b>سامسونج:</b> الإعدادات ← «حول التطبيق والنسخ الاحتياطي» ← البحث عن تحديثات (يُحدَّث على التلفاز حين يمكن ذلك، وإلا فثبّت الملف الجديد بـ<bdi>Apps2Samsung</bdi> بالطريقة نفسها، وتبقى الإعدادات). أما وحدة TizenBrew فتتحدّث تلقائيًا.</li><li><b>LG:</b> الإعدادات ← حول التطبيق والنسخ الاحتياطي ← البحث عن تحديثات (مع <bdi>Sofa Tube Phone</bdi>)، أو ثبّت ملفات ipk الجديدة بالطريقة نفسها، وتبقى إعداداتك كما هي. وحدّث <bdi>Sofa Tube Phone</bdi> أيضًا حين يطلب الإصدار ذلك (ويطلبه <bdi>0.9.6</bdi>): <a href="/ar/install/#lg-update">كيف</a>.</li></ul><p>لا يُفحص شيء إلا إذا طلبت ذلك (أو فعّلت الفحص الأسبوعي). والروابط القصيرة (<code dir="ltr">sofatube.github.io/tv</code> و<code dir="ltr">/lg</code> و<code dir="ltr">/lg-phone</code> و<code dir="ltr">/samsung</code>) تشير دائمًا إلى أحدث إصدار.</p>', 'updates'),
             ('هل أحتاج إلى حساب؟ وأين تُحفظ إعداداتي؟',
              '<p>لا حاجة إلى حساب: تابع القنوات دون تسجيل الدخول («قنواتي»). تبقى الإعدادات وسجل مشاهدة الأطفال على التلفاز. صفحة الهاتف يقدّمها التلفاز نفسه عبر شبكة الواي فاي في بيتك، ويبقى الرمز السري على التلفاز، ولا تتضمن النسخة الاحتياطية الرمز السري أبدًا.</p><p>ما الذي يتصل بالإنترنت ومتى: <a href="#privacy">ما الذي يتصل بالإنترنت؟</a></p>'),
             ('ما الذي يتصل بالإنترنت؟', AR_PRIVACY, 'privacy'),
-            ('التحكم من خارج المنزل: من يرى ماذا؟', AR_AWAY, 'away'),
+            ('التحكم من خارج المنزل: من يرى ماذا؟', AR_AWAY + away_shot('ar'), 'away'),
             ('المساعدة عن بُعد: ماذا يمر وأين؟', AR_HELP, 'help'),
             ('الحدود المعروفة في <bdi>0.9.6</bdi>', AR_LIMITS, 'limits'),
             ('هل يضر بالتلفاز؟',
@@ -1234,11 +1323,11 @@ def faq(lang):
             ('Why is it not in the TV\'s app store?',
              '<p>Sofa Tube opens YouTube\'s own TV page and adds features on top (ad blocking among them), so it is installed from outside the store: with the Downloader app on Android, Apps2Samsung (or TizenBrew) on Samsung and Developer Mode on LG.</p>'),
             ('How do updates work?',
-             '<ul><li><b>Android:</b> install the new .apk over this one the same way; settings stay.</li><li><b>Samsung:</b> Settings → Backup and about → Check for updates (it updates on the TV when it can; otherwise install the new file with Apps2Samsung the same way; settings stay). The TizenBrew module updates itself.</li><li><b>LG:</b> Settings → Backup and about → Check for updates (with Sofa Tube Phone), or install the new .ipk files the same way; your settings stay. Update Sofa Tube Phone too when a release says so (0.9.5 does): <a href="/install/#lg-update">how</a>.</li></ul><p>Nothing is checked unless you ask (or turn on the weekly check). The short links (<code>sofatube.github.io/tv</code>, <code>/lg</code>, <code>/lg-phone</code>, <code>/samsung</code>) always point to the latest release.</p>'),
+             '<p><b>New in 0.9.6:</b> three update channels (Stable, Testing, Experimental; Settings → Backup and about → Update channel) and the Updates card on a parent\'s phone: one tap on <b>Update the TV</b> starts the update on the TV itself, on every brand. <a href="/#updates">Details</a>.</p><ul><li><b>Android:</b> install the new .apk over this one the same way; settings stay.</li><li><b>Samsung:</b> Settings → Backup and about → Check for updates (it updates on the TV when it can; otherwise install the new file with Apps2Samsung the same way; settings stay). The TizenBrew module updates itself.</li><li><b>LG:</b> Settings → Backup and about → Check for updates (with Sofa Tube Phone), or install the new .ipk files the same way; your settings stay. Update Sofa Tube Phone too when a release says so (0.9.6 does): <a href="/install/#lg-update">how</a>.</li></ul><p>Nothing is checked unless you ask (or turn on the weekly check). The short links (<code>sofatube.github.io/tv</code>, <code>/lg</code>, <code>/lg-phone</code>, <code>/samsung</code>) always point to the latest release.</p>', 'updates'),
             ('Do I need an account? Where are my settings kept?',
              '<p>No account is needed: follow channels without signing in (My channels). Settings and the kids\' watch history stay on the TV. The phone page is served by the TV itself on your Wi-Fi; the PIN stays on the TV and is never in a backup.</p><p>What goes online, and when: <a href="#privacy">What goes online?</a></p>'),
             ('What goes online?', EN_PRIVACY, 'privacy'),
-            ('Control from away: who can see what?', EN_AWAY, 'away'),
+            ('Control from away: who can see what?', EN_AWAY + away_shot('en'), 'away'),
             ('Remote help: what goes where?', EN_HELP, 'help'),
             ('Known limits in 0.9.6', EN_LIMITS, 'limits'),
             ('Can it harm my TV?',
