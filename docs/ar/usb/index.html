@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>التثبيت عبر USB · صوفا تيوب</title>
+<meta name="description" content="ثبّت صوفا تيوب على Chromecast with Google TV أو Nvidia Shield TV عبر كابل USB، من Chrome أو Edge على حاسوب.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FF8A00">
+<link rel="canonical" href="https://sofatube.github.io/ar/usb/">
+<link rel="alternate" hreflang="en" href="https://sofatube.github.io/usb/">
+<link rel="alternate" hreflang="ar" href="https://sofatube.github.io/ar/usb/">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta property="og:title" content="التثبيت عبر USB · صوفا تيوب">
+<meta property="og:description" content="ثبّت صوفا تيوب على Chromecast with Google TV أو Nvidia Shield TV عبر كابل USB، من Chrome أو Edge على حاسوب.">
+<meta property="og:image" content="https://sofatube.github.io/assets/shots/settings.jpg">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">انتقل إلى المحتوى</a>
+<header class="site-head"><div class="wrap">
+<a class="logo" href="/ar/"><img src="/icon.svg" alt="" width="40" height="40"><span class="brand">صوفا تيوب</span></a>
+<nav class="nav" aria-label="الموقع"><a href="/ar/">الرئيسية</a><a href="/ar/install/">التثبيت</a><a href="/ar/videos/">الفيديوهات</a><a href="/ar/testers/">للمجرّبين</a><a href="/ar/faq/">الأسئلة الشائعة</a><a class="nav-remote" href="/remote/">جهاز التحكم من الهاتف</a><a class="lang" href="/usb/" hreflang="en" lang="en">English</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<style>
+#usb-app .usb-step { margin: 0 0 18px; }
+#usb-app .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0; }
+#usb-app button.btn { font: inherit; cursor: pointer; border: 0; }
+#usb-app button.btn:disabled { opacity: .45; cursor: not-allowed; }
+#usb-app input[type=file] { max-width: 100%; }
+#usb-app progress { width: 100%; height: 14px; }
+.usb-msg { margin: 8px 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); overflow-wrap: anywhere; }
+.usb-msg.good { border-color: #4CAF50; }
+.usb-msg.warn { border-color: var(--warn-line); background: var(--warn-bg); }
+.usb-msg.bad { border-color: var(--orange-red); background: var(--warn-bg); }
+.usb-boxes { display: flex; flex-direction: column; gap: 12px; margin: 12px 0 20px; }
+</style>
+<h1>التثبيت من هذا الحاسوب عبر USB</h1>
+<p class="lead">لأجهزة <bdi>Android TV</bdi> التي يتصل منفذ USB فيها بالحاسوب، مثل <bdi>Chromecast with Google TV</bdi> و<bdi>Nvidia Shield TV</bdi>: يثبّت Chrome أو Edge صوفا تيوب عبر كابل، دون Downloader ودون مفتاح «تثبيت التطبيقات غير المعروفة».</p>
+<div class="note" role="note"><p><b>طريقة جديدة في الإصدار <bdi>0.9.6</bdi>.</b> جُرِّبت على جهاز USB محاكى وعلى محاكي <bdi>Android TV</bdi>، ولم تُجرَّب بعد على جهاز <bdi>Chromecast</bdi> أو <bdi>Shield</bdi> حقيقي. إن لم تنجح، فاستخدم <a href="/ar/setup/">إعداد صوفا تيوب</a> أو <a href="/ar/install/">طريقة Downloader</a>، وأخبرنا بما حدث.</p></div>
+<p id="usb-browser" class="usb-msg" hidden></p>
+<noscript><p class="usb-msg bad">تحتاج هذه الصفحة إلى JavaScript.</p></noscript>
+
+<h2>الأجهزة والكابل</h2>
+<div class="usb-boxes">
+<div class="card"><h3><bdi>Chromecast with Google TV</bdi> ‏(<bdi>4K</bdi> و<bdi>HD</bdi>)</h3>
+<p>منفذ <bdi>USB-C</bdi> الوحيد فيه (منفذ الكهرباء) إلى الحاسوب، بكابل ينقل البيانات (<bdi>USB-A</bdi> إلى <bdi>USB-C</bdi>، أو <bdi>USB-C</bdi> إلى <bdi>USB-C</bdi>). يأخذ الجهاز الكهرباء من الحاسوب في أثناء ذلك: إن أعاد التشغيل أو لم يعمل، فاستخدم منفذًا آخر في الحاسوب أو موزّع USB بكهرباء.</p></div>
+<div class="card"><h3><bdi>Nvidia Shield TV Pro</bdi> ‏(2019) و<bdi>Shield TV</bdi> ‏(2017)</h3>
+<p>كابل <bdi>USB-A</bdi> إلى <bdi>USB-A</bdi> بين الحاسوب وأحد منفذي USB في الجهاز (إن لم يظهر، فجرّب المنفذ الآخر). يبقى الجهاز موصولًا بكهربائه. جهاز <bdi>Shield TV</bdi> الأسطواني (2019) لا منفذ USB فيه.</p></div>
+<div class="card"><h3>التلفزيونات وأغلب الأجهزة الأخرى</h3>
+<p>منافذ USB في التلفزيونات (TCL وسوني وهايسنس وغيرها) وفي أغلب أجهزة <bdi>Fire TV</bdi> لا تتصل بالحاسوب بهذه الطريقة. استخدم <a href="/ar/setup/">إعداد صوفا تيوب</a> أو <a href="/ar/install/">خطوات التثبيت</a>.</p></div>
+</div>
+
+<h2>الخطوات</h2>
+<div id="usb-app">
+<ol class="steps">
+<li class="usb-step"><b>فعّل تصحيح أخطاء USB على الجهاز</b> (مرة واحدة).
+<ul>
+<li><bdi>Google TV</bdi> و<bdi>Chromecast</bdi>: الإعدادات ← النظام ← حول (<bdi>Settings → System → About</bdi>). انتقل إلى <b><bdi>Android TV OS build</bdi></b> واضغط OK سبع مرات حتى تظهر «<bdi>You are now a developer</bdi>». ثم الإعدادات ← النظام ← <b>خيارات المطوّرين</b> (<bdi>Developer options</bdi>) ← <b>تصحيح أخطاء USB</b> (<bdi>USB debugging</bdi>): مفعّل.</li>
+<li><bdi>Shield</bdi>: الإعدادات ← <bdi>Device Preferences</bdi> ← <bdi>About</bdi> ← <b><bdi>Build</bdi></b> سبع مرات، ثم <bdi>Device Preferences</bdi> ← <bdi>Developer options</bdi> ← <bdi>USB debugging</bdi>: مفعّل.</li>
+</ul></li>
+<li class="usb-step"><b>صِل الكابل</b> كما في الأعلى. أغلق البرامج الأخرى التي تستخدم أجهزة أندرويد على هذا الحاسوب (<bdi>adb</bdi> و<bdi>Android Studio</bdi> و<bdi>scrcpy</bdi>).</li>
+<li class="usb-step"><b>احصل على ملف صوفا تيوب.</b>
+<p id="usb-list-msg" class="usb-msg" hidden></p>
+<div class="row"><button class="btn" id="usb-get" type="button" disabled>تجهيز الملف</button></div>
+<div id="usb-pick-box" hidden>
+<div class="row"><a class="btn ghost" id="usb-download" href="#" download>تنزيل صوفا تيوب (<bdi>apk</bdi>)</a></div>
+<div class="row"><label for="usb-file">ثم اختر الملف الذي نزّلته:</label> <input type="file" id="usb-file" accept=".apk,application/vnd.android.package-archive"></div>
+</div>
+<p id="usb-file-msg" class="usb-msg" hidden></p></li>
+<li class="usb-step"><b>صِل الجهاز وثبّت.</b> تفتح قائمة في المتصفح: اختر الجهاز ثم «اتصال» (<bdi>Connect</bdi>).
+<div class="row"><button class="btn" id="usb-go" type="button" disabled>الاتصال بالجهاز والتثبيت</button></div>
+<progress id="usb-bar" max="1" value="0" hidden></progress>
+<p id="usb-msg" class="usb-msg" role="status" aria-live="polite" hidden></p></li>
+<li class="usb-step"><b>على التلفاز:</b> يسأل «<bdi>Allow USB debugging?</bdi>» (السماح بتصحيح أخطاء USB). انتقل إلى <b><bdi>Allow</bdi></b> (سماح) بجهاز التحكم واضغط OK. وإن فعّلت «<bdi>Always allow from this computer</bdi>» فلن يُطرح السؤال في المرة القادمة.</li>
+<li class="usb-step">بعد «تم» يفتح صوفا تيوب على التلفاز. يمكنك بعدها إيقاف تصحيح أخطاء USB من خيارات المطوّرين.</li>
+</ol>
+</div>
+
+<h2>الأمان والخصوصية</h2>
+<ul>
+<li>كل شيء يحدث في هذا المتصفح: لا خادم بين الحاسوب والجهاز.</li>
+<li>قبل التثبيت يُتحقَّق من توقيع قائمة الإصدار (<bdi>version.json</bdi>) بمفتاح صوفا تيوب، ومن حجم الملف وبصمته (<bdi>sha256</bdi>).</li>
+<li>يحفظ المتصفح مفتاحًا لهذا الحاسوب ليعرفه الجهاز (كما يفعل <bdi>adb</bdi>). لإلغائه: خيارات المطوّرين ← <bdi>Revoke USB debugging authorizations</bdi>.</li>
+<li>تستخدم الصفحة مكتبة <a href="https://github.com/yume-chan/ya-webadb"><bdi>Tango (ya-webadb)</bdi></a> برخصة <a href="/usb/tango-adb-LICENSE.txt"><bdi>MIT</bdi></a>، منسوخة على هذا الموقع.</li>
+</ul>
+<p class="meta">تعمل في Google Chrome وMicrosoft Edge على ويندوز وماك ولينكس وكروم بوك. لا تعمل في فايرفوكس وسفاري ولا على آيفون (لا يدعم أيٌّ منها WebUSB).</p>
+<script type="module" src="/usb/usb-install.js"></script>
+</div></main>
+<footer class="site-foot"><div class="wrap">
+<p><b>للتواصل:</b> <a href="mailto:sofatube.app@proton.me"><bdi>sofatube.app@proton.me</bdi></a> · <a href="https://github.com/sofatube/sofatube.github.io/issues">افتح بلاغًا (Issue) على GitHub</a></p>
+<p>صوفا تيوب مشروع مجاني برخصة <a href="https://github.com/sofatube/sofatube.github.io/blob/main/LICENSE"><bdi>GPL-3.0</bdi></a>، مبني على <a href="https://github.com/webosbrew/youtube-webos">webosbrew/youtube-webos</a> و<a href="https://github.com/reisxd/TizenBrew">TizenBrew</a> (لمطوّره <bdi>Reis Can</bdi>) و<a href="https://github.com/reisxd/TizenTube">TizenTube</a> و<a href="https://github.com/reisxd/TizenTubeCobalt">TizenTube Cobalt</a> (المبني على <bdi>Cobalt</bdi> من Google برخصة <bdi>Apache-2.0</bdi>)، ويستخدم <a href="https://sponsor.ajay.app/">SponsorBlock</a>. خط العناوين <bdi>Baloo Bhaijaan 2</bdi> برخصة <a href="/assets/fonts/OFL.txt">SIL OFL</a>.</p>
+<p>صوفا تيوب غير تابع لـYouTube أو Google أو LG أو سامسونج. YouTube علامة تجارية لشركة <bdi>Google LLC</bdi>.</p>
+<p><a href="https://github.com/sofatube/sofatube.github.io">github.com/sofatube/sofatube.github.io</a> · <a href="https://github.com/sofatube/sofatube.github.io/releases/latest">كل الملفات</a></p>
+</div></footer>
+</body>
+</html>

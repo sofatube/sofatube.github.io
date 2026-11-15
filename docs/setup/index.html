@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sofa Tube Setup · Sofa Tube</title>
+<meta name="description" content="Sofa Tube Setup installs Sofa Tube on Android TV, LG and Samsung TVs from a Windows or Mac computer or an Android phone, with nothing typed on the TV.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FF8A00">
+<link rel="canonical" href="https://sofatube.github.io/setup/">
+<link rel="alternate" hreflang="en" href="https://sofatube.github.io/setup/">
+<link rel="alternate" hreflang="ar" href="https://sofatube.github.io/ar/setup/">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta property="og:title" content="Sofa Tube Setup · Sofa Tube">
+<meta property="og:description" content="Sofa Tube Setup installs Sofa Tube on Android TV, LG and Samsung TVs from a Windows or Mac computer or an Android phone, with nothing typed on the TV.">
+<meta property="og:image" content="https://sofatube.github.io/assets/shots/settings.jpg">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head"><div class="wrap">
+<a class="logo" href="/"><img src="/icon.svg" alt="" width="40" height="40"><span class="brand">Sofa Tube</span></a>
+<nav class="nav" aria-label="Site"><a href="/">Home</a><a href="/install/">Install</a><a href="/videos/">Videos</a><a href="/testers/">Testers</a><a href="/faq/">FAQ</a><a class="nav-remote" href="/remote/">Phone remote</a><a class="lang" href="/ar/setup/" hreflang="ar" lang="ar">العربية</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<h1>Sofa Tube Setup</h1>
+<p class="lead">Installs Sofa Tube on your TV from a computer or an Android phone. You never type on the TV: codes, links and logins are typed on the computer or phone, and Setup sends them to the TV with the TV maker's own remote protocol.</p>
+<p class="meta">Version 0.9.6 · for Android TV, Google TV, LG and Samsung. The TV and the computer (or phone) on the same Wi-Fi.</p>
+
+<div id="setup-ways">
+<div class="card" id="android-phone"><h3>Android phone <span class="tag" id="tag-android-phone" style="display:none">Your device</span></h3>
+<p>Sofa Tube Setup for the phone: no computer needed.</p>
+<div class="row"><a class="btn" href="https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.6/SofaTubeSetup-0.9.6-Android.apk">Download the phone app (.apk)</a></div>
+<p class="meta">The first time, Android asks to allow your browser to install apps: tap <b>Settings</b>, turn on <b>Allow from this source</b>, go back and tap <b>Install</b>.</p></div>
+
+<div class="card" id="computer"><h3>Windows or Mac computer <span class="tag" id="tag-windows" style="display:none">Your device</span><span class="tag" id="tag-mac" style="display:none">Your device</span></h3>
+<p>One file, nothing to install: open it and the Setup page opens in your browser by itself.</p>
+<div class="row"><a class="btn" id="btn-win" href="https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.6/SofaTubeSetup-0.9.6-Windows.exe">Windows 10 and 11 (.exe, about 92 MB)</a> <a class="btn ghost" id="btn-mac" href="https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.6/SofaTubeSetup-0.9.6-Mac.zip">Mac (.zip)</a></div>
+<p class="meta">Keep the Setup window open until Sofa Tube runs on the TV. The Mac version is not yet tested on a real Mac.</p></div>
+
+<div class="card" id="iphone"><h3>Only an iPhone or iPad? <span class="tag" id="tag-iphone" style="display:none">Your device</span></h3>
+<p>Apple's App Store allows no app that installs apps on a TV. Use a Windows or Mac computer on the same Wi-Fi once, or an Android phone. After the install, the phone remote works on the iPhone as usual.</p>
+<p class="meta">Send this page's link to the computer: sofatube.github.io/setup/</p></div>
+<div class="card" id="usb"><h3>Android TV box with a USB port: install from this computer</h3>
+<p>Chromecast with Google TV or Nvidia Shield TV, a USB cable and Chrome or Edge: the browser installs Sofa Tube over the cable. Useful when Downloader does not work. New, not yet tried on a real box.</p>
+<div class="row"><a class="btn ghost" href="/usb/">Install over USB</a></div></div>
+</div>
+
+<h2 id="first-open">The first time you open it</h2>
+<p>The Setup files are not signed yet (a signature would show a person's name; Sofa Tube publishes only as Sofa Tube). So the system warns once:</p>
+<ul>
+<li><b>Windows:</b> the browser may say the file "isn't commonly downloaded": choose <b>Keep</b>. Then Microsoft Defender SmartScreen says "Windows protected your PC": click <b>More info</b>, then <b>Run anyway</b>. If Windows Firewall asks, allow <b>private networks</b>.</li>
+<li><b>Mac:</b> unzip the file and double-click <b>Sofa Tube Setup.command</b>. If the Mac says it cannot check it: close the message, open <b>System Settings → Privacy &amp; Security</b>, scroll to Security, click <b>Open Anyway</b> and confirm with your Mac password. A Terminal window opens; the first time, Setup downloads Node.js from nodejs.org (about 50 MB) if the Mac has none.</li>
+<li><b>Android:</b> allow the browser to install apps once (above).</li>
+</ul>
+
+<h2>What Setup asks on each TV</h2>
+<section class="tv-section" id="setup-android">
+<h3>Android TV · Google TV</h3>
+<ol class="steps">
+<li>Pick the TV in Setup. The TV shows a 6-character code: type it in Setup (not on the TV).</li>
+<li>Setup opens the <b>Downloader</b> app, types the link and downloads Sofa Tube. If Downloader is not installed, install it from the TV's app store (the voice search button finds it without typing).</li>
+<li>On Android's install screen: move to <b>INSTALL</b> with an arrow button and press OK. Only the TV's own remote can do this press. The first time, the TV may ask to allow Downloader to install apps.</li>
+<li>Setup opens Sofa Tube and shows the QR code for the phone remote.</li>
+</ol></section>
+<section class="tv-section" id="setup-lg">
+<h3>LG TV (webOS)</h3>
+<ol class="steps">
+<li>Press <b>YES</b> on the TV when it asks to allow Sofa Tube Setup (once).</li>
+<li>Setup opens the <b>Developer Mode</b> app (or its LG Content Store page, to install it). Sign in with your free LG developer account (made in a browser at <a href="https://webostv.developer.lge.com/">webostv.developer.lge.com</a>): select the field on the TV with OK and type in Setup.</li>
+<li>Turn on <b>Dev Mode Status</b> (the TV restarts), then <b>Key Server</b>.</li>
+<li>Type the Passphrase the TV shows in Setup: Setup installs Sofa Tube and Sofa Tube Phone itself and opens Sofa Tube.</li>
+</ol>
+<p class="meta">The Developer Mode session runs out: <a href="/install/#lg-update">how to keep it</a>.</p></section>
+<section class="tv-section" id="setup-samsung">
+<h3>Samsung TV (Tizen)</h3>
+<ol class="steps">
+<li>Choose <b>Allow</b> on the TV when it asks about Sofa Tube Setup (once).</li>
+<li>Setup opens Apps and presses 1 2 3 4 5. In the <b>Developer mode</b> window switch it on, select the <b>Host PC IP</b> field with OK (Setup types the computer's address), press OK and restart the TV (hold the Power button).</li>
+<li>Setup installs Sofa Tube, repeats the step above with <b>127.0.0.1</b> (Sofa Tube needs it to start) and opens it.</li>
+<li>Samsung TVs from 2023 on (Tizen 7 and newer) take only an app signed for them with the owner's Samsung certificate. Setup prepares Developer mode, then points to the <a href="/install/#samsung">Apps2Samsung route</a>.</li>
+</ol>
+<p class="meta">Setup's Samsung route is new and not yet tested on a real Samsung TV.</p></section>
+
+<h2>Privacy</h2>
+<ul>
+<li>Setup runs on your own device; its page is only on that device (127.0.0.1). The pairing with the TV stays on that device.</li>
+<li>What you type for the TV (such as the LG developer account) goes straight to the TV and is not saved.</li>
+<li>The Sofa Tube files come from the release page; Setup checks the release list's signature and each file's checksum before anything reaches the TV.</li>
+</ul>
+<p>Rather install by hand? <a href="/install/">Install steps with videos</a>.</p>
+<script>
+(function () {
+  var ua = navigator.userAgent || '';
+  var plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+  var kind = /android/i.test(ua) ? 'android-phone'
+    : /iphone|ipad|ipod/i.test(ua) || (/mac/i.test(plat) && navigator.maxTouchPoints > 1) ? 'iphone'
+    : /win/i.test(plat) ? 'windows'
+    : /mac/i.test(plat) ? 'mac' : '';
+  if (!kind) return;
+  var card = document.getElementById(kind === 'windows' || kind === 'mac' ? 'computer' : kind);
+  var box = document.getElementById('setup-ways');
+  if (card && box) { box.insertBefore(card, box.firstChild); card.classList.add('mine'); }
+  var tag = document.getElementById('tag-' + kind);
+  if (tag) tag.style.display = "";
+  if (kind === 'mac') {
+    var w = document.getElementById('btn-win'), m = document.getElementById('btn-mac');
+    if (w && m) { w.className = 'btn ghost'; m.className = 'btn'; m.parentNode.insertBefore(m, w); }
+  }
+})();
+</script>
+<style>
+#setup-ways .card.mine { border: 2px solid var(--orange); }
+#setup-ways { display: flex; flex-direction: column; gap: 14px; margin: 14px 0 22px; }
+</style>
+</div></main>
+<footer class="site-foot"><div class="wrap">
+<p><b>Contact:</b> <a href="mailto:sofatube.app@proton.me">sofatube.app@proton.me</a> · <a href="https://github.com/sofatube/sofatube.github.io/issues">GitHub Issues</a></p>
+<p>Sofa Tube is a free <a href="https://github.com/sofatube/sofatube.github.io/blob/main/LICENSE">GPL-3.0</a> project built on <a href="https://github.com/webosbrew/youtube-webos">webosbrew/youtube-webos</a>, <a href="https://github.com/reisxd/TizenBrew">TizenBrew</a> by Reis Can, <a href="https://github.com/reisxd/TizenTube">TizenTube</a> and <a href="https://github.com/reisxd/TizenTubeCobalt">TizenTube Cobalt</a> (based on Google's Cobalt, Apache-2.0), and uses <a href="https://sponsor.ajay.app/">SponsorBlock</a>. Headings use Baloo Bhaijaan 2 (<a href="/assets/fonts/OFL.txt">SIL OFL</a>).</p>
+<p>Not affiliated with YouTube, Google, LG or Samsung. YouTube is a trademark of Google LLC; Sofa Tube (صوفا تيوب) is not a Google product.</p>
+<p><a href="https://github.com/sofatube/sofatube.github.io">github.com/sofatube/sofatube.github.io</a> · <a href="https://github.com/sofatube/sofatube.github.io/releases/latest">All files (releases)</a></p>
+</div></footer>
+</body>
+</html>

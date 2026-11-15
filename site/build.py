@@ -7,6 +7,9 @@ import pathlib
 import re
 import struct
 
+from setup_page import setup_page
+from usb_page import usb_page
+
 DOCS = pathlib.Path(__file__).resolve().parent.parent / 'docs'
 SITE = 'https://sofatube.github.io'
 REPO = 'https://github.com/sofatube/sofatube.github.io'
@@ -607,6 +610,7 @@ def install(lang):
     if lang == 'ar':
         return f'''<h1>التثبيت</h1>
 <p>اختر تلفازك. لكل تلفاز فيديو قصير، ثم الخطوات مكتوبة.</p>
+<p class="note"><b>جديد:</b> <a href="/ar/setup/">إعداد صوفا تيوب</a> يثبّت صوفا تيوب من حاسوب أو هاتف أندرويد، دون كتابة شيء على التلفاز.</p>
 <nav class="pick" aria-label="اختر تلفازك">
 <a href="#android"><b>أندرويد تي في · جوجل تي في · فاير تي في</b><span>جهاز التحكم فقط · نحو 5 دقائق</span></a>
 <a href="#lg"><b>تلفاز LG</b><span>هاتف أندرويد أو حاسوب · نحو 15 دقيقة</span></a>
@@ -732,6 +736,7 @@ def install(lang):
 </section>'''
     return f'''<h1>Install</h1>
 <p>Pick your TV. Each one has a short video, then the written steps.</p>
+<p class="note"><b>New:</b> <a href="/setup/">Sofa Tube Setup</a> installs Sofa Tube from a computer or an Android phone, with nothing typed on the TV.</p>
 <nav class="pick" aria-label="Pick your TV">
 <a href="#android"><b>Android TV · Google TV · Fire TV</b><span>Remote only · about 5 minutes</span></a>
 <a href="#lg"><b>LG TV</b><span>Android phone or computer · about 15 minutes</span></a>
@@ -1365,7 +1370,7 @@ def not_found():
 </section></div></main></body></html>
 '''
     (DOCS / '404.html').write_text(doc, encoding='utf-8', newline='\n')
-    urls = [f'{SITE}{url(lang, s)}' for s, _, _ in PAGES for lang in ('en', 'ar')] + [f'{SITE}/testers/guide.html', f'{SITE}/remote/',
+    urls = [f'{SITE}{url(lang, s)}' for s, _, _ in PAGES for lang in ('en', 'ar')] + [f'{SITE}/testers/guide.html', f'{SITE}/remote/', f'{SITE}/setup/', f'{SITE}/ar/setup/', f'{SITE}/usb/', f'{SITE}/ar/usb/',
                                                                                        f'{SITE}/remote/away-help.html', f'{SITE}/help/']
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(
         f'  <url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n'
@@ -1386,6 +1391,14 @@ def main():
              L(lang, f'{len(VIDEOS)} Sofa Tube tutorials in English and Arabic.', 'شروح صوفا تيوب المصوّرة بالعربية والإنجليزية.'), videos(lang))
         page(lang, 'testers/', L(lang, 'Testers', 'للمجرّبين'),
              L(lang, 'Sofa Tube tester guide, checklist, how to report and what has been tested.', 'دليل التجربة وقائمة الفحص وطريقة إرسال التقرير وما الذي جُرِّب.'), testers(lang))
+        page(lang, 'setup/', L(lang, 'Sofa Tube Setup', 'إعداد صوفا تيوب'),
+             L(lang, 'Sofa Tube Setup installs Sofa Tube on Android TV, LG and Samsung TVs from a Windows or Mac computer or an Android phone, with nothing typed on the TV.',
+               'إعداد صوفا تيوب يثبّت صوفا تيوب على تلفزيونات أندرويد وLG وسامسونج من حاسوب ويندوز أو ماك أو من هاتف أندرويد، دون كتابة شيء على التلفاز.'),
+             setup_page(lang, VER, L, url))
+        page(lang, 'usb/', L(lang, 'Install over USB', 'التثبيت عبر USB'),
+             L(lang, 'Install Sofa Tube on a Chromecast with Google TV or Nvidia Shield TV over a USB cable, from Chrome or Edge on a computer.',
+               'ثبّت صوفا تيوب على Chromecast with Google TV أو Nvidia Shield TV عبر كابل USB، من Chrome أو Edge على حاسوب.'),
+             usb_page(lang, VER, L, url))
         page(lang, 'faq/', L(lang, 'FAQ', 'الأسئلة الشائعة'),
              L(lang, 'Sofa Tube questions: which TVs, cost, updates, privacy, troubleshooting.', 'أسئلة شائعة عن صوفا تيوب: الأجهزة المدعومة، والتكلفة، والتحديث، والخصوصية، وحل المشكلات.'), faq(lang))
     not_found()
