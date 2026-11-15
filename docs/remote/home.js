@@ -366,10 +366,25 @@
       delete me.waiting[m.id];
       if (w) w(m);
     };
-    dc.onclose = () => {
+    const gone = () => {
       if (rtc !== me) return;
       rtc = null;
+      clearTimeout(me.dropT);
+      pc.close();
       if (onLost) onLost();
+    };
+    dc.onclose = gone;
+    // a dead path (consent, RFC 7675: no answers to the browser's checks):
+    // "disconnected" for 6 s or "failed" is lost too; the app looks again
+    pc.oniceconnectionstatechange = () => {
+      const s = pc.iceConnectionState;
+      if (s === 'failed') return gone();
+      if (s === 'disconnected') {
+        if (!me.dropT) me.dropT = setTimeout(gone, 6000);
+      } else {
+        clearTimeout(me.dropT);
+        me.dropT = 0;
+      }
     };
     rtc = me;
     return true;

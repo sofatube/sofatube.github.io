@@ -87,6 +87,7 @@
         'This browser can’t open the full remote from away: the simple view below still works.',
       fullSimple: 'Simple view',
       fullLost: 'The direct connection ended: the simple view works.',
+      fullAgain: 'The direct connection dropped: connecting again…',
       asking: 'Asking the TV…',
       unreachable: 'The TV is not reachable now (off, or no internet).',
       relayBusy:
@@ -213,6 +214,7 @@
         'لا يستطيع هذا المتصفح فتح جهاز التحكم الكامل من خارج المنزل: العرض البسيط أدناه ما زال يعمل.',
       fullSimple: 'العرض البسيط',
       fullLost: 'انتهى الاتصال المباشر: العرض البسيط يعمل.',
+      fullAgain: 'انقطع الاتصال المباشر، جارٍ الاتصال من جديد…',
       asking: 'جارٍ سؤال التلفاز…',
       unreachable: 'لا يمكن الوصول إلى التلفاز الآن (مطفأ أو بلا إنترنت).',
       relayBusy:
@@ -365,6 +367,8 @@
       delete waiting[msg.id];
     }
     if (msg.op === 'paired' && waiting.paired) waiting.paired(msg);
+    // one more of the TV's addresses, after its answer (a router port)
+    if (msg.op === 'cand' && waiting.cand) waiting.cand(msg);
   }
 
   /** Reads what waits on the outbox (moves), then listens. */
@@ -909,7 +913,9 @@
       const m = e.data || {};
       // no channel here: the app's front page (home.js, at home) may hold
       // one; the service worker gives up by itself
-      if (m.kind !== 'req' || !rtc) return;
+      if (m.kind !== 'req' || (!rtc && !again)) return;
+      // the path dropped and the channel is opening again: wait for it
+      if (!rtc) await again;
       const out = { kind: 'res', id: m.id };
       const r = await chan(
         { m: m.m, p: m.p, b: m.b, b64: m.b64, type: m.type },
@@ -929,17 +935,104 @@
 
   function chan(msg, ms) {
     return new Promise((ok) => {
-      if (!rtc || rtc.dc.readyState !== 'open') return ok(null);
-      const id = rtc.n++;
-      rtc.waiting[id] = ok;
+      const me = rtc;
+      if (!me || me.dc.readyState !== 'open') return ok(null);
+      const id = me.n++;
+      me.waiting[id] = ok;
       setTimeout(() => {
-        if (rtc && rtc.waiting[id]) {
-          delete rtc.waiting[id];
+        if (me.waiting[id]) {
+          delete me.waiting[id];
           ok(null);
         }
       }, ms || 20000);
-      rtc.dc.send(JSON.stringify(Object.assign({ id }, msg)));
+      me.dc.send(JSON.stringify(Object.assign({ id }, msg)));
     });
+  }
+
+  /*
+   * A dead path (RFC 7675 consent: the browser's checks get no answer; the
+   * TV ends its side the same way): "disconnected" for 6 s, "failed", or the
+   * channel closed. The full page stays and the channel opens again with a
+   * new offer through the away link (2 mailbox messages a try, at most 3
+   * tries); its requests wait meanwhile. A phone in the background tries
+   * once it is back in front.
+   */
+  let again = null; // the reconnect under way (a promise)
+  const AGAIN_WAIT = [0, 3000, 10000];
+  function lost(me) {
+    if (rtc !== me) return;
+    rtc = null;
+    clearInterval(me.watch);
+    clearTimeout(me.dropT);
+    try {
+      me.pc.close();
+    } catch {
+      /* closed */
+    }
+    // what was on its way: no answer (the TV page asks again by itself)
+    Object.keys(me.waiting).forEach((k) => {
+      me.waiting[k](null);
+    });
+    me.waiting = {};
+    if ($('full').classList.contains('hidden')) return;
+    $('full-state').textContent = tr('fullAgain');
+    again = (async () => {
+      for (let i = 0; i < AGAIN_WAIT.length; i++) {
+        // eslint-disable-next-line no-await-in-loop
+        await new Promise((ok) => setTimeout(ok, AGAIN_WAIT[i]));
+        // eslint-disable-next-line no-await-in-loop
+        await frontAgain();
+        if ($('full').classList.contains('hidden')) return false;
+        // eslint-disable-next-line no-await-in-loop
+        if ((await direct()).ok) return true;
+        if (relayLimited) break; // the mailbox's limit: no more tries now
+      }
+      return false;
+    })();
+    again.then((ok) => {
+      again = null;
+      if (ok) {
+        drawFullState();
+        // the new path may differ: the TV page's live view follows it
+        try {
+          $('full-frame').contentWindow.postMessage(
+            { ytxRelay: !!(rtc && rtc.relay) },
+            location.origin
+          );
+        } catch {
+          /* not loaded */
+        }
+        return;
+      }
+      if ($('full').classList.contains('hidden')) return;
+      closeFull();
+      $('full-note').textContent = tr('fullLost');
+    });
+  }
+  /** Resolves when this app is in front (at once if it is). */
+  function frontAgain() {
+    if (!document.hidden) return Promise.resolve();
+    return new Promise((ok) => {
+      const f = () => {
+        if (document.hidden) return;
+        document.removeEventListener('visibilitychange', f);
+        ok();
+      };
+      document.addEventListener('visibilitychange', f);
+    });
+  }
+  function watchPath(me) {
+    me.pc.oniceconnectionstatechange = () => {
+      const s = me.pc.iceConnectionState;
+      if (s === 'failed' || s === 'closed') return lost(me);
+      if (s === 'disconnected') {
+        // a short gap (a Wi-Fi blip) comes back by itself
+        if (!me.dropT) me.dropT = setTimeout(() => lost(me), 6000);
+      } else {
+        clearTimeout(me.dropT);
+        me.dropT = 0;
+      }
+    };
   }
 
   /*
@@ -1066,6 +1159,22 @@
         .split('\r\n')
         .filter((l) => !/^a=candidate:.* [0-9a-f-]+\.local /.test(l))
         .join('\r\n');
+      // the TV's later addresses (trickle): kept until its answer is set
+      const late = [];
+      let mid = null; // the answer's media line (null until it is set)
+      const addOne = (cand) => {
+        pc.addIceCandidate({
+          candidate: cand,
+          sdpMid: mid,
+          sdpMLineIndex: 0
+        }).catch(() => {});
+      };
+      const addLate = (m) => {
+        if (typeof m.cand !== 'string' || !/^candidate:/.test(m.cand)) return;
+        if (mid !== null) addOne(m.cand);
+        else late.push(m.cand);
+      };
+      waiting.cand = addLate;
       const r = await ask({ op: 'rtc', offer: sdp }, 20000);
       if (!r || !r.ok || !r.answer) {
         why = 'tv';
@@ -1073,6 +1182,8 @@
       }
       net = r.net || null;
       await pc.setRemoteDescription({ type: 'answer', sdp: r.answer });
+      mid = (/a=mid:(\S+)/.exec(r.answer) || [])[1] || '0';
+      late.forEach(addOne);
       const open = await new Promise((ok) => {
         if (dc.readyState === 'open') return ok(true);
         dc.onopen = () => ok(true);
@@ -1080,9 +1191,11 @@
       });
       if (!open) throw new Error('no route');
     } catch {
+      if (waiting.cand) delete waiting.cand;
       pc.close();
       return { ok: false, why, net };
     }
+    delete waiting.cand;
     const me = { pc, dc, waiting: {}, n: 1, relay: await viaRelay(pc) };
     // the path may change (a better pair, a network change): look again
     me.watch = setInterval(async () => {
@@ -1112,15 +1225,8 @@
       delete me.waiting[m.id];
       if (w) w(m);
     };
-    dc.onclose = () => {
-      clearInterval(me.watch);
-      if (rtc !== me) return;
-      rtc = null;
-      if (!$('full').classList.contains('hidden')) {
-        closeFull();
-        $('full-note').textContent = tr('fullLost');
-      }
-    };
+    dc.onclose = () => lost(me);
+    watchPath(me);
     rtc = me;
     return { ok: true };
   }
