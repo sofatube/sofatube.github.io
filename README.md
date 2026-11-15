@@ -4,12 +4,13 @@
 </h1>
 
 <p align="center">
-  A better YouTube app for your TV: no ads, real playback speed, PIN locks, kid mode, prayer times and settings from your phone.<br>
-  <b>Website: <a href="https://sofatube.github.io/">sofatube.github.io</a></b> (install steps, videos, tester guide) · Latest: <a href="https://github.com/sofatube/sofatube.github.io/releases/latest">Releases</a>
+  A better YouTube app for your TV: no ads, real playback speed, PIN locks, kid mode, prayer times, and your phone as the remote for the whole TV.<br>
+  Android TV · Google TV · Fire TV · Samsung (2018 or newer) · LG webOS. English and Arabic. Free, no account.<br>
+  <b>Website: <a href="https://sofatube.github.io/">sofatube.github.io</a></b> · <a href="https://sofatube.github.io/setup/">Install with Sofa Tube Setup</a> · <a href="https://sofatube.github.io/remote/">Phone remote</a> · <a href="https://sofatube.github.io/news/">What's new</a>
 </p>
 
-> [!IMPORTANT]
-> **0.9.6 is a test version.** Parts of it have only run on TV _emulators_ so far. See [What has been tested](#what-has-been-tested).
+> [!NOTE]
+> **0.9.6 is a test version.** It has run on TV emulators and a few real TVs, not yet on every brand and model. See [What has been tested](#what-has-been-tested).
 
 **[English](#english) · [العربية](#العربية)**
 
@@ -19,11 +20,17 @@
 
 ### What is Sofa Tube?
 
-Sofa Tube opens YouTube's own TV page and adds features on top: ad blocking and [SponsorBlock](https://sponsor.ajay.app/), playback speed 0.25×–3× with normal pitch, an app lock and a video lock with a PIN, kid mode (allowed hours, approved videos, break reminders), prayer times, night dim and screen off, and settings from your phone over a QR code. English and Arabic.
+Sofa Tube opens YouTube's own TV page and adds features on top: ad blocking and [SponsorBlock](https://sponsor.ajay.app/), playback speed 0.25×–3× with normal pitch, an app lock and a video lock with a PIN, kid mode (allowed hours, approved videos, break reminders), prayer times, night dim and screen off. English and Arabic.
+
+Your phone becomes the remote: open [sofatube.github.io/remote](https://sofatube.github.io/remote/) (a web app, no app store), tap **Find my TV** and press OK on the TV. Parents can turn on control of the **whole TV** from the phone: other apps, inputs, volume, typing and a pointer. Screenshots and videos: [sofatube.github.io](https://sofatube.github.io/).
 
 Remote: 🟩 **Green** opens the settings. No colour buttons? Use **★ Sofa Tube** in YouTube's sidebar or the ★ button in the player bar.
 
-### Install: pick your TV
+### Install: the easy way
+
+**[Sofa Tube Setup](https://sofatube.github.io/setup/)** installs Sofa Tube from a Windows or Mac computer or an Android phone on the same Wi-Fi, with nothing typed on the TV: it finds the TV and drives it with the TV maker's own remote protocol (Android TV / Google TV, LG, and Samsung up to 2022; on newer Samsung TVs it prepares the TV and points to Apps2Samsung). Android TV box with a USB port (Chromecast with Google TV, Nvidia Shield TV)? [Install over USB](https://sofatube.github.io/usb/) from Chrome or Edge.
+
+### Or install it yourself: pick your TV
 
 Short links (type them in the TV's **Downloader** app or on your phone):
 
@@ -91,11 +98,17 @@ Please report what works and what does not: [open an issue](https://github.com/s
 
 ### ما صوفا تيوب؟
 
-يفتح صوفا تيوب صفحة YouTube الخاصة بالتلفاز ويضيف إليها ميزات: حجب الإعلانات و<a href="https://sponsor.ajay.app/">SponsorBlock</a>، وسرعة تشغيل من ‎0.25×‎ إلى ‎3×‎ بطبقة صوت طبيعية، وقفل التطبيق وقفل الفيديو برمز سري، ووضع الأطفال (ساعات مسموح بها، وفيديوهات موافق عليها، وتذكير بالاستراحة)، وأوقات الصلاة، والتعتيم الليلي وإطفاء الشاشة، والإعدادات من هاتفك عبر رمز QR. بالعربية والإنجليزية.
+يفتح صوفا تيوب صفحة YouTube الخاصة بالتلفاز ويضيف إليها ميزات: حجب الإعلانات و<a href="https://sponsor.ajay.app/">SponsorBlock</a>، وسرعة تشغيل من ‎0.25×‎ إلى ‎3×‎ بطبقة صوت طبيعية، وقفل التطبيق وقفل الفيديو برمز سري، ووضع الأطفال (ساعات مسموح بها، وفيديوهات موافق عليها، وتذكير بالاستراحة)، وأوقات الصلاة، والتعتيم الليلي وإطفاء الشاشة. بالعربية والإنجليزية.
+
+ويصبح هاتفك جهاز التحكم: افتح <a href="https://sofatube.github.io/remote/"><bdi>sofatube.github.io/remote</bdi></a> (تطبيق ويب، دون متجر تطبيقات)، واضغط **«ابحث عن التلفاز»**، ثم OK على التلفاز. ويمكن لأحد الوالدين تفعيل التحكم في **التلفاز كله** من الهاتف: التطبيقات الأخرى ومصادر الإدخال والصوت والكتابة والمؤشر. لقطات الشاشة والفيديوهات: <a href="https://sofatube.github.io/ar/"><bdi>sofatube.github.io/ar</bdi></a>.
 
 جهاز التحكم: الزر 🟩 **الأخضر** يفتح الإعدادات. لا توجد أزرار ملونة؟ استخدم **★ صوفا تيوب** في القائمة الجانبية لـYouTube أو زر ★ في شريط المشغل.
 
-### التثبيت: اختر تلفازك
+### التثبيت: أسهل طريقة
+
+**<a href="https://sofatube.github.io/ar/setup/">إعداد صوفا تيوب</a>** يثبّت صوفا تيوب من حاسوب ويندوز أو ماك أو من هاتف أندرويد متصل بشبكة الواي فاي نفسها، دون كتابة شيء على التلفاز: يجد التلفاز ويتحكم فيه بطريقة التحكم الخاصة بالشركة المصنّعة (<bdi>Android TV</bdi> و<bdi>Google TV</bdi> وLG وسامسونج حتى طرازات 2022؛ وفي أجهزة سامسونج الأحدث يجهّز التلفاز ويرشدك إلى <bdi>Apps2Samsung</bdi>). جهاز <bdi>Android TV</bdi> فيه منفذ USB (<bdi>Chromecast with Google TV</bdi> أو <bdi>Nvidia Shield TV</bdi>)؟ <a href="https://sofatube.github.io/ar/usb/">التثبيت عبر USB</a> من Chrome أو Edge.
+
+### أو ثبّته بنفسك: اختر تلفازك
 
 روابط قصيرة (اكتبها في تطبيق **Downloader** على التلفاز أو في هاتفك):
 
