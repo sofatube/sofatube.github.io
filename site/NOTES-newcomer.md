@@ -33,3 +33,18 @@ None of them puts "what's new" at the top.
 7. **Closing:** Install and All videos buttons, then one line: "This is Sofa Tube 0.9.6, a test version. What's new and earlier versions · What has been tested".
 
 The 0.9.6 and 0.9.5 parts that were on the home page (the update channels, the 0.9.6 pictures and the 0.9.5 cards) moved unchanged to **`/news/`** (`/ar/news/`), newest first. The footer of every page links to it, the FAQ's updates answer links to `/news/#updates`, and it is in the sitemap. It is not in the main navigation: returning users find it from the footer and the home page's last line.
+
+## Real screenshots of the install steps (0.9.6, 2026-11-16)
+
+Taken on this laptop's emulators with the released 0.9.6 files; no mock-ups.
+
+| Files (`docs/assets/shots/{en,ar}/`)                    | Where shown | How                                                                                                                                                            |
+| ------------------------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `setup_pc_tvs`, `setup_pc_yes`, `setup_pc_done`         | `/setup`    | `SofaTubeSetup-0.9.6-Windows.exe` (fresh pairing folder), its page in headless Chrome (EN, AR), LG emulator typed as `127.0.0.1` (VirtualBox port forward)   |
+| `setup_phone_address`, `setup_phone_yes`, `setup_phone_done` | `/setup` | `SofaTubeSetup-0.9.6-Android.apk` on the `ytx-phone` emulator (data cleared, EN and AR), LG emulator typed as `10.0.2.2:13000`                           |
+| `setup_lg_yes`                                          | `/setup`    | LG webOS TV Emulator's own "Connection request" popup for Setup, cropped to the popup                                                                         |
+| `usb_tv_build`, `usb_tv_debugging`, `usb_tv_allow`      | `/usb`      | Google TV emulator (Android 14): About, Developer options, and "Allow USB debugging?" asked for a new key by `tools/site-usb` (the page's install code); Cancel |
+
+Anonymity: only emulator addresses (127.0.0.1, 10.0.2.2, 10.0.2.15) and an emulator device name; the one real TV the Setup page found on the home network had its address blurred in `setup_pc_tvs`; status bars with the clock only (demo mode). The TV screens use the TV's own language (English), for both pages.
+
+Not captured (the emulators cannot show them): the Android TV pairing-code screen (Windows reserves ports 6395 to 6494 on this laptop, so the emulator's remote port 6466 cannot be forwarded), Downloader and Android's install screen (the emulator has no Downloader and no signed-in Play Store), LG's Developer Mode app (not on the LG emulator), Samsung's Developer mode window and Apps2Samsung (not on the Tizen emulator; it was also busy with a test sweep). The per-brand install steps keep their videos.

@@ -20,6 +20,31 @@ STYLE = '''<style>
 </style>'''
 
 
+# Real TV screens (0.9.6) from the Google TV emulator (Android 14): About, Developer options and the
+# "Allow USB debugging?" question (asked for a new key by the page's own install code, Cancel pressed).
+# docs/assets/shots/{en,ar}/usb_tv_*.jpg; the TV menus stay in English, as on most boxes.
+def _fig(lang, L, f, w, h, ce, ca):
+    cap = L(lang, ce, ca)
+    return (f'<figure><img src="/assets/shots/{lang}/{f}.jpg" alt="{cap}" width="{w}" height="{h}" loading="lazy" '
+            f'decoding="async"><figcaption>{cap}</figcaption></figure>')
+
+
+def pics_debug(lang, L):
+    return ('<div class="shots free">'
+            + _fig(lang, L, 'usb_tv_build', 640, 627, 'About: press OK on Android TV OS build seven times',
+                   'حول: اضغط OK على <bdi>Android TV OS build</bdi> سبع مرات')
+            + _fig(lang, L, 'usb_tv_debugging', 640, 627, 'Developer options: USB debugging on',
+                   'خيارات المطوّرين: تصحيح أخطاء USB مفعّل')
+            + '</div>')
+
+
+def pics_allow(lang, L):
+    return ('<div class="shots free one">'
+            + _fig(lang, L, 'usb_tv_allow', 720, 360, 'On the TV: move to Allow, then OK',
+                   'على التلفاز: انتقل إلى <bdi>Allow</bdi> ثم اضغط OK')
+            + '</div>')
+
+
 def usb_page(lang, ver, L, url):
     setup = url(lang, 'setup/')
     inst = url(lang, 'install/')
@@ -49,7 +74,8 @@ def usb_page(lang, ver, L, url):
 <ul>
 <li><bdi>Google TV</bdi> و<bdi>Chromecast</bdi>: الإعدادات ← النظام ← حول (<bdi>Settings → System → About</bdi>). انتقل إلى <b><bdi>Android TV OS build</bdi></b> واضغط OK سبع مرات حتى تظهر «<bdi>You are now a developer</bdi>». ثم الإعدادات ← النظام ← <b>خيارات المطوّرين</b> (<bdi>Developer options</bdi>) ← <b>تصحيح أخطاء USB</b> (<bdi>USB debugging</bdi>): مفعّل.</li>
 <li><bdi>Shield</bdi>: الإعدادات ← <bdi>Device Preferences</bdi> ← <bdi>About</bdi> ← <b><bdi>Build</bdi></b> سبع مرات، ثم <bdi>Device Preferences</bdi> ← <bdi>Developer options</bdi> ← <bdi>USB debugging</bdi>: مفعّل.</li>
-</ul></li>
+</ul>
+{pics_debug(lang, L)}</li>
 <li class="usb-step"><b>صِل الكابل</b> كما في الأعلى. أغلق البرامج الأخرى التي تستخدم أجهزة أندرويد على هذا الحاسوب (<bdi>adb</bdi> و<bdi>Android Studio</bdi> و<bdi>scrcpy</bdi>).</li>
 <li class="usb-step"><b>احصل على ملف صوفا تيوب.</b>
 <p id="usb-list-msg" class="usb-msg" hidden></p>
@@ -63,7 +89,8 @@ def usb_page(lang, ver, L, url):
 <div class="row"><button class="btn" id="usb-go" type="button" disabled>الاتصال بالجهاز والتثبيت</button></div>
 <progress id="usb-bar" max="1" value="0" hidden></progress>
 <p id="usb-msg" class="usb-msg" role="status" aria-live="polite" hidden></p></li>
-<li class="usb-step"><b>على التلفاز:</b> يسأل «<bdi>Allow USB debugging?</bdi>» (السماح بتصحيح أخطاء USB). انتقل إلى <b><bdi>Allow</bdi></b> (سماح) بجهاز التحكم واضغط OK. وإن فعّلت «<bdi>Always allow from this computer</bdi>» فلن يُطرح السؤال في المرة القادمة.</li>
+<li class="usb-step"><b>على التلفاز:</b> يسأل «<bdi>Allow USB debugging?</bdi>» (السماح بتصحيح أخطاء USB). انتقل إلى <b><bdi>Allow</bdi></b> (سماح) بجهاز التحكم واضغط OK. وإن فعّلت «<bdi>Always allow from this computer</bdi>» فلن يُطرح السؤال في المرة القادمة.
+{pics_allow(lang, L)}</li>
 <li class="usb-step">بعد «تم» يفتح صوفا تيوب على التلفاز. يمكنك بعدها إيقاف تصحيح أخطاء USB من خيارات المطوّرين.</li>
 </ol>
 </div>
@@ -101,7 +128,8 @@ def usb_page(lang, ver, L, url):
 <ul>
 <li>Google TV and Chromecast: <b>Settings → System → About</b>. Move to <b>Android TV OS build</b> and press OK seven times, until "You are now a developer". Then <b>Settings → System → Developer options → USB debugging</b>: on.</li>
 <li>Shield: <b>Settings → Device Preferences → About → Build</b> seven times, then <b>Device Preferences → Developer options → USB debugging</b>: on.</li>
-</ul></li>
+</ul>
+{pics_debug(lang, L)}</li>
 <li class="usb-step"><b>Connect the cable</b> as above. Close other programs on this computer that use Android devices (adb, Android Studio, scrcpy).</li>
 <li class="usb-step"><b>Get the Sofa Tube file.</b>
 <p id="usb-list-msg" class="usb-msg" hidden></p>
@@ -115,7 +143,8 @@ def usb_page(lang, ver, L, url):
 <div class="row"><button class="btn" id="usb-go" type="button" disabled>Connect the box and install</button></div>
 <progress id="usb-bar" max="1" value="0" hidden></progress>
 <p id="usb-msg" class="usb-msg" role="status" aria-live="polite" hidden></p></li>
-<li class="usb-step"><b>On the TV:</b> it asks "Allow USB debugging?". Move to <b>Allow</b> with the remote and press OK. Tick "Always allow from this computer" to skip the question next time.</li>
+<li class="usb-step"><b>On the TV:</b> it asks "Allow USB debugging?". Move to <b>Allow</b> with the remote and press OK. Tick "Always allow from this computer" to skip the question next time.
+{pics_allow(lang, L)}</li>
 <li class="usb-step">After "Done", Sofa Tube opens on the TV. You can then turn USB debugging off again in Developer options.</li>
 </ol>
 </div>
