@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install over USB · Sofa Tube</title>
+<meta name="description" content="Install Sofa Tube on a Chromecast with Google TV or Nvidia Shield TV over a USB cable, from Chrome or Edge on a computer.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FF8A00">
+<link rel="canonical" href="https://sofatube.github.io/usb/">
+<link rel="alternate" hreflang="en" href="https://sofatube.github.io/usb/">
+<link rel="alternate" hreflang="ar" href="https://sofatube.github.io/ar/usb/">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta property="og:title" content="Install over USB · Sofa Tube">
+<meta property="og:description" content="Install Sofa Tube on a Chromecast with Google TV or Nvidia Shield TV over a USB cable, from Chrome or Edge on a computer.">
+<meta property="og:image" content="https://sofatube.github.io/assets/shots/settings.jpg">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head"><div class="wrap">
+<a class="logo" href="/"><img src="/icon.svg" alt="" width="40" height="40"><span class="brand">Sofa Tube</span></a>
+<nav class="nav" aria-label="Site"><a href="/">Home</a><a href="/install/">Install</a><a href="/videos/">Videos</a><a href="/testers/">Testers</a><a href="/faq/">FAQ</a><a class="nav-remote" href="/remote/">Phone remote</a><a class="lang" href="/ar/usb/" hreflang="ar" lang="ar">العربية</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<style>
+#usb-app .usb-step { margin: 0 0 18px; }
+#usb-app .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0; }
+#usb-app button.btn { font: inherit; cursor: pointer; border: 0; }
+#usb-app button.btn:disabled { opacity: .45; cursor: not-allowed; }
+#usb-app input[type=file] { max-width: 100%; }
+#usb-app progress { width: 100%; height: 14px; }
+.usb-msg { margin: 8px 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); overflow-wrap: anywhere; }
+.usb-msg.good { border-color: #4CAF50; }
+.usb-msg.warn { border-color: var(--warn-line); background: var(--warn-bg); }
+.usb-msg.bad { border-color: var(--orange-red); background: var(--warn-bg); }
+.usb-boxes { display: flex; flex-direction: column; gap: 12px; margin: 12px 0 20px; }
+</style>
+<h1>Install from this computer over USB</h1>
+<p class="lead">For Android TV boxes whose USB port can talk to a computer, such as Chromecast with Google TV and Nvidia Shield TV: Chrome or Edge installs Sofa Tube over a cable. No Downloader, no "Install unknown apps" switch.</p>
+<div class="note" role="note"><p><b>New in 0.9.6.</b> Tested with a simulated USB box and the Android TV emulator, not yet on a real Chromecast or Shield. If it does not work, use <a href="/setup/">Sofa Tube Setup</a> or <a href="/install/">the Downloader way</a>, and tell us what happened.</p></div>
+<p id="usb-browser" class="usb-msg" hidden></p>
+<noscript><p class="usb-msg bad">This page needs JavaScript.</p></noscript>
+
+<h2>Boxes and cable</h2>
+<div class="usb-boxes">
+<div class="card"><h3>Chromecast with Google TV (4K and HD)</h3>
+<p>Its only USB-C port (the power port) to the computer, with a cable that carries data (USB-A to USB-C, or USB-C to USB-C). The box runs on the computer's power meanwhile: if it restarts or does not start, use another USB port of the computer or a powered USB hub.</p></div>
+<div class="card"><h3>Nvidia Shield TV Pro (2019) and Shield TV (2017)</h3>
+<p>A USB-A to USB-A cable from the computer to one of the box's USB ports (if the box is not seen, try the other port). The box stays on its own power. The tube-shaped Shield TV (2019) has no USB port.</p></div>
+<div class="card"><h3>TV sets and most other boxes</h3>
+<p>The USB ports of TV sets (TCL, Sony, Hisense and others) and of most Fire TV devices cannot talk to a computer this way. Use <a href="/setup/">Sofa Tube Setup</a> or <a href="/install/">the install steps</a>.</p></div>
+</div>
+
+<h2>Steps</h2>
+<div id="usb-app">
+<ol class="steps">
+<li class="usb-step"><b>Turn on USB debugging on the box</b> (once).
+<ul>
+<li>Google TV and Chromecast: <b>Settings → System → About</b>. Move to <b>Android TV OS build</b> and press OK seven times, until "You are now a developer". Then <b>Settings → System → Developer options → USB debugging</b>: on.</li>
+<li>Shield: <b>Settings → Device Preferences → About → Build</b> seven times, then <b>Device Preferences → Developer options → USB debugging</b>: on.</li>
+</ul></li>
+<li class="usb-step"><b>Connect the cable</b> as above. Close other programs on this computer that use Android devices (adb, Android Studio, scrcpy).</li>
+<li class="usb-step"><b>Get the Sofa Tube file.</b>
+<p id="usb-list-msg" class="usb-msg" hidden></p>
+<div class="row"><button class="btn" id="usb-get" type="button" disabled>Get the file</button></div>
+<div id="usb-pick-box" hidden>
+<div class="row"><a class="btn ghost" id="usb-download" href="#" download>Download Sofa Tube (.apk)</a></div>
+<div class="row"><label for="usb-file">Then choose the downloaded file:</label> <input type="file" id="usb-file" accept=".apk,application/vnd.android.package-archive"></div>
+</div>
+<p id="usb-file-msg" class="usb-msg" hidden></p></li>
+<li class="usb-step"><b>Connect the box and install.</b> The browser opens a list: choose the box, then <b>Connect</b>.
+<div class="row"><button class="btn" id="usb-go" type="button" disabled>Connect the box and install</button></div>
+<progress id="usb-bar" max="1" value="0" hidden></progress>
+<p id="usb-msg" class="usb-msg" role="status" aria-live="polite" hidden></p></li>
+<li class="usb-step"><b>On the TV:</b> it asks "Allow USB debugging?". Move to <b>Allow</b> with the remote and press OK. Tick "Always allow from this computer" to skip the question next time.</li>
+<li class="usb-step">After "Done", Sofa Tube opens on the TV. You can then turn USB debugging off again in Developer options.</li>
+</ol>
+</div>
+
+<h2>Safety and privacy</h2>
+<ul>
+<li>Everything happens in this browser: no server between the computer and the box.</li>
+<li>Before installing, the page checks the release list's (version.json) signature with Sofa Tube's key, and the file's size and checksum (sha256).</li>
+<li>The browser keeps a key for this computer so the box knows it (as adb does). To remove it: Developer options → Revoke USB debugging authorizations.</li>
+<li>The page uses <a href="https://github.com/yume-chan/ya-webadb">Tango (ya-webadb)</a>, <a href="/usb/tango-adb-LICENSE.txt">MIT licence</a>, copied onto this site.</li>
+</ul>
+<p class="meta">Works in Google Chrome and Microsoft Edge on Windows, Mac, Linux and Chromebook. Not in Firefox or Safari, and not on an iPhone (none of them has WebUSB).</p>
+<script type="module" src="/usb/usb-install.js"></script>
+</div></main>
+<footer class="site-foot"><div class="wrap">
+<p><b>Contact:</b> <a href="mailto:sofatube.app@proton.me">sofatube.app@proton.me</a> · <a href="https://github.com/sofatube/sofatube.github.io/issues">GitHub Issues</a></p>
+<p>Sofa Tube is a free <a href="https://github.com/sofatube/sofatube.github.io/blob/main/LICENSE">GPL-3.0</a> project built on <a href="https://github.com/webosbrew/youtube-webos">webosbrew/youtube-webos</a>, <a href="https://github.com/reisxd/TizenBrew">TizenBrew</a> by Reis Can, <a href="https://github.com/reisxd/TizenTube">TizenTube</a> and <a href="https://github.com/reisxd/TizenTubeCobalt">TizenTube Cobalt</a> (based on Google's Cobalt, Apache-2.0), and uses <a href="https://sponsor.ajay.app/">SponsorBlock</a>. Headings use Baloo Bhaijaan 2 (<a href="/assets/fonts/OFL.txt">SIL OFL</a>).</p>
+<p>Not affiliated with YouTube, Google, LG or Samsung. YouTube is a trademark of Google LLC; Sofa Tube (صوفا تيوب) is not a Google product.</p>
+<p><a href="https://github.com/sofatube/sofatube.github.io">github.com/sofatube/sofatube.github.io</a> · <a href="https://github.com/sofatube/sofatube.github.io/releases/latest">All files (releases)</a></p>
+</div></footer>
+</body>
+</html>

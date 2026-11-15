@@ -11,6 +11,7 @@ def setup_page(lang, ver, L, url):
     mac = rel + f'SofaTubeSetup-{ver}-Mac.zip'
     apk = rel + f'SofaTubeSetup-{ver}-Android.apk'
     inst = url(lang, 'install/')
+    usb = url(lang, 'usb/')
     script = '''<script>
 (function () {
   var ua = navigator.userAgent || '';
@@ -54,6 +55,9 @@ def setup_page(lang, ver, L, url):
 <div class="card" id="iphone"><h3>آيفون أو آيباد فقط؟ <span class="tag" id="tag-iphone" style="display:none">جهازك</span></h3>
 <p>لا يسمح متجر آبل بتطبيق يثبّت تطبيقات على التلفاز. استخدم حاسوبًا (ويندوز أو ماك) على شبكة الواي فاي نفسها مرة واحدة، أو هاتف أندرويد. بعد التثبيت يعمل جهاز التحكم من الآيفون عاديًا.</p>
 <p class="meta">أرسل رابط هذه الصفحة إلى الحاسوب: <bdi>sofatube.github.io/ar/setup/</bdi></p></div>
+<div class="card" id="usb"><h3>جهاز <bdi>Android TV</bdi> فيه منفذ USB: التثبيت من هذا الحاسوب</h3>
+<p><bdi>Chromecast with Google TV</bdi> أو <bdi>Nvidia Shield TV</bdi>، وكابل USB، وChrome أو Edge: يثبّت المتصفح صوفا تيوب عبر الكابل. مفيد حين لا يعمل Downloader. طريقة جديدة لم تُجرَّب بعد على جهاز حقيقي.</p>
+<div class="row"><a class="btn ghost" href="{usb}">التثبيت عبر USB</a></div></div>
 </div>
 
 <h2 id="first-open">أول مرة تفتح فيها الملف</h2>
@@ -118,6 +122,9 @@ def setup_page(lang, ver, L, url):
 <div class="card" id="iphone"><h3>Only an iPhone or iPad? <span class="tag" id="tag-iphone" style="display:none">Your device</span></h3>
 <p>Apple's App Store allows no app that installs apps on a TV. Use a Windows or Mac computer on the same Wi-Fi once, or an Android phone. After the install, the phone remote works on the iPhone as usual.</p>
 <p class="meta">Send this page's link to the computer: sofatube.github.io/setup/</p></div>
+<div class="card" id="usb"><h3>Android TV box with a USB port: install from this computer</h3>
+<p>Chromecast with Google TV or Nvidia Shield TV, a USB cable and Chrome or Edge: the browser installs Sofa Tube over the cable. Useful when Downloader does not work. New, not yet tried on a real box.</p>
+<div class="row"><a class="btn ghost" href="{usb}">Install over USB</a></div></div>
 </div>
 
 <h2 id="first-open">The first time you open it</h2>

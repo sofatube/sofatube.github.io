@@ -8,6 +8,7 @@ import re
 import struct
 
 from setup_page import setup_page
+from usb_page import usb_page
 
 DOCS = pathlib.Path(__file__).resolve().parent.parent / 'docs'
 SITE = 'https://sofatube.github.io'
@@ -1280,7 +1281,7 @@ def not_found():
 </section></div></main></body></html>
 '''
     (DOCS / '404.html').write_text(doc, encoding='utf-8', newline='\n')
-    urls = [f'{SITE}{url(lang, s)}' for s, _, _ in PAGES for lang in ('en', 'ar')] + [f'{SITE}/testers/guide.html', f'{SITE}/remote/', f'{SITE}/setup/', f'{SITE}/ar/setup/',
+    urls = [f'{SITE}{url(lang, s)}' for s, _, _ in PAGES for lang in ('en', 'ar')] + [f'{SITE}/testers/guide.html', f'{SITE}/remote/', f'{SITE}/setup/', f'{SITE}/ar/setup/', f'{SITE}/usb/', f'{SITE}/ar/usb/',
                                                                                        f'{SITE}/remote/away-help.html', f'{SITE}/help/']
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(
         f'  <url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n'
@@ -1305,6 +1306,10 @@ def main():
              L(lang, 'Sofa Tube Setup installs Sofa Tube on Android TV, LG and Samsung TVs from a Windows or Mac computer or an Android phone, with nothing typed on the TV.',
                'إعداد صوفا تيوب يثبّت صوفا تيوب على تلفزيونات أندرويد وLG وسامسونج من حاسوب ويندوز أو ماك أو من هاتف أندرويد، دون كتابة شيء على التلفاز.'),
              setup_page(lang, VER, L, url))
+        page(lang, 'usb/', L(lang, 'Install over USB', 'التثبيت عبر USB'),
+             L(lang, 'Install Sofa Tube on a Chromecast with Google TV or Nvidia Shield TV over a USB cable, from Chrome or Edge on a computer.',
+               'ثبّت صوفا تيوب على Chromecast with Google TV أو Nvidia Shield TV عبر كابل USB، من Chrome أو Edge على حاسوب.'),
+             usb_page(lang, VER, L, url))
         page(lang, 'faq/', L(lang, 'FAQ', 'الأسئلة الشائعة'),
              L(lang, 'Sofa Tube questions: which TVs, cost, updates, privacy, troubleshooting.', 'أسئلة شائعة عن صوفا تيوب: الأجهزة المدعومة، والتكلفة، والتحديث، والخصوصية، وحل المشكلات.'), faq(lang))
     not_found()
