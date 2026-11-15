@@ -43,6 +43,12 @@ def what_you_see(lang, L):
 <p class="meta">Real screens of Setup 0.9.6 with LG's webOS TV Emulator, so they show the emulator's address (127.0.0.1, 10.0.2.2); with your TV you see its own address.</p>'''
 
 
+def atv_pic(lang, L):
+    # Google TV emulator: the TV's own remote service asks for pairing (Setup typed 127.0.0.1, run on the TV)
+    return ('<div class="shots free one">' + _fig(lang, L, 'setup_atv_code', 720, 425,
+            'On the TV: the pairing code; type it in Setup, not on the TV', 'على التلفاز: رمز الربط؛ اكتبه في الإعداد، لا على التلفاز') + '</div>')
+
+
 def lg_pic(lang, L):
     return ('<div class="shots free one">' + _fig(lang, L, 'setup_lg_yes', 980, 316,
             'On the TV: LG asks once, press YES', 'على التلفاز: يسأل تلفاز LG مرة واحدة، فاضغط YES') + '</div>')
@@ -121,7 +127,8 @@ def setup_page(lang, ver, L, url):
 <li>يفتح الإعداد تطبيق <b>Downloader</b> ويكتب الرابط وينزّل صوفا تيوب. إن لم يكن Downloader مثبّتًا، ثبّته من متجر التلفاز (زر البحث الصوتي يجده دون كتابة).</li>
 <li>على شاشة التثبيت في أندرويد: انتقل إلى <b>«تثبيت»</b> (INSTALL) بزر سهم واضغط OK. هذه الضغطة لجهاز تحكم التلفاز وحده. في المرة الأولى قد يطلب التلفاز السماح لـDownloader بتثبيت التطبيقات.</li>
 <li>يفتح الإعداد صوفا تيوب ويعرض رمز QR لجهاز التحكم من الهاتف.</li>
-</ol></section>
+</ol>
+{atv_pic(lang, L)}</section>
 <section class="tv-section" id="setup-lg">
 <h3>تلفاز LG ‏(webOS)</h3>
 <ol class="steps">
@@ -191,7 +198,8 @@ def setup_page(lang, ver, L, url):
 <li>Setup opens the <b>Downloader</b> app, types the link and downloads Sofa Tube. If Downloader is not installed, install it from the TV's app store (the voice search button finds it without typing).</li>
 <li>On Android's install screen: move to <b>INSTALL</b> with an arrow button and press OK. Only the TV's own remote can do this press. The first time, the TV may ask to allow Downloader to install apps.</li>
 <li>Setup opens Sofa Tube and shows the QR code for the phone remote.</li>
-</ol></section>
+</ol>
+{atv_pic(lang, L)}</section>
 <section class="tv-section" id="setup-lg">
 <h3>LG TV (webOS)</h3>
 <ol class="steps">
