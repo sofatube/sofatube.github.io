@@ -4,7 +4,7 @@
  * and makes the page installable. Only this page's own files: the requests
  * to the TV (http://<address>/hello) are left alone.
  */
-const CACHE = 'sofatube-remote-v13';
+const CACHE = 'sofatube-remote-v16';
 const FILES = [
   './',
   'share-link.js',
@@ -13,6 +13,7 @@ const FILES = [
   'away.js',
   'away-crypto.js',
   'home.js', // the TV's page inside the app at home (0.9.6)
+  'tv-frame.js', // ...in a sandboxed frame (0.9.6)
   'away-help.html',
   'jsqr.min.js',
   'manifest.webmanifest',
@@ -46,86 +47,27 @@ self.addEventListener('activate', (e) => {
 });
 
 /*
- * The whole phone page over the direct channel (P2P): away.html (from away)
- * or the app's front page with home.js (at home, 0.9.6) holds the direct,
- * end-to-end encrypted channel to the TV and shows the TV's own phone page
- * at ./tv/. Every request of that page (./tv/…) goes from here to the page
- * that holds the channel (BroadcastChannel; a page without one stays
- * silent) and over the channel; nothing reaches the site's server. The
- * page's own absolute /api/ addresses become ./tv/api/ here.
+ * The TV's phone page inside the app (away.html from away, the front page
+ * with home.js at home) no longer goes through this worker: it runs in a
+ * sandboxed frame with an opaque origin (tv-frame.js), which a service
+ * worker can't serve anyway, and its requests go to the page holding the
+ * channel by postMessage. So nothing from the channel (another device's
+ * words) is ever answered here or kept in this app's cache, and the old
+ * ./tv/ address answers 410 (never HTML) for an old page still asking.
  */
-const TV = new BroadcastChannel('sofatube-tv');
-const tvWait = {};
-let tvN = 1;
-TV.onmessage = (e) => {
-  const m = e.data || {};
-  if (m.kind !== 'res' || !tvWait[m.id]) return;
-  tvWait[m.id](m);
-  delete tvWait[m.id];
-};
-function b64ToBytes(s) {
-  const bin = atob(s);
-  const out = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
-  return out;
-}
-function bytesToB64(u8) {
-  let s = '';
-  for (let i = 0; i < u8.length; i += 0x8000)
-    s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
-  return btoa(s);
-}
-async function viaTv(request, path) {
-  const msg = { kind: 'req', id: tvN++, m: request.method, p: path };
-  if (request.method !== 'GET' && request.method !== 'HEAD') {
-    const type = request.headers.get('Content-Type') || '';
-    const buf = new Uint8Array(await request.arrayBuffer());
-    if (buf.length) {
-      let json = null;
-      if (/json/i.test(type) || !type) {
-        try {
-          json = JSON.parse(new TextDecoder().decode(buf));
-        } catch {
-          json = null;
-        }
-      }
-      if (json !== null) msg.b = json;
-      else {
-        msg.b64 = bytesToB64(buf);
-        msg.type = type;
-      }
+const GONE = () =>
+  new Response('gone', {
+    status: 410,
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Content-Security-Policy': "sandbox; default-src 'none'",
+      'X-Content-Type-Options': 'nosniff'
     }
-  }
-  const got = await new Promise((ok) => {
-    tvWait[msg.id] = ok;
-    // long enough for the page's long polls
-    setTimeout(() => {
-      if (tvWait[msg.id]) {
-        delete tvWait[msg.id];
-        ok(null);
-      }
-    }, 45000);
-    TV.postMessage(msg);
   });
-  if (!got)
-    return new Response('{"error":"no direct connection"}', {
-      status: 503,
-      headers: { 'Content-Type': 'application/json' }
-    });
-  const type = got.type || 'application/json';
-  if (got.b64 !== undefined)
-    return new Response(b64ToBytes(got.b64), {
-      status: got.code,
-      headers: { 'Content-Type': type }
-    });
-  let body = typeof got.data === 'string' ? got.data : JSON.stringify(got.data);
-  if (/html/i.test(type) && path.split('?')[0] === '/')
-    // the page: its /api/ addresses to ./tv/api/ (this worker's own)
-    body = body.replace(/(['"])\/api\//g, '$1api/');
-  return new Response(body, {
-    status: got.code,
-    headers: { 'Content-Type': type }
-  });
+
+/** Only this site's own answers go into the cache. */
+function cacheable(r) {
+  return !!r && r.ok && r.type === 'basic';
 }
 
 self.addEventListener('fetch', (e) => {
@@ -134,10 +76,7 @@ self.addEventListener('fetch', (e) => {
   const scope = new URL(self.registration.scope);
   const rel = url.pathname.slice(scope.pathname.length);
   if (rel === 'tv' || rel.startsWith('tv/')) {
-    // ./tv/ or ./tv/index.html -> the page (/); ./tv/api/x -> /api/x
-    const inner = rel.replace(/^tv\/?/, '').replace(/^index\.html$/, '');
-    const path = inner ? '/' + inner + url.search : '/';
-    e.respondWith(viaTv(e.request, path));
+    e.respondWith(GONE());
     return;
   }
   if (e.request.method !== 'GET') return;
@@ -159,14 +98,17 @@ self.addEventListener('fetch', (e) => {
     e.respondWith(
       fetch(e.request)
         .then((r) => {
-          const copy = r.clone();
-          caches.open(CACHE).then((c) => c.put('./', copy));
+          if (cacheable(r)) {
+            const copy = r.clone();
+            caches.open(CACHE).then((c) => c.put('./', copy));
+          }
           return r;
         })
         .catch(() => caches.match('./'))
     );
     return;
   }
+  // the app's own files from the cache, the rest from the site
   e.respondWith(caches.match(e.request).then((hit) => hit || fetch(e.request)));
 });
 

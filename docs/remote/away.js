@@ -46,7 +46,8 @@
       scanHow: 'Point the camera at the code on the TV.',
       scanBad: 'That is not a Sofa Tube TV code.',
       wordsText: 'Check that the TV shows the same 4 words:',
-      wordsWait: 'Now press OK on the TV and enter the PIN there.',
+      wordsWait:
+        'Now press OK on the TV and enter the PIN there. If the TV shows other words, cancel: press Back on the TV.',
       paired: 'Paired with {tv}',
       pairFail:
         'The TV did not answer. Is the TV on and connected to the internet?',
@@ -174,7 +175,8 @@
       scanHow: 'وجّه الكاميرا نحو الرمز على التلفاز.',
       scanBad: 'هذا ليس رمز تلفاز صوفا تيوب.',
       wordsText: 'تأكّد من ظهور الكلمات الأربع نفسها على التلفاز:',
-      wordsWait: 'اضغط الآن OK على التلفاز وأدخل الرمز السري هناك.',
+      wordsWait:
+        'اضغط الآن OK على التلفاز وأدخل الرمز السري هناك. وإذا ظهرت على التلفاز كلمات أخرى، فألغِ الاقتران بزر الرجوع.',
       paired: 'تم الاقتران بـ {tv}',
       pairFail: 'لم يُجب التلفاز. هل التلفاز مشغّل ومتصل بالإنترنت؟',
       nowTitle: 'الآن',
@@ -233,8 +235,9 @@
       left: 'الوقت المسموح المتبقي',
       bed: 'يُطفأ التلفاز',
       none: '—',
-      min: '{n} دقيقة',
-      of: '{a} من {b} دقيقة',
+      // Arabic number agreement (docs/ARABIC.md, arCount in src/config.js)
+      min: (v) => arMinutes(v.n),
+      of: (v) => v.a + ' من ' + arMinutes(v.b, true),
       blocked: 'تطبيق محظور (طُلب)',
       reqsTitle: 'الطلبات',
       reqTime: 'يطلب وقتًا إضافيًا',
@@ -281,8 +284,22 @@
     }
   };
   let lang = 'en';
+  /**
+   * Minutes in Arabic with the number's agreement: دقيقة واحدة, دقيقتان,
+   * 3–10 دقائق, 11+ دقيقة (101, 102: 101 دقيقة). `after` (after «من»): the
+   * dual in the genitive, دقيقتين.
+   */
+  function arMinutes(n, after) {
+    if (typeof n !== 'number' || !isFinite(n) || n !== Math.floor(n) || n < 0)
+      return n + ' دقيقة';
+    if (n === 1) return 'دقيقة واحدة';
+    if (n === 2) return after ? 'دقيقتين' : 'دقيقتان';
+    const r = n % 100;
+    return n + ' ' + (r >= 3 && r <= 10 ? 'دقائق' : 'دقيقة');
+  }
   function tr(k, v) {
     let s = (T[lang] && T[lang][k]) || T.en[k] || k;
+    if (typeof s === 'function') return s(v || {});
     if (v)
       for (const x of Object.keys(v)) s = s.split('{' + x + '}').join(v[x]);
     return s;
@@ -360,6 +377,14 @@
       status(tr('moved'));
       listen();
       return;
+    }
+    // 0.9.6: the QR code carries a one-time pairing topic only; "paired"
+    // brings the TV's lasting inbox and outbox
+    const topic = /^[\w-]{16,64}$/;
+    if (msg.op === 'paired' && topic.test(msg.i) && topic.test(msg.o)) {
+      tv.inbox = msg.i;
+      tv.outbox = msg.o;
+      listen();
     }
     await saveTv();
     if (msg.op === 're' && waiting[msg.id]) {
@@ -900,38 +925,19 @@
    * ({op: 'rtc'}); the TV answers and a direct, end-to-end encrypted data
    * channel opens (DTLS; the TV checks this phone's certificate against the
    * offer, the browser checks the TV's against the answer). The TV's own
-   * phone page then runs at ./tv/ inside this app: sw.js passes its
-   * requests here (BroadcastChannel 'sofatube-tv') and they go over the
-   * channel, as this phone's parent connection (the away PIN on the TV
-   * page first). Nothing of it reaches any server.
+   * phone page then runs inside this app in a sandboxed frame (tv-frame.js:
+   * an opaque origin, no access to this app's keys, files or storage); its
+   * requests come here by postMessage and go over the channel, as this
+   * phone's parent connection (the away PIN on the TV page first). Nothing
+   * of it reaches any server.
    */
   let rtc = null; // {pc, dc, waiting, n}
-  const bridge =
-    'BroadcastChannel' in self ? new BroadcastChannel('sofatube-tv') : null;
-  if (bridge)
-    bridge.onmessage = async (e) => {
-      const m = e.data || {};
-      // no channel here: the app's front page (home.js, at home) may hold
-      // one; the service worker gives up by itself
-      if (m.kind !== 'req' || (!rtc && !again)) return;
-      // the path dropped and the channel is opening again: wait for it
-      if (!rtc) await again;
-      const out = { kind: 'res', id: m.id };
-      const r = await chan(
-        { m: m.m, p: m.p, b: m.b, b64: m.b64, type: m.type },
-        45000
-      );
-      if (!r) {
-        out.code = 504;
-        out.data = { error: 'timeout' };
-      } else {
-        out.code = r.code;
-        out.type = r.type;
-        if (r.b64 !== undefined) out.b64 = r.b64;
-        else out.data = r.data;
-      }
-      bridge.postMessage(out);
-    };
+  /** One request of the TV's page (tv-frame.js); waits for a reconnect. */
+  async function pageRequest(msg, ms) {
+    // the path dropped and the channel is opening again: wait for it
+    if (!rtc && again) await again;
+    return chan(msg, ms);
+  }
 
   function chan(msg, ms) {
     return new Promise((ok) => {
@@ -995,10 +1001,9 @@
         drawFullState();
         // the new path may differ: the TV page's live view follows it
         try {
-          $('full-frame').contentWindow.postMessage(
-            { ytxRelay: !!(rtc && rtc.relay) },
-            location.origin
-          );
+          self.sofaTvFrame.post('full-frame', {
+            ytxRelay: !!(rtc && rtc.relay)
+          });
         } catch {
           /* not loaded */
         }
@@ -1126,8 +1131,7 @@
   /** {ok} or {ok: false, why: 'tv' | 'route', net (what the TV said)} */
   async function direct() {
     if (rtc && rtc.dc.readyState === 'open') return { ok: true };
-    if (!('RTCPeerConnection' in window) || !bridge)
-      return { ok: false, why: 'route' };
+    if (!('RTCPeerConnection' in window)) return { ok: false, why: 'route' };
     const iceServers = [{ urls: 'stun:stun.l.google.com:19302' }];
     if (turn)
       iceServers.push({
@@ -1206,10 +1210,7 @@
       drawFullState();
       // the TV page inside: the live view waits for a tap over a relay
       try {
-        $('full-frame').contentWindow.postMessage(
-          { ytxRelay: v },
-          location.origin
-        );
+        self.sofaTvFrame.post('full-frame', { ytxRelay: v });
       } catch {
         /* not loaded yet */
       }
@@ -1246,26 +1247,17 @@
     $('full-state').textContent = tr(rtc && rtc.relay ? 'fullRelay' : 'fullOn');
   }
 
-  // the service worker in charge of ./tv/ (none in Firefox's private
-  // windows, and one that fails to install never gets ready)
-  function swReady() {
-    if (!('serviceWorker' in navigator)) return Promise.resolve(false);
-    return Promise.race([
-      navigator.serviceWorker.ready.then(
-        (r) => !!(r && r.active),
-        () => false
-      ),
-      new Promise((ok) => setTimeout(() => ok(false), 10000))
-    ]);
-  }
-
   let fullBusy = false;
   async function openFull() {
     if (fullBusy) return;
     fullBusy = true;
-    // the full page needs WebRTC, BroadcastChannel and the service worker:
-    // without one of them the simple view stays, and says why
-    if (!('RTCPeerConnection' in window) || !bridge || !(await swReady())) {
+    // the full page needs WebRTC and a sandboxed frame (srcdoc): without
+    // them the simple view stays, and says why
+    if (
+      !('RTCPeerConnection' in window) ||
+      !self.sofaTvFrame ||
+      !('srcdoc' in document.createElement('iframe'))
+    ) {
       fullBusy = false;
       $('full-note').textContent = tr('fullNoBrowser');
       return;
@@ -1279,17 +1271,24 @@
     }
     $('full-note').textContent = '';
     drawFullState();
-    // over a relay, the TV page keeps its live view off until a tap
-    $('full-frame').src =
-      'tv/?t=00&app=1&lang=' + lang + (rtc && rtc.relay ? '&relay=1' : '');
     $('full').classList.remove('hidden');
     document.documentElement.style.overflow = 'hidden'; // nothing scrolls behind it
+    // over a relay, the TV page keeps its live view off until a tap
+    const shown = await self.sofaTvFrame.open('full-frame', {
+      chan: pageRequest,
+      url: 'tv/?t=00&app=1&lang=' + lang + (rtc && rtc.relay ? '&relay=1' : ''),
+      id: (tv && tv.tvId) || 'away'
+    });
+    if (!shown) {
+      closeFull();
+      $('full-note').textContent = tr('fullNo');
+    }
   }
 
   function closeFull() {
     document.documentElement.style.overflow = '';
     $('full').classList.add('hidden');
-    $('full-frame').src = 'about:blank';
+    self.sofaTvFrame.close('full-frame');
   }
 
   async function start() {

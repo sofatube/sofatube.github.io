@@ -14,10 +14,14 @@
  *     TV's answer comes back sealed: nobody on the Wi-Fi can read them or
  *     change the certificate fingerprints in them, so the data channel
  *     (DTLS) is end to end between this phone and the TV. The TV's page
- *     then runs at ./tv/ inside the app: sw.js passes its requests here
- *     (BroadcastChannel 'sofatube-tv') and they go over the channel, as
- *     this phone (a remembered parent phone on the TV; no away PIN at
- *     home).
+ *     then runs inside the app in a sandboxed frame (tv-frame.js: an
+ *     opaque origin, so nothing in it can reach this app's keys, files or
+ *     storage); its requests come here by postMessage and go over the
+ *     channel, as this phone (a remembered parent phone on the TV; no away
+ *     PIN at home).
+ *   - A home key is kept only after the phone's owner confirmed that the
+ *     TV's screen shows the same code (index.html): a device on the Wi-Fi
+ *     that only answers like Sofa Tube can't show a code on the real TV.
  *   - No channel (an old TV, a browser without local network access, a
  *     network that blocks it): the caller opens the TV's address as before.
  *
@@ -40,8 +44,8 @@
     return (
       supported() &&
       'RTCPeerConnection' in self &&
-      'BroadcastChannel' in self &&
-      !!navigator.serviceWorker
+      !!self.sofaTvFrame &&
+      'srcdoc' in document.createElement('iframe')
     );
   }
 
@@ -207,31 +211,8 @@
 
   /* ---------------- the channel ---------------- */
 
-  let rtc = null; // {pc, dc, waiting, n, a}
+  let rtc = null; // {pc, dc, waiting, n, a, tvId}
   let onLost = null;
-  const bridge =
-    'BroadcastChannel' in self ? new BroadcastChannel('sofatube-tv') : null;
-  if (bridge)
-    bridge.onmessage = async (e) => {
-      const m = e.data || {};
-      // no channel here: away.html (another window) may hold one
-      if (m.kind !== 'req' || !rtc) return;
-      const out = { kind: 'res', id: m.id };
-      const r = await chan(
-        { m: m.m, p: m.p, b: m.b, b64: m.b64, type: m.type },
-        45000
-      );
-      if (!r) {
-        out.code = 504;
-        out.data = { error: 'timeout' };
-      } else {
-        out.code = r.code;
-        out.type = r.type;
-        if (r.b64 !== undefined) out.b64 = r.b64;
-        else out.data = r.data;
-      }
-      bridge.postMessage(out);
-    };
 
   function chan(msg, ms) {
     return new Promise((ok) => {
@@ -354,7 +335,7 @@
       rec.a = a; // the TV's address now (it changed)
       await update(rec);
     }
-    const me = { pc, dc, waiting: {}, n: 1, a };
+    const me = { pc, dc, waiting: {}, n: 1, a, tvId: rec.tvId };
     dc.onmessage = (e) => {
       let m;
       try {
@@ -396,6 +377,11 @@
     if (me) me.pc.close();
   }
 
+  /** The TV the channel is open to (its id), or ''. */
+  function current() {
+    return rtc && rtc.dc.readyState === 'open' ? rtc.tvId : '';
+  }
+
   self.sofaHome = {
     supported,
     canShow,
@@ -404,6 +390,9 @@
     joinDone,
     connect,
     close,
+    current,
+    // one request of the TV's page over the channel (tv-frame.js)
+    request: chan,
     set onLost(f) {
       onLost = f;
     }

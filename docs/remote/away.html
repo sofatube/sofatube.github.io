@@ -434,9 +434,15 @@
         <span id="full-state"></span>
         <button class="btn ghost" id="full-simple" type="button"></button>
       </div>
-      <iframe id="full-frame" title="Sofa Tube"></iframe>
+      <!-- sandboxed, no allow-same-origin: tv-frame.js -->
+      <iframe
+        id="full-frame"
+        title="Sofa Tube"
+        sandbox="allow-scripts allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-downloads"
+      ></iframe>
     </div>
     <script src="away-crypto.js"></script>
+    <script src="tv-frame.js"></script>
     <script src="jsqr.min.js" defer></script>
     <script src="away.js"></script>
   </body>

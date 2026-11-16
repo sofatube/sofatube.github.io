@@ -280,10 +280,16 @@
           <a id="go-away" class="btn ghost hidden" href="away.html"></a>
           <button id="scan" class="btn ghost hidden" type="button"></button>
         </div>
+        <!-- what answered on the Wi-Fi: the phone's owner picks (0.9.6) -->
+        <div id="pickbox" class="hidden">
+          <ul id="picklist"></ul>
+        </div>
         <div id="joinbox" class="hidden">
           <p id="join-how" class="small"></p>
           <p id="join-code" class="joincode" dir="ltr"></p>
           <div class="btns">
+            <button id="join-same" class="btn" type="button"></button>
+            <button id="join-diff" class="btn ghost" type="button"></button>
             <button id="join-stop" class="btn ghost" type="button"></button>
           </div>
         </div>
@@ -337,10 +343,16 @@
     </main>
     <!-- 0.9.6: the TV's phone page inside the app (home.js) -->
     <div id="full" class="hidden">
-      <iframe id="full-frame" title="Sofa Tube"></iframe>
+      <!-- sandboxed, no allow-same-origin: tv-frame.js -->
+      <iframe
+        id="full-frame"
+        title="Sofa Tube"
+        sandbox="allow-scripts allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-downloads"
+      ></iframe>
     </div>
     <script src="share-link.js"></script>
     <script src="away-crypto.js"></script>
+    <script src="tv-frame.js"></script>
     <script src="home.js"></script>
     <script>
       /*
@@ -433,8 +445,18 @@
             newNotFoundHow:
               'Check that Sofa Tube is open on the TV and that this phone is on the same Wi-Fi. Or type the TV’s address below (it is under the code on the TV’s “Phone remote” page), or scan that code.',
             joinAsking: 'Found your TV. Asking it…',
-            joinHow: 'On the TV: check that it shows this code, then press OK.',
+            joinHow:
+              'Check that the TV screen shows this same code. Tap “Same code” here, then press OK on the TV.',
             joinCancel: 'Cancel',
+            joinSame: 'Same code',
+            joinDiff: 'Not the same',
+            joinWaitTv: 'Now press OK on the TV.',
+            joinWaitMe:
+              'The TV said OK. Does the TV screen show this same code? Tap “Same code” to finish.',
+            joinMismatch:
+              'The codes are not the same, so this was not your TV. Nothing was saved. Check that the phone is on your home Wi-Fi, then try again.',
+            pickTitle: 'Sofa Tube answered at these addresses. Pick your TV:',
+            pickOne: 'TV at {a}',
             joinNo: 'The TV said no.',
             joinGone:
               'No answer from the TV. Search again, then press OK on the TV within 2 minutes.',
@@ -460,7 +482,7 @@
             dhcpTitle: 'Stop the TV’s address from changing',
             dhcp: 'In your router’s settings (often at 192.168.1.1 or 192.168.0.1) look for “DHCP reservation” (also “Address reservation” or “Static lease”) and reserve the TV’s current address. Then the TV keeps the same address, and a home-screen icon made on the phone page keeps working too.',
             privacy:
-              'Private: your TV’s address is kept only in this browser, and the search stays on your Wi-Fi. Sofa Tube has no server.'
+              'Private: your TV’s address is kept only in this browser. To find a new TV, this page reads the sealed note the TV leaves on a free message server (ntfy.sh); only phones on your Wi-Fi can open it. Sofa Tube has no server of its own.'
           },
           ar: {
             title: 'جهاز التحكم صوفا تيوب',
@@ -536,8 +558,18 @@
             newNotFoundHow:
               'تأكد من أن صوفا تيوب مفتوح على التلفاز، ومن أن هذا الهاتف متصل بشبكة الواي فاي نفسها. أو اكتب عنوان التلفاز أدناه (تجده تحت رمز QR في صفحة «جهاز التحكم من الهاتف» على التلفاز)، أو امسح ذلك الرمز.',
             joinAsking: 'وُجد التلفاز. جارٍ الطلب منه…',
-            joinHow: 'على التلفاز: تأكد من ظهور هذا الرمز، ثم اضغط OK.',
+            joinHow:
+              'تأكد من ظهور الرمز نفسه على شاشة التلفاز. اضغط «الرمز نفسه» هنا، ثم اضغط OK على التلفاز.',
             joinCancel: 'إلغاء',
+            joinSame: 'الرمز نفسه',
+            joinDiff: 'رمز مختلف',
+            joinWaitTv: 'اضغط الآن OK على التلفاز.',
+            joinWaitMe:
+              'وافق التلفاز. هل يظهر الرمز نفسه على شاشة التلفاز؟ اضغط «الرمز نفسه» للإنهاء.',
+            joinMismatch:
+              'الرمزان مختلفان، فهذا ليس تلفازك، ولم يُحفظ شيء. تأكد من اتصال الهاتف بشبكة الواي فاي في منزلك، ثم حاول مرة أخرى.',
+            pickTitle: 'أجاب صوفا تيوب من هذه العناوين. اختر تلفازك:',
+            pickOne: 'التلفاز على العنوان {a}',
             joinNo: 'رفض التلفاز الطلب.',
             joinGone:
               'لم يُجب التلفاز. ابحث مرة أخرى، ثم اضغط OK على التلفاز خلال دقيقتين.',
@@ -562,7 +594,7 @@
             dhcpTitle: 'منع تغيّر عنوان التلفاز',
             dhcp: 'في إعدادات الراوتر (غالبًا على 192.168.1.1 أو 192.168.0.1) ابحث عن «حجز عنوان DHCP» (ويُسمى أيضًا «حجز العنوان» أو «Static lease») واحجز عنوان التلفاز الحالي. فيبقى للتلفاز العنوان نفسه، وتستمر أيضًا الأيقونة التي أُضيفت من صفحة الهاتف في العمل.',
             privacy:
-              'خصوصية: يُحفظ عنوان التلفاز في هذا المتصفح فقط، ويجري البحث داخل شبكة الواي فاي. ولا يملك صوفا تيوب أي خادم.'
+              'خصوصية: يُحفظ عنوان التلفاز في هذا المتصفح فقط. وللعثور على تلفاز جديد تقرأ هذه الصفحة الرسالة المختومة التي يتركها التلفاز على خادم رسائل مجاني (ntfy.sh)، ولا تستطيع فتحها إلا الهواتف على شبكة الواي فاي لديك. ولا يملك صوفا تيوب خادمًا خاصًا به.'
           }
         };
 
@@ -721,28 +753,47 @@
             if (!k) return false;
             return home.connect(a).then(function (ok) {
               if (!ok) return false;
-              // the service worker must be in charge of ./tv/ first
-              return navigator.serviceWorker.ready.then(function () {
-                showFull();
-                return true;
-              });
+              return showFull(a);
             });
           });
         }
-        function showFull() {
-          setStatus('', '');
-          $('full-frame').src =
+        // the TV's page in a sandboxed frame (tv-frame.js): it can't reach
+        // this app's keys, files or storage
+        // what the frame can't do (the relative's camera) works on the
+        // TV's own page: its https address, for a link there
+        function ownPage(a) {
+          var m = /^([0-9.]+):(\d+)$/.exec(a || '');
+          return m ? 'https://' + m[1] + ':' + (Number(m[2]) + 10) + '/' : '';
+        }
+        function showFull(a) {
+          var url =
             'tv/?t=00&app=1&from=app&lang=' +
             lang +
             (sendHash ? '#' + sendHash : '');
-          sendHash = ''; // sent once (a reconnect opens the remote only)
           $('full').classList.remove('hidden');
           document.documentElement.style.overflow = 'hidden';
+          return window.sofaTvFrame
+            .open('full-frame', {
+              chan: home.request,
+              url: url,
+              id: home.current(),
+              tv: ownPage(a)
+            })
+            .then(function (ok) {
+              if (!ok) {
+                hideFull();
+                home.close();
+                return false;
+              }
+              setStatus('', '');
+              sendHash = ''; // sent once (a reconnect opens the remote only)
+              return true;
+            });
         }
         function hideFull() {
           document.documentElement.style.overflow = '';
           $('full').classList.add('hidden');
-          $('full-frame').src = 'about:blank';
+          if (window.sofaTvFrame) window.sofaTvFrame.close('full-frame');
         }
         var lostHidden = false;
         if (home)
@@ -844,6 +895,36 @@
                     hit = a;
                     return done(a);
                   }
+                  pump();
+                });
+              })(addrs[i++]);
+            }
+          }
+          pump();
+        }
+
+        /** Every address that answers, PARALLEL at a time. */
+        function sweepEvery(addrs, my, done) {
+          var i = 0;
+          var running = 0;
+          var checked = 0;
+          var hits = [];
+          function pump() {
+            if (my !== gen) return;
+            if (i >= addrs.length && !running) return done(hits);
+            while (running < PARALLEL && i < addrs.length) {
+              (function (a) {
+                running++;
+                probe(a).then(function (ok) {
+                  running--;
+                  checked++;
+                  if (my !== gen) return;
+                  if (addrs.length > 10)
+                    $('detail').textContent = tr('progress', {
+                      n: checked,
+                      m: addrs.length
+                    });
+                  if (ok) hits.push(a);
                   pump();
                 });
               })(addrs[i++]);
@@ -1028,6 +1109,7 @@
           var my = ++gen;
           searching = true;
           joinEnd();
+          pickEnd();
           setStatus(tr('discovering'), '');
           $('detail').textContent = '';
           showFind(false);
@@ -1042,25 +1124,65 @@
           }
           // 1. the TV's own note through the relay (any home network),
           // 2. the usual home networks
+          // Every answer is listed and the phone's owner picks: any device
+          // on a Wi-Fi can answer like Sofa Tube, so none is joined by
+          // itself (and the code check in join() decides).
           lanFind().then(function (list) {
             if (my !== gen) return;
             if (list.limited) setStatus(tr('discoveringBusy'), '');
-            sweep(list, my, function (a) {
+            sweepEvery(list, my, function (hits) {
               if (my !== gen) return;
-              if (a) {
-                searching = false;
-                return join(a);
-              }
+              if (hits.length) return pick(hits);
               sweep(discoverList(), my, function (b) {
                 if (my !== gen) return;
-                if (b) {
-                  searching = false;
-                  return join(b);
-                }
-                notFound();
+                if (!b) return notFound();
+                // the rest of that network: every TV on it
+                var net = b.split('.').slice(0, 3).join('.');
+                var rest = [];
+                for (var h = 1; h < 255; h++)
+                  if (net + '.' + h + ':8686' !== b)
+                    rest.push(net + '.' + h + ':8686');
+                sweepEvery(rest, my, function (more) {
+                  if (my !== gen) return;
+                  pick([b].concat(more));
+                });
               });
             });
           });
+        }
+        function pickEnd() {
+          $('pickbox').classList.add('hidden');
+          $('picklist').textContent = '';
+        }
+        function pick(hits) {
+          searching = false;
+          // one entry per TV (a TV answers on one port only)
+          var ips = [];
+          hits = hits.filter(function (x) {
+            var ip = x.split(':')[0];
+            if (ips.indexOf(ip) >= 0) return false;
+            ips.push(ip);
+            return true;
+          });
+          setStatus(tr('pickTitle'), 'ok');
+          $('detail').textContent = '';
+          var ul = $('picklist');
+          ul.textContent = '';
+          hits.forEach(function (a) {
+            var li = document.createElement('li');
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'btn ghost';
+            b.textContent = tr('pickOne', { a: iso(a) });
+            b.addEventListener('click', function () {
+              pickEnd();
+              join(a);
+            });
+            li.appendChild(b);
+            ul.appendChild(li);
+          });
+          $('pickbox').classList.remove('hidden');
+          showFind(true, tr('again'));
         }
 
         /*
@@ -1288,9 +1410,13 @@
           );
         }
         var joinTimer = null;
+        // this join: did the phone's owner confirm the code (same), and the
+        // TV's OK ({a, ctx, data}), held until the owner confirms
+        var joinSt = null;
         function joinEnd() {
           clearTimeout(joinTimer);
           joinTimer = null;
+          joinSt = null;
           $('joinbox').classList.add('hidden');
         }
         function joinFailed(key) {
@@ -1305,6 +1431,7 @@
         function join(a, saved) {
           var my = ++gen;
           searching = false;
+          pickEnd();
           showFind(false);
           showScan(false);
           showGo(null);
@@ -1321,7 +1448,11 @@
               if (r.code === 200) {
                 setStatus('', '');
                 $('join-code').textContent = r.show;
+                $('join-how').textContent = tr('joinHow');
+                $('join-same').classList.remove('hidden');
+                $('join-diff').classList.remove('hidden');
                 $('joinbox').classList.remove('hidden');
+                joinSt = { my: my, same: false, held: null };
                 return joinWait(a, r.w, my, Date.now() + 125000, r.ctx);
               }
               if (saved && !(r.code === 429 && r.error === 'wait'))
@@ -1337,6 +1468,32 @@
               );
             });
         }
+        function joinFinish(my) {
+          var h = joinSt && joinSt.held;
+          if (!h || my !== gen) return;
+          // the TV's link, sealed with this phone's new home key
+          home.joinDone(h.ctx, h.a, h.data).then(function (got) {
+            if (my !== gen) return;
+            var tv = got && tvFromCode(got.url);
+            if (!tv) return joinFailed('joinFail');
+            joinEnd();
+            setStatus(tr(sendHash ? 'shareFound' : 'found'), 'ok');
+            go(h.a, tv.url);
+          });
+        }
+        function joinSame() {
+          if (!joinSt || joinSt.my !== gen) return;
+          joinSt.same = true;
+          $('join-same').classList.add('hidden');
+          $('join-diff').classList.add('hidden');
+          if (joinSt.held) return joinFinish(gen);
+          $('join-how').textContent = tr('joinWaitTv');
+        }
+        function joinDiff() {
+          if (!joinSt) return;
+          ++gen; // stops asking the TV
+          joinFailed('joinMismatch');
+        }
         function joinWait(a, w, my, until, ctx) {
           joinTimer = setTimeout(function () {
             if (my !== gen) return;
@@ -1344,15 +1501,13 @@
               if (my !== gen) return;
               var st = r.data && r.data.state;
               if (st === 'ok') {
-                // the TV's link, sealed with this phone's new home key
-                return home.joinDone(ctx, a, r.data).then(function (got) {
-                  if (my !== gen) return;
-                  var tv = got && tvFromCode(got.url);
-                  if (!tv) return joinFailed('joinFail');
-                  joinEnd();
-                  setStatus(tr(sendHash ? 'shareFound' : 'found'), 'ok');
-                  go(a, tv.url);
-                });
+                // "OK" comes from the device itself: the home key is kept
+                // only once the phone's owner said the TV shows this code
+                if (!joinSt || joinSt.my !== my) return;
+                joinSt.held = { a: a, ctx: ctx, data: r.data };
+                if (joinSt.same) return joinFinish(my);
+                $('join-how').textContent = tr('joinWaitMe');
+                return;
               }
               if (st === 'no') return joinFailed('joinNo');
               if (st === 'gone' || Date.now() > until)
@@ -1549,6 +1704,8 @@
           document.documentElement.lang = lang;
           $('join-how').textContent = tr('joinHow');
           $('join-stop').textContent = tr('joinCancel');
+          $('join-same').textContent = tr('joinSame');
+          $('join-diff').textContent = tr('joinDiff');
           $('go-home').textContent = tr('openHome');
           $('go-away').textContent = tr('openAway');
           $('find-new').textContent = tr('findAnother');
@@ -1606,7 +1763,14 @@
         function draw() {
           texts();
           drawKnown();
-          if (searching || scanStream || joinTimer) return;
+          if (
+            searching ||
+            scanStream ||
+            joinTimer ||
+            joinSt ||
+            !$('pickbox').classList.contains('hidden')
+          )
+            return;
           var list = load();
           showScan(!list.length);
           showGo(null);
@@ -1778,6 +1942,8 @@
           window.scrollTo(0, 0);
           discover();
         });
+        $('join-same').addEventListener('click', joinSame);
+        $('join-diff').addEventListener('click', joinDiff);
         $('join-stop').addEventListener('click', function () {
           gen++;
           joinEnd();
