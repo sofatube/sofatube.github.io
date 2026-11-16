@@ -89,7 +89,7 @@ def usb_page(lang, ver, L, url):
 <div class="row"><button class="btn" id="usb-go" type="button" disabled>الاتصال بالجهاز والتثبيت</button></div>
 <progress id="usb-bar" max="1" value="0" hidden></progress>
 <p id="usb-msg" class="usb-msg" role="status" aria-live="polite" hidden></p></li>
-<li class="usb-step"><b>على التلفاز:</b> يسأل «<bdi>Allow USB debugging?</bdi>» (السماح بتصحيح أخطاء USB). انتقل إلى <b><bdi>Allow</bdi></b> (سماح) بجهاز التحكم واضغط OK. وإن فعّلت «<bdi>Always allow from this computer</bdi>» فلن يُطرح السؤال في المرة القادمة.
+<li class="usb-step"><b>على التلفاز:</b> يسأل «<bdi>Allow USB debugging?</bdi>» (السماح بتصحيح أخطاء USB). انتقل إلى <b><bdi>Allow</bdi></b> (سماح) بجهاز التحكم واضغط OK. يُطرح هذا السؤال في كل زيارة، لأن الصفحة لا تحفظ مفتاحًا على هذا الحاسوب، فلا حاجة إلى تفعيل «<bdi>Always allow from this computer</bdi>».
 {pics_allow(lang, L)}</li>
 <li class="usb-step">بعد «تم» يفتح صوفا تيوب على التلفاز. يمكنك بعدها إيقاف تصحيح أخطاء USB من خيارات المطوّرين.</li>
 </ol>
@@ -143,7 +143,7 @@ def usb_page(lang, ver, L, url):
 <div class="row"><button class="btn" id="usb-go" type="button" disabled>Connect the box and install</button></div>
 <progress id="usb-bar" max="1" value="0" hidden></progress>
 <p id="usb-msg" class="usb-msg" role="status" aria-live="polite" hidden></p></li>
-<li class="usb-step"><b>On the TV:</b> it asks "Allow USB debugging?". Move to <b>Allow</b> with the remote and press OK. Tick "Always allow from this computer" to skip the question next time.
+<li class="usb-step"><b>On the TV:</b> it asks "Allow USB debugging?". Move to <b>Allow</b> with the remote and press OK. It asks again on each visit, because the page keeps no key on this computer, so there is no need to tick "Always allow from this computer".
 {pics_allow(lang, L)}</li>
 <li class="usb-step">After "Done", Sofa Tube opens on the TV. You can then turn USB debugging off again in Developer options.</li>
 </ol>

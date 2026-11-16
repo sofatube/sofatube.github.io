@@ -211,13 +211,81 @@ export async function streamInstall(adb, bytes, stream, onSent) {
     throw installFailure(text || (writeError && writeError.message) || '');
 }
 
+/*
+ * The computer's adb key. Tango's own store (AdbWebCredentialStore) keeps an
+ * exportable RSA private key in IndexedDB "Tango", and this page shares its
+ * origin with the whole site: a box set to "Always allow from this computer"
+ * would then trust any script on sofatube.github.io. adb signs the TV's
+ * 20-byte token as a ready SHA-1 digest (RSA PKCS#1 v1.5 without hashing
+ * it), which WebCrypto can't do with a key it keeps (sign() hashes first),
+ * so the key can't be a non-extractable CryptoKey either. It lives in this
+ * page's memory only: made on the first connection, gone when the page
+ * closes. At worst the TV asks "Allow USB debugging?" again next time.
+ */
+let sessionKey = null; // {buffer: PKCS #8, name}
+
+/**
+ * An AdbCredentialStore that keeps its key in memory only.
+ * @param {SubtleCrypto} [subtle]
+ * @param {string} [host] the key's name after "Sofa Tube@"
+ */
+export function memoryCredentialStore(subtle = crypto.subtle, host) {
+  const name =
+    'Sofa Tube@' +
+    (host || (globalThis.location && globalThis.location.hostname) || 'web');
+  return {
+    async generateKey() {
+      const { privateKey } = await subtle.generateKey(
+        {
+          name: 'RSASSA-PKCS1-v1_5',
+          modulusLength: 2048,
+          publicExponent: new Uint8Array([1, 0, 1]),
+          hash: 'SHA-1'
+        },
+        true, // Tango signs with the key's bytes (rsaSign): in memory only
+        ['sign', 'verify']
+      );
+      const buffer = new Uint8Array(
+        await subtle.exportKey('pkcs8', privateKey)
+      );
+      sessionKey = { buffer, name };
+      return sessionKey;
+    },
+    async *iterateKeys() {
+      if (sessionKey) yield sessionKey;
+    }
+  };
+}
+
+/**
+ * Forgets this computer's key: the one in memory and the one Tango's own
+ * store kept in IndexedDB "Tango" (an earlier test build of this page).
+ * @returns {Promise<boolean>} true when nothing is kept any more
+ */
+export function forgetKeys(idb = globalThis.indexedDB) {
+  sessionKey = null;
+  if (!idb) return Promise.resolve(true);
+  return new Promise((ok) => {
+    let r;
+    try {
+      r = idb.deleteDatabase('Tango');
+    } catch {
+      return ok(false);
+    }
+    r.onsuccess = () => ok(true);
+    r.onerror = () => ok(false);
+    // another tab still has it open: deleted once that tab closes
+    r.onblocked = () => ok(false);
+  });
+}
+
 /**
  * Picks the box (the browser's USB list), connects and installs.
  * @param {object} o
  * @param {object} o.tango the bundle's exports (TANGO_FILE)
  * @param {Uint8Array} o.bytes the checked APK
  * @param {object} [o.manager] AdbDaemonWebUsbDeviceManager (default BROWSER)
- * @param {object} [o.credentialStore] default: AdbWebCredentialStore('Sofa Tube')
+ * @param {object} [o.credentialStore] default: memoryCredentialStore()
  * @param {(step: string, x?: any) => void} [o.onStep]
  *   'choose' → 'connect' → 'allow' (the TV asks) → 'sending' (x = 0..1)
  *   → 'installing' → 'done' (x = the box's name)
@@ -264,8 +332,7 @@ export async function installOverUsb(o) {
       t.AdbDaemonTransport.authenticate({
         serial: device.serial,
         connection,
-        credentialStore:
-          o.credentialStore || new t.AdbWebCredentialStore('Sofa Tube')
+        credentialStore: o.credentialStore || memoryCredentialStore()
       }),
       new Promise((_, no) => {
         timer = setTimeout(
@@ -363,7 +430,12 @@ export const T = {
     choose: 'Choose the box in the browser’s list, then Connect.',
     connect: (n) => `Connecting to ${n || 'the box'}…`,
     allow:
-      'Look at the TV: it asks “Allow USB debugging?”. Move to Allow with the remote and press OK (tick “Always allow from this computer” to skip this next time).',
+      'Look at the TV: it asks “Allow USB debugging?”. Move to Allow with the remote and press OK. This page keeps no key on this computer, so the TV asks each time: leave “Always allow from this computer” off.',
+    forget: 'Forget this computer’s key',
+    forgot:
+      'Done: this page keeps no key on this computer. If the TV still lets this computer in without asking, remove it on the TV: Settings → Developer options → “Revoke USB debugging authorizations”.',
+    forgotBusy:
+      'The old key is removed once the other tabs of this site are closed.',
     sending: (p) => `Sending Sofa Tube to the box… ${p}%`,
     installing: 'Installing on the box… (up to a minute)',
     done: (n) =>
@@ -406,10 +478,10 @@ export const T = {
   },
   ar: {
     firefox:
-      'لا يستطيع فايرفوكس الوصول إلى أجهزة USB من صفحة ويب (لا يدعم WebUSB). افتح هذه الصفحة في Google Chrome أو Microsoft Edge على حاسوب.',
+      'لا يستطيع Firefox الوصول إلى أجهزة USB من صفحة ويب (لا يدعم WebUSB). افتح هذه الصفحة في Google Chrome أو Microsoft Edge على حاسوب.',
     safari:
-      'لا يستطيع سفاري الوصول إلى أجهزة USB من صفحة ويب (لا يدعم WebUSB). افتح هذه الصفحة في Google Chrome أو Microsoft Edge على حاسوب (على الماك: نسخة Chrome أو Edge للماك).',
-    ios: 'لا يمكن التثبيت عبر USB من آيفون أو آيباد (لا يدعم أي متصفح هناك WebUSB). استخدم Chrome أو Edge على حاسوب، أو الطرق الأخرى في صفحة الإعداد.',
+      'لا يستطيع Safari الوصول إلى أجهزة USB من صفحة ويب (لا يدعم WebUSB). افتح هذه الصفحة في Google Chrome أو Microsoft Edge على حاسوب (على Mac: نسخة Chrome أو Edge لأجهزة Mac).',
+    ios: 'لا يمكن التثبيت عبر USB من iPhone أو iPad (لا يدعم أي متصفح هناك WebUSB). استخدم Chrome أو Edge على حاسوب، أو الطرق الأخرى في صفحة الإعداد.',
     other:
       'لا يستطيع هذا المتصفح الوصول إلى أجهزة USB (لا يدعم WebUSB). افتح هذه الصفحة في Google Chrome أو Microsoft Edge على حاسوب.',
     insecure: `افتح هذه الصفحة من ${I('https://sofatube.github.io/ar/usb/')}.`,
@@ -425,7 +497,10 @@ export const T = {
       `فُحص الملف: صوفا تيوب ${I(v)}، وهو الملف نفسه الموجود في قائمة الإصدار الموقّعة.`,
     choose: `اختر الجهاز من قائمة المتصفح، ثم «اتصال» (${I('Connect')}).`,
     connect: (n) => `جارٍ الاتصال بـ${n ? I(n) : 'الجهاز'}…`,
-    allow: `انظر إلى التلفاز: يسأل «${I('Allow USB debugging?')}» (السماح بتصحيح أخطاء USB). انتقل إلى ${I('Allow')} (سماح) بجهاز التحكم واضغط OK. وإن فعّلت «${I('Always allow from this computer')}» فلن يُطرح السؤال في المرة القادمة.`,
+    allow: `انظر إلى التلفاز: يسأل «${I('Allow USB debugging?')}» (السماح بتصحيح أخطاء USB). انتقل إلى ${I('Allow')} (سماح) بجهاز التحكم واضغط OK. لا تحفظ هذه الصفحة مفتاحًا على هذا الحاسوب، لذلك يسأل التلفاز في كل مرة: اترك «${I('Always allow from this computer')}» غير مفعّل.`,
+    forget: 'نسيان مفتاح هذا الحاسوب',
+    forgot: `تم: لا تحفظ هذه الصفحة أي مفتاح على هذا الحاسوب. وإن ظل التلفاز يسمح لهذا الحاسوب دون أن يسأل، فأزل الإذن من التلفاز: الإعدادات ← خيارات المطوّر ← «${I('Revoke USB debugging authorizations')}» (إلغاء تفويضات تصحيح أخطاء USB).`,
+    forgotBusy: 'يُحذف المفتاح القديم بعد إغلاق تبويبات هذا الموقع الأخرى.',
     sending: (p) => `جارٍ إرسال صوفا تيوب إلى الجهاز… ${p}%`,
     installing: 'جارٍ التثبيت على الجهاز… (حتى دقيقة)',
     done: (n) =>
@@ -445,7 +520,7 @@ export const T = {
       'no-device':
         'لم تختر جهازًا. هل كانت القائمة فارغة؟ تحقق من أن تصحيح أخطاء USB مفعّل، وأن الكابل ينقل البيانات (لا كابل شحن فقط)، ومن المنفذ الصحيح (انظر «الأجهزة والكابل»)، وأن لا نافذة أو برنامج آخر يستخدم الجهاز.',
       'usb-denied':
-        'لم يسمح الحاسوب للمتصفح بفتح الجهاز. على ويندوز: أغلق البرامج الأخرى التي تستخدم أجهزة Android. على لينكس: تلزم قاعدة udev للجهاز.',
+        'لم يسمح الحاسوب للمتصفح بفتح الجهاز. على Windows: أغلق البرامج الأخرى التي تستخدم أجهزة Android. على Linux: تلزم قاعدة udev للجهاز.',
       busy: `برنامج آخر يستخدم الجهاز (adb أو Android Studio أو scrcpy أو تبويب آخر في المتصفح). أغلقه، أو نفّذ «${I('adb kill-server')}» في الطرفية، ثم حاول مرة أخرى.`,
       connect:
         'انقطع الاتصال بالجهاز. انزع الكابل وأعد توصيله ثم حاول مرة أخرى.',
@@ -499,6 +574,21 @@ function init(doc, win) {
   let list = null;
   let bytes = null;
   const go = $('usb-go');
+  // an adb key an earlier build kept in IndexedDB "Tango": gone (this page
+  // keeps its key in memory only, memoryCredentialStore)
+  forgetKeys(win.indexedDB);
+  if (go && doc.createElement) {
+    const forget = doc.createElement('button');
+    forget.type = 'button';
+    forget.id = 'usb-forget';
+    forget.className = go.className;
+    forget.textContent = t.forget;
+    forget.addEventListener('click', async () => {
+      const ok = await forgetKeys(win.indexedDB);
+      say('usb-msg', ok ? t.forgot : t.forgotBusy, ok ? 'good' : 'warn');
+    });
+    go.insertAdjacentElement('afterend', forget);
+  }
   const ready = () => {
     go.disabled = !bytes;
   };
