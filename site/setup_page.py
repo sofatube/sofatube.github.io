@@ -96,13 +96,13 @@ def setup_page(lang, ver, L, url):
 <div class="row"><a class="btn" href="{apk}">تنزيل التطبيق للهاتف (apk)</a></div>
 <p class="meta">في المرة الأولى يطلب <bdi>Android</bdi> السماح للمتصفح بتثبيت التطبيقات: اضغط <b>«الإعدادات»</b>، وفعّل <b>«السماح من هذا المصدر»</b>، ثم ارجع واضغط <b>«تثبيت»</b>.</p></div>
 
-<div class="card" id="computer"><h3>حاسوب ويندوز أو ماك <span class="tag" id="tag-windows" style="display:none">جهازك</span><span class="tag" id="tag-mac" style="display:none">جهازك</span></h3>
+<div class="card" id="computer"><h3>حاسوب <bdi>Windows</bdi> أو <bdi>Mac</bdi> <span class="tag" id="tag-windows" style="display:none">جهازك</span><span class="tag" id="tag-mac" style="display:none">جهازك</span></h3>
 <p>ملف واحد، دون تثبيت: افتحه فتُفتح صفحة الإعداد في المتصفح وحدها.</p>
-<div class="row"><a class="btn" id="btn-win" href="{win}">ويندوز 10 و11 (<bdi>exe</bdi>، نحو <bdi>92 MB</bdi>)</a> <a class="btn ghost" id="btn-mac" href="{mac}">ماك (zip)</a></div>
-<p class="meta">أبقِ نافذة الإعداد مفتوحة حتى يعمل صوفا تيوب على التلفاز. نسخة ماك لم تُجرَّب بعد على جهاز ماك حقيقي.</p></div>
+<div class="row"><a class="btn" id="btn-win" href="{win}"><bdi>Windows 10</bdi> و11 (<bdi>exe</bdi>، نحو <bdi>92 MB</bdi>)</a> <a class="btn ghost" id="btn-mac" href="{mac}"><bdi>Mac</bdi> (zip)</a></div>
+<p class="meta">أبقِ نافذة الإعداد مفتوحة حتى يعمل صوفا تيوب على التلفاز. نسخة <bdi>Mac</bdi> لم تُجرَّب بعد على جهاز <bdi>Mac</bdi> حقيقي.</p></div>
 
 <div class="card" id="iphone"><h3>آيفون أو آيباد فقط؟ <span class="tag" id="tag-iphone" style="display:none">جهازك</span></h3>
-<p>لا يسمح متجر آبل بتطبيق يثبّت تطبيقات على التلفاز. استخدم حاسوبًا (ويندوز أو ماك) على شبكة الواي فاي نفسها مرة واحدة، أو هاتف <bdi>Android</bdi>. بعد التثبيت يعمل جهاز التحكم من الآيفون عاديًا.</p>
+<p>لا يسمح متجر آبل بتطبيق يثبّت تطبيقات على التلفاز. استخدم حاسوبًا (<bdi>Windows</bdi> أو <bdi>Mac</bdi>) على شبكة الواي فاي نفسها مرة واحدة، أو هاتف <bdi>Android</bdi>. بعد التثبيت يعمل جهاز التحكم من الآيفون عاديًا.</p>
 <p class="meta">أرسل رابط هذه الصفحة إلى الحاسوب: <bdi>sofatube.github.io/ar/setup/</bdi></p></div>
 <div class="card" id="usb"><h3>جهاز <bdi>Android TV</bdi> فيه منفذ USB: التثبيت من هذا الحاسوب</h3>
 <p><bdi>Chromecast with Google TV</bdi> أو <bdi>Nvidia Shield TV</bdi>، وكابل USB، وChrome أو Edge: يثبّت المتصفح صوفا تيوب عبر الكابل. مفيد حين لا يعمل Downloader. طريقة جديدة لم تُجرَّب بعد على جهاز حقيقي.</p>
@@ -112,8 +112,8 @@ def setup_page(lang, ver, L, url):
 <h2 id="first-open">أول مرة تفتح فيها الملف</h2>
 <p>ملفات الإعداد غير موقّعة بعد (التوقيع يُظهر اسم شخص، وصوفا تيوب ينشر باسمه فقط). لذلك يحذّر النظام مرة واحدة:</p>
 <ul>
-<li><b>ويندوز:</b> قد يقول المتصفح إن الملف «لا يُنزَّل عادةً»: اختر <b>«الاحتفاظ»</b> (Keep). ثم تقول نافذة <bdi>Microsoft Defender SmartScreen</bdi> «حمى Windows جهاز الكمبيوتر»: انقر <b>«مزيد من المعلومات»</b> (More info) ثم <b>«التشغيل على أي حال»</b> (Run anyway). إذا سأل جدار الحماية، فاسمح بالشبكات <b>الخاصة</b>.</li>
-<li><b>ماك:</b> فك ضغط الملف وانقر نقرًا مزدوجًا على <bdi>Sofa Tube Setup.command</bdi>. إذا قال ماك إنه لا يستطيع التحقق منه: أغلق الرسالة، وافتح <b>إعدادات النظام ← الخصوصية والأمن</b>، وانزل إلى «الأمن»، وانقر <b>«الفتح على أي حال»</b> (Open Anyway)، ثم أكّد بكلمة مرور الماك. تُفتح نافذة الطرفية (Terminal)، وفي المرة الأولى ينزّل الإعداد <bdi>Node.js</bdi> من موقعه الرسمي (نحو <bdi>50 MB</bdi>) إن لم يكن على الماك.</li>
+<li><b><bdi>Windows</bdi>:</b> قد يقول المتصفح إن الملف «لا يُنزَّل عادةً»: اختر <b>«الاحتفاظ»</b> (Keep). ثم تقول نافذة <bdi>Microsoft Defender SmartScreen</bdi> «حمى Windows جهاز الكمبيوتر»: انقر <b>«مزيد من المعلومات»</b> (More info) ثم <b>«التشغيل على أي حال»</b> (Run anyway). إذا سأل جدار الحماية، فاسمح بالشبكات <b>الخاصة</b>.</li>
+<li><b><bdi>Mac</bdi>:</b> فك ضغط الملف وانقر نقرًا مزدوجًا على <bdi>Sofa Tube Setup.command</bdi>. إذا قال <bdi>Mac</bdi> إنه لا يستطيع التحقق منه: أغلق الرسالة، وافتح <b>إعدادات النظام ← الخصوصية والأمن</b>، وانزل إلى «الأمن»، وانقر <b>«الفتح على أي حال»</b> (Open Anyway)، ثم أكّد بكلمة مرور جهاز <bdi>Mac</bdi>. تُفتح نافذة الطرفية (Terminal)، وفي المرة الأولى ينزّل الإعداد <bdi>Node.js</bdi> من موقعه الرسمي (نحو <bdi>50 MB</bdi>) إن لم يكن على جهاز <bdi>Mac</bdi>.</li>
 <li><b><bdi>Android</bdi>:</b> السماح بتثبيت التطبيقات للمتصفح مرة واحدة (أعلاه).</li>
 </ul>
 

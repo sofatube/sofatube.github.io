@@ -106,7 +106,7 @@ Please report what works and what does not: [open an issue](https://github.com/s
 
 ### التثبيت: أسهل طريقة
 
-**<a href="https://sofatube.github.io/ar/setup/">إعداد صوفا تيوب</a>** يثبّت صوفا تيوب من حاسوب ويندوز أو ماك أو من هاتف <bdi>Android</bdi> متصل بشبكة الواي فاي نفسها، دون كتابة شيء على التلفاز: يجد التلفاز ويتحكم فيه بطريقة التحكم الخاصة بالشركة المصنّعة (<bdi>Android TV</bdi> و<bdi>Google TV</bdi> وLG و<bdi>Samsung</bdi> حتى طرازات 2022؛ وفي أجهزة <bdi>Samsung</bdi> الأحدث يجهّز التلفاز ويرشدك إلى <bdi>Apps2Samsung</bdi>). جهاز <bdi>Android TV</bdi> فيه منفذ USB (<bdi>Chromecast with Google TV</bdi> أو <bdi>Nvidia Shield TV</bdi>)؟ <a href="https://sofatube.github.io/ar/usb/">التثبيت عبر USB</a> من Chrome أو Edge.
+**<a href="https://sofatube.github.io/ar/setup/">إعداد صوفا تيوب</a>** يثبّت صوفا تيوب من حاسوب <bdi>Windows</bdi> أو <bdi>Mac</bdi> أو من هاتف <bdi>Android</bdi> متصل بشبكة الواي فاي نفسها، دون كتابة شيء على التلفاز: يجد التلفاز ويتحكم فيه بطريقة التحكم الخاصة بالشركة المصنّعة (<bdi>Android TV</bdi> و<bdi>Google TV</bdi> وLG و<bdi>Samsung</bdi> حتى طرازات 2022؛ وفي أجهزة <bdi>Samsung</bdi> الأحدث يجهّز التلفاز ويرشدك إلى <bdi>Apps2Samsung</bdi>). جهاز <bdi>Android TV</bdi> فيه منفذ USB (<bdi>Chromecast with Google TV</bdi> أو <bdi>Nvidia Shield TV</bdi>)؟ <a href="https://sofatube.github.io/ar/usb/">التثبيت عبر USB</a> من Chrome أو Edge.
 
 ### أو ثبّته بنفسك: اختر تلفازك
 
@@ -140,14 +140,14 @@ Please report what works and what does not: [open an issue](https://github.com/s
 6. على التلفاز، افتح **Sofa Tube**.
 
 لجلسة وضع المطوّر مدة **تنتهي**: افتح تطبيق Developer Mode من حين لآخر ومدّد الجلسة، وإلا توقفت تطبيقات المطوّر عن العمل.
-البديل: الخطوات نفسها مع <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> على حاسوب (ويندوز أو ماك أو لينكس).
+البديل: الخطوات نفسها مع <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> على حاسوب (<bdi>Windows</bdi> أو <bdi>Mac</bdi> أو لينكس).
 
 #### تلفاز <bdi>Samsung</bdi> ‏(Tizen 4.0، من 2018 فما بعد) — بهاتف <bdi>Android</bdi>، دون حاسوب
 
-صوفا تيوب تطبيق مستقل على التلفاز. تثبّته مرة واحدة بتطبيق **<bdi>Apps2Samsung</bdi>** (مجاني) على هاتف <bdi>Android</bdi> متصل بالواي فاي نفسه. ليس لديك هاتف <bdi>Android</bdi> (آيفون)؟ استخدم <bdi>Apps2Samsung</bdi> على حاسوب ويندوز أو ماك: الخطوات نفسها.
+صوفا تيوب تطبيق مستقل على التلفاز. تثبّته مرة واحدة بتطبيق **<bdi>Apps2Samsung</bdi>** (مجاني) على هاتف <bdi>Android</bdi> متصل بالواي فاي نفسه. ليس لديك هاتف <bdi>Android</bdi> (آيفون)؟ استخدم <bdi>Apps2Samsung</bdi> على حاسوب <bdi>Windows</bdi> أو <bdi>Mac</bdi>: الخطوات نفسها.
 
 1. **التلفاز:** «التطبيقات» (<bdi>Apps</bdi>)، واكتب <bdi>1 2 3 4 5</bdi>، واجعل **<bdi>Developer mode</bdi>** على <bdi>On</bdi>، و**<bdi>Host PC IP</bdi>** = عنوان IP للهاتف (في الهاتف: الإعدادات ← الواي فاي ← شبكتك)، ثم <bdi>OK</bdi>، وأعد تشغيل التلفاز (اضغط مطولًا على زر الطاقة).
-2. **الهاتف:** ثبّت <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest"><bdi>Apps2Samsung</bdi></a> (ملف <code dir="ltr">-android.apk</code>؛ وللحاسوب: <code dir="ltr">-win-x64.msi</code> أو ملف <code dir="ltr">.dmg</code> لماك).
+2. **الهاتف:** ثبّت <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest"><bdi>Apps2Samsung</bdi></a> (ملف <code dir="ltr">-android.apk</code>؛ وللحاسوب: <code dir="ltr">-win-x64.msi</code> أو ملف <code dir="ltr">.dmg</code> لـ<bdi>Mac</bdi>).
 3. **الهاتف:** افتح <code dir="ltr">sofatube.github.io/samsung</code>: يُنزَّل ملف صوفا تيوب (<code dir="ltr">.wgt</code>).
 4. **<bdi>Apps2Samsung</bdi>:** <bdi>App</bdi> ← <bdi>📁 Custom WGT / TPK…</bdi> ← ملف صوفا تيوب ← <bdi>Select TV</bdi> ← <bdi>Download &amp; Install</bdi>. سجّل الدخول إلى <bdi>Samsung</bdi> إن طُلب منك (Tizen 7 فما فوق، وأغلبها من 2023؛ مرة واحدة).
 5. **التلفاز:** <bdi>Apps → 1 2 3 4 5</bdi> مرة أخرى، و**<bdi>Host PC IP</bdi>** = <code dir="ltr">127.0.0.1</code> (القوائم العربية: <code dir="ltr">1.0.0.127</code>)، ثم أعد تشغيل التلفاز.

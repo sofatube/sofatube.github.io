@@ -102,7 +102,7 @@ def usb_page(lang, ver, L, url):
 <li>يحفظ المتصفح مفتاحًا لهذا الحاسوب ليعرفه الجهاز (كما يفعل <bdi>adb</bdi>). لإلغائه: خيارات المطوّرين ← <bdi>Revoke USB debugging authorizations</bdi>.</li>
 <li>تستخدم الصفحة مكتبة <a href="https://github.com/yume-chan/ya-webadb"><bdi>Tango (ya-webadb)</bdi></a> برخصة <a href="/usb/tango-adb-LICENSE.txt"><bdi>MIT</bdi></a>، منسوخة على هذا الموقع.</li>
 </ul>
-<p class="meta">تعمل في Google Chrome وMicrosoft Edge على ويندوز وماك ولينكس وكروم بوك. لا تعمل في فايرفوكس وسفاري ولا على آيفون (لا يدعم أيٌّ منها WebUSB).</p>
+<p class="meta">تعمل في Google Chrome وMicrosoft Edge على <bdi>Windows</bdi> و<bdi>Mac</bdi> ولينكس وكروم بوك. لا تعمل في فايرفوكس وسفاري ولا على آيفون (لا يدعم أيٌّ منها WebUSB).</p>
 {script}'''
     return f'''{STYLE}
 <h1>Install from this computer over USB</h1>

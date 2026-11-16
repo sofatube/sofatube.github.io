@@ -547,7 +547,7 @@ def install_first(lang):
 <div class="spot-txt">
 <p class="kicker">التثبيت · الطريقة المقترحة</p>
 <h2>أسهل طريقة: إعداد صوفا تيوب، دون كتابة شيء على التلفاز</h2>
-<p class="lead">شغّل إعداد صوفا تيوب مرة واحدة على حاسوب ويندوز أو ماك، أو على هاتف <bdi>Android</bdi>، متصل بشبكة الواي فاي نفسها التي يتصل بها التلفاز. يجد الإعداد التلفاز وينفّذ الخطوات عنك، وتُكتب الرموز والروابط وتسجيلات الدخول على الحاسوب أو الهاتف.</p>
+<p class="lead">شغّل إعداد صوفا تيوب مرة واحدة على حاسوب <bdi>Windows</bdi> أو <bdi>Mac</bdi>، أو على هاتف <bdi>Android</bdi>، متصل بشبكة الواي فاي نفسها التي يتصل بها التلفاز. يجد الإعداد التلفاز وينفّذ الخطوات عنك، وتُكتب الرموز والروابط وتسجيلات الدخول على الحاسوب أو الهاتف.</p>
 <ul class="ticks">
 <li><b><bdi>Android TV</bdi> و<bdi>Google TV</bdi>:</b> اكتب في الإعداد الرمز الظاهر على التلفاز، ثم اضغط «تثبيت» على التلفاز مرة واحدة.</li>
 <li><b>LG:</b> اضغط YES على التلفاز، فيفتح الإعداد وضع المطوّر ويثبّت صوفا تيوب و«صوفا تيوب للهاتف» بنفسه (يلزم حساب مطوّر LG مجاني).</li>
@@ -720,7 +720,7 @@ def install(lang):
 <li>يسألك الإعداد الأول في صوفا تيوب عن اللغة والرمز السري ووضع الأطفال. الزر الأخضر يفتح الإعدادات.</li>
 </ol>
 <h3>البديل: بحاسوب</h3>
-<p>الخطوات نفسها، مع <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> لويندوز أو ماك أو لينكس (من الصفحة نفسها) وملف <bdi>Sofa Tube Phone</bdi> من الرابط أعلاه. وإن أردت تثبيت صوفا تيوب بنفسك: <a href="/lg/"><bdi>sofatube.github.io/lg</bdi></a>.</p>
+<p>الخطوات نفسها، مع <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> لـ<bdi>Windows</bdi> أو <bdi>Mac</bdi> أو لينكس (من الصفحة نفسها) وملف <bdi>Sofa Tube Phone</bdi> من الرابط أعلاه. وإن أردت تثبيت صوفا تيوب بنفسك: <a href="/lg/"><bdi>sofatube.github.io/lg</bdi></a>.</p>
 <h3>معلومات مفيدة</h3>
 <ul>
 <li>لجلسة وضع المطوّر مدة <b>تنتهي</b>، وبعدها لا تُفتح التطبيقات التي ثبّتّها. افتح تطبيق Developer Mode من حين لآخر ومدّد الجلسة.</li>
@@ -735,7 +735,7 @@ def install(lang):
 {howto(lang, '30', 'شاهده مرة، ثم اتبع الخطوات المكتوبة أدناه؛ ويمكنك إيقافه مؤقتًا عند كل خطوة.')}
 <h3>ما تحتاج إليه</h3>
 <ul>
-<li>تلفاز <bdi>Samsung</bdi> من سنة 2018 أو أحدث (Tizen 4.0 أو أحدث)، و<b>هاتف <bdi>Android</bdi></b> على شبكة الواي فاي نفسها. ليس لديك هاتف <bdi>Android</bdi> (آيفون)؟ استخدم حاسوبًا بويندوز أو ماك (أدناه).</li>
+<li>تلفاز <bdi>Samsung</bdi> من سنة 2018 أو أحدث (Tizen 4.0 أو أحدث)، و<b>هاتف <bdi>Android</bdi></b> على شبكة الواي فاي نفسها. ليس لديك هاتف <bdi>Android</bdi> (آيفون)؟ استخدم حاسوبًا بـ<bdi>Windows</bdi> أو <bdi>Mac</bdi> (أدناه).</li>
 <li>حساب <bdi>Samsung</bdi> (مجاني): يطلب <bdi>Apps2Samsung</bdi> على الهاتف تسجيل الدخول في أول تثبيت، مهما كان طراز التلفاز (وعلى الحاسوب لأجهزة Tizen 7 فما فوق فقط، وأغلبها من 2023). يصنع منه شهادة توقيع خاصة بك ويحتفظ بها، فتسجّل الدخول مرة واحدة.</li>
 </ul>
 <h3>بهاتف <bdi>Android</bdi> (دون حاسوب): 6 خطوات</h3>
@@ -748,10 +748,10 @@ def install(lang):
 <li><b>التلفاز:</b> افتح <b>صوفا تيوب</b> من «التطبيقات». إن ظهرت شاشة «خطوة أخيرة على التلفاز» فاتبع ما فيها (تعرض قيمة <bdi>Host PC IP</bdi> التي وجدتها).</li>
 </ol>
 <div class="faq">
-<details><summary>ليس لديك هاتف <bdi>Android</bdi>؟ بحاسوب ويندوز أو ماك (6 خطوات)</summary>
+<details><summary>ليس لديك هاتف <bdi>Android</bdi>؟ بحاسوب <bdi>Windows</bdi> أو <bdi>Mac</bdi> (6 خطوات)</summary>
 <ol class="steps">
-<li><b>التلفاز:</b> الخطوة 1 أعلاه، مع <b>عنوان IP للحاسوب</b> في <bdi>Host PC IP</bdi> (ويندوز: الإعدادات ← الشبكة والإنترنت ← اتصالك ← عنوان IPv4؛ ماك: إعدادات النظام ← الواي فاي ← التفاصيل ← عنوان IP).</li>
-<li><b>الحاسوب:</b> ثبّت <b><bdi>Apps2Samsung</bdi></b> من <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest">صفحة إصداراته</a>: ويندوز <code dir="ltr">-win-x64.msi</code>، ماك <code dir="ltr">-macos-arm64.dmg</code> (معالج Apple) أو <code dir="ltr">-macos-x64.dmg</code> (معالج Intel).</li>
+<li><b>التلفاز:</b> الخطوة 1 أعلاه، مع <b>عنوان IP للحاسوب</b> في <bdi>Host PC IP</bdi> (<bdi>Windows</bdi>: الإعدادات ← الشبكة والإنترنت ← اتصالك ← عنوان IPv4؛ <bdi>Mac</bdi>: إعدادات النظام ← الواي فاي ← التفاصيل ← عنوان IP).</li>
+<li><b>الحاسوب:</b> ثبّت <b><bdi>Apps2Samsung</bdi></b> من <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest">صفحة إصداراته</a>: <bdi>Windows</bdi> <code dir="ltr">-win-x64.msi</code>، <bdi>Mac</bdi> <code dir="ltr">-macos-arm64.dmg</code> (معالج Apple) أو <code dir="ltr">-macos-x64.dmg</code> (معالج Intel).</li>
 <li><b>الحاسوب:</b> نزّل صوفا تيوب من <a href="/samsung/"><bdi>sofatube.github.io/samsung</bdi></a>.</li>
 <li><b><bdi>Apps2Samsung</bdi>:</b> <bdi>Select TV</bdi> (أو اكتب عنوان IP للتلفاز)، ثم <bdi>Custom WGT / TPK</bdi>، واختر ملف صوفا تيوب، ثم <bdi>Download &amp; Install</bdi>. سجّل الدخول إلى <bdi>Samsung</bdi> إن طُلب منك (مرة واحدة).</li>
 <li><b>التلفاز:</b> <bdi>Host PC IP</bdi> = <code dir="ltr">127.0.0.1</code> (القوائم العربية: <code dir="ltr">1.0.0.127</code>)، ثم أعد تشغيل التلفاز.</li>
@@ -1445,7 +1445,7 @@ def main():
              L(lang, 'Sofa Tube tester guide, checklist, how to report and what has been tested.', 'دليل التجربة وقائمة الفحص وطريقة إرسال التقرير وما الذي جُرِّب.'), testers(lang))
         page(lang, 'setup/', L(lang, 'Sofa Tube Setup', 'إعداد صوفا تيوب'),
              L(lang, 'Sofa Tube Setup installs Sofa Tube on Android TV, LG and Samsung TVs from a Windows or Mac computer or an Android phone, with nothing typed on the TV.',
-               'إعداد صوفا تيوب يثبّت صوفا تيوب على تلفزيونات <bdi>Android</bdi> وLG و<bdi>Samsung</bdi> من حاسوب ويندوز أو ماك أو من هاتف <bdi>Android</bdi>، دون كتابة شيء على التلفاز.'),
+               'إعداد صوفا تيوب يثبّت صوفا تيوب على تلفزيونات <bdi>Android</bdi> وLG و<bdi>Samsung</bdi> من حاسوب <bdi>Windows</bdi> أو <bdi>Mac</bdi> أو من هاتف <bdi>Android</bdi>، دون كتابة شيء على التلفاز.'),
              setup_page(lang, VER, L, url))
         page(lang, 'usb/', L(lang, 'Install over USB', 'التثبيت عبر USB'),
              L(lang, 'Install Sofa Tube on a Chromecast with Google TV or Nvidia Shield TV over a USB cable, from Chrome or Edge on a computer.',
