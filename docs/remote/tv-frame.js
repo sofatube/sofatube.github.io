@@ -1242,7 +1242,21 @@
         return;
       }
     if (!d || typeof d !== 'object') return;
-    if (!p.heard) {
+    if (d.event === 'readyToListen') {
+      // the real embed says this first, often before its frame's load
+      // event: answer at once (it was taken for "heard", so "listening" was
+      // never sent and the player stayed on "Loading the video…", #330)
+      if (!p.heard)
+        ytPost(p, { event: 'listening', id: p.pid, channel: 'widget' });
+      return;
+    }
+    // heard only once the embed talks to this page as its listener
+    if (
+      !p.heard &&
+      (d.event === 'initialDelivery' ||
+        d.event === 'onReady' ||
+        d.event === 'infoDelivery')
+    ) {
       p.heard = true;
       clearInterval(p.listen);
       for (const ev of YT_EVENTS)
