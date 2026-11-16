@@ -76,7 +76,7 @@ def usb_page(lang, ver, L, url):
 <li><bdi>Shield</bdi>: الإعدادات ← <bdi>Device Preferences</bdi> ← <bdi>About</bdi> ← <b><bdi>Build</bdi></b> سبع مرات، ثم <bdi>Device Preferences</bdi> ← <bdi>Developer options</bdi> ← <bdi>USB debugging</bdi>: مفعّل.</li>
 </ul>
 {pics_debug(lang, L)}</li>
-<li class="usb-step"><b>صِل الكابل</b> كما في الأعلى. أغلق البرامج الأخرى التي تستخدم أجهزة أندرويد على هذا الحاسوب (<bdi>adb</bdi> و<bdi>Android Studio</bdi> و<bdi>scrcpy</bdi>).</li>
+<li class="usb-step"><b>صِل الكابل</b> كما في الأعلى. أغلق البرامج الأخرى التي تستخدم أجهزة <bdi>Android</bdi> على هذا الحاسوب (<bdi>adb</bdi> و<bdi>Android Studio</bdi> و<bdi>scrcpy</bdi>).</li>
 <li class="usb-step"><b>احصل على ملف صوفا تيوب.</b>
 <p id="usb-list-msg" class="usb-msg" hidden></p>
 <div class="row"><button class="btn" id="usb-get" type="button" disabled>تجهيز الملف</button></div>
