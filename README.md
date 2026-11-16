@@ -106,7 +106,7 @@ Please report what works and what does not: [open an issue](https://github.com/s
 
 ### التثبيت: أسهل طريقة
 
-**<a href="https://sofatube.github.io/ar/setup/">إعداد صوفا تيوب</a>** يثبّت صوفا تيوب من حاسوب ويندوز أو ماك أو من هاتف <bdi>Android</bdi> متصل بشبكة الواي فاي نفسها، دون كتابة شيء على التلفاز: يجد التلفاز ويتحكم فيه بطريقة التحكم الخاصة بالشركة المصنّعة (<bdi>Android TV</bdi> و<bdi>Google TV</bdi> وLG وسامسونج حتى طرازات 2022؛ وفي أجهزة سامسونج الأحدث يجهّز التلفاز ويرشدك إلى <bdi>Apps2Samsung</bdi>). جهاز <bdi>Android TV</bdi> فيه منفذ USB (<bdi>Chromecast with Google TV</bdi> أو <bdi>Nvidia Shield TV</bdi>)؟ <a href="https://sofatube.github.io/ar/usb/">التثبيت عبر USB</a> من Chrome أو Edge.
+**<a href="https://sofatube.github.io/ar/setup/">إعداد صوفا تيوب</a>** يثبّت صوفا تيوب من حاسوب ويندوز أو ماك أو من هاتف <bdi>Android</bdi> متصل بشبكة الواي فاي نفسها، دون كتابة شيء على التلفاز: يجد التلفاز ويتحكم فيه بطريقة التحكم الخاصة بالشركة المصنّعة (<bdi>Android TV</bdi> و<bdi>Google TV</bdi> وLG و<bdi>Samsung</bdi> حتى طرازات 2022؛ وفي أجهزة <bdi>Samsung</bdi> الأحدث يجهّز التلفاز ويرشدك إلى <bdi>Apps2Samsung</bdi>). جهاز <bdi>Android TV</bdi> فيه منفذ USB (<bdi>Chromecast with Google TV</bdi> أو <bdi>Nvidia Shield TV</bdi>)؟ <a href="https://sofatube.github.io/ar/usb/">التثبيت عبر USB</a> من Chrome أو Edge.
 
 ### أو ثبّته بنفسك: اختر تلفازك
 
@@ -117,9 +117,9 @@ Please report what works and what does not: [open an issue](https://github.com/s
 | <code dir="ltr">sofatube.github.io/tv</code> | تطبيق Android TV وGoogle TV وFire TV (ملف apk، نحو 95 ميغابايت) |
 | <code dir="ltr">sofatube.github.io/lg</code> | تطبيق LG الرئيسي (ملف ipk) |
 | <code dir="ltr">sofatube.github.io/lg-phone</code> | تطبيق <bdi>Sofa Tube Phone</bdi> لـLG (ملف ipk): ثبّته وحده، وهو يثبّت صوفا تيوب |
-| <code dir="ltr">sofatube.github.io/samsung</code> | تطبيق سامسونج (ملف wgt، يُثبَّت بـ<bdi>Apps2Samsung</bdi>) |
+| <code dir="ltr">sofatube.github.io/samsung</code> | تطبيق <bdi>Samsung</bdi> (ملف wgt، يُثبَّت بـ<bdi>Apps2Samsung</bdi>) |
 
-#### <bdi>Android TV</bdi> · جوجل تي في · فاير تي في (دون حاسوب)
+#### <bdi>Android TV</bdi> · <bdi>Google TV</bdi> · <bdi>Fire TV</bdi> (دون حاسوب)
 
 1. على التلفاز، ثبّت تطبيق **Downloader** (من AFTVnews) من Google Play أو من متجر Amazon.
 2. اسمح لـDownloader بتثبيت التطبيقات غير المعروفة:
@@ -142,26 +142,26 @@ Please report what works and what does not: [open an issue](https://github.com/s
 لجلسة وضع المطوّر مدة **تنتهي**: افتح تطبيق Developer Mode من حين لآخر ومدّد الجلسة، وإلا توقفت تطبيقات المطوّر عن العمل.
 البديل: الخطوات نفسها مع <a href="https://github.com/webosbrew/dev-manager-desktop/releases/latest">webOS Dev Manager</a> على حاسوب (ويندوز أو ماك أو لينكس).
 
-#### تلفاز سامسونج ‏(Tizen 4.0، من 2018 فما بعد) — بهاتف <bdi>Android</bdi>، دون حاسوب
+#### تلفاز <bdi>Samsung</bdi> ‏(Tizen 4.0، من 2018 فما بعد) — بهاتف <bdi>Android</bdi>، دون حاسوب
 
 صوفا تيوب تطبيق مستقل على التلفاز. تثبّته مرة واحدة بتطبيق **<bdi>Apps2Samsung</bdi>** (مجاني) على هاتف <bdi>Android</bdi> متصل بالواي فاي نفسه. ليس لديك هاتف <bdi>Android</bdi> (آيفون)؟ استخدم <bdi>Apps2Samsung</bdi> على حاسوب ويندوز أو ماك: الخطوات نفسها.
 
 1. **التلفاز:** «التطبيقات» (<bdi>Apps</bdi>)، واكتب <bdi>1 2 3 4 5</bdi>، واجعل **<bdi>Developer mode</bdi>** على <bdi>On</bdi>، و**<bdi>Host PC IP</bdi>** = عنوان IP للهاتف (في الهاتف: الإعدادات ← الواي فاي ← شبكتك)، ثم <bdi>OK</bdi>، وأعد تشغيل التلفاز (اضغط مطولًا على زر الطاقة).
 2. **الهاتف:** ثبّت <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest"><bdi>Apps2Samsung</bdi></a> (ملف <code dir="ltr">-android.apk</code>؛ وللحاسوب: <code dir="ltr">-win-x64.msi</code> أو ملف <code dir="ltr">.dmg</code> لماك).
 3. **الهاتف:** افتح <code dir="ltr">sofatube.github.io/samsung</code>: يُنزَّل ملف صوفا تيوب (<code dir="ltr">.wgt</code>).
-4. **<bdi>Apps2Samsung</bdi>:** <bdi>App</bdi> ← <bdi>📁 Custom WGT / TPK…</bdi> ← ملف صوفا تيوب ← <bdi>Select TV</bdi> ← <bdi>Download &amp; Install</bdi>. سجّل الدخول إلى سامسونج إن طُلب منك (Tizen 7 فما فوق، وأغلبها من 2023؛ مرة واحدة).
+4. **<bdi>Apps2Samsung</bdi>:** <bdi>App</bdi> ← <bdi>📁 Custom WGT / TPK…</bdi> ← ملف صوفا تيوب ← <bdi>Select TV</bdi> ← <bdi>Download &amp; Install</bdi>. سجّل الدخول إلى <bdi>Samsung</bdi> إن طُلب منك (Tizen 7 فما فوق، وأغلبها من 2023؛ مرة واحدة).
 5. **التلفاز:** <bdi>Apps → 1 2 3 4 5</bdi> مرة أخرى، و**<bdi>Host PC IP</bdi>** = <code dir="ltr">127.0.0.1</code> (القوائم العربية: <code dir="ltr">1.0.0.127</code>)، ثم أعد تشغيل التلفاز.
 6. **التلفاز:** افتح **صوفا تيوب** من «التطبيقات». إن ظهرت «خطوة أخيرة على التلفاز» فاتبعها.
 
-تستخدم TizenBrew؟ أضف وحدة <bdi>NPM</bdi> باسم <code dir="ltr">sofatube</code> بدلًا من ذلك (الأخضر ← <bdi>NPM</bdi>). البحث الصوتي في سامسونج: تبويب **البحث** في صفحة الهاتف (🎤). الخطوات كاملة وحل المشكلات: <a href="https://sofatube.github.io/ar/install/#samsung"><bdi>sofatube.github.io/ar/install</bdi></a>.
+تستخدم TizenBrew؟ أضف وحدة <bdi>NPM</bdi> باسم <code dir="ltr">sofatube</code> بدلًا من ذلك (الأخضر ← <bdi>NPM</bdi>). البحث الصوتي في <bdi>Samsung</bdi>: تبويب **البحث** في صفحة الهاتف (🎤). الخطوات كاملة وحل المشكلات: <a href="https://sofatube.github.io/ar/install/#samsung"><bdi>sofatube.github.io/ar/install</bdi></a>.
 
 ### ما الذي جُرِّب
 
 | التلفاز | الحالة في <bdi>0.9.6</bdi> |
 | --- | --- |
 | LG ‏(webOS) | محاكي LG ‏(webOS 4)، ومنه تثبيت صوفا تيوب من تطبيق <bdi>Sofa Tube Phone</bdi>؛ والإصدارات السابقة على تلفاز LG حقيقي. |
-| تطبيق سامسونج (ملف <code dir="ltr">.wgt</code>) | أجهزة تلفاز سامسونج حقيقية في مختبر سامسونج عن بُعد (<bdi>QN80F</bdi> من 2025 و<bdi>QB80</bdi> من 2022 و<bdi>QT80</bdi> من 2020) وجهاز <bdi>Q7F</bdi> من 2025 في المنزل، ثُبّت بـ<bdi>Apps2Samsung</bdi> من هاتف <bdi>Android</bdi>. التحكم في التلفاز كله من الهاتف: أجهزة سامسونج الأحدث تحتاج إلى جهاز Android TV أو حاسوب في المنزل أو صفحة هاتف أحد الوالدين مفتوحة وسيطًا؛ ولم يُتأكَّد من الوسيط بعدُ على تلفاز في المنزل. |
-| سامسونج (TizenBrew، وحدة <code dir="ltr">sofatube</code>) | محاكي سامسونج فقط. **لم يُجرَّب على تلفاز سامسونج حقيقي.** |
+| تطبيق <bdi>Samsung</bdi> (ملف <code dir="ltr">.wgt</code>) | أجهزة تلفاز <bdi>Samsung</bdi> حقيقية في مختبر <bdi>Samsung</bdi> عن بُعد (<bdi>QN80F</bdi> من 2025 و<bdi>QB80</bdi> من 2022 و<bdi>QT80</bdi> من 2020) وجهاز <bdi>Q7F</bdi> من 2025 في المنزل، ثُبّت بـ<bdi>Apps2Samsung</bdi> من هاتف <bdi>Android</bdi>. التحكم في التلفاز كله من الهاتف: أجهزة <bdi>Samsung</bdi> الأحدث تحتاج إلى جهاز Android TV أو حاسوب في المنزل أو صفحة هاتف أحد الوالدين مفتوحة وسيطًا؛ ولم يُتأكَّد من الوسيط بعدُ على تلفاز في المنزل. |
+| <bdi>Samsung</bdi> (TizenBrew، وحدة <code dir="ltr">sofatube</code>) | محاكي <bdi>Samsung</bdi> فقط. **لم يُجرَّب على تلفاز <bdi>Samsung</bdi> حقيقي.** |
 | Android TV وGoogle TV | محاكي Google TV، ونسخة من <bdi>0.9.6</bdi> على تلفاز <bdi>Android</bdi> حقيقي واحد (TCL). **لم يُجرَّب على الشركات الأخرى.** |
 | Fire TV | **لم يُجرَّب.** |
 | التثبيت بـwebOS Dev Manager من الهاتف | **لم نجرّبه بعد.** |

@@ -88,7 +88,7 @@ def setup_page(lang, ver, L, url):
     if lang == 'ar':
         return f'''<h1>إعداد صوفا تيوب</h1>
 <p class="lead">يثبّت صوفا تيوب على تلفازك من حاسوب أو هاتف <bdi>Android</bdi>. لن تكتب شيئًا على التلفاز: الرموز والروابط وتسجيلات الدخول تُكتب على الحاسوب أو الهاتف، ويرسلها الإعداد إلى التلفاز بطريقة التحكم الخاصة بالشركة المصنّعة للتلفاز.</p>
-<p class="meta">الإصدار <bdi>{ver}</bdi> · يعمل مع <bdi>Android TV</bdi> و<bdi>Google TV</bdi> وLG وسامسونج. التلفاز والحاسوب (أو الهاتف) على شبكة الواي فاي نفسها.</p>
+<p class="meta">الإصدار <bdi>{ver}</bdi> · يعمل مع <bdi>Android TV</bdi> و<bdi>Google TV</bdi> وLG و<bdi>Samsung</bdi>. التلفاز والحاسوب (أو الهاتف) على شبكة الواي فاي نفسها.</p>
 
 <div id="setup-ways">
 <div class="card" id="android-phone"><h3>هاتف <bdi>Android</bdi> <span class="tag" id="tag-android-phone" style="display:none">جهازك</span></h3>
@@ -140,14 +140,14 @@ def setup_page(lang, ver, L, url):
 {lg_pic(lang, L)}
 <p class="meta">لجلسة وضع المطوّر مدة تنتهي: <a href="{inst}#lg-update">كيف تبقى صالحة</a>.</p></section>
 <section class="tv-section" id="setup-samsung">
-<h3>تلفاز سامسونج ‏(Tizen)</h3>
+<h3>تلفاز <bdi>Samsung</bdi> ‏(Tizen)</h3>
 <ol class="steps">
 <li>اختر <b>«سماح»</b> (Allow) على التلفاز حين يسأل عن إعداد صوفا تيوب (مرة واحدة).</li>
 <li>يفتح الإعداد قائمة التطبيقات ويضغط 1 2 3 4 5: في نافذة <b>وضع المطوّر</b> فعّله، واختر مربع <bdi>Host PC IP</bdi> بزر OK فيكتب الإعداد عنوان الحاسوب، ثم OK، ثم أعد تشغيل التلفاز (اضغط مطولًا على زر التشغيل).</li>
 <li>يثبّت الإعداد صوفا تيوب، ثم يكرر الخطوة السابقة بالعنوان <bdi>127.0.0.1</bdi> (يحتاج إليه صوفا تيوب ليعمل)، ثم يفتحه.</li>
-<li>تلفزيونات سامسونج من سنة 2023 أو أحدث (<bdi>Tizen 7</bdi> أو أحدث) لا تقبل إلا تطبيقًا موقّعًا لها بشهادة سامسونج الخاصة بمالكها. يجهّز الإعداد وضع المطوّر ثم يرشدك إلى طريقة <a href="{inst}#samsung">Apps2Samsung</a>.</li>
+<li>تلفزيونات <bdi>Samsung</bdi> من سنة 2023 أو أحدث (<bdi>Tizen 7</bdi> أو أحدث) لا تقبل إلا تطبيقًا موقّعًا لها بشهادة <bdi>Samsung</bdi> الخاصة بمالكها. يجهّز الإعداد وضع المطوّر ثم يرشدك إلى طريقة <a href="{inst}#samsung">Apps2Samsung</a>.</li>
 </ol>
-<p class="meta">طريقة سامسونج في الإعداد جديدة ولم تُجرَّب بعد على تلفاز سامسونج حقيقي.</p></section>
+<p class="meta">طريقة <bdi>Samsung</bdi> في الإعداد جديدة ولم تُجرَّب بعد على تلفاز <bdi>Samsung</bdi> حقيقي.</p></section>
 
 <h2>الخصوصية</h2>
 <ul>
