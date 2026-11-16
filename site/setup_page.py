@@ -5,6 +5,55 @@
 # marked; every other way stays visible (works without JavaScript too).
 
 
+# Real screens (0.9.6): Setup on Windows (its page in Chrome) and the Android phone app (emulator), both
+# driving LG's webOS TV Emulator, which is why the addresses are 127.0.0.1 / 10.0.2.2. A real TV's address
+# in the TV list was blurred. Files in docs/assets/shots/{en,ar}/setup_*.jpg; how they were made:
+# site/NOTES-newcomer.md.
+PICS = {
+    'pc': [('setup_pc_tvs', 720, 642, '1. Pick your TV, or type its address', '1. اختر تلفازك أو اكتب عنوانه'),
+           ('setup_pc_yes', 720, 770, '2. Setup says what to press on the TV', '2. يقول الإعداد ما تضغطه على التلفاز'),
+           ('setup_pc_done', 720, 979, '3. Done: scan the code for the phone remote', '3. انتهى: امسح الرمز لجهاز التحكم من الهاتف')],
+    'phone': [('setup_phone_address', 390, 663, "Type the TV's address if it is not in the list", 'اكتب عنوان التلفاز إن لم يكن في القائمة'),
+              ('setup_phone_yes', 390, 782, 'Press YES on the TV when it asks', 'اضغط YES على التلفاز حين يسأل'),
+              ('setup_phone_done', 390, 664, 'Sofa Tube runs: open the phone remote', 'صوفا تيوب يعمل: افتح جهاز التحكم من الهاتف')],
+}
+
+
+def _fig(lang, L, f, w, h, ce, ca, cls=''):
+    cap = L(lang, ce, ca)
+    return (f'<figure{cls}><img src="/assets/shots/{lang}/{f}.jpg" alt="{cap}" width="{w}" height="{h}" loading="lazy" '
+            f'decoding="async"><figcaption>{cap}</figcaption></figure>')
+
+
+def what_you_see(lang, L):
+    pc = ''.join(_fig(lang, L, *x) for x in PICS['pc'])
+    ph = ''.join(_fig(lang, L, *x) for x in PICS['phone'])
+    if lang == 'ar':
+        return f'''<h2 id="what-you-see">ما الذي تراه</h2>
+<h3>على الحاسوب</h3>
+<div class="shots free">{pc}</div>
+<h3>على هاتف <bdi>Android</bdi></h3>
+<div class="phones">{ph}</div>
+<p class="meta">شاشات حقيقية من الإعداد <bdi>0.9.6</bdi> مع محاكي تلفاز LG، ولذلك يظهر عنوان المحاكي (<bdi>127.0.0.1</bdi> و<bdi>10.0.2.2</bdi>)؛ وعلى تلفازك يظهر عنوانه هو.</p>'''
+    return f'''<h2 id="what-you-see">What you see</h2>
+<h3>On the computer</h3>
+<div class="shots free">{pc}</div>
+<h3>On an Android phone</h3>
+<div class="phones">{ph}</div>
+<p class="meta">Real screens of Setup 0.9.6 with LG's webOS TV Emulator, so they show the emulator's address (127.0.0.1, 10.0.2.2); with your TV you see its own address.</p>'''
+
+
+def atv_pic(lang, L):
+    # Google TV emulator: the TV's own remote service asks for pairing (Setup typed 127.0.0.1, run on the TV)
+    return ('<div class="shots free one">' + _fig(lang, L, 'setup_atv_code', 720, 425,
+            'On the TV: the pairing code; type it in Setup, not on the TV', 'على التلفاز: رمز الربط؛ اكتبه في الإعداد، لا على التلفاز') + '</div>')
+
+
+def lg_pic(lang, L):
+    return ('<div class="shots free one">' + _fig(lang, L, 'setup_lg_yes', 980, 316,
+            'On the TV: LG asks once, press YES', 'على التلفاز: يسأل تلفاز LG مرة واحدة، فاضغط YES') + '</div>')
+
+
 def setup_page(lang, ver, L, url):
     rel = f'https://github.com/sofatube/sofatube.github.io/releases/download/v{ver}/'
     win = rel + f'SofaTubeSetup-{ver}-Windows.exe'
@@ -38,14 +87,14 @@ def setup_page(lang, ver, L, url):
 </style>'''
     if lang == 'ar':
         return f'''<h1>إعداد صوفا تيوب</h1>
-<p class="lead">يثبّت صوفا تيوب على تلفازك من حاسوب أو هاتف أندرويد. لن تكتب شيئًا على التلفاز: الرموز والروابط وتسجيلات الدخول تُكتب على الحاسوب أو الهاتف، ويرسلها الإعداد إلى التلفاز بطريقة التحكم الخاصة بالشركة المصنّعة للتلفاز.</p>
-<p class="meta">الإصدار <bdi>{ver}</bdi> · يعمل مع <bdi>Android TV</bdi> و<bdi>Google TV</bdi> وLG وسامسونج. التلفاز والحاسوب (أو الهاتف) على شبكة الواي فاي نفسها.</p>
+<p class="lead">يثبّت صوفا تيوب على تلفازك من حاسوب أو هاتف <bdi>Android</bdi>. لن تكتب شيئًا على التلفاز: الرموز والروابط وتسجيلات الدخول تُكتب على الحاسوب أو الهاتف، ويرسلها الإعداد إلى التلفاز بطريقة التحكم الخاصة بالشركة المصنّعة للتلفاز.</p>
+<p class="meta">الإصدار <bdi>{ver}</bdi> · يعمل مع <bdi>Android TV</bdi> و<bdi>Google TV</bdi> وLG و<bdi>Samsung</bdi>. التلفاز والحاسوب (أو الهاتف) على شبكة الواي فاي نفسها.</p>
 
 <div id="setup-ways">
-<div class="card" id="android-phone"><h3>هاتف أندرويد <span class="tag" id="tag-android-phone" style="display:none">جهازك</span></h3>
+<div class="card" id="android-phone"><h3>هاتف <bdi>Android</bdi> <span class="tag" id="tag-android-phone" style="display:none">جهازك</span></h3>
 <p>تطبيق إعداد صوفا تيوب للهاتف: لا حاجة إلى حاسوب.</p>
 <div class="row"><a class="btn" href="{apk}">تنزيل التطبيق للهاتف (apk)</a></div>
-<p class="meta">في المرة الأولى يطلب أندرويد السماح للمتصفح بتثبيت التطبيقات: اضغط <b>«الإعدادات»</b>، وفعّل <b>«السماح من هذا المصدر»</b>، ثم ارجع واضغط <b>«تثبيت»</b>.</p></div>
+<p class="meta">في المرة الأولى يطلب <bdi>Android</bdi> السماح للمتصفح بتثبيت التطبيقات: اضغط <b>«الإعدادات»</b>، وفعّل <b>«السماح من هذا المصدر»</b>، ثم ارجع واضغط <b>«تثبيت»</b>.</p></div>
 
 <div class="card" id="computer"><h3>حاسوب ويندوز أو ماك <span class="tag" id="tag-windows" style="display:none">جهازك</span><span class="tag" id="tag-mac" style="display:none">جهازك</span></h3>
 <p>ملف واحد، دون تثبيت: افتحه فتُفتح صفحة الإعداد في المتصفح وحدها.</p>
@@ -53,7 +102,7 @@ def setup_page(lang, ver, L, url):
 <p class="meta">أبقِ نافذة الإعداد مفتوحة حتى يعمل صوفا تيوب على التلفاز. نسخة ماك لم تُجرَّب بعد على جهاز ماك حقيقي.</p></div>
 
 <div class="card" id="iphone"><h3>آيفون أو آيباد فقط؟ <span class="tag" id="tag-iphone" style="display:none">جهازك</span></h3>
-<p>لا يسمح متجر آبل بتطبيق يثبّت تطبيقات على التلفاز. استخدم حاسوبًا (ويندوز أو ماك) على شبكة الواي فاي نفسها مرة واحدة، أو هاتف أندرويد. بعد التثبيت يعمل جهاز التحكم من الآيفون عاديًا.</p>
+<p>لا يسمح متجر آبل بتطبيق يثبّت تطبيقات على التلفاز. استخدم حاسوبًا (ويندوز أو ماك) على شبكة الواي فاي نفسها مرة واحدة، أو هاتف <bdi>Android</bdi>. بعد التثبيت يعمل جهاز التحكم من الآيفون عاديًا.</p>
 <p class="meta">أرسل رابط هذه الصفحة إلى الحاسوب: <bdi>sofatube.github.io/ar/setup/</bdi></p></div>
 <div class="card" id="usb"><h3>جهاز <bdi>Android TV</bdi> فيه منفذ USB: التثبيت من هذا الحاسوب</h3>
 <p><bdi>Chromecast with Google TV</bdi> أو <bdi>Nvidia Shield TV</bdi>، وكابل USB، وChrome أو Edge: يثبّت المتصفح صوفا تيوب عبر الكابل. مفيد حين لا يعمل Downloader. طريقة جديدة لم تُجرَّب بعد على جهاز حقيقي.</p>
@@ -65,8 +114,10 @@ def setup_page(lang, ver, L, url):
 <ul>
 <li><b>ويندوز:</b> قد يقول المتصفح إن الملف «لا يُنزَّل عادةً»: اختر <b>«الاحتفاظ»</b> (Keep). ثم تقول نافذة <bdi>Microsoft Defender SmartScreen</bdi> «حمى Windows جهاز الكمبيوتر»: انقر <b>«مزيد من المعلومات»</b> (More info) ثم <b>«التشغيل على أي حال»</b> (Run anyway). إذا سأل جدار الحماية، فاسمح بالشبكات <b>الخاصة</b>.</li>
 <li><b>ماك:</b> فك ضغط الملف وانقر نقرًا مزدوجًا على <bdi>Sofa Tube Setup.command</bdi>. إذا قال ماك إنه لا يستطيع التحقق منه: أغلق الرسالة، وافتح <b>إعدادات النظام ← الخصوصية والأمن</b>، وانزل إلى «الأمن»، وانقر <b>«الفتح على أي حال»</b> (Open Anyway)، ثم أكّد بكلمة مرور الماك. تُفتح نافذة الطرفية (Terminal)، وفي المرة الأولى ينزّل الإعداد <bdi>Node.js</bdi> من موقعه الرسمي (نحو <bdi>50 MB</bdi>) إن لم يكن على الماك.</li>
-<li><b>أندرويد:</b> السماح بتثبيت التطبيقات للمتصفح مرة واحدة (أعلاه).</li>
+<li><b><bdi>Android</bdi>:</b> السماح بتثبيت التطبيقات للمتصفح مرة واحدة (أعلاه).</li>
 </ul>
+
+{what_you_see(lang, L)}
 
 <h2>ما يطلبه الإعداد على كل تلفاز</h2>
 <section class="tv-section" id="setup-android">
@@ -74,9 +125,10 @@ def setup_page(lang, ver, L, url):
 <ol class="steps">
 <li>اختر التلفاز في الإعداد. يعرض التلفاز رمزًا من 6 خانات: اكتبه في الإعداد (لا على التلفاز).</li>
 <li>يفتح الإعداد تطبيق <b>Downloader</b> ويكتب الرابط وينزّل صوفا تيوب. إن لم يكن Downloader مثبّتًا، ثبّته من متجر التلفاز (زر البحث الصوتي يجده دون كتابة).</li>
-<li>على شاشة التثبيت في أندرويد: انتقل إلى <b>«تثبيت»</b> (INSTALL) بزر سهم واضغط OK. هذه الضغطة لجهاز تحكم التلفاز وحده. في المرة الأولى قد يطلب التلفاز السماح لـDownloader بتثبيت التطبيقات.</li>
+<li>على شاشة التثبيت في <bdi>Android</bdi>: انتقل إلى <b>«تثبيت»</b> (INSTALL) بزر سهم واضغط OK. هذه الضغطة لجهاز تحكم التلفاز وحده. في المرة الأولى قد يطلب التلفاز السماح لـDownloader بتثبيت التطبيقات.</li>
 <li>يفتح الإعداد صوفا تيوب ويعرض رمز QR لجهاز التحكم من الهاتف.</li>
-</ol></section>
+</ol>
+{atv_pic(lang, L)}</section>
 <section class="tv-section" id="setup-lg">
 <h3>تلفاز LG ‏(webOS)</h3>
 <ol class="steps">
@@ -85,16 +137,17 @@ def setup_page(lang, ver, L, url):
 <li>فعّل <b>Dev Mode Status</b> (يُعاد تشغيل التلفاز)، ثم <b>Key Server</b>.</li>
 <li>اكتب في الإعداد عبارة المرور (Passphrase) الظاهرة على التلفاز: يثبّت الإعداد صوفا تيوب و«صوفا تيوب للهاتف» بنفسه ثم يفتحه.</li>
 </ol>
+{lg_pic(lang, L)}
 <p class="meta">لجلسة وضع المطوّر مدة تنتهي: <a href="{inst}#lg-update">كيف تبقى صالحة</a>.</p></section>
 <section class="tv-section" id="setup-samsung">
-<h3>تلفاز سامسونج ‏(Tizen)</h3>
+<h3>تلفاز <bdi>Samsung</bdi> ‏(Tizen)</h3>
 <ol class="steps">
 <li>اختر <b>«سماح»</b> (Allow) على التلفاز حين يسأل عن إعداد صوفا تيوب (مرة واحدة).</li>
 <li>يفتح الإعداد قائمة التطبيقات ويضغط 1 2 3 4 5: في نافذة <b>وضع المطوّر</b> فعّله، واختر مربع <bdi>Host PC IP</bdi> بزر OK فيكتب الإعداد عنوان الحاسوب، ثم OK، ثم أعد تشغيل التلفاز (اضغط مطولًا على زر التشغيل).</li>
 <li>يثبّت الإعداد صوفا تيوب، ثم يكرر الخطوة السابقة بالعنوان <bdi>127.0.0.1</bdi> (يحتاج إليه صوفا تيوب ليعمل)، ثم يفتحه.</li>
-<li>تلفزيونات سامسونج من سنة 2023 أو أحدث (<bdi>Tizen 7</bdi> أو أحدث) لا تقبل إلا تطبيقًا موقّعًا لها بشهادة سامسونج الخاصة بمالكها. يجهّز الإعداد وضع المطوّر ثم يرشدك إلى طريقة <a href="{inst}#samsung">Apps2Samsung</a>.</li>
+<li>تلفزيونات <bdi>Samsung</bdi> من سنة 2023 أو أحدث (<bdi>Tizen 7</bdi> أو أحدث) لا تقبل إلا تطبيقًا موقّعًا لها بشهادة <bdi>Samsung</bdi> الخاصة بمالكها. يجهّز الإعداد وضع المطوّر ثم يرشدك إلى طريقة <a href="{inst}#samsung">Apps2Samsung</a>.</li>
 </ol>
-<p class="meta">طريقة سامسونج في الإعداد جديدة ولم تُجرَّب بعد على تلفاز سامسونج حقيقي.</p></section>
+<p class="meta">طريقة <bdi>Samsung</bdi> في الإعداد جديدة ولم تُجرَّب بعد على تلفاز <bdi>Samsung</bdi> حقيقي.</p></section>
 
 <h2>الخصوصية</h2>
 <ul>
@@ -135,6 +188,8 @@ def setup_page(lang, ver, L, url):
 <li><b>Android:</b> allow the browser to install apps once (above).</li>
 </ul>
 
+{what_you_see(lang, L)}
+
 <h2>What Setup asks on each TV</h2>
 <section class="tv-section" id="setup-android">
 <h3>Android TV · Google TV</h3>
@@ -143,7 +198,8 @@ def setup_page(lang, ver, L, url):
 <li>Setup opens the <b>Downloader</b> app, types the link and downloads Sofa Tube. If Downloader is not installed, install it from the TV's app store (the voice search button finds it without typing).</li>
 <li>On Android's install screen: move to <b>INSTALL</b> with an arrow button and press OK. Only the TV's own remote can do this press. The first time, the TV may ask to allow Downloader to install apps.</li>
 <li>Setup opens Sofa Tube and shows the QR code for the phone remote.</li>
-</ol></section>
+</ol>
+{atv_pic(lang, L)}</section>
 <section class="tv-section" id="setup-lg">
 <h3>LG TV (webOS)</h3>
 <ol class="steps">
@@ -152,6 +208,7 @@ def setup_page(lang, ver, L, url):
 <li>Turn on <b>Dev Mode Status</b> (the TV restarts), then <b>Key Server</b>.</li>
 <li>Type the Passphrase the TV shows in Setup: Setup installs Sofa Tube and Sofa Tube Phone itself and opens Sofa Tube.</li>
 </ol>
+{lg_pic(lang, L)}
 <p class="meta">The Developer Mode session runs out: <a href="{inst}#lg-update">how to keep it</a>.</p></section>
 <section class="tv-section" id="setup-samsung">
 <h3>Samsung TV (Tizen)</h3>

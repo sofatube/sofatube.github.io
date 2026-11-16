@@ -87,14 +87,14 @@ def footer(lang):
         return f'''<footer class="site-foot"><div class="wrap">
 <p><b>للتواصل:</b> <a href="mailto:{MAIL}"><bdi>{MAIL}</bdi></a> · <a href="{ISSUES}">افتح بلاغًا (Issue) على GitHub</a></p>
 <p>صوفا تيوب مشروع مجاني برخصة <a href="{REPO}/blob/main/LICENSE"><bdi>GPL-3.0</bdi></a>، مبني على <a href="https://github.com/webosbrew/youtube-webos">webosbrew/youtube-webos</a> و<a href="https://github.com/reisxd/TizenBrew">TizenBrew</a> (لمطوّره <bdi>Reis Can</bdi>) و<a href="https://github.com/reisxd/TizenTube">TizenTube</a> و<a href="https://github.com/reisxd/TizenTubeCobalt">TizenTube Cobalt</a> (المبني على <bdi>Cobalt</bdi> من Google برخصة <bdi>Apache-2.0</bdi>)، ويستخدم <a href="https://sponsor.ajay.app/">SponsorBlock</a>. خط العناوين <bdi>Baloo Bhaijaan 2</bdi> برخصة <a href="/assets/fonts/OFL.txt">SIL OFL</a>.</p>
-<p>صوفا تيوب غير تابع لـYouTube أو Google أو LG أو سامسونج. YouTube علامة تجارية لشركة <bdi>Google LLC</bdi>.</p>
-<p><a href="{REPO}">github.com/sofatube/sofatube.github.io</a> · <a href="{RELEASES}">كل الملفات</a></p>
+<p>صوفا تيوب غير تابع لـYouTube أو Google أو LG أو <bdi>Samsung</bdi>. YouTube علامة تجارية لشركة <bdi>Google LLC</bdi>.</p>
+<p><a href="{REPO}">github.com/sofatube/sofatube.github.io</a> · <a href="/ar/news/">ما الجديد (الإصدارات)</a> · <a href="{RELEASES}">كل الملفات</a></p>
 </div></footer>'''
     return f'''<footer class="site-foot"><div class="wrap">
 <p><b>Contact:</b> <a href="mailto:{MAIL}">{MAIL}</a> · <a href="{ISSUES}">GitHub Issues</a></p>
 <p>Sofa Tube is a free <a href="{REPO}/blob/main/LICENSE">GPL-3.0</a> project built on <a href="https://github.com/webosbrew/youtube-webos">webosbrew/youtube-webos</a>, <a href="https://github.com/reisxd/TizenBrew">TizenBrew</a> by Reis Can, <a href="https://github.com/reisxd/TizenTube">TizenTube</a> and <a href="https://github.com/reisxd/TizenTubeCobalt">TizenTube Cobalt</a> (based on Google's Cobalt, Apache-2.0), and uses <a href="https://sponsor.ajay.app/">SponsorBlock</a>. Headings use Baloo Bhaijaan 2 (<a href="/assets/fonts/OFL.txt">SIL OFL</a>).</p>
 <p>Not affiliated with YouTube, Google, LG or Samsung. YouTube is a trademark of Google LLC; Sofa Tube (صوفا تيوب) is not a Google product.</p>
-<p><a href="{REPO}">github.com/sofatube/sofatube.github.io</a> · <a href="{RELEASES}">All files (releases)</a></p>
+<p><a href="{REPO}">github.com/sofatube/sofatube.github.io</a> · <a href="/news/">What's new (versions)</a> · <a href="{RELEASES}">All files (releases)</a></p>
 </div></footer>'''
 
 
@@ -103,7 +103,7 @@ def footer(lang):
 def test_note(lang):
     return L(lang,
              f'<div class="note" role="note"><p><b>{VER} is a test version.</b> It was tried on TV emulators (software copies of a TV) and on a few real TVs (one Android TV, four Samsung TVs), not yet on every brand and model. <a href="/testers/#status">What has been tested</a>.</p></div>',
-             f'<div class="note" role="note"><p><b>هذه نسخة تجريبية (<bdi>{VER}</bdi>).</b> جُرِّبت على محاكيات التلفاز (نسخ برمجية من التلفاز) وعلى بضعة أجهزة حقيقية (تلفاز أندرويد واحد وأربعة أجهزة سامسونج)، ولم تُجرَّب بعد على كل الأنواع والطرازات. <a href="/ar/testers/#status">ما الذي جُرِّب</a>.</p></div>')
+             f'<div class="note" role="note"><p><b>هذه نسخة تجريبية (<bdi>{VER}</bdi>).</b> جُرِّبت على محاكيات التلفاز (نسخ برمجية من التلفاز) وعلى بضعة أجهزة حقيقية (تلفاز <bdi>Android</bdi> واحد وأربعة أجهزة <bdi>Samsung</bdi>)، ولم تُجرَّب بعد على كل الأنواع والطرازات. <a href="/ar/testers/#status">ما الذي جُرِّب</a>.</p></div>')
 
 
 def mp4_seconds(path):
@@ -162,21 +162,21 @@ def download_cards(lang):
     i = url(lang, 'install/')
     if lang == 'ar':
         return f'''<div class="grid dl">
-<div class="card"><h3>أندرويد تي في · جوجل تي في · فاير تي في</h3>
+<div class="card"><h3><bdi>Android TV</bdi> · <bdi>Google TV</bdi> · <bdi>Fire TV</bdi></h3>
 <p>اكتب في تطبيق <b>Downloader</b> على التلفاز:</p>
 <p class="link">sofatube.github.io/tv</p>
 <div class="row"><a class="btn" href="/tv/">تنزيل ملف apk</a></div>
 <p class="meta">نحو 95 ميغابايت · <a href="{i}#android">خطوات التثبيت مع فيديو</a></p></div>
 <div class="card"><h3>تلفاز LG ‏(webOS)</h3>
-<p>ثبّت تطبيقًا واحدًا، <bdi>Sofa Tube Phone</bdi>، بـ<bdi>webOS Dev Manager</bdi> من هاتف أندرويد، ثم افتحه على التلفاز: يثبّت صوفا تيوب بنفسه.</p>
+<p>ثبّت تطبيقًا واحدًا، <bdi>Sofa Tube Phone</bdi>، بـ<bdi>webOS Dev Manager</bdi> من هاتف <bdi>Android</bdi>، ثم افتحه على التلفاز: يثبّت صوفا تيوب بنفسه.</p>
 <p class="link">sofatube.github.io/lg-phone</p>
 <div class="row"><a class="btn" href="/lg-phone/">تطبيق <bdi>Sofa Tube Phone</bdi> (ipk)</a> <a class="btn ghost" href="/lg/">صوفا تيوب وحده (ipk)</a></div>
 <p class="meta"><a href="{i}#lg">خطوات التثبيت مع فيديو</a></p></div>
-<div class="card"><h3>تلفاز سامسونج ‏(Tizen)</h3>
-<p>نزّل الملف على هاتف أندرويد (أو حاسوب) وثبّته بـ<bdi>Apps2Samsung</bdi>:</p>
+<div class="card"><h3>تلفاز <bdi>Samsung</bdi> ‏(Tizen)</h3>
+<p>نزّل الملف على هاتف <bdi>Android</bdi> (أو حاسوب) وثبّته بـ<bdi>Apps2Samsung</bdi>:</p>
 <p class="link">sofatube.github.io/samsung</p>
 <div class="row"><a class="btn" href="/samsung/">تنزيل ملف wgt</a></div>
-<p class="meta">تلفاز سامسونج من سنة 2018 أو أحدث · <a href="{i}#samsung">خطوات التثبيت مع فيديو</a></p></div>
+<p class="meta">تلفاز <bdi>Samsung</bdi> من سنة 2018 أو أحدث · <a href="{i}#samsung">خطوات التثبيت مع فيديو</a></p></div>
 </div>
 <p><a href="{RELEASES}">كل الملفات</a> (صفحة الإصدار، ومنها ملف المصدر <bdi>source.zip</bdi>)</p>'''
     return f'''<div class="grid dl">
@@ -377,7 +377,7 @@ def updates_096(lang):
 <li><b>«المستقر»</b> (ما يصل إلى الجميع)، و<b>«الاختبار»</b> (الإصدار القادم قبل الجميع بأيام قليلة، للمساعدة في اكتشاف الأخطاء)، و<b>«التجريبي»</b> (تجارب مبكرة لميزات جديدة، قد يتعطّل فيها شيء). على التلفاز: الإعدادات ← «حول التطبيق والنسخ الاحتياطي» ← «قناة التحديثات».</li>
 <li><b>لا يتأخر التلفاز عن «المستقر» أبدًا:</b> يأخذ أحدث إصدار من قناته ومن القنوات الأكثر استقرارًا منها. وتغيير القناة لا يثبّت إصدارًا أقدم من تلقاء نفسه.</li>
 <li><b>«التجريبي» يحتاج إلى أحد الوالدين:</b> تحذير أولًا، ثم الرمز السري إن كان مضبوطًا، على التلفاز أو على هاتف أحد الوالدين.</li>
-<li><b>لمسة واحدة على الهاتف:</b> بطاقة «التحديثات» (لأحد الوالدين فقط: الإعدادات ← التطبيق ← حول التطبيق والنسخ الاحتياطي، وفي «قيد التشغيل» حين يكون التحديث جاهزًا) تقول «صوفا تيوب جاهز لهذا التلفاز» مع رقم الإصدار، و<b>«تحديث التلفاز»</b> يشغّل أداة التثبيت في التلفاز نفسه، وتُظهر البطاقة مدى تقدّمه. وفي أندرويد من 9 إلى 11 يسأل التلفاز: اضغط OK عليه (أو من الهاتف عبر «التلفاز كله»).</li>
+<li><b>لمسة واحدة على الهاتف:</b> بطاقة «التحديثات» (لأحد الوالدين فقط: الإعدادات ← التطبيق ← حول التطبيق والنسخ الاحتياطي، وفي «قيد التشغيل» حين يكون التحديث جاهزًا) تقول «صوفا تيوب جاهز لهذا التلفاز» مع رقم الإصدار، و<b>«تحديث التلفاز»</b> يشغّل أداة التثبيت في التلفاز نفسه، وتُظهر البطاقة مدى تقدّمه. وفي <bdi>Android</bdi> من 9 إلى 11 يسأل التلفاز: اضغط OK عليه (أو من الهاتف عبر «التلفاز كله»).</li>
 <li><b>ملف موقَّع:</b> ملف التحديثات موقَّع بمفتاح صوفا تيوب المحفوظ خارج الإنترنت، وترفض أجهزة التلفاز من <bdi>0.9.6</bdi> أي ملف غير موقَّع. ولا يُبحث عن شيء إلا حين يطلب أحد ذلك أو يكون البحث الأسبوعي مفعّلًا، وتبقى إعداداتك.</li>
 </ul>
 <div class="row"><a class="btn ghost" href="/ar/videos/#v47">▶ تحديث التلفاز من الهاتف · <bdi>{v}</bdi></a> <a class="btn ghost" href="/ar/faq/#updates">كل الطرق</a></div>
@@ -421,7 +421,7 @@ def whole_tv(lang):
 <li><b>لولي الأمر:</b> غير مفعّل في البداية، ويُفعَّل من إعدادات صوفا تيوب؛ ولا يحصل عليه هاتف الأطفال.</li>
 </ul>
 <div class="row"><a class="btn ghost" href="/ar/videos/#v18">▶ الإعداد · <bdi>{v18}</bdi></a> <a class="btn ghost" href="/ar/videos/#v19">▶ الاستخدام · <bdi>{v19}</bdi></a> <a class="btn ghost" href="/ar/videos/#v46">▶ المؤشر · <bdi>{v46}</bdi></a></div>
-<p class="meta">لأجهزة LG وسامسونج و<bdi>Android TV</bdi>. جُرِّب على محاكيَي LG و<bdi>Google TV</bdi>، وجُرِّبت نسخة سابقة منه على تلفاز أندرويد حقيقي؛ ولم يُتأكَّد منه بعدُ على تلفاز سامسونج حقيقي.</p>
+<p class="meta">لأجهزة LG و<bdi>Samsung</bdi> و<bdi>Android TV</bdi>. جُرِّب على محاكيَي LG و<bdi>Google TV</bdi>، وجُرِّبت نسخة سابقة منه على تلفاز <bdi>Android</bdi> حقيقي؛ ولم يُتأكَّد منه بعدُ على تلفاز <bdi>Samsung</bdi> حقيقي.</p>
 </div>
 <div class="phones spot-phones">{phones}</div>
 <div class="shots two">{tvs}</div>
@@ -451,7 +451,7 @@ def phone_app(lang, short=False):
     # Owner (2026-11-14): it existed but nothing on the site said so.
     if lang == 'ar':
         steps = '''<ol class="steps">
-<li>على هاتفك افتح <a href="/remote/"><bdi>sofatube.github.io/remote</bdi></a>&rlm; (<bdi>Chrome</bdi> في أندرويد، أو <bdi>Safari</bdi> في آيفون)، على شبكة الواي فاي نفسها التي يتصل بها التلفاز.</li>
+<li>على هاتفك افتح <a href="/remote/"><bdi>sofatube.github.io/remote</bdi></a>&rlm; (<bdi>Chrome</bdi> في <bdi>Android</bdi>، أو <bdi>Safari</bdi> في آيفون)، على شبكة الواي فاي نفسها التي يتصل بها التلفاز.</li>
 <li>أضفه إلى الشاشة الرئيسية فيصبح تطبيقًا: في <bdi>Chrome</bdi>: <bdi>⋮</bdi> ← <b>تثبيت التطبيق</b> (أو «إضافة إلى الشاشة الرئيسية»)؛ وفي <bdi>Safari</bdi>: <b>مشاركة</b> ← <b>إضافة إلى الشاشة الرئيسية</b>.</li>
 <li>اضغط <b>«ابحث عن التلفاز»</b>: يظهر الرمز نفسه على الهاتف والتلفاز، فاضغط OK على التلفاز (ثم الرمز السري إن كان مضبوطًا). أو امسح الرمز الظاهر على التلفاز (صوفا تيوب ← الإعدادات ← جهاز التحكم من الهاتف). ويتذكّر التطبيقُ التلفازَ في المرة القادمة، ويعرض صفحته داخل التطبيق دون شريط المتصفح.</li>
 </ol>'''
@@ -496,9 +496,9 @@ def phone_app(lang, short=False):
 </section>'''
 
 
-def new_095(lang):
-    # What 0.9.5 adds, as cards in the same style as "What it does"; the screenshot row shows once
-    # SHOTS_095 has entries (another session adds the 0.9.5 shots).
+def news(lang):
+    # Version history, newest first. It was the home page's "New in 0.9.6 and 0.9.5" and #updates parts; moved
+    # here because almost every visitor is new (site/NOTES-newcomer.md). The home page links here in one line.
     cards = ''.join(
         f'<div class="card feature"><span class="ico" aria-hidden="true">{ico}</span><h3>{L(lang, te, ta)}</h3><p>{L(lang, de, da)}</p></div>'
         for ico, te, ta, de, da in NEW_095)
@@ -508,25 +508,83 @@ def new_095(lang):
     row = (f'<div class="shots">{tv_shots}</div>' if tv_shots else '') + (f'<div class="phones">{ph_shots}</div>' if ph_shots else '')
     row096 = ('<div class="shots two">' + ''.join(shot(lang, *x) for x in SHOTS_096_TV) + '</div>'
               '<div class="phones">' + ''.join(shot(lang, *x, phone=True) for x in SHOTS_096_PHONE) + '</div>')
+    rel = REPO + '/releases'
     if lang == 'ar':
-        return f'''<h2 id="new">الجديد في <bdi>0.9.6</bdi> و<bdi>0.9.5</bdi></h2>
-<p>يضيف إصدار <bdi>0.9.6</bdi> «ابحث عن التلفاز» ثم OK على التلفاز (دون رمز QR)، وصفحة الهاتف كاملة داخل تطبيق صوفا تيوب دون شريط المتصفح، في المنزل ومن خارجه (بالرمز السري لولي الأمر)، والعرض المباشر للتلفاز مثبّتًا أثناء استخدام بقية الصفحة، وثلاث قنوات للتحديثات مع التحديث بلمسة من الهاتف (<a href="#updates">كيف</a>)، وشريط الموضع في «العرض على التلفاز»، وشاشة واحدة للمؤشر.</p>
+        return f'''<h1>ما الجديد في صوفا تيوب</h1>
+<p class="lead">كل إصدار، الأحدث أولًا. جديد هنا؟ ابدأ من <a href="/ar/">الصفحة الرئيسية</a>، أو ثبّته بـ<a href="/ar/setup/">إعداد صوفا تيوب</a>.</p>
+<h2 id="new">الإصدار <bdi>0.9.6</bdi></h2>
+<p>يضيف إصدار <bdi>0.9.6</bdi> <a href="/ar/setup/">إعداد صوفا تيوب</a> للتثبيت الأول دون كتابة شيء على التلفاز، و<a href="/ar/usb/">التثبيت عبر USB</a>، و«ابحث عن التلفاز» ثم OK على التلفاز (دون رمز QR)، وصفحة الهاتف كاملة داخل تطبيق صوفا تيوب دون شريط المتصفح، في المنزل ومن خارجه (بالرمز السري لولي الأمر)، والعرض المباشر للتلفاز مثبّتًا أثناء استخدام بقية الصفحة، وثلاث قنوات للتحديثات مع التحديث بلمسة من الهاتف (<a href="#updates">كيف</a>)، وشريط الموضع في «العرض على التلفاز»، وشاشة واحدة للمؤشر.</p>
 {row096}
-<p>وأضاف إصدار <bdi>0.9.5</bdi> قواعد للعائلة على التلفاز كله، والتحكم من خارج المنزل، والهاتف شاشة ثانية، والمساعدة عن بُعد، وشاشات أسهل لكبار السن.</p>
+{updates_096(lang)}
+<p class="meta">على LG حدّث تطبيق «صوفا تيوب للهاتف» أيضًا: <a href="/ar/install/#lg-update">كيف</a>.</p>
+<h2 id="v095">الإصدار <bdi>0.9.5</bdi></h2>
+<p>أضاف إصدار <bdi>0.9.5</bdi> قواعد للعائلة على التلفاز كله، والتحكم من خارج المنزل، والهاتف شاشة ثانية، والمساعدة عن بُعد، وشاشات أسهل لكبار السن.</p>
 <div class="grid">{cards}</div>
 {row}
-<p class="meta">بعض الأجزاء لم يُتأكَّد منها بعدُ على كل أنواع التلفاز الحقيقية، وما يقدر عليه كل نوع يختلف: <a href="/ar/faq/#limits">الحدود المعروفة</a>. وعلى LG حدّث تطبيق <bdi>Sofa Tube Phone</bdi> أيضًا: <a href="/ar/install/#lg-update">كيف</a>.</p>'''
-    return f'''<h2 id="new">New in 0.9.6 and 0.9.5</h2>
-<p>0.9.6 adds Find my TV with OK on the TV (no QR code), the TV's whole phone page inside the Sofa Tube app with no browser bar, at home and from away (parent PIN first), a live view of the TV pinned while you use the rest, three update channels with one-tap updates from the phone (<a href="#updates">how</a>), a seek bar for Show on the TV, and one Pointer screen.</p>
+<p class="meta">بعض الأجزاء لم يُتأكَّد منها بعدُ على كل أنواع التلفاز الحقيقية، وما يقدر عليه كل نوع يختلف: <a href="/ar/faq/#limits">الحدود المعروفة</a>.</p>
+<h2 id="older">الإصدارات السابقة</h2>
+<p>ملاحظات كل إصدار وملفاته في <a href="{rel}">صفحة الإصدارات على GitHub</a>.</p>'''
+    return f'''<h1>What's new in Sofa Tube</h1>
+<p class="lead">Every version, newest first. New here? Start at the <a href="/">home page</a>, or install it with <a href="/setup/">Sofa Tube Setup</a>.</p>
+<h2 id="new">Version 0.9.6</h2>
+<p>0.9.6 adds <a href="/setup/">Sofa Tube Setup</a> for the first install with nothing typed on the TV, <a href="/usb/">install over USB</a>, Find my TV with OK on the TV (no QR code), the TV's whole phone page inside the Sofa Tube app with no browser bar, at home and from away (parent PIN first), a live view of the TV pinned while you use the rest, three update channels with one-tap updates from the phone (<a href="#updates">how</a>), a seek bar for Show on the TV, and one Pointer screen.</p>
 {row096}
+{updates_096(lang)}
+<p class="meta">On LG, update the Sofa Tube Phone app too: <a href="/install/#lg-update">how</a>.</p>
+<h2 id="v095">Version 0.9.5</h2>
 <p>0.9.5 added family rules for the whole TV, control from away, the phone as a second screen, remote help, and easier screens for elderly viewers.</p>
 <div class="grid">{cards}</div>
 {row}
-<p class="meta">Some parts are not yet confirmed on every real TV, and what each brand can do differs: <a href="/faq/#limits">known limits</a>. On LG, update the Sofa Tube Phone app too: <a href="/install/#lg-update">how</a>.</p>'''
+<p class="meta">Some parts are not yet confirmed on every real TV, and what each brand can do differs: <a href="/faq/#limits">known limits</a>.</p>
+<h2 id="older">Earlier versions</h2>
+<p>The notes and files of every version are on the <a href="{rel}">GitHub releases page</a>.</p>'''
+
+
+def install_first(lang):
+    # Install for a first-time visitor (site/NOTES-newcomer.md): Sofa Tube Setup first, then each brand by hand.
+    if lang == 'ar':
+        return f'''<section class="spot solo" id="install">
+<div class="spot-txt">
+<p class="kicker">التثبيت · الطريقة المقترحة</p>
+<h2>أسهل طريقة: إعداد صوفا تيوب، دون كتابة شيء على التلفاز</h2>
+<p class="lead">شغّل إعداد صوفا تيوب مرة واحدة على حاسوب ويندوز أو ماك، أو على هاتف <bdi>Android</bdi>، متصل بشبكة الواي فاي نفسها التي يتصل بها التلفاز. يجد الإعداد التلفاز وينفّذ الخطوات عنك، وتُكتب الرموز والروابط وتسجيلات الدخول على الحاسوب أو الهاتف.</p>
+<ul class="ticks">
+<li><b><bdi>Android TV</bdi> و<bdi>Google TV</bdi>:</b> اكتب في الإعداد الرمز الظاهر على التلفاز، ثم اضغط «تثبيت» على التلفاز مرة واحدة.</li>
+<li><b>LG:</b> اضغط YES على التلفاز، فيفتح الإعداد وضع المطوّر ويثبّت صوفا تيوب و«صوفا تيوب للهاتف» بنفسه (يلزم حساب مطوّر LG مجاني).</li>
+<li><b><bdi>Samsung</bdi>:</b> يفعّل الإعداد وضع المطوّر ويثبّت صوفا تيوب (نسخة الحاسوب). وفي أجهزة التلفاز من سنة 2023 أو أحدث يجهّز التلفاز ثم يرشدك إلى طريقة <bdi>Apps2Samsung</bdi>.</li>
+</ul>
+<div class="row"><a class="btn" href="/ar/setup/">تنزيل إعداد صوفا تيوب</a> <a class="btn ghost" href="/ar/usb/">جهاز <bdi>Android TV</bdi> فيه منفذ USB</a></div>
+<p class="meta">آيفون فقط؟ استخدم حاسوبًا مرة واحدة، ثم يعمل جهاز التحكم من الآيفون عاديًا. ولـ<bdi>Fire TV</bdi>: تطبيق Downloader أدناه.</p>
+</div>
+</section>
+<h2 id="download">أو ثبّته بنفسك: اختر تلفازك</h2>
+<p>روابط قصيرة (اكتبها في تطبيق <b>Downloader</b> على التلفاز أو في هاتفك):</p>
+{download_cards(lang)}
+{test_note(lang)}'''
+    return f'''<section class="spot solo" id="install">
+<div class="spot-txt">
+<p class="kicker">Install · recommended</p>
+<h2>The easy way: Sofa Tube Setup, nothing typed on the TV</h2>
+<p class="lead">Run Sofa Tube Setup once on a Windows or Mac computer, or on an Android phone, on the same Wi-Fi as the TV. It finds the TV and does the steps for you; codes, links and logins are typed on the computer or phone.</p>
+<ul class="ticks">
+<li><b>Android TV and Google TV:</b> type the code the TV shows into Setup, then press Install on the TV once.</li>
+<li><b>LG:</b> press YES on the TV; Setup opens Developer Mode and installs Sofa Tube and Sofa Tube Phone itself (a free LG developer account is needed).</li>
+<li><b>Samsung:</b> Setup turns on Developer mode and installs Sofa Tube (computer version). On TVs from 2023 or newer it prepares the TV, then points you to the Apps2Samsung steps.</li>
+</ul>
+<div class="row"><a class="btn" href="/setup/">Get Sofa Tube Setup</a> <a class="btn ghost" href="/usb/">Android TV box with USB</a></div>
+<p class="meta">iPhone only? Use a computer once; the phone remote works on the iPhone afterwards. Fire TV: use the Downloader app below.</p>
+</div>
+</section>
+<h2 id="download">Or install it yourself: pick your TV</h2>
+<p>Short links (type them in the TV's <b>Downloader</b> app or on your phone):</p>
+{download_cards(lang)}
+{test_note(lang)}'''
 
 
 def home(lang):
-    # The six main features as cards, the rest as a short list (a long wall of cards hid the main ones).
+    # Built for a first-time visitor (site/NOTES-newcomer.md): what it is and which TVs (hero), what it does
+    # with real screens, the Whole TV difference, how to install (Setup first), the phone remote, the rest;
+    # the version history is one line at the end and its own page (/news/).
     top, rest = FEATURES[:6], FEATURES[6:]
     feats = ''.join(
         f'<div class="card feature"><span class="ico" aria-hidden="true">{ico}</span><h3>{L(lang, te, ta)}</h3><p>{L(lang, de, da)}</p></div>'
@@ -546,61 +604,55 @@ def home(lang):
 <div>
 <div class="title"><img class="icon" src="/icon.svg" alt="شعار صوفا تيوب" width="72" height="72"><h1>صوفا تيوب<span class="alt" lang="en" dir="ltr">Sofa Tube</span></h1></div>
 <p class="pitch">تطبيق YouTube أفضل لتلفازك: دون إعلانات، وبسرعة تشغيل حقيقية، وقفل بالرمز السري، ووضع للأطفال، وأوقات الصلاة، وهاتفك جهاز تحكم في التلفاز كله.</p>
-<p class="sub">لأجهزة <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> وسامسونج وLG. بالعربية والإنجليزية. مجاني ودون حساب.</p>
-<div class="cta"><a class="btn" href="#download">تنزيل</a><a class="btn ghost" href="/ar/install/">خطوات التثبيت</a></div>
+<p class="sub">يعمل على <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi>، وتلفاز <bdi>Samsung</bdi> من سنة 2018 أو أحدث، وتلفاز LG ‏(webOS). بالعربية والإنجليزية. مجاني ومفتوح المصدر، ودون حساب.</p>
+<div class="cta"><a class="btn" href="#install">التثبيت على تلفازك</a><a class="btn ghost" href="#features">ماذا يقدّم؟</a></div>
 <p class="sub"><span class="badge">نسخة تجريبية <bdi>{VER}</bdi></span></p>
 </div>
 {clip}
 </section>'''
-        return hero + whole_tv(lang) + phone_app(lang) + updates_096(lang) + f'''
-<h2 id="download">التنزيل: اختر تلفازك</h2>
-<p>روابط قصيرة (اكتبها في تطبيق <b>Downloader</b> على التلفاز أو في هاتفك):</p>
-{download_cards(lang)}
-{test_note(lang)}
-{new_095(lang)}
+        return hero + f'''
 <h2 id="features">ماذا يقدّم صوفا تيوب؟</h2>
 <p>يفتح صفحة YouTube الخاصة بالتلفاز ويضيف إليها هذه الميزات.</p>
 <div class="grid">{feats}</div>
-<h3>وأيضًا</h3>
+<div class="shots" id="screens">{shots}</div>
+<p class="meta">من فيديوهات الشرح لإصدار <bdi>0.9.4</bdi>، على محاكي تلفاز LG ‏(webOS)؛ وصفحة الهاتف واحدة على كل أجهزة التلفاز.</p>
+''' + whole_tv(lang) + install_first(lang) + phone_app(lang) + f'''
+<h2 id="more">ميزات أخرى</h2>
 <ul class="feat-list">{more}</ul>
 <h2 id="remote">أزرار جهاز التحكم</h2>
 {remote_keys(lang)}
-<h2 id="screens">لقطات الشاشة</h2>
-<p>من فيديوهات الشرح لإصدار <bdi>0.9.4</bdi>، على محاكي تلفاز LG ‏(webOS)؛ وصفحة الهاتف واحدة على كل أجهزة التلفاز.</p>
-<div class="shots">{shots}</div>
-<details class="more-shots"><summary>لقطات أخرى ({len(later)})</summary><div class="shots">{shots_more}</div></details>
+<h2 id="more-screens">لقطات أخرى</h2>
 <div class="phones">{phones}</div>
-<div class="cta end"><a class="btn" href="#download">تنزيل</a><a class="btn ghost" href="/ar/videos/">كل الفيديوهات ({len(VIDEOS)})</a></div>
+<details class="more-shots"><summary>لقطات التلفاز ({len(later)})</summary><div class="shots">{shots_more}</div></details>
+<div class="cta end"><a class="btn" href="#install">التثبيت على تلفازك</a><a class="btn ghost" href="/ar/videos/">كل الفيديوهات ({len(VIDEOS)})</a></div>
+<p class="meta ver-line">هذا صوفا تيوب <bdi>{VER}</bdi>، نسخة تجريبية. <a href="/ar/news/">ما الجديد والإصدارات السابقة</a> · <a href="/ar/testers/#status">ما الذي جُرِّب</a></p>
 '''
     hero = f'''<section class="hero split">
 <div>
 <div class="title"><img class="icon" src="/icon.svg" alt="Sofa Tube logo" width="72" height="72"><h1>Sofa Tube<span class="alt" lang="ar" dir="rtl">صوفا تيوب</span></h1></div>
 <p class="pitch">A better YouTube app for your TV: no ads, real playback speed, PIN locks, kid mode, prayer times, and your phone as the remote for the whole TV.</p>
-<p class="sub">For Android TV / Google TV / Fire TV, Samsung and LG. English and Arabic. Free, no account.</p>
-<div class="cta"><a class="btn" href="#download">Download</a><a class="btn ghost" href="/install/">Install steps</a></div>
+<p class="sub">Works on Android TV, Google TV and Fire TV, Samsung TVs from 2018 or newer, and LG webOS TVs. English and Arabic. Free and open source, no account.</p>
+<div class="cta"><a class="btn" href="#install">Install on your TV</a><a class="btn ghost" href="#features">What it does</a></div>
 <p class="sub"><span class="badge">Test version {VER}</span></p>
 </div>
 {clip}
 </section>'''
-    return hero + whole_tv(lang) + phone_app(lang) + updates_096(lang) + f'''
-<h2 id="download">Download: pick your TV</h2>
-<p>Short links (type them in the TV's <b>Downloader</b> app or on your phone):</p>
-{download_cards(lang)}
-{test_note(lang)}
-{new_095(lang)}
+    return hero + f'''
 <h2 id="features">What it does</h2>
 <p>It opens YouTube's own TV page and adds these features on top.</p>
 <div class="grid">{feats}</div>
-<h3>And also</h3>
+<div class="shots" id="screens">{shots}</div>
+<p class="meta">From the 0.9.4 how-to videos, on LG's webOS TV Emulator; the phone page is the same on every TV.</p>
+''' + whole_tv(lang) + install_first(lang) + phone_app(lang) + f'''
+<h2 id="more">More features</h2>
 <ul class="feat-list">{more}</ul>
 <h2 id="remote">Remote buttons</h2>
 {remote_keys(lang)}
-<h2 id="screens">Screenshots</h2>
-<p>From the 0.9.4 how-to videos, on LG's webOS TV Emulator; the phone page is the same on every TV.</p>
-<div class="shots">{shots}</div>
-<details class="more-shots"><summary>More screenshots ({len(later)})</summary><div class="shots">{shots_more}</div></details>
+<h2 id="more-screens">More screenshots</h2>
 <div class="phones">{phones}</div>
-<div class="cta end"><a class="btn" href="#download">Download</a><a class="btn ghost" href="/videos/">All {len(VIDEOS)} videos</a></div>
+<details class="more-shots"><summary>TV screenshots ({len(later)})</summary><div class="shots">{shots_more}</div></details>
+<div class="cta end"><a class="btn" href="#install">Install on your TV</a><a class="btn ghost" href="/videos/">All {len(VIDEOS)} videos</a></div>
+<p class="meta ver-line">This is Sofa Tube {VER}, a test version. <a href="/news/">What's new and earlier versions</a> · <a href="/testers/#status">What has been tested</a></p>
 '''
 
 
@@ -610,17 +662,17 @@ def install(lang):
     if lang == 'ar':
         return f'''<h1>التثبيت</h1>
 <p>اختر تلفازك. لكل تلفاز فيديو قصير، ثم الخطوات مكتوبة.</p>
-<p class="note"><b>جديد:</b> <a href="/ar/setup/">إعداد صوفا تيوب</a> يثبّت صوفا تيوب من حاسوب أو هاتف أندرويد، دون كتابة شيء على التلفاز.</p>
+<p class="note"><b>جديد:</b> <a href="/ar/setup/">إعداد صوفا تيوب</a> يثبّت صوفا تيوب من حاسوب أو هاتف <bdi>Android</bdi>، دون كتابة شيء على التلفاز.</p>
 <nav class="pick" aria-label="اختر تلفازك">
-<a href="#android"><b>أندرويد تي في · جوجل تي في · فاير تي في</b><span>جهاز التحكم فقط · نحو 5 دقائق</span></a>
-<a href="#lg"><b>تلفاز LG</b><span>هاتف أندرويد أو حاسوب · نحو 15 دقيقة</span></a>
-<a href="#samsung"><b>تلفاز سامسونج</b><span>هاتف أندرويد أو حاسوب · نحو 10 دقائق</span></a>
+<a href="#android"><b><bdi>Android TV</bdi> · <bdi>Google TV</bdi> · <bdi>Fire TV</bdi></b><span>جهاز التحكم فقط · نحو 5 دقائق</span></a>
+<a href="#lg"><b>تلفاز LG</b><span>هاتف <bdi>Android</bdi> أو حاسوب · نحو 15 دقيقة</span></a>
+<a href="#samsung"><b>تلفاز <bdi>Samsung</bdi></b><span>هاتف <bdi>Android</bdi> أو حاسوب · نحو 10 دقائق</span></a>
 </nav>
 <p class="meta">لا تعرف نوع تلفازك؟ <a href="/ar/videos/#v27">أي فيديو يناسبني؟</a> (<bdi>{video_len(lang, '27')}</bdi>)</p>
 
 <section class="tv-section" id="android">
-<h2>أندرويد تي في · جوجل تي في · فاير تي في</h2>
-<div class="note"><p><b>الحالة:</b> جُرِّب على محاكي Google TV، وجُرِّبت نسخ تجريبية منه على تلفاز أندرويد حقيقي واحد (TCL). لم يُجرَّب على Fire TV. إذا لم يُثبَّت أو لم يُفتح أصلًا فهذه نتيجة مهمة: <a href="/ar/testers/#report">أخبرنا بها</a>.</p></div>
+<h2><bdi>Android TV</bdi> · <bdi>Google TV</bdi> · <bdi>Fire TV</bdi></h2>
+<div class="note"><p><b>الحالة:</b> جُرِّب على محاكي Google TV، وجُرِّبت نسخ تجريبية منه على تلفاز <bdi>Android</bdi> حقيقي واحد (TCL). لم يُجرَّب على Fire TV. إذا لم يُثبَّت أو لم يُفتح أصلًا فهذه نتيجة مهمة: <a href="/ar/testers/#report">أخبرنا بها</a>.</p></div>
 {howto(lang, '28', 'شاهده مرة، ثم اتبع الخطوات المكتوبة أدناه؛ ويمكنك إيقافه مؤقتًا عند كل خطوة.')}
 <h3>ما تحتاج إليه</h3>
 <ul>
@@ -643,7 +695,7 @@ def install(lang):
 <p>نزّل ملف apk من <a href="/tv/">sofatube.github.io/tv</a> وانسخه إلى ذاكرة USB، وافتحه على التلفاز بتطبيق لإدارة الملفات، واسمح له بتثبيت التطبيقات غير المعروفة، ثم تثبيت ففتح.</p>
 <h3>معلومات مفيدة</h3>
 <ul>
-<li>قد يُعاد تحميل YouTube مرة عند أول تشغيل، وهذا طبيعي. أغلب أجهزة التحكم في أندرويد ليس فيها أزرار ملونة: استخدم <b>★ صوفا تيوب</b> في القائمة الجانبية لـYouTube أو زر ★ بين أزرار التحكم.</li>
+<li>قد يُعاد تحميل YouTube مرة عند أول تشغيل، وهذا طبيعي. أغلب أجهزة التحكم في <bdi>Android</bdi> ليس فيها أزرار ملونة: استخدم <b>★ صوفا تيوب</b> في القائمة الجانبية لـYouTube أو زر ★ بين أزرار التحكم.</li>
 <li>لا يحتاج الإعداد من الهاتف إلى تطبيق إضافي هنا: الإعدادات ← جهاز التحكم من الهاتف (أول صفحة).</li>
 <li>للتحديث: ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات.</li>
 </ul>
@@ -654,8 +706,8 @@ def install(lang):
 <div class="note"><p><b>أولًا:</b> احذف تطبيق YouTube الرسمي من التلفاز؛ فصوفا تيوب يستخدم مُعرّف التطبيق نفسه (<code dir="ltr">youtube.leanback.v4</code>)، ولا يمكن تثبيتهما معًا. <b>منذ <bdi>0.9.4</bdi>:</b> يثبّت <bdi>Sofa Tube Phone</bdi> صوفا تيوب لك. جُرِّب على محاكي LG، ولم يُجرَّب بعد على تلفاز LG حقيقي: <a href="/ar/testers/#report">أخبرنا كيف جرى</a>.</p></div>
 {howto(lang, '29', 'شاهده مرة، ثم اتبع الخطوات المكتوبة أدناه؛ ويمكنك إيقافه مؤقتًا عند كل خطوة.', 'يُظهر الفيديو الطريقة السابقة: تثبيت ملفين. أما الآن فثبّت <bdi>Sofa Tube Phone</bdi> وحده، وهو يثبّت صوفا تيوب لك (الخطوة 8).')}
 <h3>ما تحتاج إليه</h3>
-<p>تلفاز LG بنظام webOS، وهاتف أندرويد على شبكة الواي فاي نفسها (أو حاسوب). حساب مطوّر مجاني من LG وتطبيق Developer Mode من LG. لا حاجة إلى كسر الحماية (root) ولا إلى Homebrew Channel.</p>
-<h3>الأسهل: بهاتف أندرويد</h3>
+<p>تلفاز LG بنظام webOS، وهاتف <bdi>Android</bdi> على شبكة الواي فاي نفسها (أو حاسوب). حساب مطوّر مجاني من LG وتطبيق Developer Mode من LG. لا حاجة إلى كسر الحماية (root) ولا إلى Homebrew Channel.</p>
+<h3>الأسهل: بهاتف <bdi>Android</bdi></h3>
 <ol class="steps">
 <li>على الهاتف، أنشئ حساب مطوّر من LG في <a href="https://webostv.developer.lge.com/">webostv.developer.lge.com</a>.</li>
 <li>على التلفاز، ثبّت تطبيق <b>Developer Mode</b> من متجر LG Content Store، وافتحه وسجّل الدخول بذلك الحساب.</li>
@@ -678,15 +730,15 @@ def install(lang):
 </section>
 
 <section class="tv-section" id="samsung">
-<h2>تلفاز سامسونج ‏(Tizen)</h2>
-<div class="note"><p><b>الحالة:</b> صوفا تيوب تطبيق مستقل على التلفاز (أيقونة في «التطبيقات»). ثُبّت وجُرِّب بـ<bdi>Apps2Samsung</bdi> من هاتف أندرويد على ثلاثة أجهزة تلفاز سامسونج حقيقية (من 2025 و2022 و2020) في مختبر سامسونج عن بُعد. <a href="/ar/testers/#report">أخبرنا كيف جرى على تلفازك</a>.</p></div>
+<h2>تلفاز <bdi>Samsung</bdi> ‏(Tizen)</h2>
+<div class="note"><p><b>الحالة:</b> صوفا تيوب تطبيق مستقل على التلفاز (أيقونة في «التطبيقات»). ثُبّت وجُرِّب بـ<bdi>Apps2Samsung</bdi> من هاتف <bdi>Android</bdi> على ثلاثة أجهزة تلفاز <bdi>Samsung</bdi> حقيقية (من 2025 و2022 و2020) في مختبر <bdi>Samsung</bdi> عن بُعد. <a href="/ar/testers/#report">أخبرنا كيف جرى على تلفازك</a>.</p></div>
 {howto(lang, '30', 'شاهده مرة، ثم اتبع الخطوات المكتوبة أدناه؛ ويمكنك إيقافه مؤقتًا عند كل خطوة.')}
 <h3>ما تحتاج إليه</h3>
 <ul>
-<li>تلفاز سامسونج من سنة 2018 أو أحدث (Tizen 4.0 أو أحدث)، و<b>هاتف أندرويد</b> على شبكة الواي فاي نفسها. ليس لديك هاتف أندرويد (آيفون)؟ استخدم حاسوبًا بويندوز أو ماك (أدناه).</li>
-<li>حساب سامسونج (مجاني): يطلب <bdi>Apps2Samsung</bdi> على الهاتف تسجيل الدخول في أول تثبيت، مهما كان طراز التلفاز (وعلى الحاسوب لأجهزة Tizen 7 فما فوق فقط، وأغلبها من 2023). يصنع منه شهادة توقيع خاصة بك ويحتفظ بها، فتسجّل الدخول مرة واحدة.</li>
+<li>تلفاز <bdi>Samsung</bdi> من سنة 2018 أو أحدث (Tizen 4.0 أو أحدث)، و<b>هاتف <bdi>Android</bdi></b> على شبكة الواي فاي نفسها. ليس لديك هاتف <bdi>Android</bdi> (آيفون)؟ استخدم حاسوبًا بويندوز أو ماك (أدناه).</li>
+<li>حساب <bdi>Samsung</bdi> (مجاني): يطلب <bdi>Apps2Samsung</bdi> على الهاتف تسجيل الدخول في أول تثبيت، مهما كان طراز التلفاز (وعلى الحاسوب لأجهزة Tizen 7 فما فوق فقط، وأغلبها من 2023). يصنع منه شهادة توقيع خاصة بك ويحتفظ بها، فتسجّل الدخول مرة واحدة.</li>
 </ul>
-<h3>بهاتف أندرويد (دون حاسوب): 6 خطوات</h3>
+<h3>بهاتف <bdi>Android</bdi> (دون حاسوب): 6 خطوات</h3>
 <ol class="steps">
 <li><b>التلفاز:</b> افتح «<b>التطبيقات</b>» (<bdi>Apps</bdi>) واكتب <bdi>1 2 3 4 5</bdi> (بأزرار الأرقام، أو بزر <bdi>123</bdi> / زر الألوان لإظهار الأرقام على الشاشة). اجعل <bdi>Developer mode</bdi> على <bdi>On</bdi>، واكتب <b>عنوان IP للهاتف</b> في خانة <bdi>Host PC IP</bdi>، واضغط <bdi>OK</bdi>، ثم أعد تشغيل التلفاز: اضغط مطولًا على زر الطاقة حتى ينطفئ ثم يعمل من جديد. (عنوان IP للهاتف: الإعدادات ← الواي فاي ← شبكتك ← عنوان IP.)</li>
 <li><b>الهاتف:</b> ثبّت <b><bdi>Apps2Samsung</bdi></b>: <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest"><bdi>github.com/Apps2Samsung/Apps2Samsung/releases</bdi></a> ← الملف المنتهي بـ<code dir="ltr">-android.apk</code>. يحذّر كروم «<bdi>File might be harmful</bdi>»: اضغط <bdi>Download anyway</bdi> ثم <bdi>Open</bdi>. إن قال الهاتف إنه لا يسمح بتثبيت تطبيقات غير معروفة من هذا المصدر: <bdi>Settings</bdi> ← فعّل <bdi>Allow from this source</bdi> ← رجوع ← <bdi>Install</bdi>. إن عرض <bdi>Apps2Samsung</bdi> عند فتحه تحديثًا (<bdi>Update Available</bdi>) فاختر ما شئت (<bdi>Later</bdi> يكفي). لعرضه بالعربية: ⚙ ← <bdi>Language</bdi> ← العربية.</li>
@@ -696,16 +748,16 @@ def install(lang):
 <li><b>التلفاز:</b> افتح <b>صوفا تيوب</b> من «التطبيقات». إن ظهرت شاشة «خطوة أخيرة على التلفاز» فاتبع ما فيها (تعرض قيمة <bdi>Host PC IP</bdi> التي وجدتها).</li>
 </ol>
 <div class="faq">
-<details><summary>ليس لديك هاتف أندرويد؟ بحاسوب ويندوز أو ماك (6 خطوات)</summary>
+<details><summary>ليس لديك هاتف <bdi>Android</bdi>؟ بحاسوب ويندوز أو ماك (6 خطوات)</summary>
 <ol class="steps">
 <li><b>التلفاز:</b> الخطوة 1 أعلاه، مع <b>عنوان IP للحاسوب</b> في <bdi>Host PC IP</bdi> (ويندوز: الإعدادات ← الشبكة والإنترنت ← اتصالك ← عنوان IPv4؛ ماك: إعدادات النظام ← الواي فاي ← التفاصيل ← عنوان IP).</li>
 <li><b>الحاسوب:</b> ثبّت <b><bdi>Apps2Samsung</bdi></b> من <a href="https://github.com/Apps2Samsung/Apps2Samsung/releases/latest">صفحة إصداراته</a>: ويندوز <code dir="ltr">-win-x64.msi</code>، ماك <code dir="ltr">-macos-arm64.dmg</code> (معالج Apple) أو <code dir="ltr">-macos-x64.dmg</code> (معالج Intel).</li>
 <li><b>الحاسوب:</b> نزّل صوفا تيوب من <a href="/samsung/"><bdi>sofatube.github.io/samsung</bdi></a>.</li>
-<li><b><bdi>Apps2Samsung</bdi>:</b> <bdi>Select TV</bdi> (أو اكتب عنوان IP للتلفاز)، ثم <bdi>Custom WGT / TPK</bdi>، واختر ملف صوفا تيوب، ثم <bdi>Download &amp; Install</bdi>. سجّل الدخول إلى سامسونج إن طُلب منك (مرة واحدة).</li>
+<li><b><bdi>Apps2Samsung</bdi>:</b> <bdi>Select TV</bdi> (أو اكتب عنوان IP للتلفاز)، ثم <bdi>Custom WGT / TPK</bdi>، واختر ملف صوفا تيوب، ثم <bdi>Download &amp; Install</bdi>. سجّل الدخول إلى <bdi>Samsung</bdi> إن طُلب منك (مرة واحدة).</li>
 <li><b>التلفاز:</b> <bdi>Host PC IP</bdi> = <code dir="ltr">127.0.0.1</code> (القوائم العربية: <code dir="ltr">1.0.0.127</code>)، ثم أعد تشغيل التلفاز.</li>
 <li><b>التلفاز:</b> افتح <b>صوفا تيوب</b> من «التطبيقات».</li>
 </ol>
-<p>يعمل أيضًا: <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest"><bdi>TizenBrew Installer</bdi></a> على الحاسوب ← افتح <code dir="ltr">http://localhost:8091/ui/dist/index.html</code> ← عنوان التلفاز ← <bdi>Install from GitHub</bdi> ← <code dir="ltr">sofatube/sofatube.github.io</code>. بالإنجليزية فقط؛ استخدم «<bdi>Install from GitHub</bdi>» لا «<bdi>Select file to install</bdi>» (خيار الملف ينسى شهادة سامسونج بعد تثبيت واحد).</p>
+<p>يعمل أيضًا: <a href="https://github.com/reisxd/TizenBrewInstaller/releases/latest"><bdi>TizenBrew Installer</bdi></a> على الحاسوب ← افتح <code dir="ltr">http://localhost:8091/ui/dist/index.html</code> ← عنوان التلفاز ← <bdi>Install from GitHub</bdi> ← <code dir="ltr">sofatube/sofatube.github.io</code>. بالإنجليزية فقط؛ استخدم «<bdi>Install from GitHub</bdi>» لا «<bdi>Select file to install</bdi>» (خيار الملف ينسى شهادة <bdi>Samsung</bdi> بعد تثبيت واحد).</p>
 </details>
 <details><summary>تستخدم TizenBrew؟ وحدة TizenBrew</summary>
 {howto(lang, '31', 'إضافة وحدة <code dir="ltr">sofatube</code> في TizenBrew.')}
@@ -720,7 +772,7 @@ def install(lang):
 <li><b>«… منفذ التصحيح الخاص به لا يستجيب بعد»</b> (<bdi>debug port isn't responding … power-cycle</bdi>): افصل التلفاز عن الكهرباء 30 ثانية، ثم أعد وصله، ثم اضغط ⟳ (<bdi>Rescan</bdi>).</li>
 <li><b>«<bdi>Could not read a valid TV DUID</bdi>»</b>: اضغط <bdi>Download &amp; Install</bdi> مرة أخرى؛ وإن تكرّر فأعد تشغيل التلفاز.</li>
 <li><b>«<bdi>Install failed: A task was canceled</bdi>»</b>: انقطع الاتصال بالتلفاز أثناء التثبيت. أعد تشغيل التلفاز (اضغط مطولًا على زر الطاقة)، ثم ⟳، واختر الملف مرة أخرى، ثم <bdi>Download &amp; Install</bdi> (لا يُطلب تسجيل الدخول مرة ثانية).</li>
-<li><b>«تم إلغاء تسجيل الدخول»</b> (<bdi>Sign-in cancelled</bdi>): أُغلقت صفحة سامسونج قبل تسجيل الدخول؛ اضغط <bdi>Download &amp; Install</bdi> مرة أخرى وسجّل الدخول.</li>
+<li><b>«تم إلغاء تسجيل الدخول»</b> (<bdi>Sign-in cancelled</bdi>): أُغلقت صفحة <bdi>Samsung</bdi> قبل تسجيل الدخول؛ اضغط <bdi>Download &amp; Install</bdi> مرة أخرى وسجّل الدخول.</li>
 <li><b>«… مع شهادة توقيع مختلفة»</b> (<bdi>already installed with a different signing certificate</bdi>) أو <b>«مثبَّت بالفعل، وتلفازك لا يسمح باستبداله»</b>: على التلفاز نسخة أقدم من صوفا تيوب بشهادة أخرى. على التلفاز: «التطبيقات» ← صوفا تيوب ← اضغط مطولًا على <bdi>OK</bdi> ← حذف، ثم ثبّته من جديد (تضيع إعداداته، فاحفظ رمز الإعدادات أولًا).</li>
 <li><b>لا يظهر التلفاز</b> («لم يتم العثور على التلفزيون»): يجب أن يكون التلفاز والهاتف أو الحاسوب على الواي فاي نفسه؛ أوقف أي VPN؛ أو اضغط خانة <bdi>Select TV</bdi> واكتب عنوان التلفاز (التلفاز: <bdi>Settings</bdi> ← <bdi>General</bdi> ← <bdi>Network</bdi> ← <bdi>Network Status</bdi> ← <bdi>IP Settings</bdi>).</li>
 <li><b>يفتح صوفا تيوب على «خطوة أخيرة على التلفاز»</b>: لم تُنفَّذ الخطوة 5 (يجب أن تكون <bdi>Host PC IP</bdi> هي <code dir="ltr">127.0.0.1</code>) أو لم يُعَد تشغيل التلفاز.</li>
@@ -729,7 +781,7 @@ def install(lang):
 </div>
 <h3>معلومات مفيدة</h3>
 <ul>
-<li><b>البحث الصوتي:</b> لا ميكروفون في YouTube على سامسونج هنا. ابحث بصوتك من هاتفك: صفحة الهاتف ← <b>البحث</b> ← 🎤.</li>
+<li><b>البحث الصوتي:</b> لا ميكروفون في YouTube على <bdi>Samsung</bdi> هنا. ابحث بصوتك من هاتفك: صفحة الهاتف ← <b>البحث</b> ← 🎤.</li>
 <li><b>التحديثات:</b> صوفا تيوب ← الإعدادات ← «حول التطبيق والنسخ الاحتياطي» ← <b>البحث عن تحديثات</b>. يُحدَّث على التلفاز نفسه حين يمكن ذلك، وإلا يعرض الخطوات (ثبّت الملف الجديد بالطريقة نفسها، وتبقى الإعدادات).</li>
 <li>يجب أن يبقى <bdi>Developer mode</bdi> على <bdi>On</bdi> و<bdi>Host PC IP</bdi> على <code dir="ltr">127.0.0.1</code>: يحتاج إليه صوفا تيوب في كل مرة يفتح فيها YouTube.</li>
 </ul>
@@ -921,16 +973,16 @@ VIDEOS = [
     ('25', 'Help-diagnostics', 'Help and diagnostics', 'المساعدة والتشخيص',
      '', ''),
     ('26', 'In-one-minute', 'Sofa Tube in one minute', 'صوفا تيوب في دقيقة',
-     'YouTube on your TV, your way', 'يوتيوب على تلفازك، كما تريد'),
+     'YouTube on your TV, your way', 'YouTube على تلفازك، كما تريد'),
     ('27', 'Install-which-video', 'Install · Which video is mine?', 'التثبيت · أي فيديو يناسبني؟',
      '', ''),
     ('28', 'Install-Android-TV', 'Install · Android TV, Google TV, Fire TV', 'التثبيت · Android TV و Google TV و Fire TV',
      'Remote only · about 5 minutes', 'جهاز التحكم فقط · نحو 5 دقائق'),
-    ('29', 'Install-LG', 'Install · LG (webOS)', 'التثبيت · إل جي (webOS)',
+    ('29', 'Install-LG', 'Install · LG (webOS)', 'التثبيت · LG (webOS)',
      'Android phone or computer · about 15 minutes', 'هاتف Android أو حاسوب · نحو 15 دقيقة'),
-    ('30', 'Install-Samsung', 'Install · Samsung', 'التثبيت · سامسونج',
+    ('30', 'Install-Samsung', 'Install · Samsung', 'التثبيت · Samsung',
      'Android phone, or a Windows / Mac computer · about 10 minutes', 'هاتف Android، أو حاسوب Windows / Mac · نحو 10 دقائق'),
-    ('31', 'Install-Samsung-TizenBrew', 'Install · Samsung with TizenBrew', 'التثبيت · سامسونج مع TizenBrew',
+    ('31', 'Install-Samsung-TizenBrew', 'Install · Samsung with TizenBrew', 'التثبيت · Samsung مع TizenBrew',
      'Another way', 'طريق آخر'),
     ('32', 'Install-troubleshooting', 'Install · If something goes wrong', 'التثبيت · إن لم ينجح شيء',
      '', ''),
@@ -1033,9 +1085,9 @@ def videos(lang):
 CHECK = [
     ('Basics', 'الأساسيات'),
     (1, True, 'Installs and opens.', 'Sofa Tube appears in the apps list with the orange sofa icon and opens YouTube. Close it and open it again: still fine?',
-     'يُثبَّت ويُفتح.', 'يظهر صوفا تيوب في قائمة التطبيقات بأيقونة الأريكة البرتقالية ويفتح YouTube. أغلقه وافتحه مرة أخرى: هل ما زال يعمل؟', 'Android: ARM file · Samsung', 'أندرويد: ملف ARM · سامسونج'),
+     'يُثبَّت ويُفتح.', 'يظهر صوفا تيوب في قائمة التطبيقات بأيقونة الأريكة البرتقالية ويفتح YouTube. أغلقه وافتحه مرة أخرى: هل ما زال يعمل؟', 'Android: ARM file · Samsung', '<bdi>Android</bdi>: ملف ARM · <bdi>Samsung</bdi>'),
     (2, False, 'Start screen.', 'Samsung · Android: logo pops in, play button pulses, “Sofa Tube / صوفا تيوب” rises in. Smooth, or jerky / skipped? (LG shows a still picture.)',
-     'شاشة البداية.', 'سامسونج · أندرويد: يظهر الشعار، ثم ينبض زر التشغيل، ثم يرتفع «Sofa Tube / صوفا تيوب». هل الحركة سلسة، أم متقطعة أو لا تظهر؟ (في LG صورة ثابتة.)', '', ''),
+     'شاشة البداية.', '<bdi>Samsung</bdi> · <bdi>Android</bdi>: يظهر الشعار، ثم ينبض زر التشغيل، ثم يرتفع «Sofa Tube / صوفا تيوب». هل الحركة سلسة، أم متقطعة أو لا تظهر؟ (في LG صورة ثابتة.)', '', ''),
     (3, False, 'First-time setup.', 'On a new install it asks for language, PIN and kid mode. Easy to follow?',
      'الإعداد الأول.', 'في التثبيت الجديد يسأل عن اللغة والرمز السري ووضع الأطفال. هل كان سهلًا؟', '', ''),
     (4, False, 'Videos play', 'with picture and sound, good quality, no stutter. Try a long video and a live one.',
@@ -1048,9 +1100,9 @@ CHECK = [
      'تُفتح الإعدادات', 'بالزر الأخضر، أو بـ★ صوفا تيوب (القائمة الجانبية، وأزرار التحكم، وأعلى صفحة إعدادات YouTube). ويغلقها زر الرجوع.', '', ''),
     ('Speed and moving around', 'السرعة والتنقل'),
     (8, True, 'Fast speeds: sound at 1.5× and 2×.', 'Red (or ★ → Change speed) → 1.5×, then 2×. Does the sound keep playing, at normal pitch? Watch 1 minute each.',
-     'السرعات العالية: الصوت عند <bdi>1.5×</bdi> و<bdi>2×</bdi>.', 'الزر الأحمر (أو ★ ← تغيير السرعة) ← <bdi>1.5×</bdi> ثم <bdi>2×</bdi>. هل يستمر الصوت بطبقة الصوت الطبيعية؟ شاهد دقيقة لكل سرعة.', 'Samsung · Android', 'سامسونج · أندرويد'),
+     'السرعات العالية: الصوت عند <bdi>1.5×</bdi> و<bdi>2×</bdi>.', 'الزر الأحمر (أو ★ ← تغيير السرعة) ← <bdi>1.5×</bdi> ثم <bdi>2×</bdi>. هل يستمر الصوت بطبقة الصوت الطبيعية؟ شاهد دقيقة لكل سرعة.', 'Samsung · Android', '<bdi>Samsung</bdi> · <bdi>Android</bdi>'),
     (9, True, 'Slow speeds: 0.75× and 0.5×.', 'Sound clear, no crackle, normal pitch? On LG also try Playback → Sound at other speeds: Smooth / Classic.',
-     'السرعات البطيئة: <bdi>0.75×</bdi> و<bdi>0.5×</bdi>.', 'هل الصوت واضح دون طقطقة وبطبقته الطبيعية؟ في LG جرّب أيضًا التشغيل ← الصوت عند السرعات الأخرى: سلس أو كلاسيكي.', 'Samsung · Android', 'سامسونج · أندرويد'),
+     'السرعات البطيئة: <bdi>0.75×</bdi> و<bdi>0.5×</bdi>.', 'هل الصوت واضح دون طقطقة وبطبقته الطبيعية؟ في LG جرّب أيضًا التشغيل ← الصوت عند السرعات الأخرى: سلس أو كلاسيكي.', 'Samsung · Android', '<bdi>Samsung</bdi> · <bdi>Android</bdi>'),
     (10, False, 'If the sound cuts out in 8 or 9:', 'Playback → Speed method → Re-timing, try again, and note which method works.',
      'إذا انقطع الصوت في 8 أو 9:', 'التشغيل ← طريقة تغيير السرعة ← «عبر التطبيق»، ثم جرّب مرة أخرى، ودوّن الطريقة التي نجحت.', '', ''),
     (11, False, 'Jump and chapters.', 'While watching: ★ → Jump to 0%–90% (◀▶ and OK, or a number key). Number keys 1–9 jump directly. In a video with chapters: ★ → Chapters list; CH+ / CH− skip chapters.',
@@ -1066,7 +1118,7 @@ CHECK = [
      'وضع الأطفال والساعات المسموح بها.', 'صفحة الأطفال: فعّل وضع الأطفال، واضبط الساعات المسموح بها بحيث يكون الوقت الحالي خارجها: تظهر شاشة قفل. هل يعمل الوقت الإضافي بالرمز السري؟', '', ''),
     ('Phone, buttons, language', 'الهاتف والأزرار واللغة'),
     (16, True, 'Settings from your phone.', 'LG: open the Sofa Tube Phone app. Samsung / Android: Settings → Phone remote (the first page). Scan the QR code with a real phone on the same Wi-Fi, change a setting: does the TV follow at once?',
-     'الإعدادات من الهاتف.', 'في LG: افتح تطبيق <bdi>Sofa Tube Phone</bdi>. في سامسونج وأندرويد: الإعدادات ← جهاز التحكم من الهاتف (أول صفحة). امسح رمز QR بهاتف حقيقي على شبكة الواي فاي نفسها، وغيّر إعدادًا: هل يتغيّر على التلفاز فورًا؟', 'Samsung: most important', 'سامسونج: الأهم'),
+     'الإعدادات من الهاتف.', 'في LG: افتح تطبيق <bdi>Sofa Tube Phone</bdi>. في <bdi>Samsung</bdi> و<bdi>Android</bdi>: الإعدادات ← جهاز التحكم من الهاتف (أول صفحة). امسح رمز QR بهاتف حقيقي على شبكة الواي فاي نفسها، وغيّر إعدادًا: هل يتغيّر على التلفاز فورًا؟', 'Samsung: most important', '<bdi>Samsung</bdi>: الأهم'),
     (17, False, 'Learned buttons.', 'Remote buttons → Learned buttons → Learn a button, press a button you never use (e.g. a media key), pick an action, then try it while watching. Which buttons were refused?',
      'الأزرار المخصّصة.', 'أزرار جهاز التحكم ← أزرار مخصّصة ← تخصيص زر، واضغط زرًّا لا تستخدمه (مثل أحد أزرار الوسائط)، واختر إجراءً، ثم جرّبه أثناء المشاهدة. ما الأزرار التي رُفضت؟', '', ''),
     (18, False, 'Arabic.', 'Backup and about → Language → العربية. Text right-to-left, letters joined, nothing cut off, font easy to read from the sofa?',
@@ -1105,11 +1157,11 @@ STATUS = [
     ('LG webOS', 'LG emulator (webOS 4), including installing Sofa Tube from the Sofa Tube Phone app; earlier versions on a real LG TV.',
      'LG ‏(webOS)', 'محاكي LG \u200f(webOS 4)، ومنه تثبيت صوفا تيوب من تطبيق <bdi>Sofa Tube Phone</bdi>؛ والإصدارات السابقة على تلفاز LG حقيقي.'),
     ('Samsung app (<code>.wgt</code>)', "Real Samsung TVs in Samsung's Remote Test Lab (2025 QN80F, 2022 QB80, 2020 QT80) and a 2025 Q7F at home, installed with Apps2Samsung from an Android phone. Whole-TV control from the phone: newer Samsung TVs need a TV box, a computer at home or the parent's open phone page as a relay; the relay is not yet confirmed on a home TV.",
-     'تطبيق سامسونج (ملف <code dir="ltr">.wgt</code>)', 'أجهزة تلفاز سامسونج حقيقية في مختبر سامسونج عن بُعد (<bdi>QN80F</bdi> من 2025، و<bdi>QB80</bdi> من 2022، و<bdi>QT80</bdi> من 2020) وجهاز <bdi>Q7F</bdi> من 2025 في المنزل، ثُبّت عليها بـ<bdi>Apps2Samsung</bdi> من هاتف أندرويد. التحكم في التلفاز كله من الهاتف: أجهزة سامسونج الأحدث تحتاج إلى جهاز Android TV أو حاسوب في المنزل أو صفحة هاتف أحد الوالدين مفتوحة وسيطًا؛ ولم يُتأكَّد من الوسيط بعدُ على تلفاز في المنزل.'),
+     'تطبيق <bdi>Samsung</bdi> (ملف <code dir="ltr">.wgt</code>)', 'أجهزة تلفاز <bdi>Samsung</bdi> حقيقية في مختبر <bdi>Samsung</bdi> عن بُعد (<bdi>QN80F</bdi> من 2025، و<bdi>QB80</bdi> من 2022، و<bdi>QT80</bdi> من 2020) وجهاز <bdi>Q7F</bdi> من 2025 في المنزل، ثُبّت عليها بـ<bdi>Apps2Samsung</bdi> من هاتف <bdi>Android</bdi>. التحكم في التلفاز كله من الهاتف: أجهزة <bdi>Samsung</bdi> الأحدث تحتاج إلى جهاز Android TV أو حاسوب في المنزل أو صفحة هاتف أحد الوالدين مفتوحة وسيطًا؛ ولم يُتأكَّد من الوسيط بعدُ على تلفاز في المنزل.'),
     ('Samsung (TizenBrew, npm <code>sofatube</code>)', 'Samsung emulator only. <b>Never tried on a real Samsung TV.</b>',
-     'سامسونج (TizenBrew، وحدة <code dir="ltr">sofatube</code>)', 'محاكي سامسونج فقط. <b>لم يُجرَّب على تلفاز سامسونج حقيقي.</b>'),
+     '<bdi>Samsung</bdi> (TizenBrew، وحدة <code dir="ltr">sofatube</code>)', 'محاكي <bdi>Samsung</bdi> فقط. <b>لم يُجرَّب على تلفاز <bdi>Samsung</bdi> حقيقي.</b>'),
     ('Android TV / Google TV', 'Google TV emulator, and a 0.9.6 build on one real Android TV (TCL). <b>Other brands untested.</b>',
-     '<bdi>Android TV</bdi> و<bdi>Google TV</bdi>', 'محاكي Google TV، ونسخة من <bdi>0.9.6</bdi> على تلفاز أندرويد حقيقي واحد (TCL). <b>لم يُجرَّب على الشركات الأخرى.</b>'),
+     '<bdi>Android TV</bdi> و<bdi>Google TV</bdi>', 'محاكي Google TV، ونسخة من <bdi>0.9.6</bdi> على تلفاز <bdi>Android</bdi> حقيقي واحد (TCL). <b>لم يُجرَّب على الشركات الأخرى.</b>'),
     ('Fire TV', '<b>Untested.</b>', 'Fire TV', '<b>لم يُجرَّب.</b>'),
     ('Install with webOS Dev Manager on a phone', '<b>Not tried by us yet.</b>',
      'التثبيت بـwebOS Dev Manager من الهاتف', '<b>لم نجرّبه بعد.</b>'),
@@ -1273,20 +1325,20 @@ AR_LIMITS = """<p><b>LG</b></p>
 <li>بعد إعادة تشغيل التلفاز أو إطفائه بالكامل، افتح <b><bdi>Sofa Tube Phone</bdi></b> مرة واحدة على التلفاز: ينتظر «التحكم من خارج المنزل» ووقت النوم و«التطبيقات المسموح بها فقط» حتى تفتحه (لا يستطيع صوفا تيوب نفسه تشغيل مساعد تطبيق الهاتف على LG). واستخدم أيضًا قفل التطبيقات في التلفاز نفسه (<bdi>Settings</bdi> ← <bdi>Safety</bdi>).</li>
 <li>جُرِّب «اطلب وقتًا إضافيًا» في تنبيه وقت النوم على محاكي LG، ولم يُجرَّب بعد على تلفاز LG حقيقي. ولم تُجرَّب «موازنة الأجزاء العالية والهادئة» بعد على تلفاز LG حقيقي.</li>
 </ul>
-<p><b>سامسونج (التلفاز كله)</b></p>
+<p><b><bdi>Samsung</bdi> (التلفاز كله)</b></p>
 <ul>
 <li>«التطبيقات المسموح بها» للأطفال تعمل مع التطبيقات الشائعة فقط (<bdi>Netflix</bdi> و<bdi>Prime Video</bdi> و<bdi>Disney+</bdi> و<bdi>Apple TV</bdi> و<bdi>Spotify</bdi> و<bdi>Internet</bdi>)، ولا تُغلق التطبيقات الأخرى أبدًا، فاستخدم أيضًا قفل التطبيقات في التلفاز نفسه. ويبقى YouTube مسموحًا به دائمًا، لأن صوفا تيوب يعمل داخله. والحد اليومي لكل تطبيق: للتطبيقات الشائعة فقط أيضًا.</li>
-<li>لا قواعد لمصادر إدخال HDMI (أجهزة الألعاب والصناديق): لا تسمح سامسونج للتطبيقات برؤية HDMI.</li>
+<li>لا قواعد لمصادر إدخال HDMI (أجهزة الألعاب والصناديق): لا تسمح <bdi>Samsung</bdi> للتطبيقات برؤية HDMI.</li>
 <li>التذكيرات ورسالة الروتين لا تظهر إلا داخل صوفا تيوب، لا فوق التطبيقات الأخرى. و«اطلب من أحد الوالدين» على تطبيق محظور لا يظهر إلا على شاشة صوفا تيوب نفسه.</li>
-<li>تُخفى «على التلفاز الآن» على الأجهزة التي لا تجيب واجهة تطبيقاتها (أجابت أجهزة 2023 وما بعدها في مختبر سامسونج عن بُعد «غير موجود» لكل تطبيق).</li>
-<li>رقم مستوى صوت التلفاز و«أقصى مستوى للصوت» للأطفال يعملان فقط حيث يجيب التحكم في الصوت عبر الشبكة في التلفاز، ولم يُتأكَّد منهما بعدُ على تلفاز سامسونج حقيقي. ولا يزال الاقتران للتحكم في التلفاز كله وشارة «مكبر الصوت» يحتاجان إلى تجربة على تلفاز سامسونج في المنزل (رفضت أجهزة المختبر الاتصالات الجديدة بجهاز التحكم).</li>
-<li>لا زرّي التالي والسابق على الهاتف (لا يوجدان في سامسونج). ويصل «الجزء الأكثر إعادة» عبر خدمة صوفا تيوب نفسها على التلفاز، فهي تطلبه من <bdi>youtube.com</bdi> (لا يرسله YouTube إلى أجهزة سامسونج)؛ وجُرِّب ذلك على محاكي تلفاز سامسونج، ولم يُجرَّب بعدُ على تلفاز سامسونج حقيقي. وتُخفى «موازنة الأجزاء العالية والهادئة» (لا يمكن معالجة صوت التلفاز).</li>
+<li>تُخفى «على التلفاز الآن» على الأجهزة التي لا تجيب واجهة تطبيقاتها (أجابت أجهزة 2023 وما بعدها في مختبر <bdi>Samsung</bdi> عن بُعد «غير موجود» لكل تطبيق).</li>
+<li>رقم مستوى صوت التلفاز و«أقصى مستوى للصوت» للأطفال يعملان فقط حيث يجيب التحكم في الصوت عبر الشبكة في التلفاز، ولم يُتأكَّد منهما بعدُ على تلفاز <bdi>Samsung</bdi> حقيقي. ولا يزال الاقتران للتحكم في التلفاز كله وشارة «مكبر الصوت» يحتاجان إلى تجربة على تلفاز <bdi>Samsung</bdi> في المنزل (رفضت أجهزة المختبر الاتصالات الجديدة بجهاز التحكم).</li>
+<li>لا زرّي التالي والسابق على الهاتف (لا يوجدان في <bdi>Samsung</bdi>). ويصل «الجزء الأكثر إعادة» عبر خدمة صوفا تيوب نفسها على التلفاز، فهي تطلبه من <bdi>youtube.com</bdi> (لا يرسله YouTube إلى أجهزة <bdi>Samsung</bdi>)؛ وجُرِّب ذلك على محاكي تلفاز <bdi>Samsung</bdi>، ولم يُجرَّب بعدُ على تلفاز <bdi>Samsung</bdi> حقيقي. وتُخفى «موازنة الأجزاء العالية والهادئة» (لا يمكن معالجة صوت التلفاز).</li>
 </ul>
 <p><b>كل أجهزة التلفاز</b></p>
 <ul>
 <li>«تشغيل الأذان أو قائمة تشغيل» عند الأذان، والتذكير بالبث المباشر والعروض الأولى، لا يعملان إلا وصوفا تيوب مفتوح.</li>
-<li><bdi>Android TV</bdi>: جُرِّب «أقصى مستوى للصوت» و«التطبيقات المسموح بها» وكتم الصوت عند الأذان على تلفاز أندرويد حقيقي، ولم يُجرَّب إطفاء التلفاز في وقت النوم هناك. وتُخفى «موازنة الأجزاء العالية والهادئة» (لا يمكن معالجة صوت التلفاز).</li>
-<li>لم تُرَ «إخفاء الصفوف الإضافية في الصفحة الرئيسية» بعد على تلفاز حقيقي (تظهر هذه الصفوف للحسابات المسجّلة فقط). وجُرِّب «ملء الشاشة» على تلفاز أندرويد حقيقي، ولم يُجرَّب بعد على صورة تلفاز LG أو سامسونج حقيقي.</li>
+<li><bdi>Android TV</bdi>: جُرِّب «أقصى مستوى للصوت» و«التطبيقات المسموح بها» وكتم الصوت عند الأذان على تلفاز <bdi>Android</bdi> حقيقي، ولم يُجرَّب إطفاء التلفاز في وقت النوم هناك. وتُخفى «موازنة الأجزاء العالية والهادئة» (لا يمكن معالجة صوت التلفاز).</li>
+<li>لم تُرَ «إخفاء الصفوف الإضافية في الصفحة الرئيسية» بعد على تلفاز حقيقي (تظهر هذه الصفوف للحسابات المسجّلة فقط). وجُرِّب «ملء الشاشة» على تلفاز <bdi>Android</bdi> حقيقي، ولم يُجرَّب بعد على صورة تلفاز LG أو <bdi>Samsung</bdi> حقيقي.</li>
 <li>الآيفون: لا يقترن «التحكم من خارج المنزل» ولا تصل إشعاراته إلا داخل التطبيق على الشاشة الرئيسية (تحتاج الإشعارات إلى iOS 16.4 أو أحدث).</li>
 <li>لا ينجح اتصال «المساعدة عن بُعد» دائمًا (تفشل محاولة من كل 5 تقريبًا، وأكثر مع بيانات الجوال)؛ وتنفع أيضًا مكالمة فيديو على واتساب موجّهة إلى التلفاز.</li>
 </ul>"""
@@ -1298,13 +1350,13 @@ def faq(lang):
     if lang == 'ar':
         qs = [
             ('ما أجهزة التلفاز المدعومة؟',
-             '<p>أجهزة <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> (ملف apk)، وتلفاز سامسونج من سنة 2018 أو أحدث (تطبيق مستقل يُثبَّت بـ<bdi>Apps2Samsung</bdi>، أو وحدة TizenBrew)، وتلفاز LG ‏(webOS) عبر وضع المطوّر. <a href="/ar/install/">خطوات التثبيت</a>.</p>'),
+             '<p>أجهزة <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> (ملف apk)، وتلفاز <bdi>Samsung</bdi> من سنة 2018 أو أحدث (تطبيق مستقل يُثبَّت بـ<bdi>Apps2Samsung</bdi>، أو وحدة TizenBrew)، وتلفاز LG ‏(webOS) عبر وضع المطوّر. <a href="/ar/install/">خطوات التثبيت</a>.</p>'),
             ('هل هو مجاني؟',
              f'<p>نعم. صوفا تيوب مشروع مجاني برخصة <bdi>GPL-3.0</bdi>، دون إعلانات ودون حساب. يُرفق بكل إصدار ملف المصدر <bdi>SofaTube-&lt;version&gt;-source.zip</bdi> في <a href="{RELEASES}">صفحة الإصدار</a>، والمصدر الكامل متاح عند الطلب.</p>'),
             ('لماذا لا أجده في متجر تطبيقات التلفاز؟',
-             '<p>صوفا تيوب يفتح صفحة YouTube الخاصة بالتلفاز ويضيف إليها ميزات (منها حجب الإعلانات)، فيُثبَّت من خارج المتجر: بتطبيق Downloader في أندرويد، وبـ<bdi>Apps2Samsung</bdi> (أو TizenBrew) في سامسونج، وبوضع المطوّر في LG.</p>'),
+             '<p>صوفا تيوب يفتح صفحة YouTube الخاصة بالتلفاز ويضيف إليها ميزات (منها حجب الإعلانات)، فيُثبَّت من خارج المتجر: بتطبيق Downloader في <bdi>Android</bdi>، وبـ<bdi>Apps2Samsung</bdi> (أو TizenBrew) في <bdi>Samsung</bdi>، وبوضع المطوّر في LG.</p>'),
             ('كيف أحدّث التطبيق؟',
-             '<p><b>جديد في <bdi>0.9.6</bdi>:</b> ثلاث قنوات للتحديثات («المستقر» و«الاختبار» و«التجريبي»؛ الإعدادات ← «حول التطبيق والنسخ الاحتياطي» ← «قناة التحديثات»)، وبطاقة «التحديثات» على هاتف أحد الوالدين: لمسة على «تحديث التلفاز» تشغّل التحديث على التلفاز نفسه، في كل أنواع التلفاز. <a href="/ar/#updates">التفاصيل</a>.</p><ul><li><b>أندرويد:</b> ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات.</li><li><b>سامسونج:</b> الإعدادات ← «حول التطبيق والنسخ الاحتياطي» ← البحث عن تحديثات (يُحدَّث على التلفاز حين يمكن ذلك، وإلا فثبّت الملف الجديد بـ<bdi>Apps2Samsung</bdi> بالطريقة نفسها، وتبقى الإعدادات). أما وحدة TizenBrew فتتحدّث تلقائيًا.</li><li><b>LG:</b> الإعدادات ← حول التطبيق والنسخ الاحتياطي ← البحث عن تحديثات (مع <bdi>Sofa Tube Phone</bdi>)، أو ثبّت ملفات ipk الجديدة بالطريقة نفسها، وتبقى إعداداتك كما هي. وحدّث <bdi>Sofa Tube Phone</bdi> أيضًا حين يطلب الإصدار ذلك (ويطلبه <bdi>0.9.6</bdi>): <a href="/ar/install/#lg-update">كيف</a>.</li></ul><p>لا يُفحص شيء إلا إذا طلبت ذلك (أو فعّلت الفحص الأسبوعي). والروابط القصيرة (<code dir="ltr">sofatube.github.io/tv</code> و<code dir="ltr">/lg</code> و<code dir="ltr">/lg-phone</code> و<code dir="ltr">/samsung</code>) تشير دائمًا إلى أحدث إصدار.</p>', 'updates'),
+             '<p><b>جديد في <bdi>0.9.6</bdi>:</b> ثلاث قنوات للتحديثات («المستقر» و«الاختبار» و«التجريبي»؛ الإعدادات ← «حول التطبيق والنسخ الاحتياطي» ← «قناة التحديثات»)، وبطاقة «التحديثات» على هاتف أحد الوالدين: لمسة على «تحديث التلفاز» تشغّل التحديث على التلفاز نفسه، في كل أنواع التلفاز. <a href="/ar/news/#updates">التفاصيل</a>.</p><ul><li><b><bdi>Android</bdi>:</b> ثبّت ملف apk الجديد فوق هذا بالطريقة نفسها، وتبقى الإعدادات.</li><li><b><bdi>Samsung</bdi>:</b> الإعدادات ← «حول التطبيق والنسخ الاحتياطي» ← البحث عن تحديثات (يُحدَّث على التلفاز حين يمكن ذلك، وإلا فثبّت الملف الجديد بـ<bdi>Apps2Samsung</bdi> بالطريقة نفسها، وتبقى الإعدادات). أما وحدة TizenBrew فتتحدّث تلقائيًا.</li><li><b>LG:</b> الإعدادات ← حول التطبيق والنسخ الاحتياطي ← البحث عن تحديثات (مع <bdi>Sofa Tube Phone</bdi>)، أو ثبّت ملفات ipk الجديدة بالطريقة نفسها، وتبقى إعداداتك كما هي. وحدّث <bdi>Sofa Tube Phone</bdi> أيضًا حين يطلب الإصدار ذلك (ويطلبه <bdi>0.9.6</bdi>): <a href="/ar/install/#lg-update">كيف</a>.</li></ul><p>لا يُفحص شيء إلا إذا طلبت ذلك (أو فعّلت الفحص الأسبوعي). والروابط القصيرة (<code dir="ltr">sofatube.github.io/tv</code> و<code dir="ltr">/lg</code> و<code dir="ltr">/lg-phone</code> و<code dir="ltr">/samsung</code>) تشير دائمًا إلى أحدث إصدار.</p>', 'updates'),
             ('هل أحتاج إلى حساب؟ وأين تُحفظ إعداداتي؟',
              '<p>لا حاجة إلى حساب: تابع القنوات دون تسجيل الدخول («قنواتي»). تبقى الإعدادات وسجل مشاهدة الأطفال على التلفاز. صفحة الهاتف يقدّمها التلفاز نفسه عبر شبكة الواي فاي في بيتك، ويبقى الرمز السري على التلفاز، ولا تتضمن النسخة الاحتياطية الرمز السري أبدًا.</p><p>ما الذي يتصل بالإنترنت ومتى: <a href="#privacy">ما الذي يتصل بالإنترنت؟</a></p>'),
             ('ما الذي يتصل بالإنترنت؟', AR_PRIVACY, 'privacy'),
@@ -1314,7 +1366,7 @@ def faq(lang):
             ('هل يضر بالتلفاز؟',
              '<p>لا شيء هنا يضر بالتلفاز؛ أسوأ ما قد يحدث أن ميزة ما لا تعمل. في LG احذف تطبيق YouTube الرسمي أولًا (يستخدم صوفا تيوب مُعرّف التطبيق نفسه).</p>'),
             ('حل المشكلات',
-             '<ul><li><b>لا توجد أزرار ملونة؟</b> استخدم ★ صوفا تيوب في القائمة الجانبية لـYouTube أو زر ★ بين أزرار التحكم.</li><li><b>LG: لا تُفتح التطبيقات التي ثبّتّها؟</b> لجلسة وضع المطوّر مدة تنتهي: افتح تطبيق Developer Mode ومدّد الجلسة.</li><li><b>ينقطع الصوت عند بعض السرعات؟</b> التشغيل ← طريقة تغيير السرعة ← «عبر التطبيق».</li><li><b>أوقات الصلاة غير صحيحة؟</b> اضبط التلفاز على المنطقة الزمنية الصحيحة.</li><li><b>الهاتف لا يتصل؟</b> يجب أن يكون الهاتف على شبكة الواي فاي نفسها التي يتصل بها التلفاز. وإن تغيّر عنوان التلفاز، فإن <a href="/remote/"><bdi>sofatube.github.io/remote</bdi></a> يجد التلفاز من جديد (في Chrome) أو يفتح آخر عنوان.</li><li><b>أندرويد: لا يُثبَّت؟</b> اسمح لـDownloader بتثبيت التطبيقات غير المعروفة.</li></ul>'),
+             '<ul><li><b>لا توجد أزرار ملونة؟</b> استخدم ★ صوفا تيوب في القائمة الجانبية لـYouTube أو زر ★ بين أزرار التحكم.</li><li><b>LG: لا تُفتح التطبيقات التي ثبّتّها؟</b> لجلسة وضع المطوّر مدة تنتهي: افتح تطبيق Developer Mode ومدّد الجلسة.</li><li><b>ينقطع الصوت عند بعض السرعات؟</b> التشغيل ← طريقة تغيير السرعة ← «عبر التطبيق».</li><li><b>أوقات الصلاة غير صحيحة؟</b> اضبط التلفاز على المنطقة الزمنية الصحيحة.</li><li><b>الهاتف لا يتصل؟</b> يجب أن يكون الهاتف على شبكة الواي فاي نفسها التي يتصل بها التلفاز. وإن تغيّر عنوان التلفاز، فإن <a href="/remote/"><bdi>sofatube.github.io/remote</bdi></a> يجد التلفاز من جديد (في Chrome) أو يفتح آخر عنوان.</li><li><b><bdi>Android</bdi>: لا يُثبَّت؟</b> اسمح لـDownloader بتثبيت التطبيقات غير المعروفة.</li></ul>'),
             ('كيف أتواصل معكم؟',
              f'<p>راسلنا على <a href="mailto:{MAIL}"><bdi>{MAIL}</bdi></a> أو <a href="{ISSUES}">افتح بلاغًا (Issue)</a>.</p>'),
         ]
@@ -1328,7 +1380,7 @@ def faq(lang):
             ('Why is it not in the TV\'s app store?',
              '<p>Sofa Tube opens YouTube\'s own TV page and adds features on top (ad blocking among them), so it is installed from outside the store: with the Downloader app on Android, Apps2Samsung (or TizenBrew) on Samsung and Developer Mode on LG.</p>'),
             ('How do updates work?',
-             '<p><b>New in 0.9.6:</b> three update channels (Stable, Testing, Experimental; Settings → Backup and about → Update channel) and the Updates card on a parent\'s phone: one tap on <b>Update the TV</b> starts the update on the TV itself, on every brand. <a href="/#updates">Details</a>.</p><ul><li><b>Android:</b> install the new .apk over this one the same way; settings stay.</li><li><b>Samsung:</b> Settings → Backup and about → Check for updates (it updates on the TV when it can; otherwise install the new file with Apps2Samsung the same way; settings stay). The TizenBrew module updates itself.</li><li><b>LG:</b> Settings → Backup and about → Check for updates (with Sofa Tube Phone), or install the new .ipk files the same way; your settings stay. Update Sofa Tube Phone too when a release says so (0.9.6 does): <a href="/install/#lg-update">how</a>.</li></ul><p>Nothing is checked unless you ask (or turn on the weekly check). The short links (<code>sofatube.github.io/tv</code>, <code>/lg</code>, <code>/lg-phone</code>, <code>/samsung</code>) always point to the latest release.</p>', 'updates'),
+             '<p><b>New in 0.9.6:</b> three update channels (Stable, Testing, Experimental; Settings → Backup and about → Update channel) and the Updates card on a parent\'s phone: one tap on <b>Update the TV</b> starts the update on the TV itself, on every brand. <a href="/news/#updates">Details</a>.</p><ul><li><b>Android:</b> install the new .apk over this one the same way; settings stay.</li><li><b>Samsung:</b> Settings → Backup and about → Check for updates (it updates on the TV when it can; otherwise install the new file with Apps2Samsung the same way; settings stay). The TizenBrew module updates itself.</li><li><b>LG:</b> Settings → Backup and about → Check for updates (with Sofa Tube Phone), or install the new .ipk files the same way; your settings stay. Update Sofa Tube Phone too when a release says so (0.9.6 does): <a href="/install/#lg-update">how</a>.</li></ul><p>Nothing is checked unless you ask (or turn on the weekly check). The short links (<code>sofatube.github.io/tv</code>, <code>/lg</code>, <code>/lg-phone</code>, <code>/samsung</code>) always point to the latest release.</p>', 'updates'),
             ('Do I need an account? Where are my settings kept?',
              '<p>No account is needed: follow channels without signing in (My channels). Settings and the kids\' watch history stay on the TV. The phone page is served by the TV itself on your Wi-Fi; the PIN stays on the TV and is never in a backup.</p><p>What goes online, and when: <a href="#privacy">What goes online?</a></p>'),
             ('What goes online?', EN_PRIVACY, 'privacy'),
@@ -1370,7 +1422,7 @@ def not_found():
 </section></div></main></body></html>
 '''
     (DOCS / '404.html').write_text(doc, encoding='utf-8', newline='\n')
-    urls = [f'{SITE}{url(lang, s)}' for s, _, _ in PAGES for lang in ('en', 'ar')] + [f'{SITE}/testers/guide.html', f'{SITE}/remote/', f'{SITE}/setup/', f'{SITE}/ar/setup/', f'{SITE}/usb/', f'{SITE}/ar/usb/',
+    urls = [f'{SITE}{url(lang, s)}' for s, _, _ in PAGES for lang in ('en', 'ar')] + [f'{SITE}/testers/guide.html', f'{SITE}/remote/', f'{SITE}/setup/', f'{SITE}/ar/setup/', f'{SITE}/usb/', f'{SITE}/ar/usb/', f'{SITE}/news/', f'{SITE}/ar/news/',
                                                                                        f'{SITE}/remote/away-help.html', f'{SITE}/help/']
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(
         f'  <url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n'
@@ -1386,19 +1438,21 @@ def main():
              home(lang))
         page(lang, 'install/', L(lang, 'Install', 'التثبيت'),
              L(lang, 'Install Sofa Tube on Android TV, Google TV, Fire TV, LG (webOS) and Samsung (Tizen), step by step.',
-               'خطوات تثبيت صوفا تيوب على <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> وLG وسامسونج.'), install(lang) + phone_app(lang, short=True))
+               'خطوات تثبيت صوفا تيوب على <bdi>Android TV</bdi> و<bdi>Google TV</bdi> و<bdi>Fire TV</bdi> وLG و<bdi>Samsung</bdi>.'), install(lang) + phone_app(lang, short=True))
         page(lang, 'videos/', L(lang, 'Videos', 'الفيديوهات'),
              L(lang, f'{len(VIDEOS)} Sofa Tube tutorials in English and Arabic.', 'شروح صوفا تيوب المصوّرة بالعربية والإنجليزية.'), videos(lang))
         page(lang, 'testers/', L(lang, 'Testers', 'للمجرّبين'),
              L(lang, 'Sofa Tube tester guide, checklist, how to report and what has been tested.', 'دليل التجربة وقائمة الفحص وطريقة إرسال التقرير وما الذي جُرِّب.'), testers(lang))
         page(lang, 'setup/', L(lang, 'Sofa Tube Setup', 'إعداد صوفا تيوب'),
              L(lang, 'Sofa Tube Setup installs Sofa Tube on Android TV, LG and Samsung TVs from a Windows or Mac computer or an Android phone, with nothing typed on the TV.',
-               'إعداد صوفا تيوب يثبّت صوفا تيوب على تلفزيونات أندرويد وLG وسامسونج من حاسوب ويندوز أو ماك أو من هاتف أندرويد، دون كتابة شيء على التلفاز.'),
+               'إعداد صوفا تيوب يثبّت صوفا تيوب على تلفزيونات <bdi>Android</bdi> وLG و<bdi>Samsung</bdi> من حاسوب ويندوز أو ماك أو من هاتف <bdi>Android</bdi>، دون كتابة شيء على التلفاز.'),
              setup_page(lang, VER, L, url))
         page(lang, 'usb/', L(lang, 'Install over USB', 'التثبيت عبر USB'),
              L(lang, 'Install Sofa Tube on a Chromecast with Google TV or Nvidia Shield TV over a USB cable, from Chrome or Edge on a computer.',
                'ثبّت صوفا تيوب على Chromecast with Google TV أو Nvidia Shield TV عبر كابل USB، من Chrome أو Edge على حاسوب.'),
              usb_page(lang, VER, L, url))
+        page(lang, 'news/', L(lang, "What's new", 'ما الجديد'),
+             L(lang, "What's new in each Sofa Tube version, newest first.", 'الجديد في كل إصدار من صوفا تيوب، الأحدث أولًا.'), news(lang))
         page(lang, 'faq/', L(lang, 'FAQ', 'الأسئلة الشائعة'),
              L(lang, 'Sofa Tube questions: which TVs, cost, updates, privacy, troubleshooting.', 'أسئلة شائعة عن صوفا تيوب: الأجهزة المدعومة، والتكلفة، والتحديث، والخصوصية، وحل المشكلات.'), faq(lang))
     not_found()
