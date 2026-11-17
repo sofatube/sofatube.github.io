@@ -36,7 +36,7 @@
         'Add Sofa Tube to the Home Screen first (iPhone: Share → Add to Home Screen; Android: menu → Install app), then open it from there and come back to Control from away. An iPhone keeps the Home Screen app’s data apart from Safari, so pairing must happen inside the installed app.',
       pairTitle: 'Pair with your TV (at home, once)',
       pairText:
-        'On the TV: Settings → Kids → Control from away → Add a phone. Then scan the code here. Name this phone so the TV shows who it is.',
+        'On the TV: Settings → Control from away → Add a phone. Then scan the code here. Name this phone so the TV shows who it is.',
       namePh: 'This phone’s name (e.g. Mum)',
       scan: 'Scan the TV code',
       pairWith: 'Pair with {tv}',
@@ -148,7 +148,7 @@
       pinGone: 'Phone PIN removed',
       forget: 'Forget this TV',
       forgetAsk:
-        'Forget this TV on this phone? Remove the phone on the TV too (Kids → Control from away).',
+        'Forget this TV on this phone? Remove the phone on the TV too (Settings → Control from away).',
       help: 'How it works and the other ways to connect: ',
       helpLink: 'the guide',
       moved:
@@ -165,7 +165,7 @@
         'أضف صوفا تيوب إلى الشاشة الرئيسية أولًا (iPhone: مشاركة ثم إضافة إلى الشاشة الرئيسية؛ Android: القائمة ثم تثبيت التطبيق)، ثم افتحه من هناك وعُد إلى «التحكم من خارج المنزل». يحفظ iPhone بيانات تطبيق الشاشة الرئيسية بمعزل عن Safari، لذا يجب الاقتران من داخل التطبيق المثبّت.',
       pairTitle: 'الاقتران بالتلفاز (في المنزل، مرة واحدة)',
       pairText:
-        'على التلفاز: الإعدادات ثم الأطفال ثم «التحكم من خارج المنزل» ثم «إضافة هاتف». ثم امسح الرمز هنا. سمِّ هذا الهاتف ليعرف التلفاز صاحبه.',
+        'على التلفاز: الإعدادات ثم «التحكم من خارج المنزل» ثم «إضافة هاتف». ثم امسح الرمز هنا. سمِّ هذا الهاتف ليعرف التلفاز صاحبه.',
       namePh: 'اسم هذا الهاتف (مثل: أمي)',
       scan: 'امسح رمز التلفاز',
       pairWith: 'الاقتران بـ {tv}',
@@ -277,7 +277,7 @@
       pinGone: 'أُزيل الرمز السري للهاتف',
       forget: 'نسيان هذا التلفاز',
       forgetAsk:
-        'هل تريد نسيان هذا التلفاز على هذا الهاتف؟ أزِل الهاتف من التلفاز أيضًا (الأطفال ثم «التحكم من خارج المنزل»).',
+        'هل تريد نسيان هذا التلفاز على هذا الهاتف؟ أزِل الهاتف من التلفاز أيضًا (الإعدادات ثم «التحكم من خارج المنزل»).',
       help: 'طريقة العمل وطرق الاتصال الأخرى: ',
       helpLink: 'الدليل',
       moved: 'غيّر التلفاز مفاتيحه (أُزيل هاتف). ينتقل هذا الهاتف تلقائيًا.'

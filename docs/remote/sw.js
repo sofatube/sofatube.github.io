@@ -4,7 +4,7 @@
  * and makes the page installable. Only this page's own files: the requests
  * to the TV (http://<address>/hello) are left alone.
  */
-const CACHE = 'sofatube-remote-v17';
+const CACHE = 'sofatube-remote-v18';
 const FILES = [
   './',
   'share-link.js',
