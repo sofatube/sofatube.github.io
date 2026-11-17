@@ -6,8 +6,8 @@
   "android": {
     "version": "0.9.6",
     "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.6/SofaTube-0.9.6-AndroidTV-arm.apk",
-    "sha256": "4bfe2e97dd8e02ca937e37e89306548734315490723e04f6c3b8645a554fb5d4",
-    "size": 96815328,
+    "sha256": "82b274cf0a04c4b222d693a9bb1068ba0fc4d86eb86f480c8983080fe4b29416",
+    "size": 96831222,
     "minSdk": 24
   },
   "lg": {
@@ -20,8 +20,8 @@
   "lgPhone": {
     "version": "1.1.6",
     "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.6/SofaTube-Phone-1.1.6-LG.ipk",
-    "sha256": "2df8a62c6ee399a0c1d311b4527644d235147ac9d00b788046cc0f09f58012c7",
-    "size": 582222
+    "sha256": "84122db82f636dde71017455523c36ac9fdef53a151f843c32e5e863b221e405",
+    "size": 585574
   },
   "samsung": {
     "version": "0.9.5",
@@ -30,8 +30,8 @@
   "samsungWgt": {
     "version": "0.9.6",
     "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.6/SofaTube-0.9.6-Samsung.wgt",
-    "sha256": "3f4b0b205eee248b468da7620c482e199a5595a012bb3097a247dc173050058f",
-    "size": 1224425
+    "sha256": "bbdfc791edada36f662831afc0d292cf494e31d5e63bfa86d9e4b14ec79bc606",
+    "size": 1227985
   },
-  "sig": {"alg":"ed25519","key":"st1","value":"xTTelnSwv1t0Mw5ahcNeVEXJ0LJkMqCXrWW88CNL7o7r3Z+MxW5Vl5iM93zxKy1osl6sBY/HMwvQIt5st/ARDA=="}
+  "sig": {"alg":"ed25519","key":"st1","value":"+7gaCImmgZBLFEJxyXrYv291MlKFR/RMXE6owk9QCQSLFjLGqsBXXGeMCM75u8zscimTF6qvFOHuuVcOK0gjCg=="}
 }
