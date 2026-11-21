@@ -24,7 +24,7 @@
     "size": 588650
   },
   "samsung": {
-    "version": "0.9.5",
+    "version": "0.9.6",
     "npm": "sofatube"
   },
   "samsungWgt": {
@@ -33,5 +33,5 @@
     "sha256": "2aa6a1d333a6e45a230880a88a1c0c471a93ce2e62cc35695c15c3a8c9dfaa8f",
     "size": 1231149
   },
-  "sig": {"alg":"ed25519","key":"st1","value":"EO+iKCvDuxVrozEB2Ova7O5fq1ZMfVlvvpShvWOXFue+N4RzOLxEvJIMiPZkW1iHNU5nBMeF9a0K6QlGjWPYDA=="}
+  "sig": {"alg":"ed25519","key":"st1","value":"BUMKoiC08gwaBfR/8r1O9wlbhlzoiE2JdOk+4yVzsw9Iji4I+QdVoi5i+dNfKsBvDf0hBQXPjEkYZmY3+NiiBg=="}
 }
