@@ -216,6 +216,80 @@
     return [(v >> 18) & 63, (v >> 12) & 63, (v >> 6) & 63, v & 63];
   }
 
+  /*
+   * The pairing number (0.9.7, away-core.js): 12 digits typed on the phone
+   * (the last a Luhn check digit) -> PBKDF2-SHA256, 100 000 rounds -> a
+   * one-time topic and the key of the TV's sealed note there, which holds
+   * the same pairing link as the QR code.
+   */
+  const CODE_ROUNDS = 100000;
+  function luhn(digits) {
+    let sum = 0;
+    for (let i = 0; i < digits.length; i++) {
+      let d = digits.charCodeAt(digits.length - 1 - i) - 48;
+      if (i % 2 === 0) {
+        d *= 2;
+        if (d > 9) d -= 9;
+      }
+      sum += d;
+    }
+    return String((10 - (sum % 10)) % 10);
+  }
+  /** The 12 digits of a typed number (spaces, dashes ignored), or ''. */
+  function codeClean(text) {
+    // Arabic-Indic and Persian digits typed on an Arabic keyboard count too
+    // (anything else between the digits, spaces and direction marks, goes)
+    const d = Array.from(String(text || ''), (ch) => {
+      const k = ch.charCodeAt(0);
+      if (k >= 0x660 && k <= 0x669) return String(k - 0x660);
+      if (k >= 0x6f0 && k <= 0x6f9) return String(k - 0x6f0);
+      return ch;
+    })
+      .join('')
+      .replace(/\D/g, '');
+    if (!/^\d{12}$/.test(d)) return '';
+    return luhn(d.slice(0, 11)) === d.charAt(11) ? d : '';
+  }
+  /** {topic, key} of a number (the key can't be exported). */
+  async function codeKeys(code) {
+    const base = await subtle.importKey(
+      'raw',
+      enc.encode(code),
+      'PBKDF2',
+      false,
+      ['deriveBits']
+    );
+    const dk = new Uint8Array(
+      await subtle.deriveBits(
+        {
+          name: 'PBKDF2',
+          hash: 'SHA-256',
+          salt: enc.encode('sofatube-away v1 code'),
+          iterations: CODE_ROUNDS
+        },
+        base,
+        384
+      )
+    );
+    const key = await subtle.importKey(
+      'raw',
+      dk.slice(16, 48),
+      { name: 'AES-GCM' },
+      false,
+      ['decrypt']
+    );
+    return { topic: 'pc' + b64u(dk.slice(0, 16)), key };
+  }
+  /** The pairing link in the TV's note on the number's topic, or ''. */
+  async function openCodeNote(keys, text, now) {
+    const env = peek(text);
+    if (!env || env.f !== 'sofatube') return '';
+    const msg = await open(keys.key, 'code', keys.topic, env);
+    if (!msg || msg.op !== 'offer' || typeof msg.link !== 'string') return '';
+    if (check(msg, 0, now)) return '';
+    return msg.link;
+  }
+
   /** The offer from the TV's QR link (#away=...), checked; or null. */
   function readOffer(link) {
     const m = /[#&]away=([\w-]{40,2000})/.exec(String(link || ''));
@@ -244,7 +318,8 @@
       outbox: o.o,
       secret: s,
       role: o.ro === 'helper' ? 'helper' : 'parent',
-      name: String(o.nm || '').slice(0, 40)
+      name: String(o.nm || '').slice(0, 40),
+      raw: m[1] // the link's own text (to send it on, 0.9.7)
     };
   }
 
@@ -268,7 +343,10 @@
     check,
     nextCounter,
     wordIndexes,
-    readOffer
+    readOffer,
+    codeClean,
+    codeKeys,
+    openCodeNote
   };
   root.sofaAwayCrypto = api;
   if (typeof module === 'object' && module.exports) module.exports = api;

@@ -146,13 +146,44 @@
       pinAsk: 'New phone PIN (4 to 8 digits)',
       pinDone: 'Phone PIN set',
       pinGone: 'Phone PIN removed',
-      forget: 'Forget this TV',
-      forgetAsk:
-        'Forget this TV on this phone? Remove the phone on the TV too (Settings → Control from away).',
       help: 'How it works and the other ways to connect: ',
       helpLink: 'the guide',
       moved:
-        'The TV changed its keys (a phone was removed). This phone follows by itself.'
+        'The TV changed its keys (a phone was removed). This phone follows by itself.',
+      // 0.9.7: more than one TV, and pairing without the camera
+      tvsTitle: 'Your TVs',
+      tvsPick: 'Which TV? Tap Open next to it.',
+      tvOpen: 'Open',
+      tvIsOpen: 'Open now',
+      tvRename: 'Rename',
+      tvRenameAsk: 'A name for this TV on this phone (e.g. Grandma’s TV)',
+      tvRemove: 'Remove',
+      tvRemoveAsk:
+        'Remove “{tv}” from this phone? Your other TVs stay. Remove this phone on that TV too (Settings → Control from away).',
+      tvAdd: '+ Add a TV',
+      tvsFull: 'This phone already has 6 TVs. Remove one first.',
+      tvLast: 'Last answer {t}',
+      tvNever: 'No answer yet',
+      pairAddTitle: 'Add a TV',
+      pairAnyText:
+        'On the TV: Settings → Control from away → Add a phone. Then scan the code here, or type the number the TV shows: someone at the TV can read it to you on a call. Name this phone so the TV shows who it is.',
+      pairCancel: 'Cancel',
+      codeOpen: 'Type the TV number',
+      codeLabel:
+        'The 12-digit number under the code on the TV (or a pairing link someone sent you):',
+      codeBtn: 'Pair',
+      codeBad: 'Check the number: it has 12 digits, as on the TV.',
+      codeLooking: 'Looking for the TV with this number…',
+      codeNone:
+        'No TV is waiting with this number. Check it, or press OK on the TV for a new one: a number works for 10 minutes.',
+      wordsFar:
+        'TV in another home? Read these words to the person at the TV: they press OK there and enter the PIN only if the TV shows the same words.',
+      shareLink: 'Send this to another phone',
+      shareText:
+        'Sofa Tube: pair your phone with the TV (this link works for 10 minutes)',
+      shareCopied:
+        'Link copied. Send it in a message: it works for 10 minutes, and the TV still asks for OK and the PIN.',
+      fullTvs: 'TVs'
     },
     ar: {
       title: 'التحكم من خارج المنزل',
@@ -275,12 +306,42 @@
       pinAsk: 'الرمز السري الجديد للهاتف (من 4 إلى 8 أرقام)',
       pinDone: 'تم تعيين الرمز السري للهاتف',
       pinGone: 'أُزيل الرمز السري للهاتف',
-      forget: 'نسيان هذا التلفاز',
-      forgetAsk:
-        'هل تريد نسيان هذا التلفاز على هذا الهاتف؟ أزِل الهاتف من التلفاز أيضًا (الإعدادات ثم «التحكم من خارج المنزل»).',
       help: 'طريقة العمل وطرق الاتصال الأخرى: ',
       helpLink: 'الدليل',
-      moved: 'غيّر التلفاز مفاتيحه (أُزيل هاتف). ينتقل هذا الهاتف تلقائيًا.'
+      moved: 'غيّر التلفاز مفاتيحه (أُزيل هاتف). ينتقل هذا الهاتف تلقائيًا.',
+      tvsTitle: 'أجهزة التلفاز',
+      tvsPick: 'أي تلفاز؟ اضغط «فتح» بجانبه.',
+      tvOpen: 'فتح',
+      tvIsOpen: 'مفتوح الآن',
+      tvRename: 'إعادة التسمية',
+      tvRenameAsk: 'اسم لهذا التلفاز على هذا الهاتف (مثل: تلفاز الجدة)',
+      tvRemove: 'إزالة',
+      tvRemoveAsk:
+        'هل تريد إزالة «{tv}» من هذا الهاتف؟ تبقى أجهزة التلفاز الأخرى. أزِل هذا الهاتف من ذلك التلفاز أيضًا (الإعدادات ثم «التحكم من خارج المنزل»).',
+      tvAdd: '+ إضافة تلفاز',
+      tvsFull: 'على هذا الهاتف 6 أجهزة تلفاز. أزِل واحدًا منها أولًا.',
+      tvLast: 'آخر رد {t}',
+      tvNever: 'لا يوجد رد بعد',
+      pairAddTitle: 'إضافة تلفاز',
+      pairAnyText:
+        'على التلفاز: الإعدادات ثم «التحكم من خارج المنزل» ثم «إضافة هاتف». ثم امسح الرمز هنا، أو اكتب الرقم الظاهر على التلفاز: يمكن لمن عند التلفاز أن يقرأه لك في مكالمة. سمِّ هذا الهاتف ليعرف التلفاز صاحبه.',
+      pairCancel: 'إلغاء',
+      codeOpen: 'اكتب رقم التلفاز',
+      codeLabel:
+        'الرقم المكوّن من 12 خانة تحت الرمز على التلفاز (أو رابط اقتران أرسله لك أحد):',
+      codeBtn: 'اقتران',
+      codeBad: 'تحقّق من الرقم: فيه 12 خانة كما على التلفاز.',
+      codeLooking: 'جارٍ البحث عن التلفاز بهذا الرقم…',
+      codeNone:
+        'لا يوجد تلفاز ينتظر بهذا الرقم. تحقّق منه، أو اضغط OK على التلفاز للحصول على رقم جديد: يعمل الرقم 10 دقائق.',
+      wordsFar:
+        'التلفاز في منزل آخر؟ اقرأ هذه الكلمات لمن عند التلفاز: يضغط OK هناك ويُدخل الرمز السري فقط إذا ظهرت على التلفاز الكلمات نفسها.',
+      shareLink: 'أرسل هذا إلى هاتف آخر',
+      shareText:
+        'صوفا تيوب: اقترن بهاتفك مع التلفاز (يعمل هذا الرابط 10 دقائق)',
+      shareCopied:
+        'نُسخ الرابط. أرسله في رسالة: يعمل 10 دقائق، ويطلب التلفاز مع ذلك الضغط على OK والرمز السري.',
+      fullTvs: 'أجهزة التلفاز'
     }
   };
   let lang = 'en';
@@ -336,13 +397,49 @@
 
   /* ---------------- the TV link ---------------- */
 
-  let tv = null; // the paired TV (IndexedDB 'tv')
+  /*
+   * 0.9.7: more than one TV (a parent's own and the grandparents', say).
+   * IndexedDB 'tvs' keeps every paired TV (at most 6), each with its own
+   * keys, topics, counters and a name on this phone. Only the TV in use is
+   * heard (one EventSource); the others' moves are read when the app opens
+   * (catchUp). Before 0.9.7 there was one TV, in 'tv'.
+   */
+  const MAX_TVS = 6;
+  let tvs = []; // the paired TVs
+  let tv = null; // the TV in use (one of tvs), or a pairing under way
   let es = null; // EventSource on the outbox
   const waiting = {}; // counter -> resolve
   let relayLimited = false; // the last post was refused with 429
 
-  async function saveTv() {
-    await put('tv', tv);
+  async function saveTvs() {
+    await put(
+      'tvs',
+      tvs.filter((x) => x.paired)
+    );
+  }
+  /** The record of `t` (default: the TV in use) is kept. */
+  async function saveTv(t) {
+    t = t || tv;
+    if (!t || !t.paired) return;
+    const i = tvs.findIndex((x) => x.tvId === t.tvId);
+    if (i < 0) tvs.push(t);
+    else tvs[i] = t;
+    await saveTvs();
+  }
+  /** What this phone calls a TV: its own name for it, else the TV's. */
+  function tvLabel(t) {
+    return (t && (t.label || t.name)) || 'TV';
+  }
+  /** Loads the TVs (and moves a 0.9.6 phone's single TV into the list). */
+  async function loadTvs() {
+    const list = await get('tvs');
+    tvs = Array.isArray(list) ? list.filter((x) => x && x.paired) : [];
+    const old = await get('tv');
+    if (old && old.paired && !tvs.some((x) => x.tvId === old.tvId)) {
+      tvs.unshift(old);
+      await saveTvs();
+    }
+    if (old) await put('tv', undefined);
   }
 
   function status(text, cls) {
@@ -351,31 +448,38 @@
     s.className = cls || '';
   }
 
-  /** Opens one of our envelopes (to this phone), or null. */
-  async function openEnv(text) {
+  /** Opens one of our envelopes (to this phone, from TV `t`), or null. */
+  async function openEnv(text, t) {
     const env = C.peek(text);
-    if (!env || env.to !== tv.phoneId) return null;
-    const msg = await C.open(tv.t2p, tv.tvId, tv.outbox, env);
-    if (!msg || C.check(msg, tv.inN, Date.now())) return null;
-    tv.inN = msg.n;
+    if (!env || env.to !== t.phoneId) return null;
+    const msg = await C.open(t.t2p, t.tvId, t.outbox, env);
+    if (!msg || C.check(msg, t.inN, Date.now())) return null;
+    t.inN = msg.n;
     return msg;
   }
 
-  async function onMessage(text) {
-    const msg = await openEnv(text);
+  async function onMessage(text, t) {
+    t = t || tv;
+    if (!t) return;
+    const msg = await openEnv(text, t);
     if (!msg) return;
     if (msg.op === 'move') {
       // the TV's new key and topics (a phone was removed, or a new server)
-      tv.relay = msg.r;
-      tv.inbox = msg.i;
-      tv.outbox = msg.o;
-      tv.tvPub = C.unb64u(msg.k);
-      const lk = await C.linkKeys(tv.priv, tv.tvPub, tv.tvId, tv.phoneId);
-      tv.p2t = lk.p2t;
-      tv.t2p = lk.t2p;
-      await saveTv();
+      t.relay = msg.r;
+      t.inbox = msg.i;
+      t.outbox = msg.o;
+      t.tvPub = C.unb64u(msg.k);
+      const lk = await C.linkKeys(t.priv, t.tvPub, t.tvId, t.phoneId);
+      t.p2t = lk.p2t;
+      t.t2p = lk.t2p;
+      await saveTv(t);
+      if (t !== tv) return; // another TV's move, read on opening
       status(tr('moved'));
       listen();
+      return;
+    }
+    if (t !== tv) {
+      await saveTv(t); // (its counter)
       return;
     }
     // 0.9.6: the QR code carries a one-time pairing topic only; "paired"
@@ -396,10 +500,11 @@
     if (msg.op === 'cand' && waiting.cand) waiting.cand(msg);
   }
 
-  /** Reads what waits on the outbox (moves), then listens. */
-  async function catchUp() {
+  /** Reads what waits on a TV's outbox (moves). */
+  async function catchUp(t) {
+    t = t || tv;
     try {
-      const r = await fetch(`${tv.relay}/${tv.outbox}/json?poll=1&since=12h`, {
+      const r = await fetch(`${t.relay}/${t.outbox}/json?poll=1&since=12h`, {
         cache: 'no-store'
       });
       const lines = (await r.text()).split('\n');
@@ -408,7 +513,7 @@
         const ev = JSON.parse(l);
         // in order: a move must apply before what follows it
         // eslint-disable-next-line no-await-in-loop
-        if (ev.event === 'message') await onMessage(ev.message);
+        if (ev.event === 'message') await onMessage(ev.message, t);
       }
     } catch {
       /* offline: the stream tries */
@@ -417,11 +522,14 @@
 
   function listen() {
     if (es) es.close();
-    es = new EventSource(`${tv.relay}/${tv.outbox}/sse`);
+    es = null;
+    if (!tv) return;
+    const me = tv;
+    es = new EventSource(`${me.relay}/${me.outbox}/sse`);
     es.onmessage = (e) => {
       try {
         const ev = JSON.parse(e.data);
-        if (ev.event === 'message') onMessage(ev.message);
+        if (ev.event === 'message') onMessage(ev.message, me);
       } catch {
         /* not ours */
       }
@@ -547,7 +655,55 @@
     look();
   }
 
-  async function pushSub(vapidPub) {
+  /*
+   * Web Push, one subscription per TV (0.9.7). A browser gives one
+   * subscription per service worker registration, bound to one VAPID key,
+   * and every TV has its own key: so the first TV uses the app's own
+   * registration (./), each further TV a registration of the same sw.js
+   * with its own scope (./push/<TV id>/: no page lives there). sw.js shows
+   * a TV's requests with that TV's name and opens the app on it.
+   */
+  function subKey(sub) {
+    const k = sub && sub.options && sub.options.applicationServerKey;
+    return k ? C.b64u(new Uint8Array(k)) : '';
+  }
+  function activeReg(reg) {
+    if (reg.active) return Promise.resolve(reg);
+    return new Promise((ok) => {
+      const w = reg.installing || reg.waiting;
+      if (!w) return ok(reg);
+      w.addEventListener('statechange', () => {
+        if (w.state === 'activated') ok(reg);
+      });
+      setTimeout(() => ok(reg), 10000);
+    });
+  }
+  /** The registration that holds (or will hold) TV `t`'s subscription. */
+  async function pushReg(t) {
+    const want = C.b64u(t.vapidPub);
+    const main = await navigator.serviceWorker.ready;
+    const regs = await navigator.serviceWorker.getRegistrations();
+    const subs = await Promise.all(
+      regs.map((r) => r.pushManager.getSubscription())
+    );
+    const at = subs.findIndex((x) => subKey(x) === want);
+    if (at >= 0) return regs[at];
+    // the app's own one: free, or held by a TV this phone no longer has
+    const held = subKey(await main.pushManager.getSubscription());
+    const ours = tvs
+      .filter((x) => x.tvId !== t.tvId)
+      .map((x) => C.b64u(x.vapidPub));
+    if (!held || ours.indexOf(held) < 0) {
+      const old = await main.pushManager.getSubscription();
+      if (old) await old.unsubscribe();
+      return main;
+    }
+    const scope = new URL('push/' + t.tvId + '/', main.scope).href;
+    return activeReg(
+      await navigator.serviceWorker.register('sw.js', { scope })
+    );
+  }
+  async function pushSub(t) {
     try {
       if (!('PushManager' in window) || !('serviceWorker' in navigator))
         return null;
@@ -555,33 +711,48 @@
         const p = await Notification.requestPermission();
         if (p !== 'granted') return null;
       }
-      const reg = await navigator.serviceWorker.ready;
+      const reg = await pushReg(t);
       let sub = await reg.pushManager.getSubscription();
-      // a subscription for another TV's key can't be used: a new one
-      if (sub) {
-        const k = sub.options && sub.options.applicationServerKey;
-        if (!k || C.b64u(new Uint8Array(k)) !== C.b64u(vapidPub)) {
-          await sub.unsubscribe();
-          sub = null;
-        }
-      }
       if (!sub)
         sub = await reg.pushManager.subscribe({
           userVisibleOnly: true,
-          applicationServerKey: vapidPub
+          applicationServerKey: t.vapidPub
         });
+      t.pushScope = reg.scope; // sw.js finds the TV of a push by it
       const j = sub.toJSON();
       return { endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth };
     } catch {
       return null;
     }
   }
+  /** A removed TV's subscription (and its own registration) goes. */
+  async function pushDrop(t) {
+    try {
+      const want = C.b64u(t.vapidPub);
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(
+        regs.map(async (r) => {
+          const sub = await r.pushManager.getSubscription();
+          if (subKey(sub) !== want) return;
+          await sub.unsubscribe();
+          if (/\/push\/[\w-]+\/$/.test(r.scope)) await r.unregister();
+        })
+      );
+    } catch {
+      /* no push here */
+    }
+  }
 
+  let before = null; // the TV in use before a pairing started
   async function pair(offer) {
+    const known = tvs.some((x) => x.tvId === offer.tvId);
+    if (!known && tvs.length >= MAX_TVS) return status(tr('tvsFull'), 'bad');
     const name = ($('phone-name').value || '').trim().slice(0, 40) || 'Phone';
     const keys = await C.newKeys();
     const phoneId = 'ph_' + C.b64u(crypto.getRandomValues(new Uint8Array(16)));
-    const push = await pushSub(offer.vapidPub);
+    closeFull();
+    before = tv && tv.paired ? tv : before;
+    const old = tvs.find((x) => x.tvId === offer.tvId);
     tv = {
       tvId: offer.tvId,
       name: offer.name || 'TV',
@@ -596,8 +767,11 @@
       outN: 0,
       inN: 0,
       lastOk: 0,
-      paired: false
+      paired: false,
+      // the name this phone gave the TV stays when it pairs again
+      label: (old && old.label) || ''
     };
+    const push = await pushSub(tv);
     const lk = await C.linkKeys(keys.priv, offer.tvPub, offer.tvId, phoneId);
     tv.p2t = lk.p2t;
     tv.t2p = lk.t2p;
@@ -618,7 +792,8 @@
     const idx = await C.wordIndexes(offer.tvPub, keys.pub, offer.secret);
     $('words').textContent = idx.map((i) => WORDS[lang][i]).join(' · ');
     $('words-box').classList.remove('hidden');
-    $('scan').classList.add('hidden');
+    $('pair-ways').classList.add('hidden');
+    $('code-box').classList.add('hidden');
     status('');
     const paired = new Promise((ok) => {
       waiting.paired = ok;
@@ -627,17 +802,89 @@
     try {
       await post(env);
     } catch {
-      return status(tr('pairFail'), 'bad');
+      return pairFailed();
     }
     const r = await paired;
     delete waiting.paired;
-    if (!r) return status(tr('pairFail'), 'bad');
+    if (!r) return pairFailed();
     tv.paired = true;
     tv.lastOk = Date.now();
+    // paired again (the phone was removed on the TV): one entry, the new keys
+    tvs = tvs.filter((x) => x.tvId !== tv.tvId);
     await saveTv();
-    status(tr('paired', { tv: tv.name }), 'ok');
+    await put('cur', tv.tvId);
+    adding = false;
+    before = null;
+    $('words-box').classList.add('hidden');
+    status(tr('paired', { tv: tvLabel(tv) }), 'ok');
     show();
     refresh();
+  }
+  /** The pairing did not finish (or Cancel): back to the TV in use before it. */
+  let pairCancelled = false;
+  function pairFailed() {
+    if (pairCancelled) status('');
+    else status(tr('pairFail'), 'bad');
+    pairCancelled = false;
+    tv = before;
+    before = null;
+    listen();
+    $('pair-ways').classList.remove('hidden');
+  }
+
+  /*
+   * The TV's 12-digit number (0.9.7): its sealed note on ntfy.sh (the
+   * number's own topic, away-core.js) holds the same pairing link as the QR
+   * code. Also takes a pairing link pasted from a message. A family's own
+   * mailbox server is tried too when a TV this phone has uses one.
+   */
+  async function codePair(e) {
+    if (e) e.preventDefault();
+    const text = $('code').value;
+    const offer = C.readOffer(text);
+    if (offer) {
+      $('code').value = '';
+      return pair(offer);
+    }
+    const code = C.codeClean(text);
+    if (!code) return status(tr('codeBad'), 'bad');
+    status(tr('codeLooking'));
+    $('code-btn').disabled = true;
+    let link = '';
+    try {
+      const keys = await C.codeKeys(code);
+      const relays = ['https://ntfy.sh'];
+      for (const x of tvs)
+        if (relays.indexOf(x.relay) < 0) relays.push(x.relay);
+      for (const relay of relays) {
+        try {
+          // eslint-disable-next-line no-await-in-loop
+          const r = await fetch(
+            `${relay}/${keys.topic}/json?poll=1&since=15m`,
+            {
+              cache: 'no-store'
+            }
+          );
+          // eslint-disable-next-line no-await-in-loop
+          for (const l of (await r.text()).split('\n')) {
+            if (!l) continue;
+            const ev = JSON.parse(l);
+            if (ev.event !== 'message') continue;
+            // eslint-disable-next-line no-await-in-loop
+            link = (await C.openCodeNote(keys, ev.message, Date.now())) || link;
+          }
+        } catch {
+          /* that relay: not reachable */
+        }
+        if (link) break;
+      }
+    } finally {
+      $('code-btn').disabled = false;
+    }
+    const offer2 = C.readOffer(link);
+    if (!offer2) return status(tr('codeNone'), 'bad');
+    $('code').value = '';
+    pair(offer2);
   }
 
   // the same 64 words as the TV (away-core.js), same order
@@ -820,20 +1067,128 @@
     );
   }
 
+  let adding = false; // "+ Add a TV" was tapped
   function show() {
     const paired = !!(tv && tv.paired);
     const iphone = /iPhone|iPad/.test(navigator.userAgent);
     $('install-card').classList.toggle(
       'hidden',
-      paired || standalone() || !iphone
+      !!tvs.length || standalone() || !iphone
     );
-    $('pair-card').classList.toggle('hidden', paired);
+    const pairing = !tvs.length || adding;
+    $('pair-card').classList.toggle('hidden', !pairing);
+    $('pair-title').textContent = tr(tvs.length ? 'pairAddTitle' : 'pairTitle');
+    $('pair-text').textContent = tr(tvs.length ? 'pairAnyText' : 'pairText');
+    $('pair-cancel').classList.toggle('hidden', !tvs.length);
     for (const id of ['now-card', 'cmd-card'])
       $(id).classList.toggle('hidden', !paired);
+    if (!paired) $('reqs-card').classList.add('hidden');
     $('set-card').classList.remove('hidden');
-    $('forget').classList.toggle('hidden', !paired);
     $('full-open').classList.toggle('hidden', !paired);
+    drawTvs();
     drawNotif();
+  }
+
+  /** "Your TVs": each paired TV, the one in use marked; open, rename, remove. */
+  function drawTvs() {
+    const box = $('tvs');
+    box.textContent = '';
+    $('tvs-card').classList.toggle('hidden', !tvs.length);
+    $('tvs-pick').classList.toggle(
+      'hidden',
+      !!(tv && tv.paired) || tvs.length < 2
+    );
+    $('tv-add').classList.toggle('hidden', adding);
+    for (const t of tvs) {
+      const li = document.createElement('li');
+      const mine = !!(tv && tv.paired && tv.tvId === t.tvId);
+      li.className = mine ? 'tv cur' : 'tv';
+      const txt = document.createElement('div');
+      txt.className = 'tvtext';
+      const nm = document.createElement('strong');
+      nm.textContent = tvLabel(t);
+      const st = document.createElement('span');
+      st.className = 'small';
+      st.textContent = t.lastOk
+        ? tr('tvLast', { t: when(t.lastOk) })
+        : tr('tvNever');
+      txt.append(nm, st);
+      const b = document.createElement('div');
+      b.className = 'btns';
+      const open = button(tr(mine ? 'tvIsOpen' : 'tvOpen'), 'btn small', () =>
+        pick(t.tvId)
+      );
+      open.disabled = mine;
+      b.append(
+        open,
+        button(tr('tvRename'), 'btn ghost small', () => rename(t)),
+        button(tr('tvRemove'), 'btn ghost small', () => remove(t))
+      );
+      li.append(txt, b);
+      box.append(li);
+    }
+  }
+  /** A time today as a clock, else the date. */
+  function when(at) {
+    const d = new Date(at);
+    if (d.toDateString() === new Date().toDateString()) return clock(at);
+    try {
+      return new Intl.DateTimeFormat(lang === 'ar' ? 'ar-u-nu-latn' : 'en', {
+        day: 'numeric',
+        month: 'short'
+      }).format(d);
+    } catch {
+      return d.toLocaleDateString();
+    }
+  }
+
+  /** Uses TV `id` now: its mailbox, Now, and the full remote. */
+  async function pick(id) {
+    const t = tvs.find((x) => x.tvId === id);
+    if (!t) return;
+    if (tv === t && tv.paired) return;
+    closeFull();
+    if (rtc) lost(rtc);
+    tv = t;
+    adding = false;
+    await put('cur', id);
+    status('');
+    $('now').textContent = '';
+    $('now-note').textContent = '';
+    $('full-note').textContent = '';
+    show();
+    window.scrollTo(0, 0);
+    listen();
+    refresh();
+    openFull();
+  }
+  async function rename(t) {
+    const v = prompt(tr('tvRenameAsk'), tvLabel(t));
+    if (v === null) return;
+    // no control characters or markup in a name
+    t.label = Array.from(v)
+      .filter((c) => c.charCodeAt(0) >= 32 && c !== '<' && c !== '>')
+      .join('')
+      .trim()
+      .slice(0, 40);
+    await saveTv(t);
+    show();
+  }
+  async function remove(t) {
+    if (!confirm(tr('tvRemoveAsk', { tv: tvLabel(t) }))) return;
+    tvs = tvs.filter((x) => x.tvId !== t.tvId);
+    await saveTvs();
+    await pushDrop(t);
+    if (tv === t) {
+      closeFull();
+      if (es) es.close();
+      es = null;
+      tv = null;
+      await put('cur', undefined);
+    }
+    // one TV left and none in use: that one, as when the app opens
+    if (!(tv && tv.paired) && tvs.length === 1) return pick(tvs[0].tvId);
+    show();
   }
 
   async function drawNotif() {
@@ -885,7 +1240,18 @@
     set('bed-btn', 'bedBtn');
     set('set-title', 'setTitle');
     set('notif', 'notifBtn');
-    set('forget', 'forget');
+    // 0.9.7: the TVs, the number, sending the link on
+    set('tvs-title', 'tvsTitle');
+    set('tvs-pick', 'tvsPick');
+    set('tv-add', 'tvAdd');
+    set('pair-cancel', 'pairCancel');
+    set('code-open', 'codeOpen');
+    set('code-label', 'codeLabel');
+    set('code-btn', 'codeBtn');
+    set('share-link', 'shareLink');
+    set('words-far', 'wordsFar');
+    set('full-tvs', 'fullTvs');
+    $('code').placeholder = '1234 5678 9012';
     set('relay-title', 'relayTitle');
     set('relay-text', 'relayText');
     set('relay-url-label', 'relayUrl');
@@ -903,19 +1269,29 @@
     help.append(a);
   }
 
-  async function unlocked() {
-    tv = (await get('tv')) || null;
+  async function unlocked(want) {
+    await loadTvs();
     turn = (await get('turn')) || null;
     drawRelay();
     $('lock-card').classList.add('hidden');
+    // which TV: the one asked for (a notification, the front page), the
+    // only one; with more than one, the owner picks (nothing opens by
+    // itself, as a cast button or a home picker would)
+    tv = tvs.find((x) => x.tvId === want) || (tvs.length === 1 ? tvs[0] : null);
     show();
+    // every TV's moves (a phone removed there) while this app was closed
+    for (const t of tvs) {
+      // eslint-disable-next-line no-await-in-loop
+      await catchUp(t);
+    }
     if (tv && tv.paired) {
-      await catchUp();
+      await put('cur', tv.tvId);
       listen();
       refresh();
       // the whole phone page, straight to the TV when the network allows
       openFull();
     }
+    show();
   }
 
   /* ---------------- the whole phone page from away (P2P) ---------------- */
@@ -1309,6 +1685,45 @@
     };
     $('scan').onclick = scan;
     $('scan-stop').onclick = scanEnd;
+    $('code-open').onclick = () => {
+      $('code-box').classList.remove('hidden');
+      $('code').focus();
+    };
+    $('code-box').onsubmit = codePair;
+    $('tv-add').onclick = () => {
+      if (tvs.length >= MAX_TVS) return status(tr('tvsFull'), 'bad');
+      adding = true;
+      // a fresh pairing card (after an earlier pairing it showed the words)
+      $('pair-ways').classList.remove('hidden');
+      $('words-box').classList.add('hidden');
+      $('code-box').classList.add('hidden');
+      $('share-link').classList.add('hidden');
+      status('');
+      show();
+      $('pair-card').scrollIntoView({ block: 'start' });
+    };
+    $('pair-cancel').onclick = () => {
+      adding = false;
+      scanEnd();
+      // a pairing under way ends: back to the TV in use before it
+      if (waiting.paired) {
+        pairCancelled = true;
+        waiting.paired(null);
+      }
+      $('words-box').classList.add('hidden');
+      $('pair-ways').classList.remove('hidden');
+      show();
+    };
+    $('full-tvs').onclick = () => {
+      closeFull();
+      $('tvs-card').scrollIntoView({ block: 'start' });
+    };
+    // a tap on a request's notification while the app is open (sw.js)
+    if ('serviceWorker' in navigator)
+      navigator.serviceWorker.addEventListener('message', (e) => {
+        const id = e.data && e.data.ytxTv;
+        if (typeof id === 'string' && tvs.some((x) => x.tvId === id)) pick(id);
+      });
     $('refresh').onclick = refresh;
     $('full-open').onclick = openFull;
     $('full-simple').onclick = closeFull;
@@ -1336,7 +1751,8 @@
       run({ op: 'bed', at: d.getTime() });
     };
     $('notif').onclick = async () => {
-      const push = tv && (await pushSub(tv.vapidPub));
+      const push = tv && (await pushSub(tv));
+      if (push) await saveTv();
       drawNotif();
       // the TV keeps this phone's new subscription (sealed, as any message)
       if (push) run({ op: 'push', push });
@@ -1354,15 +1770,12 @@
       }
       drawNotif();
     };
-    $('forget').onclick = async () => {
-      if (!confirm(tr('forgetAsk'))) return;
-      if (es) es.close();
-      await put('tv', undefined);
-      tv = null;
-      show();
-    };
-    // a pairing link opened straight (the phone's camera app)
+    // a pairing link opened straight (the phone's camera app, a message)
     const offer = C.readOffer(location.hash);
+    // the TV to open (a notification, the front page's list): #tv=<id>
+    const wantM = /[#&]tv=([\w-]{8,43})/.exec(location.hash);
+    const want = wantM ? wantM[1] : '';
+    if (want) history.replaceState(null, '', location.pathname);
     const pin = await get('pin');
     if (pin) {
       $('lock-card').classList.remove('hidden');
@@ -1372,24 +1785,60 @@
           return status(tr('lockBad'), 'bad');
         $('lock-pin').value = '';
         status('');
-        await unlocked();
-        if (offer && !(tv && tv.paired)) usePairLink(offer);
+        await unlocked(want);
+        if (offer) usePairLink(offer);
       };
       return;
     }
-    await unlocked();
-    if (offer && !(tv && tv.paired)) usePairLink(offer);
+    await unlocked(want);
+    if (offer) usePairLink(offer);
+    // a pairing link opened while the app is open (only # changes)
+    window.addEventListener('hashchange', () => {
+      const o = C.readOffer(location.hash);
+      if (o && $('lock-card').classList.contains('hidden')) usePairLink(o);
+    });
   }
 
-  // a pairing link opened straight: one tap pairs (notifications need a tap)
+  /*
+   * A pairing link opened straight: one tap pairs (notifications need a
+   * tap). Or, 0.9.7, it goes on to another phone: a relative at the TV
+   * scans the code with the camera and sends the link in a message (it is
+   * the same as a photo of the code: 10 minutes, the words, OK + PIN).
+   */
   function usePairLink(offer) {
     history.replaceState(null, '', location.pathname);
+    adding = !!tvs.length;
+    show();
     $('scan').textContent = tr('pairWith', { tv: offer.name || 'TV' });
     $('scan').onclick = () => {
       $('scan').onclick = scan;
       $('scan').textContent = tr('scan');
+      $('share-link').classList.add('hidden');
       pair(offer);
     };
+    $('share-link').classList.remove('hidden');
+    $('share-link').onclick = () => shareOffer(offer.raw);
+  }
+  async function shareOffer(raw) {
+    const url = 'https://sofatube.github.io/remote/#away=' + raw;
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: 'Sofa Tube',
+          text: tr('shareText'),
+          url
+        });
+        return;
+      }
+    } catch (e) {
+      if (e && e.name === 'AbortError') return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      status(tr('shareCopied'), 'ok');
+    } catch {
+      prompt(tr('shareText'), url);
+    }
   }
 
   start();

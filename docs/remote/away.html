@@ -216,6 +216,48 @@
         border: 0;
         width: 100%;
       }
+      /* 0.9.7: the paired TVs */
+      #tvs {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      #tvs li {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px 10px;
+        padding: 10px 0;
+        border-top: 1px solid var(--line);
+      }
+      #tvs li:first-child {
+        border-top: 0;
+      }
+      #tvs li.cur strong {
+        color: var(--accent);
+      }
+      #tvs .tvtext {
+        flex: 1 1 140px;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        overflow-wrap: anywhere;
+      }
+      #tvs .btns {
+        margin-top: 0;
+      }
+      .btn.small {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+      #code {
+        letter-spacing: 0.05em;
+        font-variant-numeric: tabular-nums;
+      }
+      #code-box label {
+        display: block;
+        margin-top: 10px;
+      }
       .words {
         font-size: 24px;
         font-weight: 800;
@@ -308,6 +350,16 @@
         <p id="install-text" class="small"></p>
       </section>
 
+      <!-- 0.9.7: the paired TVs (more than one: the owner picks) -->
+      <section class="card hidden" id="tvs-card">
+        <h2 id="tvs-title"></h2>
+        <p id="tvs-pick" class="small hidden"></p>
+        <ul id="tvs"></ul>
+        <div class="btns">
+          <button class="btn ghost" id="tv-add" type="button"></button>
+        </div>
+      </section>
+
       <!-- pairing -->
       <section class="card hidden" id="pair-card">
         <h2 id="pair-title"></h2>
@@ -315,9 +367,35 @@
         <div class="row">
           <input id="phone-name" maxlength="40" autocomplete="off" />
         </div>
-        <div class="btns">
+        <div class="btns" id="pair-ways">
           <button class="btn" id="scan" type="button"></button>
+          <button class="btn ghost" id="code-open" type="button"></button>
+          <button
+            class="btn ghost hidden"
+            id="share-link"
+            type="button"
+          ></button>
+          <button
+            class="btn ghost hidden"
+            id="pair-cancel"
+            type="button"
+          ></button>
         </div>
+        <!-- 0.9.7: the TV's 12-digit number, or a pairing link from a message -->
+        <form id="code-box" class="hidden" autocomplete="off">
+          <label class="small" for="code" id="code-label"></label>
+          <div class="row" id="code-form-row">
+            <input
+              id="code"
+              dir="ltr"
+              inputmode="numeric"
+              autocapitalize="off"
+              spellcheck="false"
+              maxlength="2100"
+            />
+            <button class="btn" type="submit" id="code-btn"></button>
+          </div>
+        </form>
         <div id="scanbox" class="hidden">
           <video id="scanvideo" playsinline muted></video>
           <canvas id="scancanvas" class="hidden"></canvas>
@@ -329,6 +407,7 @@
           <p id="words-text" class="small"></p>
           <div class="words" id="words"></div>
           <p id="words-wait" class="small"></p>
+          <p id="words-far" class="small"></p>
         </div>
       </section>
 
@@ -384,7 +463,6 @@
         <div class="btns">
           <button class="btn ghost" id="notif" type="button"></button>
           <button class="btn ghost" id="pin-set" type="button"></button>
-          <button class="btn ghost" id="forget" type="button"></button>
         </div>
         <details id="relay-box">
           <summary id="relay-title"></summary>
@@ -432,6 +510,7 @@
     <div id="full" class="hidden">
       <div class="fullbar">
         <span id="full-state"></span>
+        <button class="btn ghost" id="full-tvs" type="button"></button>
         <button class="btn ghost" id="full-simple" type="button"></button>
       </div>
       <!-- sandboxed, no allow-same-origin: tv-frame.js -->

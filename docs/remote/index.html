@@ -169,6 +169,7 @@
       }
       li {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: 8px;
         padding: 6px 0;
@@ -177,8 +178,18 @@
       li:first-child {
         border-top: 0;
       }
+      /* Arabic: an address keeps its order, on the right like the text */
+      [dir='rtl'] li .addr {
+        text-align: right;
+      }
+      li .acts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
       li .addr {
-        flex: 1;
+        flex: 1 1 100%;
+        white-space: nowrap;
         direction: ltr;
         unicode-bidi: isolate;
         text-align: start;
@@ -238,6 +249,58 @@
         inset: 0;
         z-index: 50;
         background: var(--bg);
+      }
+      /* 0.9.7: the bar back to the TVs (more than one TV) */
+      #full .fullbar {
+        display: none;
+      }
+      #full.bar {
+        display: flex;
+        flex-direction: column;
+      }
+      #full.bar.hidden {
+        display: none;
+      }
+      #full.bar .fullbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 4px 10px;
+        border-bottom: 1px solid var(--line);
+      }
+      #full.bar iframe {
+        flex: 1;
+        height: auto;
+      }
+      #full-name {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 600;
+        unicode-bidi: isolate;
+      }
+      li .tvname {
+        flex: 1 1 100%;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        overflow-wrap: anywhere;
+      }
+      li.awayrow .tvname {
+        flex: 1 1 150px;
+      }
+      li .tvname .addr {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      li.live .tvname strong::after {
+        content: ' ●';
+        color: var(--ok);
+      }
+      li.live .tvname .addr::after {
+        content: '';
       }
       #full iframe {
         display: block;
@@ -343,6 +406,11 @@
     </main>
     <!-- 0.9.6: the TV's phone page inside the app (home.js) -->
     <div id="full" class="hidden">
+      <!-- 0.9.7: back to the TVs (more than one TV) -->
+      <div class="fullbar">
+        <button id="full-tvs" class="btn ghost small" type="button"></button>
+        <span id="full-name"></span>
+      </div>
       <!-- sandboxed, no allow-same-origin: tv-frame.js -->
       <iframe
         id="full-frame"
@@ -479,6 +547,16 @@
             openAway: 'From away',
             phoneAndroid: 'Android phone',
             phoneOther: 'Phone',
+            // 0.9.7: more than one TV: the list first, the owner picks
+            pickTv: 'Which TV?',
+            pickTvHow:
+              'Tap Open next to the TV you want to use. ● = on this Wi-Fi now.',
+            lostPick:
+              'The connection to the TV ended. Tap Open next to a TV to connect again.',
+            rename: 'Rename',
+            renameAsk: 'A name for this TV on this phone (e.g. Living room)',
+            awayRow: 'Control from away',
+            tvsBar: 'Your TVs',
             dhcpTitle: 'Stop the TV’s address from changing',
             dhcp: 'In your router’s settings (often at 192.168.1.1 or 192.168.0.1) look for “DHCP reservation” (also “Address reservation” or “Static lease”) and reserve the TV’s current address. Then the TV keeps the same address, and a home-screen icon made on the phone page keeps working too.',
             privacy:
@@ -591,6 +669,15 @@
             openAway: 'من خارج المنزل',
             phoneAndroid: 'هاتف Android',
             phoneOther: 'هاتف',
+            pickTv: 'أي تلفاز؟',
+            pickTvHow:
+              'اضغط «فتح» بجانب التلفاز الذي تريد استخدامه. ● = على شبكة الواي فاي هذه الآن.',
+            lostPick:
+              'انقطع الاتصال بالتلفاز. اضغط «فتح» بجانب أحد أجهزة التلفاز للاتصال من جديد.',
+            rename: 'إعادة التسمية',
+            renameAsk: 'اسم لهذا التلفاز على هذا الهاتف (مثل: الصالة)',
+            awayRow: 'التحكم من خارج المنزل',
+            tvsBar: 'أجهزة التلفاز',
             dhcpTitle: 'منع تغيّر عنوان التلفاز',
             dhcp: 'في إعدادات الراوتر (غالبًا على 192.168.1.1 أو 192.168.0.1) ابحث عن «حجز عنوان DHCP» (ويُسمى أيضًا «حجز العنوان» أو «Static lease») واحجز عنوان التلفاز الحالي. فيبقى للتلفاز العنوان نفسه، وتستمر أيضًا الأيقونة التي أُضيفت من صفحة الهاتف في العمل.',
             privacy:
@@ -683,10 +770,14 @@
           } catch (e) {}
         }
         function remember(a) {
+          var name = '';
           var list = load().filter(function (x) {
+            if (x.a === a && x.n) name = x.n;
             return x.a !== a;
           });
-          list.unshift({ a: a, at: Date.now() });
+          list.unshift(
+            name ? { a: a, at: Date.now(), n: name } : { a: a, at: Date.now() }
+          );
           save(list);
           // the newest address also stays in this page's own address (after
           // #), so a home-screen icon made now carries it (iPhone keeps the
@@ -771,6 +862,14 @@
             lang +
             (sendHash ? '#' + sendHash : '');
           $('full').classList.remove('hidden');
+          $('full').classList.toggle('bar', pickMode());
+          $('full-tvs').textContent = tr('tvsBar');
+          // which TV is open: its name on this phone, else its address
+          var mine = load().filter(function (x) {
+            return x.a === a;
+          })[0];
+          $('full-name').textContent = (mine && mine.n) || a;
+          lostNote = false;
           document.documentElement.style.overflow = 'hidden';
           return window.sofaTvFrame
             .open('full-frame', {
@@ -796,9 +895,16 @@
           if (window.sofaTvFrame) window.sofaTvFrame.close('full-frame');
         }
         var lostHidden = false;
+        var lostNote = false; // the list says the connection ended
         if (home)
           home.onLost = function () {
             hideFull();
+            if (pickMode()) {
+              // 0.9.7: the TVs, not the last one by itself
+              lostNote = true;
+              draw();
+              return;
+            }
             setStatus(tr('lost'), '');
             showFind(true, tr('reopen'));
             // connect again now, or when the app is back in front
@@ -1522,7 +1628,8 @@
         // Paired for Control from away (away.html keeps it in IndexedDB):
         // away from the home Wi-Fi, the remote opens from there (the whole
         // phone page over the direct connection)
-        function awayPaired() {
+        // 0.9.7: every TV paired for away ('tvs'; one in 'tv' before)
+        function awayKv(key) {
           return new Promise(function (ok) {
             try {
               var r = indexedDB.open('sofatube-away', 1);
@@ -1531,27 +1638,58 @@
               };
               r.onsuccess = function () {
                 try {
-                  var q = r.result
-                    .transaction('kv')
-                    .objectStore('kv')
-                    .get('tv');
+                  var q = r.result.transaction('kv').objectStore('kv').get(key);
                   q.onsuccess = function () {
-                    ok(!!(q.result && q.result.paired));
+                    ok(q.result);
                   };
                   q.onerror = function () {
-                    ok(false);
+                    ok(undefined);
                   };
                 } catch (e) {
-                  ok(false);
+                  ok(undefined);
                 }
               };
               r.onerror = function () {
-                ok(false);
+                ok(undefined);
               };
             } catch (e) {
-              ok(false);
+              ok(undefined);
             }
           });
+        }
+        /** [{id, name}] of the TVs paired for Control from away. */
+        function awayTvs() {
+          return Promise.all([awayKv('tvs'), awayKv('tv')]).then(function (v) {
+            var list = (Array.isArray(v[0]) ? v[0] : []).slice();
+            if (v[1] && v[1].paired) list.unshift(v[1]);
+            var out = [];
+            list.forEach(function (t) {
+              if (!t || !t.paired) return;
+              var id = t.tvId || '';
+              if (
+                id &&
+                out.some(function (x) {
+                  return x.id === id;
+                })
+              )
+                return;
+              out.push({ id: id, name: t.label || t.name || 'TV' });
+            });
+            return out;
+          });
+        }
+        function awayPaired() {
+          return awayTvs().then(function (l) {
+            return l.length > 0;
+          });
+        }
+        var awayList = []; // awayTvs(), for the list
+        // more than one TV: the list first, nothing opens by itself (the
+        // owner picks, as a cast button or a home picker does). A home
+        // address and an away pairing may be the same TV (their ids differ),
+        // so it takes two of one kind: one TV paired both ways opens as before
+        function pickMode() {
+          return !share && Math.max(load().length, awayList.length) >= 2;
         }
         // the two ways, side by side ("at home" opens the saved address)
         function showGo(a, away) {
@@ -1672,10 +1810,24 @@
           ul.textContent = '';
           load().forEach(function (x) {
             var li = document.createElement('li');
-            if (hits.indexOf(x.a) >= 0) li.className = 'live';
+            if (
+              hits.indexOf(x.a) >= 0 ||
+              liveIps.indexOf(x.a.split(':')[0]) >= 0
+            )
+              li.className = 'live';
             var s = document.createElement('span');
             s.className = 'addr';
             s.textContent = x.a;
+            var box = s;
+            if (x.n) {
+              // the name this phone gave it, the address under it
+              box = document.createElement('span');
+              box.className = 'tvname';
+              var nm = document.createElement('strong');
+              nm.textContent = x.n;
+              box.appendChild(nm);
+              box.appendChild(s);
+            }
             var open = document.createElement('a');
             open.className = 'btn small';
             open.href = remoteUrl(x.a);
@@ -1693,10 +1845,82 @@
             del.addEventListener('click', function () {
               forget(x.a);
             });
-            li.appendChild(s);
-            li.appendChild(open);
-            li.appendChild(del);
+            var ren = document.createElement('button');
+            ren.type = 'button';
+            ren.className = 'btn ghost small';
+            ren.textContent = tr('rename');
+            ren.addEventListener('click', function () {
+              var v = prompt(tr('renameAsk'), x.n || '');
+              if (v === null) return;
+              v = v.replace(/[<>]/g, '').trim().slice(0, 40);
+              save(
+                load().map(function (y) {
+                  if (y.a !== x.a) return y;
+                  var z = { a: y.a, at: y.at };
+                  if (v) z.n = v;
+                  return z;
+                })
+              );
+              drawKnown();
+            });
+            // the name (or address) on its line, the buttons together under it
+            var acts = document.createElement('span');
+            acts.className = 'acts';
+            acts.appendChild(open);
+            acts.appendChild(ren);
+            acts.appendChild(del);
+            li.appendChild(box);
+            li.appendChild(acts);
             ul.appendChild(li);
+          });
+          // the TVs paired for Control from away: each opens there
+          if (share) return;
+          awayList.forEach(function (t) {
+            var li = document.createElement('li');
+            li.className = 'awayrow';
+            var box = document.createElement('span');
+            box.className = 'tvname';
+            var nm = document.createElement('strong');
+            nm.textContent = t.name;
+            var sub = document.createElement('span');
+            sub.className = 'small';
+            sub.textContent = tr('awayRow');
+            box.appendChild(nm);
+            box.appendChild(sub);
+            var open = document.createElement('a');
+            open.className = 'btn small';
+            open.href =
+              'away.html' +
+              (t.id
+                ? '#tv=' + t.id + (lang === 'ar' ? '&lang=ar' : '')
+                : lang === 'ar'
+                  ? '#lang=ar'
+                  : '');
+            open.textContent = tr('openAway');
+            open.addEventListener('click', function () {
+              gen++; // a search on its way stops
+            });
+            li.appendChild(box);
+            li.appendChild(open);
+            ul.appendChild(li);
+          });
+        }
+        // which saved TVs answer on this Wi-Fi now (the list's dots); never
+        // opens one
+        var liveIps = [];
+        function lookOnly() {
+          var list = load();
+          if (!list.length || !canLook) return;
+          var my = ++gen;
+          permission().then(function (state) {
+            if (state !== 'granted' || my !== gen) return;
+            sweepAll(candidates(list)[0], my, function (a) {
+              if (my !== gen) return;
+              liveIps = a.map(function (x) {
+                return x.split(':')[0];
+              });
+              drawKnown();
+            });
           });
         }
 
@@ -1801,6 +2025,14 @@
             setStatus(tr('saved'), 'ok');
             $('detail').textContent = '';
             showFind(true, tr('find'));
+            return;
+          }
+          // 0.9.7: more than one TV: the list, the owner picks
+          if (pickMode()) {
+            setStatus(lostNote ? tr('lostPick') : tr('pickTv'), '');
+            $('detail').textContent = tr('pickTvHow');
+            showFind(false);
+            lookOnly();
             return;
           }
           permission().then(function (state) {
@@ -1942,6 +2174,13 @@
           window.scrollTo(0, 0);
           discover();
         });
+        $('full-tvs').addEventListener('click', function () {
+          hideFull();
+          if (home) home.close();
+          gen++;
+          searching = false;
+          draw();
+        });
         $('join-same').addEventListener('click', joinSame);
         $('join-diff').addEventListener('click', joinDiff);
         $('join-stop').addEventListener('click', function () {
@@ -1985,7 +2224,15 @@
 
         if ('serviceWorker' in navigator)
           navigator.serviceWorker.register('sw.js').catch(function () {});
-        draw();
+        awayTvs().then(
+          function (l) {
+            awayList = l;
+            draw();
+          },
+          function () {
+            draw();
+          }
+        );
       })();
     </script>
   </body>

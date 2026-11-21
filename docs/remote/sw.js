@@ -4,7 +4,7 @@
  * and makes the page installable. Only this page's own files: the requests
  * to the TV (http://<address>/hello) are left alone.
  */
-const CACHE = 'sofatube-remote-v18';
+const CACHE = 'sofatube-remote-v19';
 const FILES = [
   './',
   'share-link.js',
@@ -132,21 +132,39 @@ const PUSH_TEXT = {
   }
 };
 
-function pushLang() {
+function awayGet(key) {
   return new Promise((ok) => {
     try {
       const r = indexedDB.open('sofatube-away', 1);
       r.onupgradeneeded = () => r.result.createObjectStore('kv');
       r.onsuccess = () => {
-        const q = r.result.transaction('kv').objectStore('kv').get('lang');
-        q.onsuccess = () => ok(q.result === 'ar' ? 'ar' : 'en');
-        q.onerror = () => ok('en');
+        const q = r.result.transaction('kv').objectStore('kv').get(key);
+        q.onsuccess = () => ok(q.result);
+        q.onerror = () => ok(undefined);
       };
-      r.onerror = () => ok('en');
+      r.onerror = () => ok(undefined);
     } catch {
-      ok('en');
+      ok(undefined);
     }
   });
+}
+
+/*
+ * 0.9.7: more than one TV. Each TV's subscription lives in its own
+ * registration (away.js pushSub: the app's own scope, or ./push/<TV id>/),
+ * so the TV of a push is the one whose pushScope is this registration's
+ * (a TV paired before 0.9.7 has none: the app's own scope).
+ */
+async function pushTv() {
+  const list = await awayGet('tvs');
+  const tvs = Array.isArray(list) ? list : [];
+  const here = self.registration.scope;
+  const main = new URL('./', self.location).href;
+  return (
+    tvs.find((t) => t && t.pushScope === here) ||
+    (here === main ? tvs.find((t) => t && !t.pushScope) : null) ||
+    null
+  );
 }
 
 self.addEventListener('push', (e) => {
@@ -157,30 +175,45 @@ self.addEventListener('push', (e) => {
     d = {};
   }
   e.waitUntil(
-    pushLang().then((lang) => {
+    Promise.all([awayGet('lang'), pushTv()]).then(([saved, tv]) => {
+      const lang = saved === 'ar' ? 'ar' : 'en';
       const T = PUSH_TEXT[lang];
       const what = T[d.kind] || T.time;
       const detail = String(d.title || d.app || '').slice(0, 80);
-      return self.registration.showNotification(T.title, {
-        body: detail ? what + ': ' + detail : what,
-        icon: 'icon-192.png',
-        badge: 'icon-192.png',
-        tag: 'sofatube-req-' + (d.kind || 'time'),
-        dir: lang === 'ar' ? 'rtl' : 'ltr',
-        lang
-      });
+      // which TV asks, when this phone has more than one
+      const name = tv ? String(tv.label || tv.name || '').slice(0, 40) : '';
+      return self.registration.showNotification(
+        name ? T.title + ' · ' + name : T.title,
+        {
+          body: detail ? what + ': ' + detail : what,
+          icon: new URL('icon-192.png', self.location).href,
+          badge: new URL('icon-192.png', self.location).href,
+          tag: 'sofatube-req-' + (tv ? tv.tvId : '') + (d.kind || 'time'),
+          dir: lang === 'ar' ? 'rtl' : 'ltr',
+          lang,
+          data: { tv: tv ? tv.tvId : '' }
+        }
+      );
     })
   );
 });
 
 self.addEventListener('notificationclick', (e) => {
   e.notification.close();
-  const url = new URL('away.html', self.registration.scope).href;
+  // the app opens on the TV that asked (away.html #tv=, or a message to it)
+  const id = String((e.notification.data && e.notification.data.tv) || '');
+  const url =
+    new URL('away.html', self.location).href + (id ? '#tv=' + id : '');
   e.waitUntil(
-    self.clients.matchAll({ type: 'window' }).then((list) => {
-      for (const c of list)
-        if (c.url.indexOf('away.html') >= 0 && 'focus' in c) return c.focus();
-      return self.clients.openWindow(url);
-    })
+    self.clients
+      .matchAll({ type: 'window', includeUncontrolled: true })
+      .then((list) => {
+        for (const c of list)
+          if (c.url.indexOf('away.html') >= 0 && 'focus' in c) {
+            if (id) c.postMessage({ ytxTv: id });
+            return c.focus();
+          }
+        return self.clients.openWindow(url);
+      })
   );
 });
