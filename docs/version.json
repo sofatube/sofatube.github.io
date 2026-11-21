@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "version": "0.9.6",
-  "date": "2026-11-16",
+  "date": "2026-11-21",
   "notes": "https://github.com/sofatube/sofatube.github.io/releases/tag/v0.9.6",
   "android": {
     "version": "0.9.6",
@@ -33,5 +33,22 @@
     "sha256": "2aa6a1d333a6e45a230880a88a1c0c471a93ce2e62cc35695c15c3a8c9dfaa8f",
     "size": 1231149
   },
-  "sig": {"alg":"ed25519","key":"st1","value":"BUMKoiC08gwaBfR/8r1O9wlbhlzoiE2JdOk+4yVzsw9Iji4I+QdVoi5i+dNfKsBvDf0hBQXPjEkYZmY3+NiiBg=="}
+  "beta": {
+    "version": "0.9.7",
+    "notes": "https://github.com/sofatube/sofatube.github.io/releases/tag/v0.9.7-beta",
+    "lg": {
+      "version": "0.9.7",
+      "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.7-beta/SofaTube-0.9.7-LG.ipk",
+      "sha256": "4ea2ea59771b5b8cbdd9ce9f50254a7d5f96aa9b786a54dd9fb96487ba43af0f",
+      "size": 2337884,
+      "minOs": "webOS 4"
+    },
+    "lgPhone": {
+      "version": "1.1.7",
+      "url": "https://github.com/sofatube/sofatube.github.io/releases/download/v0.9.7-beta/SofaTube-Phone-1.1.7-LG.ipk",
+      "sha256": "39d0056b5d2d2f7f785763a6edbcb8d2c9efee5ce228467493a30b1a7b7997af",
+      "size": 589646
+    }
+  },
+  "sig": {"alg":"ed25519","key":"st1","value":"iQdpG1g6jP3jnK0F3q8k4WZQeiAPXt5xV/ssSjzdGv0jd4+NMfMVMJCQ3GBkAqmJYHOSTMnDRmYQ4v1ZuFf9Bw=="}
 }
