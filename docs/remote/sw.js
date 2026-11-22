@@ -4,7 +4,7 @@
  * and makes the page installable. Only this page's own files: the requests
  * to the TV (http://<address>/hello) are left alone.
  */
-const CACHE = 'sofatube-remote-v19';
+const CACHE = 'sofatube-remote-v20';
 const FILES = [
   './',
   'share-link.js',
@@ -92,25 +92,42 @@ self.addEventListener('fetch', (e) => {
     );
     return;
   }
-  // the page: the newest when online, the saved copy when not
+  // the pages: the newest when online, the saved copy when not
   if (e.request.mode === 'navigate') {
-    if (rel !== '' && rel !== 'index.html') return;
-    e.respondWith(
-      fetch(e.request)
-        .then((r) => {
-          if (cacheable(r)) {
-            const copy = r.clone();
-            caches.open(CACHE).then((c) => c.put('./', copy));
-          }
-          return r;
-        })
-        .catch(() => caches.match('./'))
-    );
+    const key = rel === '' || rel === 'index.html' ? './' : rel;
+    if (FILES.indexOf(key) < 0) return;
+    e.respondWith(fresh(e.request, key));
     return;
   }
-  // the app's own files from the cache, the rest from the site
+  // the app's own files: the newest too, so a page and its scripts always
+  // come from the same update (cache-first gave the new away.html with the
+  // old away.js on the first visit after an update: an empty page, 0.9.7);
+  // the saved copy only when the network fails
+  if (FILES.indexOf(rel) >= 0) {
+    e.respondWith(fresh(e.request, rel));
+    return;
+  }
   e.respondWith(caches.match(e.request).then((hit) => hit || fetch(e.request)));
 });
+
+/** The site's answer (kept for later), or the saved copy when offline. */
+function fresh(req, key) {
+  // past the browser's own short-term copy too (GitHub Pages: 10 minutes);
+  // a page's own request can't be copied with options: as it is
+  const ask =
+    req.mode === 'navigate'
+      ? fetch(req)
+      : fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' });
+  return ask
+    .then((r) => {
+      if (cacheable(r)) {
+        const copy = r.clone();
+        caches.open(CACHE).then((c) => c.put(key, copy));
+      }
+      return r;
+    })
+    .catch(() => caches.match(key).then((hit) => hit || Response.error()));
+}
 
 /*
  * Control from away (0.9.5, L41): a kid's request, sent by the TV itself as
