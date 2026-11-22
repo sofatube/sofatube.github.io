@@ -689,8 +689,11 @@ def install(lang):
 <li><b>Fire TV:</b> <bdi>Settings</bdi> ← <bdi>My Fire TV</bdi> ← <bdi>Developer options</bdi> ← <bdi>Install unknown apps</bdi> ← فعّل <bdi>Downloader</bdi>. لا تظهر <bdi>Developer options</bdi>؟ <bdi>Settings</bdi> ← <bdi>My Fire TV</bdi> ← <bdi>About</bdi> واضغط على اسم الجهاز سبع مرات.</li>
 </ul></li>
 <li>افتح Downloader (واسمح له بالوصول إلى التخزين)، واختر خانة العنوان واكتب: <code dir="ltr">sofatube.github.io/tv</code> ثم اضغط <b>Go</b>.</li>
-<li>بعد اكتمال التنزيل اختر <b>Install</b> (تثبيت)، ثم <b>Open</b> (فتح). ثم يعرض Downloader حذف الملف المنزَّل: <b>Delete</b> يوفّر المساحة.</li>
+<li>بعد اكتمال التنزيل اختر <b>Install</b> (تثبيت)، ثم <b>Open</b> (فتح). هذا هو <b>مثبّت صوفا تيوب</b> (صغير): ينزّل صوفا تيوب الكامل ويفحصه ويثبّته.</li>
+<li>في المرة الأولى يقول التلفاز إن المثبّت لا يُسمح له بتثبيت التطبيقات: اختر <b>«الإعدادات»</b>، وفعّل <b>«مثبّت صوفا تيوب»</b>، واضغط <b>رجوع</b>. وإن عرض التلفاز بعدها Downloader، افتح <b>«مثبّت صوفا تيوب»</b> من جديد من تطبيقاتك: يتابع وحده.</li>
+<li>اختر <b>Install</b> (تثبيت) لصوفا تيوب. فيُفتح صوفا تيوب، ويعرض المثبّت حذف نفسه (لم تعد بحاجة إليه: صوفا تيوب يحدّث نفسه).</li>
 </ol>
+<p class="meta">لماذا مثبّت؟ صار <bdi>Google Play Protect</bdi> يمنع التطبيقات التي فيها خدمة إمكانية الوصول (وجهاز التحكم في التلفاز كله في صوفا تيوب فيه واحدة) حين يثبّتها Downloader («تم حظر التطبيق لحماية جهازك»). والمثبّت يثبّت التطبيق الكامل نفسه، فلا ينقص شيء.</p>
 <h3>البديل: ذاكرة USB (تحتاج إلى حاسوب)</h3>
 <p>نزّل ملف apk من <a href="/tv/">sofatube.github.io/tv</a> وانسخه إلى ذاكرة USB، وافتحه على التلفاز بتطبيق لإدارة الملفات، واسمح له بتثبيت التطبيقات غير المعروفة، ثم تثبيت ففتح.</p>
 <h3>معلومات مفيدة</h3>
@@ -815,8 +818,11 @@ def install(lang):
 <li><b>Fire TV:</b> Settings → My Fire TV → Developer options → Install unknown apps → Downloader on. No Developer options? Settings → My Fire TV → About → press the device name 7 times.</li>
 </ul></li>
 <li>Open Downloader (allow its storage request), select the address box and type: <code>sofatube.github.io/tv</code> then press <b>Go</b>.</li>
-<li>When the download ends, choose <b>Install</b>, then <b>Open</b>. Downloader then offers to delete the downloaded file: <b>Delete</b> saves space.</li>
+<li>When the download ends, choose <b>Install</b>, then <b>Open</b>. This is <b>Sofa Tube Installer</b> (small): it downloads the full Sofa Tube, checks it and installs it.</li>
+<li>The first time, the TV says the installer is not allowed to install apps: choose <b>Settings</b>, turn on <b>Sofa Tube Installer</b>, press <b>Back</b>. If the TV then shows Downloader, open <b>Sofa Tube Installer</b> again from your apps: it goes on by itself.</li>
+<li>Choose <b>Install</b> for Sofa Tube. Sofa Tube opens; the installer offers to remove itself (it is not needed any more: Sofa Tube updates itself).</li>
 </ol>
+<p class="meta">Why an installer? Google Play Protect blocks apps with an accessibility service (Sofa Tube's Whole TV remote has one) when Downloader installs them ("App blocked to protect your device"). The installer installs the same full app, so nothing is left out.</p>
 <h3>Fallback: USB stick (needs a computer)</h3>
 <p>Download the .apk from <a href="/tv/">sofatube.github.io/tv</a>, copy it to a USB stick, open it on the TV with a file manager app, allow that app to install unknown apps, then Install, Open.</p>
 <h3>Good to know</h3>
@@ -1061,6 +1067,9 @@ def videos(lang):
                 nv = '0.9.6' if int(n) >= 45 else '0.9.5'
                 note = L(lang, f'<p class="meta">New in {nv} · text on the screen, no voice</p>',
                          f'<p class="meta">جديد في <bdi>{nv}</bdi> · نصّ على الشاشة دون تعليق صوتي</p>')
+                if n == '35':
+                    note = L(lang, '<p class="meta">New in 0.9.5, updated for 0.9.6 (Control from away is now its own page in Settings) · text on the screen, no voice</p>',
+                             '<p class="meta">جديد في <bdi>0.9.5</bdi>، ومحدَّث لـ<bdi>0.9.6</bdi> (صار «التحكم من خارج المنزل» صفحة خاصة في «الإعدادات») · نصّ على الشاشة دون تعليق صوتي</p>')
             if n == '33':
                 note = L(lang, '<p class="warn">Made for 0.9.4. What 0.9.5 adds online (Control from away, remote help, lyrics) is in the FAQ: <a href="/faq/#privacy">What goes online?</a></p>',
                          '<p class="warn">صُنع لإصدار <bdi>0.9.4</bdi>. وما يضيفه <bdi>0.9.5</bdi> من اتصال بالإنترنت («التحكم من خارج المنزل» و«المساعدة عن بُعد» وكلمات الأغنية) في الأسئلة الشائعة: <a href="/ar/faq/#privacy">ما الذي يتصل بالإنترنت؟</a></p>')
@@ -1250,7 +1259,7 @@ EN_PRIVACY = f"""<p>Only what a feature needs, and most of it only when you turn
 </ul>
 <p><b>Stays at home:</b> the phone page (the TV serves it on your Wi-Fi), Share with another TV and My TVs (no server), photos and videos shown from the phone (kept on the TV only briefly, deleted when the viewer closes), home automation (home network only), the Wi-Fi check and the “YouTube changed something” check.</p>"""
 
-EN_AWAY = f"""<p>Control from away is <b>off by default</b>. A parent turns it on at the TV (Settings → Kids → Control from away; a PIN is needed) and adds a phone at home by scanning the TV's code. Both screens show the same 4 words; then OK and the PIN on the TV.</p>
+EN_AWAY = f"""<p>Control from away is <b>off by default</b>. A parent turns it on at the TV (Settings → Control from away, next to Phone remote; a PIN is needed) and adds a phone at home by scanning the TV's code. Both screens show the same 4 words; then OK and the PIN on the TV.</p>
 <ul>
 <li><b>An end-to-end encrypted mailbox.</b> The TV and the phone leave sealed messages for each other on a free public ntfy server, <b>ntfy.sh</b> by default. Only your TV and your phone have the keys. The server sees the internet addresses of the TV and the phone, when a message is left and its size (always one of three fixed sizes), never what is in it: not the video, not the app, not the time used, not your messages. The TV only calls out; nothing on the internet can call into your TV.</li>
 <li><b>The server can be changed:</b> run your own ntfy server and type its address on the TV (Settings → Kids → Own mailbox server); paired phones move to it by themselves. Or use your own <b>Tailscale</b>: the phone is then “at home” and no mailbox server is used. The guide, in plain words: <a href="/remote/away-help.html">How to connect from away</a>.</li>
@@ -1302,7 +1311,7 @@ AR_PRIVACY = f"""<p>ما تحتاج إليه كل ميزة فقط، وأغلبه
 </ul>
 <p><b>يبقى في المنزل:</b> صفحة الهاتف (يقدّمها التلفاز عبر شبكة الواي فاي في بيتك)، و«المشاركة مع تلفاز آخر» و«أجهزة التلفاز الخاصة بي» (دون خادم)، والصور والفيديوهات المعروضة من الهاتف (يحتفظ بها التلفاز مدة قصيرة فقط، وتُحذف عند إغلاق العارض)، و«أتمتة المنزل» (على شبكة المنزل فقط)، وفحص الواي فاي، وفحص «YouTube غيّر شيئًا».</p>"""
 
-AR_AWAY = f"""<p>«التحكم من خارج المنزل» <b>غير مفعّل في البداية</b>. يفعّله أحد الوالدين على التلفاز (الإعدادات ← الأطفال ← «التحكم من خارج المنزل»، ويلزم الرمز السري)، ويضيف هاتفًا وهو في المنزل بمسح رمز التلفاز. تظهر الكلمات الأربع نفسها على الجهازين، ثم OK والرمز السري على التلفاز.</p>
+AR_AWAY = f"""<p>«التحكم من خارج المنزل» <b>غير مفعّل في البداية</b>. يفعّله أحد الوالدين على التلفاز (الإعدادات ← «التحكم من خارج المنزل»، بعد «جهاز التحكم من الهاتف»، ويلزم الرمز السري)، ويضيف هاتفًا وهو في المنزل بمسح رمز التلفاز. تظهر الكلمات الأربع نفسها على الجهازين، ثم OK والرمز السري على التلفاز.</p>
 <ul>
 <li><b>خادم رسائل مشفّر بين الطرفين.</b> يترك التلفاز وهاتفك رسائل مختومة لبعضهما على خادم ntfy عام مجاني، وهو <b>ntfy.sh</b> في البداية. لا يملك المفاتيح إلا تلفازك وهاتفك. يرى الخادم عنوانَي التلفاز والهاتف على الإنترنت، ووقت ترك الرسالة، وحجمها (وهو دائمًا أحد ثلاثة أحجام ثابتة)، ولا يرى محتواها أبدًا: لا الفيديو ولا التطبيق ولا الوقت المستخدم ولا رسائلك. والتلفاز هو من يتصل دائمًا؛ ولا يمكن لأي جهة على الإنترنت الاتصال بتلفازك.</li>
 <li><b>يمكن تغيير الخادم:</b> شغّل خادم ntfy خاصًا بك واكتب عنوانه على التلفاز (الإعدادات ← الأطفال ← «خادم رسائل خاص»)، فتنتقل الهواتف المقترنة إليه تلقائيًا. أو استخدم شبكة <b>Tailscale</b> الخاصة بك: يكون الهاتف حينها «في المنزل» ولا يُستخدم خادم رسائل. الدليل بكلمات بسيطة: <a href="/remote/away-help.html">طرق الاتصال من خارج المنزل</a>.</li>
