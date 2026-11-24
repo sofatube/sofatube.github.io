@@ -2105,6 +2105,12 @@
         try {
           lang = localStorage.getItem(LANG_KEY) || '';
         } catch (e) {}
+        // a TV's Control from away code (its QR code opens this page): the
+        // pairing page, whatever TV this phone already has (0.9.7)
+        if (hash.away) {
+          location.replace('away.html' + location.hash);
+          return;
+        }
         if (hash.lang === 'ar' || hash.lang === 'en') {
           // the phone page's language (the TV's), kept for the next visits
           lang = hash.lang;

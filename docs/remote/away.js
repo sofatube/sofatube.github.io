@@ -49,6 +49,8 @@
       wordsWait:
         'Now press OK on the TV and enter the PIN there. If the TV shows other words, cancel: press Back on the TV.',
       paired: 'Paired with {tv}',
+      pairSlow:
+        "The TV hasn't answered yet. If it doesn't show these 4 words: make sure the code on the TV is a fresh one, and that the TV's date and time are right.",
       pairFail:
         'The TV did not answer. Is the TV on and connected to the internet?',
       nowTitle: 'Now',
@@ -209,6 +211,8 @@
       wordsWait:
         'اضغط الآن OK على التلفاز وأدخل الرمز السري هناك. وإذا ظهرت على التلفاز كلمات أخرى، فألغِ الاقتران بزر الرجوع.',
       paired: 'تم الاقتران بـ {tv}',
+      pairSlow:
+        'لم يُجب التلفاز بعد. إن لم تظهر عليه هذه الكلمات الأربع، فتأكّد من أن الرمز على التلفاز جديد، ومن صحة تاريخ التلفاز ووقته.',
       pairFail: 'لم يُجب التلفاز. هل التلفاز مشغّل ومتصل بالإنترنت؟',
       nowTitle: 'الآن',
       refresh: 'تحديث',
@@ -795,6 +799,8 @@
     $('pair-ways').classList.add('hidden');
     $('code-box').classList.add('hidden');
     status('');
+    // no answer soon: what to check on the TV (the words stay: it may come)
+    const slow = setTimeout(() => status(tr('pairSlow'), 'bad'), 45000);
     const paired = new Promise((ok) => {
       waiting.paired = ok;
       setTimeout(() => ok(null), 10 * 60 * 1000);
@@ -802,9 +808,11 @@
     try {
       await post(env);
     } catch {
+      clearTimeout(slow);
       return pairFailed();
     }
     const r = await paired;
+    clearTimeout(slow);
     delete waiting.paired;
     if (!r) return pairFailed();
     tv.paired = true;
@@ -1269,7 +1277,7 @@
     help.append(a);
   }
 
-  async function unlocked(want) {
+  async function unlocked(want, offer) {
     await loadTvs();
     turn = (await get('turn')) || null;
     drawRelay();
@@ -1277,7 +1285,11 @@
     // which TV: the one asked for (a notification, the front page), the
     // only one; with more than one, the owner picks (nothing opens by
     // itself, as a cast button or a home picker would)
-    tv = tvs.find((x) => x.tvId === want) || (tvs.length === 1 ? tvs[0] : null);
+    // (a TV's code opened: that TV pairs first, no other one opens over it)
+    tv =
+      tvs.find((x) => x.tvId === want) ||
+      (tvs.length === 1 && !offer ? tvs[0] : null);
+    if (offer) usePairLink(offer);
     show();
     // every TV's moves (a phone removed there) while this app was closed
     for (const t of tvs) {
@@ -1785,13 +1797,11 @@
           return status(tr('lockBad'), 'bad');
         $('lock-pin').value = '';
         status('');
-        await unlocked(want);
-        if (offer) usePairLink(offer);
+        await unlocked(want, offer);
       };
       return;
     }
-    await unlocked(want);
-    if (offer) usePairLink(offer);
+    await unlocked(want, offer);
     // a pairing link opened while the app is open (only # changes)
     window.addEventListener('hashchange', () => {
       const o = C.readOffer(location.hash);
@@ -1807,6 +1817,12 @@
    */
   function usePairLink(offer) {
     history.replaceState(null, '', location.pathname);
+    closeFull();
+    if (waiting.paired) {
+      // a newer code while an older one still waits: the newer one counts
+      pairCancelled = true;
+      waiting.paired(null);
+    }
     adding = !!tvs.length;
     show();
     $('scan').textContent = tr('pairWith', { tv: offer.name || 'TV' });
