@@ -164,6 +164,9 @@
         'Remove “{tv}” from this phone? Your other TVs stay. Remove this phone on that TV too (Settings → Control from away).',
       tvAdd: '+ Add a TV',
       tvsFull: 'This phone already has 6 TVs. Remove one first.',
+      tvRemoved:
+        'This phone was removed on “{tv}”, so it can’t control that TV from away any more. To use it again: on the TV open Settings → Control from away → Add a phone.',
+      tvRemovedShort: 'Removed on the TV',
       tvLast: 'Last answer {t}',
       tvNever: 'No answer yet',
       pairAddTitle: 'Add a TV',
@@ -324,6 +327,9 @@
         'هل تريد إزالة «{tv}» من هذا الهاتف؟ تبقى أجهزة التلفاز الأخرى. أزِل هذا الهاتف من ذلك التلفاز أيضًا (الإعدادات ثم «التحكم من خارج المنزل»).',
       tvAdd: '+ إضافة تلفاز',
       tvsFull: 'على هذا الهاتف 6 أجهزة تلفاز. أزِل واحدًا منها أولًا.',
+      tvRemoved:
+        'أُزيل هذا الهاتف من «{tv}»، فلم يعد يتحكم في ذلك التلفاز من خارج المنزل. لاستخدامه من جديد افتح على التلفاز: الإعدادات ثم «التحكم من خارج المنزل» ثم «إضافة هاتف».',
+      tvRemovedShort: 'أُزيل هذا الهاتف من التلفاز',
       tvLast: 'آخر رد {t}',
       tvNever: 'لا يوجد رد بعد',
       pairAddTitle: 'إضافة تلفاز',
@@ -467,6 +473,15 @@
     if (!t) return;
     const msg = await openEnv(text, t);
     if (!msg) return;
+    if (msg.op === 'removed') {
+      // 0.9.7: someone removed this phone on the TV (only the TV has the
+      // keys to say so); the entry stays until the owner removes it here
+      t.removed = Date.now();
+      await saveTv(t);
+      if (t === tv) showRemoved();
+      else drawTvs();
+      return;
+    }
     if (msg.op === 'move') {
       // the TV's new key and topics (a phone was removed, or a new server)
       t.relay = msg.r;
@@ -502,6 +517,29 @@
     if (msg.op === 'paired' && waiting.paired) waiting.paired(msg);
     // one more of the TV's addresses, after its answer (a router port)
     if (msg.op === 'cand' && waiting.cand) waiting.cand(msg);
+  }
+
+  /** The TV in use removed this phone: said, and nothing keeps trying. */
+  function showRemoved() {
+    Object.keys(waiting).forEach((k) => {
+      if (!/^\d+$/.test(k)) return; // (questions; not pairing, addresses)
+      waiting[k](null);
+      delete waiting[k];
+    });
+    closeFull();
+    if (rtc) {
+      try {
+        rtc.pc.close();
+      } catch {
+        /* closed */
+      }
+      rtc = null;
+    }
+    $('now').textContent = '';
+    $('now-note').textContent = '';
+    $('full-note').textContent = '';
+    drawTvs();
+    status(tr('tvRemoved', { tv: tvLabel(tv) }), 'bad');
   }
 
   /** Reads what waits on a TV's outbox (moves). */
@@ -939,8 +977,10 @@
   }
 
   async function refresh() {
+    if (tv.removed) return showRemoved();
     status(tr('asking'));
     const r = await ask({ op: 'now' });
+    if (tv && tv.removed) return showRemoved();
     $('now').textContent = '';
     if (!r) {
       status(tr(relayLimited ? 'relayBusy' : 'unreachable'), 'bad');
@@ -1117,9 +1157,11 @@
       nm.textContent = tvLabel(t);
       const st = document.createElement('span');
       st.className = 'small';
-      st.textContent = t.lastOk
-        ? tr('tvLast', { t: when(t.lastOk) })
-        : tr('tvNever');
+      st.textContent = t.removed
+        ? tr('tvRemovedShort')
+        : t.lastOk
+          ? tr('tvLast', { t: when(t.lastOk) })
+          : tr('tvNever');
       txt.append(nm, st);
       const b = document.createElement('div');
       b.className = 'btns';
@@ -1637,7 +1679,7 @@
 
   let fullBusy = false;
   async function openFull() {
-    if (fullBusy) return;
+    if (fullBusy || !tv || tv.removed) return;
     fullBusy = true;
     // the full page needs WebRTC and a sandboxed frame (srcdoc): without
     // them the simple view stays, and says why
