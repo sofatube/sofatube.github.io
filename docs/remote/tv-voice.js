@@ -291,6 +291,7 @@
     listening = null;
     clearTimeout(s.timer);
     clearInterval(s.watch);
+    if (s.unload) s.unload();
     try {
       if (s.stop && !done) s.stop(true);
     } catch {
@@ -342,6 +343,17 @@
     return b;
   }
 
+  // Stop on the bar is a tap in this window too: a page that starts again at
+  // its end must not get it, so after Stop nothing listens for a while
+  // (review of #417: Stop could be defeated)
+  let quietUntil = 0;
+  const QUIET_MS = 6000;
+  // a page in fullscreen covers this window's bar: never listen under it,
+  // and a page going fullscreen ends the listening (review of #417)
+  document.addEventListener('fullscreenchange', () => {
+    if (document.fullscreenElement) end('aborted');
+  });
+
   function ask(me, f, d, live) {
     if (!Number.isInteger(d.id) || d.id < 1) return;
     const s = { n: me.n, f, id: d.id, live, bar: null, stop: null };
@@ -353,6 +365,8 @@
     if (!how) return no('service-not-allowed');
     const ua = navigator.userActivation;
     if (!ua || !ua.isActive) return no('not-allowed'); // only after a tap
+    if (document.fullscreenElement || Date.now() < quietUntil)
+      return no('not-allowed');
     if (listening) end('aborted'); // a new ask wins (one at a time)
     const lang =
       typeof d.lang === 'string' &&
@@ -380,12 +394,19 @@
       });
     };
     listening = s;
-    s.bar = bar(() => stop({ id: s.id }));
+    s.bar = bar(() => {
+      quietUntil = Date.now() + QUIET_MS;
+      stop({ id: s.id });
+    });
     s.timer = setTimeout(() => end('no-speech'), MAX_MS);
     // a new page in the frame, or the frame closed: the listening ends
     s.watch = setInterval(() => {
       if (!s.live() || !f.isConnected) end('aborted');
     }, 300);
+    // ...or the frame's page going elsewhere (its load event)
+    const gone = () => end('aborted');
+    f.addEventListener('load', gone);
+    s.unload = () => f.removeEventListener('load', gone);
     try {
       s.stop = (how === 'app' ? listenApp : listenWeb)(
         lang,
@@ -409,7 +430,11 @@
       if (appPort && appShares && ua && ua.isActive)
         appPort.postMessage(JSON.stringify({ do: 'share' }));
     } else if (d.kind === 'closed') {
-      if (live() && self.sofaTvVoice.onClosed) self.sofaTvVoice.onClosed();
+      // Disconnect is a tap in the page: a page can't send the app back to
+      // its start (and keep it off) by itself (review of #417)
+      const ua = navigator.userActivation;
+      if (live() && ua && ua.isActive && self.sofaTvVoice.onClosed)
+        self.sofaTvVoice.onClosed();
     } else return false;
     return true;
   }

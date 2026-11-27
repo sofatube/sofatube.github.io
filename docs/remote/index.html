@@ -1161,13 +1161,16 @@
                 home.close();
                 return false;
               }
-              // (a page that never says it loaded still shows)
-              setTimeout(shownFull, 8000);
+              // (a page that never says it loaded still shows; this TV's
+              // only: another one opened meanwhile has its own wait)
+              clearTimeout(fullWait);
+              fullWait = setTimeout(shownFull, 8000);
               sendHash = ''; // sent once (a reconnect opens the remote only)
               return true;
             });
         }
         // the TV's page is in (load doesn't bubble: caught on the way down)
+        var fullWait = 0;
         function shownFull() {
           if (!$('full').classList.contains('loading')) return;
           $('full').classList.remove('loading');
@@ -1181,6 +1184,7 @@
           true
         );
         function hideFull() {
+          clearTimeout(fullWait);
           document.documentElement.style.overflow = '';
           $('full').classList.remove('loading');
           $('full').classList.add('hidden');
