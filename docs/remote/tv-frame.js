@@ -34,6 +34,7 @@
  */
 (function () {
   'use strict';
+  const VOICE = self.sofaTvVoice || null; // the buzz, the voice: tv-voice.js
   const SANDBOX =
     'allow-scripts allow-forms allow-modals allow-popups ' +
     'allow-popups-to-escape-sandbox allow-downloads';
@@ -931,12 +932,9 @@
 
   /** The page put together: the script first, then the TV's text. */
   function build(html, cfg) {
-    const js =
-      '<script>(' +
-      shim.toString() +
-      ')(' +
-      JSON.stringify(cfg).replace(/</g, '\\u003c') +
-      ');</script>';
+    const c = JSON.stringify(cfg).replace(/</g, '\\u003c');
+    const v = VOICE ? `(${VOICE.shim})(${c},${VOICE.can()});` : '';
+    const js = `<script>${v}(${shim})(${c});</script>`;
     const page = rewrite(html);
     const head = /<head\b[^>]*>/i.exec(page);
     if (head)
@@ -1043,12 +1041,10 @@
       if (done) done();
       return;
     }
-    if (d.kind === 'store') {
-      storePut(me.id, d.data);
-      return;
-    }
+    if (d.kind === 'store') return storePut(me.id, d.data);
     if (d.kind === 'yt') return ytMsg(me, f, d);
     if (d.kind === 'scan') return scanAsk(me, f, d);
+    if (VOICE && VOICE.msg(me, f, d, () => live === me)) return;
     if (d.kind !== 'req') return;
     const m = String(d.m || '').toUpperCase();
     if (
