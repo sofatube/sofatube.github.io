@@ -97,6 +97,15 @@
   /* ---------------- the TV over the Wi-Fi ---------------- */
 
   async function lan(a, path, body, ms) {
+    // inside the Sofa Tube app: the app reaches the TV (app-bridge.js)
+    if (self.sofaApp && (await self.sofaApp.ready()))
+      return self.sofaApp.lan(
+        a,
+        body === undefined ? 'GET' : 'POST',
+        path,
+        body,
+        ms
+      );
     const ctl = new AbortController();
     const timer = setTimeout(() => ctl.abort(), ms || 8000);
     try {
@@ -206,7 +215,7 @@
         a,
         at: Date.now()
       });
-    return { url: msg.url, home: !!msg.home };
+    return { url: msg.url, home: !!msg.home, full: msg.full === true };
   }
 
   /* ---------------- the channel ---------------- */

@@ -211,6 +211,31 @@
         color: var(--text);
         direction: ltr;
       }
+      /* not here: dimmed, readable, opens in place (not-here-097.md) */
+      details.nothere {
+        margin-top: 12px;
+        border: 1px dashed var(--line);
+        border-radius: 10px;
+        padding: 10px 14px;
+        color: var(--muted);
+      }
+      details.nothere summary {
+        cursor: pointer;
+        font-weight: 600;
+      }
+      details.nothere summary span {
+        display: block;
+        font-weight: 400;
+        font-size: 13px;
+        text-decoration: underline;
+      }
+      details.nothere ul {
+        margin: 6px 0 0;
+        padding-inline-start: 18px;
+      }
+      details.nothere li {
+        margin: 6px 0;
+      }
       .hidden {
         display: none;
       }
@@ -334,6 +359,13 @@
         <p id="share-what" class="small"></p>
       </section>
 
+      <!-- shared while no TV answered (0.9.7) -->
+      <section class="card hidden" id="later-card">
+        <h2 id="later-title"></h2>
+        <p id="later-hint" class="small muted"></p>
+        <ul id="later-list"></ul>
+      </section>
+
       <section class="card">
         <p id="status" role="status" aria-live="polite"></p>
         <p id="detail" class="small"></p>
@@ -356,6 +388,26 @@
             <button id="join-stop" class="btn ghost" type="button"></button>
           </div>
         </div>
+        <!-- Safari, Firefox: no looking on the Wi-Fi from a page -->
+        <details id="nh-find" class="nothere hidden">
+          <summary>
+            <b id="nh-find-title"></b><span id="nh-find-tag"></span>
+          </summary>
+          <p id="nh-find-why" class="small"></p>
+          <p id="nh-find-ways" class="small" style="font-weight: 600"></p>
+          <ul class="small">
+            <li id="nh-find-cam"></li>
+            <li id="nh-find-type"></li>
+            <li>
+              <span id="nh-find-chrome"></span>
+              <button
+                id="nh-find-copy"
+                class="btn ghost"
+                type="button"
+              ></button>
+            </li>
+          </ul>
+        </details>
         <div id="scanbox" class="hidden">
           <video id="scanvideo" playsinline muted></video>
           <div class="btns">
@@ -392,7 +444,35 @@
         </div>
       </section>
 
-      <section class="card">
+      <!-- only inside the Sofa Tube app on an Android phone (one-app-097.md) -->
+      <section class="card hidden" id="app-card">
+        <h2 id="app-title"></h2>
+        <p id="app-text" class="small"></p>
+        <div class="btns">
+          <button id="app-share" class="btn hidden" type="button"></button>
+          <button
+            id="app-setup"
+            class="btn ghost hidden"
+            type="button"
+          ></button>
+        </div>
+      </section>
+
+      <!-- an Android phone's browser: what only the app can (one-app-097.md) -->
+      <section class="card hidden" id="get-card">
+        <h2 id="get-title"></h2>
+        <p id="get-text" class="small"></p>
+        <div class="btns">
+          <a
+            id="get-btn"
+            class="btn"
+            href="https://sofatube.github.io/setup/#android-phone"
+          ></a>
+          <button id="get-not" class="btn ghost" type="button"></button>
+        </div>
+      </section>
+
+      <section class="card" id="home-card">
         <h2 id="home-title"></h2>
         <p id="home" class="small"></p>
       </section>
@@ -422,6 +502,7 @@
     <script src="away-crypto.js"></script>
     <script src="tv-frame.js"></script>
     <script src="home.js"></script>
+    <script src="app-bridge.js"></script>
     <script>
       /*
        * Sofa Tube "Find my TV" page (F5): a fixed https address for the phone's
@@ -447,10 +528,13 @@
             lead: 'Opens the Sofa Tube remote on this phone, even after the TV’s address on your Wi-Fi changes.',
             saved:
               'Your TV is saved on this page. Now add this page to your home screen (below).',
+            savedApp: 'Your TV is saved in the app.',
             searching: 'Looking for your TV…',
             progress: 'Addresses checked: {n} of {m}',
             found: 'Found your TV. Opening the remote…',
             ask: 'Tap “Find my TV”. Chrome asks to look for devices on your Wi-Fi: allow it, so this page can find the TV.',
+            askApp:
+              'Tap “Find my TV”. If the phone asks to look for devices on your Wi-Fi, allow it.',
             find: 'Find my TV',
             again: 'Search again',
             denied: 'This page may not look for devices on your Wi-Fi.',
@@ -459,6 +543,8 @@
             noSearch: 'This browser can’t look for the TV on your Wi-Fi.',
             noSearchHow:
               'The remote opens at the TV’s last address. If that fails, scan the code on the TV again, then on the phone page tap Settings → This phone → Add to home screen → Get the app.',
+            noSearchHowApp:
+              'The remote opens at the TV’s last address. If that fails, scan the code on the TV again.',
             opening: 'Opening {a}…',
             notFound: 'Your TV was not found.',
             notFoundHow:
@@ -466,6 +552,8 @@
             first: 'This page doesn’t know your TV yet.',
             firstHow:
               'On the TV open Sofa Tube → Settings → Phone remote and scan the code. On the phone page tap Settings → This phone → Add to home screen → Get the app. Or type the TV’s address below.',
+            firstHowApp:
+              'On the TV open Sofa Tube → Settings → Phone remote, then tap “Scan the TV’s code” here. Or type the TV’s address below.',
             known: 'Your TVs',
             open: 'Open',
             forget: 'Remove',
@@ -473,6 +561,30 @@
             manualHint:
               'The TV’s address is the line under the code on the TV’s “Phone remote” page, e.g. http://192.168.1.20:8686.',
             badAddr: 'Not a home network address of a TV (like 192.168.1.20).',
+            appTitle: 'On this phone',
+            appText:
+              'What a web page can’t do, the Sofa Tube app does here: show this phone’s screen on the TV, and install Sofa Tube on a TV.',
+            appShare: 'Share this phone’s screen',
+            appSetup: 'Set up a TV',
+            getTitle: 'More with the Sofa Tube app',
+            getText:
+              'Phone browsers can’t share the screen or set up a TV. The free Sofa Tube app for Android can: everything here, and those too.',
+            getBtn: 'Get the app',
+            getNot: 'Not now',
+            getTextIos:
+              'iPhone browsers can’t share the screen or set up a TV, and there is no iPhone app yet. A computer can (open this page there), and so can the free Sofa Tube app on an Android phone.',
+            nhTag: 'Not here · how to get it',
+            nhWays: 'Ways to get it',
+            nhFind: 'Find the TV on the Wi-Fi',
+            nhFindWhy:
+              'Only Chrome (on Android or a computer) lets a web page look for the TV on your Wi-Fi. This browser keeps the page from reaching it.',
+            nhFindCam:
+              'Scan the code on the TV with this phone’s camera app: it opens the TV’s page.',
+            nhFindType: 'Or type the address the TV shows, below.',
+            nhFindChrome:
+              'Or open this page in Chrome on an Android phone or a computer.',
+            nhCopy: 'Copy the address',
+            nhCopied: 'Copied',
             awayTitle: 'Control from away',
             awayText:
               'At work or on mobile data: see what is on the family TV now, give more time, lock, send a message. Sealed messages; pair once at home.',
@@ -484,6 +596,12 @@
             shareList: 'YouTube playlist {l}',
             shareAt: 'from {t}',
             shareSearch: 'Search on the TV: “{q}”',
+            laterTitle: 'Not sent yet',
+            laterHint:
+              'You shared these when no TV answered. They wait on this phone only, and are sent only when you tap Send.',
+            laterDrop: 'Remove',
+            laterOpened:
+              'Opened on the TV’s page. If it played, remove it here.',
             shareBad: 'This is not a link to a YouTube video.',
             shareBadHow:
               'Share a video from the YouTube app (Share → Sofa Tube), or open your TV’s remote below.',
@@ -506,6 +624,8 @@
             scanStop: 'Cancel',
             firstHowNew:
               'Open Sofa Tube on the TV, then tap “Find my TV”. Chrome asks to look for devices on your Wi-Fi: allow it. Then press OK on the TV. Or scan the code on the TV (Settings → Phone remote).',
+            firstHowNewApp:
+              'Open Sofa Tube on the TV, then tap “Find my TV”. If the phone asks to look for devices on your Wi-Fi, allow it. Then press OK on the TV. Or scan the code on the TV (Settings → Phone remote).',
             discovering: 'Looking for Sofa Tube on your Wi-Fi…',
             discoveringBusy:
               'Looking for Sofa Tube on your Wi-Fi… The free message server is busy for this internet connection now, so this can take a little longer.',
@@ -533,6 +653,8 @@
             joinBusy:
               'The TV is answering another phone. Try again in a minute.',
             joinWaitLong: 'Too many tries. Wait a few minutes, then try again.',
+            joinFull:
+              'The TV’s list of remembered phones is full, so this phone is not kept. Remove one on the TV: Settings → Phone remote → Remembered phones.',
             joinFail:
               'Could not ask the TV. Update Sofa Tube on the TV, or scan the code on the TV (Settings → Phone remote).',
             findAnother: 'Find another TV',
@@ -568,10 +690,13 @@
             lead: 'يفتح جهاز التحكم صوفا تيوب على هذا الهاتف، حتى بعد تغيّر عنوان التلفاز في شبكة الواي فاي.',
             saved:
               'حُفظ التلفاز في هذه الصفحة. أضف الآن هذه الصفحة إلى الشاشة الرئيسية (أدناه).',
+            savedApp: 'حُفظ التلفاز في التطبيق.',
             searching: 'جارٍ البحث عن التلفاز…',
             progress: 'العناوين المفحوصة: {n} من {m}',
             found: 'وُجد التلفاز. جارٍ فتح جهاز التحكم…',
             ask: 'اضغط «ابحث عن التلفاز». سيطلب Chrome الإذن بالبحث عن الأجهزة في شبكة الواي فاي: اسمح بذلك لتتمكن هذه الصفحة من العثور على التلفاز.',
+            askApp:
+              'اضغط «ابحث عن التلفاز». وإذا طلب الهاتف الإذن بالبحث عن الأجهزة في شبكة الواي فاي، فاسمح بذلك.',
             find: 'ابحث عن التلفاز',
             again: 'ابحث مرة أخرى',
             denied: 'لا يُسمح لهذه الصفحة بالبحث عن الأجهزة في شبكة الواي فاي.',
@@ -581,6 +706,8 @@
               'لا يستطيع هذا المتصفح البحث عن التلفاز في شبكة الواي فاي.',
             noSearchHow:
               'يُفتح جهاز التحكم على آخر عنوان للتلفاز. وإذا لم يُفتح، فامسح رمز QR على التلفاز مرة أخرى، ثم اضغط في صفحة الهاتف: الإعدادات ← هذا الهاتف ← إضافة إلى الشاشة الرئيسية ← احصل على التطبيق.',
+            noSearchHowApp:
+              'يُفتح جهاز التحكم على آخر عنوان للتلفاز. وإذا لم يُفتح، فامسح رمز QR على التلفاز مرة أخرى.',
             opening: 'جارٍ فتح {a}…',
             notFound: 'لم يُعثر على التلفاز.',
             notFoundHow:
@@ -588,6 +715,8 @@
             first: 'لا تعرف هذه الصفحة التلفاز بعد.',
             firstHow:
               'افتح على التلفاز صوفا تيوب ← الإعدادات ← جهاز التحكم من الهاتف، وامسح رمز QR. ثم اضغط في صفحة الهاتف: الإعدادات ← هذا الهاتف ← إضافة إلى الشاشة الرئيسية ← احصل على التطبيق. أو اكتب عنوان التلفاز أدناه.',
+            firstHowApp:
+              'افتح على التلفاز صوفا تيوب ← الإعدادات ← جهاز التحكم من الهاتف، ثم اضغط هنا «امسح رمز QR على التلفاز». أو اكتب عنوان التلفاز أدناه.',
             known: 'أجهزة التلفاز',
             open: 'فتح',
             forget: 'إزالة',
@@ -595,6 +724,30 @@
             manualHint:
               'عنوان التلفاز هو السطر الظاهر تحت رمز QR في صفحة «جهاز التحكم من الهاتف» على التلفاز، مثل http://192.168.1.20:8686.',
             badAddr: 'هذا ليس عنوان تلفاز في شبكة منزلية (مثل 192.168.1.20).',
+            appTitle: 'على هذا الهاتف',
+            appText:
+              'ما لا تقدر عليه صفحة الويب يقوم به تطبيق صوفا تيوب هنا: عرض شاشة هذا الهاتف على التلفاز، وتثبيت صوفا تيوب على تلفاز.',
+            appShare: 'مشاركة شاشة هذا الهاتف',
+            appSetup: 'إعداد تلفاز',
+            getTitle: 'المزيد مع تطبيق صوفا تيوب',
+            getText:
+              'متصفحات الهواتف لا تستطيع مشاركة الشاشة ولا إعداد تلفاز. تطبيق صوفا تيوب المجاني على Android يستطيع: كل ما هنا، وهذين أيضًا.',
+            getBtn: 'احصل على التطبيق',
+            getNot: 'ليس الآن',
+            getTextIos:
+              'متصفحات iPhone لا تستطيع مشاركة الشاشة ولا إعداد تلفاز، ولا يوجد تطبيق على iPhone بعد. الحاسوب يستطيع (افتح هذه الصفحة عليه)، وكذلك تطبيق صوفا تيوب المجاني على هاتف Android.',
+            nhTag: 'غير متاح هنا · كيف تحصل عليه',
+            nhWays: 'طرق الحصول عليه',
+            nhFind: 'البحث عن التلفاز في شبكة Wi-Fi',
+            nhFindWhy:
+              'وحده Chrome (على Android أو الحاسوب) يسمح لصفحة ويب بالبحث عن التلفاز في شبكة Wi-Fi. هذا المتصفح يمنع الصفحة من الوصول إليه.',
+            nhFindCam:
+              'امسح الرمز الظاهر على التلفاز بتطبيق الكاميرا في هذا الهاتف: يفتح صفحة التلفاز.',
+            nhFindType: 'أو اكتب العنوان الذي يعرضه التلفاز، أدناه.',
+            nhFindChrome:
+              'أو افتح هذه الصفحة في Chrome على هاتف Android أو حاسوب.',
+            nhCopy: 'نسخ العنوان',
+            nhCopied: 'تم النسخ',
             awayTitle: 'التحكم من خارج المنزل',
             awayText:
               'في العمل أو عبر بيانات الجوال: شاهد ما يُعرض على تلفاز العائلة الآن، وامنح وقتًا إضافيًا، واقفل، وأرسل رسالة. رسائل مشفّرة؛ يكفي الاقتران مرة واحدة في المنزل.',
@@ -606,6 +759,11 @@
             shareList: 'قائمة تشغيل YouTube {l}',
             shareAt: 'من {t}',
             shareSearch: 'البحث على التلفاز: «{q}»',
+            laterTitle: 'لم يُرسَل بعد',
+            laterHint:
+              'شاركت هذه حين لم يُجب أي تلفاز. تنتظر على هذا الهاتف فقط، ولا تُرسَل إلا عندما تنقر على «إرسال».',
+            laterDrop: 'إزالة',
+            laterOpened: 'فُتح في صفحة التلفاز. إذا عُرض فأزِله من هنا.',
             shareBad: 'هذا ليس رابط فيديو من YouTube.',
             shareBadHow:
               'شارك فيديو من تطبيق YouTube («مشاركة» ← صوفا تيوب)، أو افتح جهاز التحكم بالتلفاز أدناه.',
@@ -628,6 +786,8 @@
             scanStop: 'إلغاء',
             firstHowNew:
               'افتح صوفا تيوب على التلفاز، ثم اضغط «ابحث عن التلفاز». سيطلب Chrome الإذن بالبحث عن الأجهزة في شبكة الواي فاي: اسمح بذلك. ثم اضغط OK على التلفاز. أو امسح رمز QR على التلفاز (الإعدادات ← جهاز التحكم من الهاتف).',
+            firstHowNewApp:
+              'افتح صوفا تيوب على التلفاز، ثم اضغط «ابحث عن التلفاز». وإذا طلب الهاتف الإذن بالبحث عن الأجهزة في شبكة الواي فاي، فاسمح بذلك. ثم اضغط OK على التلفاز. أو امسح رمز QR على التلفاز (الإعدادات ← جهاز التحكم من الهاتف).',
             discovering: 'جارٍ البحث عن صوفا تيوب في شبكة الواي فاي…',
             discoveringBusy:
               'جارٍ البحث عن صوفا تيوب في شبكة الواي فاي… خادم الرسائل المجاني مشغول الآن لاتصال الإنترنت هذا، لذا قد يستغرق البحث وقتًا أطول قليلًا.',
@@ -655,6 +815,8 @@
               'صوفا تيوب غير مفتوح على التلفاز. افتحه ثم ابحث مرة أخرى.',
             joinBusy: 'يجيب التلفاز على هاتف آخر. حاول مرة أخرى بعد دقيقة.',
             joinWaitLong: 'محاولات كثيرة. انتظر بضع دقائق ثم حاول مرة أخرى.',
+            joinFull:
+              'قائمة الهواتف المحفوظة على التلفاز ممتلئة، فلم يُحفظ هذا الهاتف. احذف هاتفًا منها على التلفاز: الإعدادات ← الريموت على الهاتف ← الهواتف المحفوظة.',
             joinFail:
               'تعذّر الطلب من التلفاز. حدّث صوفا تيوب على التلفاز، أو امسح رمز QR على التلفاز (الإعدادات ← جهاز التحكم من الهاتف).',
             findAnother: 'ابحث عن تلفاز آخر',
@@ -707,13 +869,45 @@
         // query too, but still block those requests as mixed content, so
         // they can't look on the Wi-Fi from here. navigator.userAgentData is
         // Chromium only (not Chrome on iPhone: that is WebKit).
-        var canLook = !!navigator.userAgentData;
+        // Inside the Sofa Tube app the app looks for the TV (app-bridge.js
+        // "lan"), whatever its WebView says about these.
+        var canLook =
+          !!navigator.userAgentData ||
+          /SofaTubeApp\//.test(navigator.userAgent);
+        // this browser can't look: shown dimmed, with why and the ways
+        function nhFind() {
+          var box = document.getElementById('nh-find');
+          if (!box) return;
+          box.classList.toggle('hidden', canLook);
+          document
+            .getElementById('nh-find-copy')
+            .addEventListener('click', function () {
+              var u = 'https://sofatube.github.io/remote/';
+              var b = this;
+              function done() {
+                b.textContent = tr('nhCopied');
+              }
+              try {
+                navigator.clipboard.writeText(u).then(done, function () {
+                  b.textContent = u;
+                });
+              } catch (e) {
+                b.textContent = u;
+              }
+            });
+        }
+        if (document.readyState === 'loading')
+          document.addEventListener('DOMContentLoaded', nhFind);
+        else nhFind();
 
         function $(id) {
           return document.getElementById(id);
         }
+        // inside the Sofa Tube app (its WebView says SofaTubeApp/): no
+        // "add to home screen" steps, it is already the app
+        var inApp = /SofaTubeApp\//.test(navigator.userAgent);
         function tr(k, v) {
-          var s = T[lang][k];
+          var s = (inApp && T[lang][k + 'App']) || T[lang][k];
           for (var n in v || {}) s = s.replace('{' + n + '}', v[n]);
           return s;
         }
@@ -810,7 +1004,65 @@
         function appMark(url) {
           return url + (url.indexOf('?') < 0 ? '?' : '&') + 'from=app';
         }
+        /** The TV's own page opens with it: only the TV takes it from there. */
+        function laterOpened() {
+          if (sendHash && window.sofaLater) window.sofaLater.opened(sendHash);
+        }
+        function laterDraw() {
+          var list = share || !window.sofaLater ? [] : window.sofaLater.list();
+          $('later-card').classList.toggle('hidden', !list.length);
+          $('later-title').textContent = tr('laterTitle');
+          $('later-hint').textContent = tr('laterHint');
+          var ul = $('later-list');
+          ul.textContent = '';
+          list.forEach(function (x) {
+            var p = window.sofaLater.parts(x.h);
+            var li = document.createElement('li');
+            var b = document.createElement('bdi');
+            b.textContent = p.q
+              ? tr('shareSearch', { q: p.q })
+              : p.v
+                ? tr('shareVideo', { v: p.v })
+                : tr('shareList', { l: p.list });
+            li.appendChild(b);
+            if (x.o) {
+              // (that page cannot tell this app what became of it)
+              var said = document.createElement('p');
+              said.className = 'small muted';
+              said.textContent = tr('laterOpened');
+              li.appendChild(said);
+            }
+            var add = function (k, fn, ghost) {
+              var n = document.createElement('button');
+              n.type = 'button';
+              n.className = 'btn small' + (ghost ? ' ghost' : '');
+              n.textContent = tr(k);
+              n.addEventListener('click', fn);
+              li.appendChild(n);
+            };
+            add('send', function () {
+              share = true;
+              link = p.q ? null : p;
+              shareQ = p.q || '';
+              sendHash = x.h;
+              laterDraw();
+              texts();
+              if (load().length) search();
+              else draw();
+            });
+            add(
+              'laterDrop',
+              function () {
+                window.sofaLater.drop(x.h);
+                laterDraw();
+              },
+              true
+            );
+            ul.appendChild(li);
+          });
+        }
         function go(a, url) {
+          laterOpened();
           remember(a);
           setStatus(tr('connecting'), 'ok');
           // the TV's link from a join (its QR code's), else its address
@@ -870,13 +1122,18 @@
           })[0];
           $('full-name').textContent = (mine && mine.n) || a;
           lostNote = false;
+          var mineHash = sendHash;
           document.documentElement.style.overflow = 'hidden';
           return window.sofaTvFrame
             .open('full-frame', {
               chan: home.request,
               url: url,
               id: home.current(),
-              tv: ownPage(a)
+              tv: ownPage(a),
+              sent: function () {
+                if (mineHash && window.sofaLater)
+                  window.sofaLater.drop(mineHash);
+              }
             })
             .then(function (ok) {
               if (!ok) {
@@ -924,6 +1181,8 @@
         // Chrome's "local network access" permission (Chrome 142+; named
         // "local-network" since 145). 'unsupported': no way to look.
         function permission() {
+          // the app asks the TV itself: no browser permission to wait for
+          if (inApp) return Promise.resolve('granted');
           if (
             !canLook ||
             !navigator.permissions ||
@@ -947,6 +1206,19 @@
 
         /** Does Sofa Tube answer at "ip:port"? */
         function probe(a) {
+          // inside the Sofa Tube app the app asks the TV (app-bridge.js)
+          if (window.sofaApp)
+            return window.sofaApp.ready().then(function (ok) {
+              if (!ok) return probeHere(a);
+              return window.sofaApp
+                .lan(a, 'GET', '/hello', undefined, TIMEOUT)
+                .then(function (r) {
+                  return !!(r.data && r.data.app === 'sofatube');
+                });
+            });
+          return probeHere(a);
+        }
+        function probeHere(a) {
           // (Safari, Firefox: blocked as mixed content; no request, no console error)
           if (!canLook) return Promise.resolve(false);
           var ctl = window.AbortController ? new AbortController() : null;
@@ -1583,6 +1855,7 @@
             var tv = got && tvFromCode(got.url);
             if (!tv) return joinFailed('joinFail');
             joinEnd();
+            if (got.full) window.alert(tr('joinFull'));
             setStatus(tr(sendHash ? 'shareFound' : 'found'), 'ok');
             go(h.a, tv.url);
           });
@@ -1779,6 +2052,7 @@
                       if (tv) {
                         scanEnd();
                         remember(tv.a);
+                        laterOpened();
                         setStatus(tr('opening', { a: iso(tv.a) }), 'ok');
                         location.assign(
                           appMark(tv.url) + (sendHash ? '#' + sendHash : '')
@@ -1945,12 +2219,32 @@
           $('known-title').textContent = tr('known');
           $('manual-btn').textContent = tr('manual');
           $('manual-hint').textContent = tr('manualHint');
+          $('app-title').textContent = tr('appTitle');
+          $('app-text').textContent = tr('appText');
+          $('app-share').textContent = tr('appShare');
+          $('app-setup').textContent = tr('appSetup');
+          $('get-title').textContent = tr('getTitle');
+          $('get-text').textContent = tr('getText');
+          $('get-btn').textContent = tr('getBtn');
+          $('get-not').textContent = tr('getNot');
+          if (/iPhone|iPad|iPod/i.test(navigator.userAgent))
+            $('get-text').textContent = tr('getTextIos');
+          $('nh-find-title').textContent = tr('nhFind');
+          $('nh-find-tag').textContent = tr('nhTag');
+          $('nh-find-why').textContent = tr('nhFindWhy');
+          $('nh-find-ways').textContent = tr('nhWays');
+          $('nh-find-cam').textContent = tr('nhFindCam');
+          $('nh-find-type').textContent = tr('nhFindType');
+          $('nh-find-chrome').textContent = tr('nhFindChrome');
+          $('nh-find-copy').textContent = tr('nhCopy');
           $('away-title').textContent = tr('awayTitle');
           $('away-text').textContent = tr('awayText');
           $('away-btn').textContent = tr('awayBtn');
           $('away-btn').href = 'away.html' + (lang === 'ar' ? '#lang=ar' : '');
           $('home-title').textContent = tr('homeTitle');
           $('home').textContent = tr('home');
+          // the app is already on the home screen and in YouTube's Share menu
+          $('home-card').classList.toggle('hidden', inApp);
           $('dhcp-title').textContent = tr('dhcpTitle');
           $('dhcp').textContent = tr('dhcp');
           $('privacy').textContent = tr('privacy');
@@ -1987,6 +2281,7 @@
         function draw() {
           texts();
           drawKnown();
+          laterDraw();
           if (
             searching ||
             scanStream ||
@@ -2142,6 +2437,8 @@
                 })
               : '';
           if (shareQ) sendHash = window.sofaSearchHash(shareQ);
+          // it waits on this phone until a TV takes it (0.9.7)
+          if (sendHash && window.sofaLater) window.sofaLater.add(sendHash);
           // the shared link stays out of this page's address (and out of a
           // home-screen icon made from it)
           try {

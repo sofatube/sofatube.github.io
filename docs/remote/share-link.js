@@ -149,6 +149,69 @@
     return q ? 'q=' + encodeURIComponent(q) : '';
   }
 
+  /*
+   * What was shared while no TV answered (0.9.7): kept on this phone only
+   * (localStorage 'ytx-later': [{h, at}], h = "send=..." or "q=..."), at most
+   * 10, 14 days, until it is sent or removed by hand. Never sent by itself.
+   */
+  const LATER = 'ytx-later';
+  const LATER_MS = 14 * 86400000;
+  function laterList() {
+    let l;
+    try {
+      l = JSON.parse(root.localStorage.getItem(LATER) || '[]');
+    } catch {
+      l = [];
+    }
+    const t = Date.now();
+    return (Array.isArray(l) ? l : []).filter(
+      (x) =>
+        x &&
+        typeof x.h === 'string' &&
+        (/^send=[\w-]{0,11}(?:&list=[\w-]{2,64})?(?:&t=\d{1,6})?$/.test(x.h) ||
+          /^q=[^&#\s]{1,1800}$/.test(x.h)) &&
+        x.at <= t + 60000 &&
+        t - x.at < LATER_MS
+    );
+  }
+  function laterSave(l) {
+    try {
+      root.localStorage.setItem(LATER, JSON.stringify(l.slice(0, 10)));
+    } catch {
+      /* this phone keeps nothing */
+    }
+  }
+  root.sofaLater = {
+    list: laterList,
+    add(h) {
+      if (!h) return;
+      laterSave(
+        [{ h, at: Date.now() }].concat(laterList().filter((x) => x.h !== h))
+      );
+    },
+    /** A TV's page was opened with it; whether it was sent is not known. */
+    opened(h) {
+      laterSave(
+        laterList().map((x) => (x.h === h ? { h, at: x.at, o: Date.now() } : x))
+      );
+    },
+    drop(h) {
+      laterSave(laterList().filter((x) => x.h !== h));
+    },
+    /** {v, list} or {q} of an entry. */
+    parts(h) {
+      const m = /^send=([\w-]*)(?:&list=([\w-]*))?(?:&t=(\d+))?$/.exec(h);
+      if (m) return { v: m[1], list: m[2] || '', t: Number(m[3]) || 0 };
+      let q = '';
+      try {
+        q = decodeURIComponent(String(h).slice(2));
+      } catch {
+        /* not a text */
+      }
+      return { q };
+    }
+  };
+
   root.sofaShareLink = sofaShareLink;
   root.sofaShareText = sofaShareText;
   root.sofaSearchHash = sofaSearchHash;

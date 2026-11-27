@@ -551,6 +551,10 @@
     var bridge = Object.freeze({
       // the TV's own page (home Wi-Fi), for what only works there
       tvUrl: typeof cfg.tv === 'string' ? cfg.tv : '',
+      /** The TV took what the app was asked to send. */
+      sent: function () {
+        send({ kind: 'sent' });
+      },
       /** -> Promise<{text} | {text: null, why: 'cancel'|'denied'|'nocam'|'nodec'|'busy'}> */
       scan: function () {
         return new Promise(function (ok) {
@@ -976,6 +980,7 @@
       id: o.id,
       url: new URL(o.url, location.href).href,
       tv: tvLink(o.tv),
+      sent: typeof o.sent === 'function' ? o.sent : null,
       frameId,
       yt: {}
     };
@@ -1030,6 +1035,12 @@
     if (d.kind === 'reload') {
       if (typeof d.url === 'string' && sameApp(d.url)) me.url = d.url;
       load(me);
+      return;
+    }
+    if (d.kind === 'sent') {
+      const done = me.sent;
+      me.sent = null; // once
+      if (done) done();
       return;
     }
     if (d.kind === 'store') {
