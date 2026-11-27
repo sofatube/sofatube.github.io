@@ -332,6 +332,15 @@
         border: 0;
         width: 100%;
         height: 100%;
+        /* the frame's empty page (the TV's page still on its way) says no
+           color scheme: with the same one here it is see-through, not a
+           white sheet in dark mode (Galaxy, 2026-11-27) */
+        color-scheme: light;
+      }
+      /* ...and the frame shows once the TV's page is in: "Connecting…"
+         until then */
+      #full.loading {
+        visibility: hidden;
       }
       /* 0.9.6: the code the TV shows too (Join with OK on the TV) */
       .joincode {
@@ -662,6 +671,7 @@
             connecting: 'Connecting to your TV…',
             lost: 'The connection to the TV ended. Connecting again…',
             reopen: 'Open the remote',
+            offNow: 'Disconnected from the TV.',
             notHome: 'Your TV is not on this Wi-Fi.',
             notHomeAway: 'Opening it from away…',
             pickHomeAway:
@@ -826,6 +836,7 @@
             connecting: 'جارٍ الاتصال بالتلفاز…',
             lost: 'انقطع الاتصال بالتلفاز. جارٍ الاتصال من جديد…',
             reopen: 'افتح جهاز التحكم',
+            offNow: 'تم قطع الاتصال بالتلفاز.',
             notHome: 'التلفاز ليس على شبكة الواي فاي هذه.',
             notHomeAway: 'جارٍ فتحه من خارج المنزل…',
             pickHomeAway:
@@ -1067,6 +1078,9 @@
           });
         }
         function go(a, url) {
+          try {
+            localStorage.removeItem(OFF_KEY); // connecting: on again
+          } catch (e) {}
           laterOpened();
           remember(a);
           setStatus(tr('connecting'), 'ok');
@@ -1119,6 +1133,7 @@
             lang +
             (sendHash ? '#' + sendHash : '');
           $('full').classList.remove('hidden');
+          $('full').classList.add('loading');
           $('full').classList.toggle('bar', pickMode());
           $('full-tvs').textContent = tr('tvsBar');
           // which TV is open: its name on this phone, else its address
@@ -1146,16 +1161,70 @@
                 home.close();
                 return false;
               }
-              setStatus('', '');
+              // (a page that never says it loaded still shows)
+              setTimeout(shownFull, 8000);
               sendHash = ''; // sent once (a reconnect opens the remote only)
               return true;
             });
         }
+        // the TV's page is in (load doesn't bubble: caught on the way down)
+        function shownFull() {
+          if (!$('full').classList.contains('loading')) return;
+          $('full').classList.remove('loading');
+          setStatus('', '');
+        }
+        $('full').addEventListener(
+          'load',
+          function (e) {
+            if (e.target.id === 'full-frame' && e.target.srcdoc) shownFull();
+          },
+          true
+        );
         function hideFull() {
           document.documentElement.style.overflow = '';
+          $('full').classList.remove('loading');
           $('full').classList.add('hidden');
           if (window.sofaTvFrame) window.sofaTvFrame.close('full-frame');
         }
+        // "Disconnect" in the TV's page: back to the start, and the app
+        // doesn't connect again by itself (on its next start either) until
+        // "Open the remote" (Galaxy, 2026-11-27)
+        var OFF_KEY = 'sofatube-off';
+        function offNow() {
+          try {
+            return localStorage.getItem(OFF_KEY) === '1';
+          } catch (e) {
+            return false;
+          }
+        }
+        if (window.sofaTvVoice)
+          window.sofaTvVoice.onClosed = function () {
+            try {
+              localStorage.setItem(OFF_KEY, '1');
+            } catch (e) {}
+            hideFull();
+            if (home) home.close();
+            if (pickMode()) return draw();
+            setStatus(tr('offNow'), '');
+            $('detail').textContent = '';
+            showFind(true, tr('reopen'));
+          };
+        // Android's back in the app (WebActivity asks, tv-voice.js): the
+        // TV's page goes back to this start, not out of the app (11-27)
+        if (window.sofaTvVoice)
+          window.sofaTvVoice.onBack = function () {
+            if ($('full').classList.contains('hidden')) return false;
+            hideFull();
+            if (home) home.close();
+            if (pickMode()) {
+              draw();
+              return true;
+            }
+            setStatus('', '');
+            $('detail').textContent = '';
+            showFind(true, tr('reopen'));
+            return true;
+          };
         var lostHidden = false;
         var lostNote = false; // the list says the connection ended
         if (home)
@@ -2349,6 +2418,12 @@
             $('detail').textContent = tr('pickTvHow');
             showFind(false);
             lookOnly();
+            return;
+          }
+          if (offNow() && !share && !sendHash) {
+            setStatus(tr('offNow'), '');
+            $('detail').textContent = '';
+            showFind(true, tr('reopen'));
             return;
           }
           permission().then(function (state) {

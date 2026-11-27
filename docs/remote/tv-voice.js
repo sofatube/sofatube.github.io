@@ -17,6 +17,11 @@
  *     only. Inside the Android app the app's own recognizer listens (its
  *     WebView has none that works: the app says "listen" in its hello,
  *     platform/share-android Listen.java); in a browser, the browser's.
+ *
+ * Also between the page and the app's start (index.html sets the hooks):
+ * Disconnect in the page (`onClosed`: back to the start, staying off), and
+ * Android's back (`onBack`: the app asks on its port, the page's own step
+ * back first).
  */
 'use strict';
 // a block, not a function: its consts and functions stay in here (strict)
@@ -41,6 +46,10 @@
     } catch {
       /* the page goes on without a buzz */
     }
+    // "Disconnect" in the page: the app goes back to its start
+    window.__ytxAppClosed = function () {
+      send({ kind: 'closed' });
+    };
     if (!canListen) return;
     var hears = {};
     var nextHear = 1;
@@ -187,6 +196,13 @@
       try {
         a = JSON.parse(m.data);
       } catch {
+        return;
+      }
+      if (a && a.kind === 'back') {
+        // Android's back (WebActivity): the page's own step back first
+        const api = self.sofaTvVoice;
+        const handled = !!(api.onBack && api.onBack());
+        appPort.postMessage(JSON.stringify({ do: 'back', handled }));
         return;
       }
       if (a && typeof a.ev === 'string' && appEv[a.re]) appEv[a.re](a);
@@ -379,7 +395,9 @@
     if (d.kind === 'buzz') buzz(d.p);
     else if (d.kind === 'listen') ask(me, f, d, live);
     else if (d.kind === 'listen-stop') stop(d);
-    else return false;
+    else if (d.kind === 'closed') {
+      if (live() && self.sofaTvVoice.onClosed) self.sofaTvVoice.onClosed();
+    } else return false;
     return true;
   }
 
