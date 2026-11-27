@@ -28,7 +28,7 @@
 {
   /* --------- inside the frame (stringified; runs before the page) --------- */
   /* eslint-disable no-var */
-  function shim(cfg, canListen) {
+  function shim(cfg, caps) {
     var N = cfg.n;
     var up = window.parent;
     function send(m) {
@@ -50,7 +50,13 @@
     window.__ytxAppClosed = function () {
       send({ kind: 'closed' });
     };
-    if (!canListen) return;
+    // "Share this phone's screen" in the page: the app's own share (only
+    // inside the Android app, which says "share" in its hello)
+    if (caps.share)
+      window.__ytxAppShare = function () {
+        send({ kind: 'share' });
+      };
+    if (!caps.listen) return;
     var hears = {};
     var nextHear = 1;
     function Rec() {
@@ -178,6 +184,7 @@
   // its answers and these events never mix)
   let appPort = null;
   let appListens = false;
+  let appShares = false;
   let nextId = 1e9;
   const appEv = {};
   window.addEventListener('message', function (e) {
@@ -191,6 +198,7 @@
     if (!d || d.kind !== 'sofatube-app' || !Array.isArray(d.can)) return;
     appPort = e.ports[0];
     appListens = d.can.indexOf('listen') >= 0;
+    appShares = d.can.indexOf('share') >= 0;
     appPort.addEventListener('message', function (m) {
       let a;
       try {
@@ -395,11 +403,19 @@
     if (d.kind === 'buzz') buzz(d.p);
     else if (d.kind === 'listen') ask(me, f, d, live);
     else if (d.kind === 'listen-stop') stop(d);
-    else if (d.kind === 'closed') {
+    else if (d.kind === 'share') {
+      // only right after a tap in the page; Android then asks the person
+      const ua = navigator.userActivation;
+      if (appPort && appShares && ua && ua.isActive)
+        appPort.postMessage(JSON.stringify({ do: 'share' }));
+    } else if (d.kind === 'closed') {
       if (live() && self.sofaTvVoice.onClosed) self.sofaTvVoice.onClosed();
     } else return false;
     return true;
   }
 
-  self.sofaTvVoice = { shim, msg, can: () => !!way(), end };
+  // what the frame's page gets (put into its script as an object literal)
+  const can = () =>
+    JSON.stringify({ listen: !!way(), share: !!(appPort && appShares) });
+  self.sofaTvVoice = { shim, msg, can, end };
 }
