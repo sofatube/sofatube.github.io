@@ -682,7 +682,9 @@
             dhcpTitle: 'Stop the TV’s address from changing',
             dhcp: 'In your router’s settings (often at 192.168.1.1 or 192.168.0.1) look for “DHCP reservation” (also “Address reservation” or “Static lease”) and reserve the TV’s current address. Then the TV keeps the same address, and a home-screen icon made on the phone page keeps working too.',
             privacy:
-              'Private: your TV’s address is kept only in this browser. To find a new TV, this page reads the sealed note the TV leaves on a free message server (ntfy.sh); only phones on your Wi-Fi can open it. Sofa Tube has no server of its own.'
+              'Private: your TV’s address is kept only in this browser. To find a new TV, this page reads the sealed note the TV leaves on a free message server (ntfy.sh); only phones on your Wi-Fi can open it. Sofa Tube has no server of its own.',
+            privacyApp:
+              'Private: your TV’s address is kept only in this app. To find a new TV, the app reads the sealed note the TV leaves on a free message server (ntfy.sh); only phones on your Wi-Fi can open it. Sofa Tube has no server of its own.'
           },
           ar: {
             title: 'جهاز التحكم صوفا تيوب',
@@ -843,7 +845,9 @@
             dhcpTitle: 'منع تغيّر عنوان التلفاز',
             dhcp: 'في إعدادات الراوتر (غالبًا على 192.168.1.1 أو 192.168.0.1) ابحث عن «حجز عنوان DHCP» (ويُسمى أيضًا «حجز العنوان» أو «Static lease») واحجز عنوان التلفاز الحالي. فيبقى للتلفاز العنوان نفسه، وتستمر أيضًا الأيقونة التي أُضيفت من صفحة الهاتف في العمل.',
             privacy:
-              'خصوصية: يُحفظ عنوان التلفاز في هذا المتصفح فقط. وللعثور على تلفاز جديد تقرأ هذه الصفحة الرسالة المختومة التي يتركها التلفاز على خادم رسائل مجاني (ntfy.sh)، ولا تستطيع فتحها إلا الهواتف على شبكة الواي فاي لديك. ولا يملك صوفا تيوب خادمًا خاصًا به.'
+              'خصوصية: يُحفظ عنوان التلفاز في هذا المتصفح فقط. وللعثور على تلفاز جديد تقرأ هذه الصفحة الرسالة المختومة التي يتركها التلفاز على خادم رسائل مجاني (ntfy.sh)، ولا تستطيع فتحها إلا الهواتف على شبكة الواي فاي لديك. ولا يملك صوفا تيوب خادمًا خاصًا به.',
+            privacyApp:
+              'خصوصية: يُحفظ عنوان التلفاز في هذا التطبيق فقط. وللعثور على تلفاز جديد يقرأ التطبيق الرسالة المختومة التي يتركها التلفاز على خادم رسائل مجاني (ntfy.sh)، ولا تستطيع فتحها إلا الهواتف على شبكة الواي فاي لديك. ولا يملك صوفا تيوب خادمًا خاصًا به.'
           }
         };
 
@@ -1734,6 +1738,22 @@
         }
 
         function tvFetch(a, path, body) {
+          // inside the Sofa Tube app the app asks the TV (app-bridge.js):
+          // its WebView can't reach the Wi-Fi from this https page. Without
+          // this the wait for OK on the TV never heard the answer and the
+          // phone asked again with a new code (Galaxy, 2026-11-27)
+          if (window.sofaApp)
+            return window.sofaApp.ready().then(function (ok) {
+              if (!ok) return tvFetchHere(a, path, body);
+              return window.sofaApp
+                .lan(a, body ? 'POST' : 'GET', path, body || undefined, 8000)
+                .then(function (r) {
+                  return { code: r.code, data: r.data };
+                });
+            });
+          return tvFetchHere(a, path, body);
+        }
+        function tvFetchHere(a, path, body) {
           var ctl = window.AbortController ? new AbortController() : null;
           var timer = setTimeout(function () {
             if (ctl) ctl.abort();
