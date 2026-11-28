@@ -189,6 +189,7 @@
   let appListens = false;
   let appShares = false;
   let appSays = false;
+  let appUps = false; // sends a video's bytes to the TV itself (tv-direct.js)
   let nextId = 1e9;
   const appEv = {};
   window.addEventListener('message', function (e) {
@@ -204,6 +205,7 @@
     appListens = d.can.indexOf('listen') >= 0;
     appShares = d.can.indexOf('share') >= 0;
     appSays = d.can.indexOf('say') >= 0;
+    appUps = d.can.indexOf('serve') >= 0;
     appPort.addEventListener('message', function (m) {
       let a;
       try {
@@ -218,6 +220,8 @@
         appPort.postMessage(JSON.stringify({ do: 'back', handled }));
         return;
       }
+      // (videos just picked in a Video box: their handles, tv-direct.js)
+      if (a && a.kind === 'picked' && direct) direct.picked(a.list);
       if (a && typeof a.ev === 'string' && appEv[a.re]) appEv[a.re](a);
     });
     appPort.start();
@@ -434,6 +438,15 @@
         bar
       })
     : null;
+  // tv-direct.js: a video's bytes from the app straight to the TV
+  const direct = self.sofaTvDirect
+    ? self.sofaTvDirect({
+        port: () => appPort,
+        ups: () => appUps,
+        ev: appEv,
+        id: () => nextId++
+      })
+    : null;
   let shareAt = 0;
 
   /** A message from the frame: true when it was one of these. */
@@ -450,6 +463,7 @@
         appPort.postMessage(JSON.stringify({ do: 'share' }));
       }
     } else if (more && more.msg(me, f, d, live)) return true;
+    else if (direct && direct.msg(me, f, d, live)) return true;
     else if (d.kind === 'closed') {
       // Disconnect is a tap in the page: a page can't send the app back to
       // its start (and keep it off) by itself (review of #417)
@@ -478,6 +492,8 @@
       shimMain +
       ')(cfg, caps);(' +
       (more ? more.shim : 'function () {}') +
+      ')(cfg, caps);(' +
+      (direct ? direct.shim : 'function () {}') +
       ')(cfg, caps);}'
   };
   const openKind = more ? more.openKind : () => null; // (tests)

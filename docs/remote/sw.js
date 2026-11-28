@@ -4,7 +4,7 @@
  * and makes the page installable. Only this page's own files: the requests
  * to the TV (http://<address>/hello) are left alone.
  */
-const CACHE = 'sofatube-remote-v36';
+const CACHE = 'sofatube-remote-v37';
 const FILES = [
   './',
   'share-link.js',
@@ -17,6 +17,7 @@ const FILES = [
   'dc-pieces.js', // ...its big requests in pieces (0.9.7)
   'tv-voice.js', // ...its buzz and voice through the app (0.9.7)
   'tv-more.js', // ...read aloud, calls and texts, shake (0.9.7)
+  'tv-direct.js', // ...a video's bytes from the app to the TV (0.9.7)
   'app-bridge.js', // inside the Sofa Tube app on Android (0.9.7)
   'theme.js', // the light or dark button (0.9.7)
   'away-help.html',

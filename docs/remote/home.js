@@ -25,6 +25,11 @@
  *   - No channel (an old TV, a browser without local network access, a
  *     network that blocks it): the caller opens the TV's address as before.
  *
+ * ask(op): a sealed question to the TV of the open channel, its whole answer
+ * with the TV's address: op "token" (Android TVs) gives this phone's token,
+ * the TV's https port and its certificate's SHA-256, for the app to send a
+ * video straight to the TV (tv-direct.js, n-directup).
+ *
  * Same envelopes as Control from away (away-crypto.js; the TV side is
  * service.js homeApi / YtxPhoneServer.java). Server side: nothing.
  */
@@ -229,7 +234,7 @@
   }
 
   /** Sends the offer sealed to one TV; its answer (SDP), or an error. */
-  async function signal(rec, a, sdp) {
+  async function signal(rec, a, sdp, op) {
     const now = Date.now();
     rec.outN = C.nextCounter(rec.outN, now);
     await update(rec);
@@ -238,7 +243,7 @@
       rec.tvId,
       rec.phoneId,
       TOPIC,
-      { op: 'rtc', offer: sdp },
+      op ? { op } : { op: 'rtc', offer: sdp },
       now,
       rec.outN
     );
@@ -251,9 +256,19 @@
     if (C.check(msg, rec.inN, Date.now())) return { error: 'bad' };
     rec.inN = msg.n;
     await update(rec);
+    if (op) return msg;
     if (!msg.ok || typeof msg.answer !== 'string')
       return { error: msg.error || 'no' };
     return { answer: msg.answer };
+  }
+
+  async function ask(op) {
+    const me = rtc;
+    if (!me || me.dc.readyState !== 'open') return null;
+    const rec = (await list()).filter((x) => x.tvId === me.tvId)[0];
+    return rec
+      ? Object.assign({ a: me.a }, await signal(rec, me.a, '', op))
+      : null;
   }
 
   /** Does this phone have a home key with some TV? */
@@ -391,6 +406,7 @@
     current,
     // one request of the TV's page over the channel (tv-frame.js)
     request: chan,
+    ask, // a sealed question (op) to the open channel's TV: see the top
     set onLost(f) {
       onLost = f;
     }
