@@ -18,6 +18,9 @@
  *     WebView has none that works: the app says "listen" in its hello,
  *     platform/share-android Listen.java); in a browser, the browser's.
  *
+ * Also (tv-more.js): read aloud with the app's voice, a call, a text or an
+ * e-mail from the page, and shake to pause.
+ *
  * Also between the page and the app's start (index.html sets the hooks):
  * Disconnect in the page (`onClosed`: back to the start, staying off), and
  * Android's back (`onBack`: the app asks on its port, the page's own step
@@ -28,7 +31,7 @@
 {
   /* --------- inside the frame (stringified; runs before the page) --------- */
   /* eslint-disable no-var */
-  function shim(cfg, caps) {
+  function shimMain(cfg, caps) {
     var N = cfg.n;
     var up = window.parent;
     function send(m) {
@@ -185,6 +188,7 @@
   let appPort = null;
   let appListens = false;
   let appShares = false;
+  let appSays = false;
   let nextId = 1e9;
   const appEv = {};
   window.addEventListener('message', function (e) {
@@ -199,6 +203,7 @@
     appPort = e.ports[0];
     appListens = d.can.indexOf('listen') >= 0;
     appShares = d.can.indexOf('share') >= 0;
+    appSays = d.can.indexOf('say') >= 0;
     appPort.addEventListener('message', function (m) {
       let a;
       try {
@@ -313,11 +318,11 @@
     }
   }
 
-  function bar(onStop) {
+  function bar(onStop, words, cls) {
     const ar = /^ar/i.test(document.documentElement.lang || '');
     const T = TEXT[ar ? 'ar' : 'en'];
     const b = document.createElement('div');
-    b.className = 'ytx-listen';
+    b.className = cls || 'ytx-listen';
     b.setAttribute('role', 'status');
     b.dir = ar ? 'rtl' : 'ltr';
     b.style.cssText =
@@ -328,11 +333,11 @@
       'font:600 16px/1.4 system-ui,sans-serif;' +
       'box-shadow:0 4px 18px rgba(0,0,0,.35)';
     const t = document.createElement('span');
-    t.textContent = T.on;
+    t.textContent = words || T.on;
     t.style.flex = '1';
     const x = document.createElement('button');
     x.type = 'button';
-    x.className = 'ytx-listen-stop';
+    x.className = (cls || 'ytx-listen') + '-stop';
     x.textContent = T.stop;
     x.style.cssText =
       'font:inherit;min-height:44px;padding:8px 16px;border-radius:10px;' +
@@ -419,17 +424,33 @@
     }
   }
 
+  // tv-more.js: read aloud, links, shake (its own limits)
+  const more = self.sofaTvMore
+    ? self.sofaTvMore({
+        port: () => appPort,
+        says: () => appSays,
+        ev: appEv,
+        id: () => nextId++,
+        bar
+      })
+    : null;
+  let shareAt = 0;
+
   /** A message from the frame: true when it was one of these. */
   function msg(me, f, d, live) {
     if (d.kind === 'buzz') buzz(d.p);
     else if (d.kind === 'listen') ask(me, f, d, live);
     else if (d.kind === 'listen-stop') stop(d);
     else if (d.kind === 'share') {
-      // only right after a tap in the page; Android then asks the person
+      // only right after a tap in the page, one every 5 s; Android then asks
       const ua = navigator.userActivation;
-      if (appPort && appShares && ua && ua.isActive)
+      const now = Date.now();
+      if (appPort && appShares && ua && ua.isActive && now - shareAt >= 5000) {
+        shareAt = now;
         appPort.postMessage(JSON.stringify({ do: 'share' }));
-    } else if (d.kind === 'closed') {
+      }
+    } else if (more && more.msg(me, f, d, live)) return true;
+    else if (d.kind === 'closed') {
       // Disconnect is a tap in the page: a page can't send the app back to
       // its start (and keep it off) by itself (review of #417)
       const ua = navigator.userActivation;
@@ -441,6 +462,24 @@
 
   // what the frame's page gets (put into its script as an object literal)
   const can = () =>
-    JSON.stringify({ listen: !!way(), share: !!(appPort && appShares) });
-  self.sofaTvVoice = { shim, msg, can, end };
+    JSON.stringify({
+      listen: !!way(),
+      share: !!(appPort && appShares),
+      say: !!(appPort && appSays)
+    });
+  // go: the phone's app for the link (tv-voice-ui.mjs watches it)
+  const go = (url) => {
+    location.href = url;
+  };
+  // tv-frame.js puts `(${shim})(cfg, caps);` into the frame: both parts
+  const both = {
+    toString: () =>
+      'function (cfg, caps) {(' +
+      shimMain +
+      ')(cfg, caps);(' +
+      (more ? more.shim : 'function () {}') +
+      ')(cfg, caps);}'
+  };
+  const openKind = more ? more.openKind : () => null; // (tests)
+  self.sofaTvVoice = { shim: both, msg, can, end, go, openKind };
 }
