@@ -1058,7 +1058,7 @@
     if (d.b !== undefined) msg.b = d.b;
     if (typeof d.b64 === 'string') {
       msg.b64 = d.b64;
-      msg.type = typeof d.type === 'string' ? d.type.slice(0, 200) : '';
+      msg.type = String(d.type || 'application/octet-stream').slice(0, 200);
     }
     const r = await me.chan(msg, 45000);
     if (live !== me) return;

@@ -223,20 +223,9 @@
   let rtc = null; // {pc, dc, waiting, n, a, tvId}
   let onLost = null;
 
+  // (a big request goes in pieces: dc-pieces.js)
   function chan(msg, ms) {
-    return new Promise((ok) => {
-      if (!rtc || rtc.dc.readyState !== 'open') return ok(null);
-      const me = rtc;
-      const id = me.n++;
-      me.waiting[id] = ok;
-      setTimeout(() => {
-        if (me.waiting[id]) {
-          delete me.waiting[id];
-          ok(null);
-        }
-      }, ms || 20000);
-      me.dc.send(JSON.stringify(Object.assign({ id }, msg)));
-    });
+    return self.sofaDcPieces.ask(rtc, msg, ms);
   }
 
   /** Sends the offer sealed to one TV; its answer (SDP), or an error. */
