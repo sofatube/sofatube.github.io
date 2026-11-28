@@ -13,6 +13,8 @@
  * op "token") or any failure: the page sends over the channel as before.
  *
  * Plugged into tv-voice.js like tv-more.js (the app's port, its answers).
+ * The app's handles of picked videos belong to the frame (and so the TV)
+ * whose file box opened Android's picker: another frame or TV never gets one.
  */
 (function () {
   'use strict';
@@ -29,6 +31,16 @@
       up.postMessage(m, cfg.origin);
     }
     var lost = {}; // live id -> the page's way on (the channel)
+    // a file box opens Android's picker: what it picks is this frame's
+    document.addEventListener(
+      'click',
+      function (e) {
+        var t = e.target;
+        if (t && t.tagName === 'INPUT' && t.type === 'file')
+          send({ kind: 'serve-pick' });
+      },
+      true
+    );
     window.addEventListener('message', function (e) {
       var m = e.data;
       if (e.source !== up || !m || m.n !== N) return;
@@ -83,24 +95,38 @@
   function make(api) {
     const serving = {}; // live id -> the app's request id
     // the app's handles of the videos picked lately in a Video box (the app
-    // sends only these): {h, name, size, at}
+    // sends only these): {h, name, size, at, me}, me: the frame (and TV) that
+    // opened the picker, still live when the pick came
     let picks = [];
+    let opener = null; // {me, live}: the frame whose file box opened it
     const PICK_MS = 10 * 60 * 1000;
     function picked(list) {
       const now = Date.now();
       picks = picks.filter((x) => now - x.at < PICK_MS);
+      const o = opener;
+      if (!o || !o.live()) return; // (no frame opened it, or it is gone)
       (Array.isArray(list) ? list : []).forEach((x) => {
         if (x && /^[0-9a-f]{32}$/.test(x.h) && typeof x.name === 'string')
-          picks.push({ h: x.h, name: x.name, size: Number(x.size), at: now });
+          picks.push({
+            h: x.h,
+            name: x.name,
+            size: Number(x.size),
+            at: now,
+            me: o.me
+          });
       });
       picks = picks.slice(-50);
     }
-    /** The handle of the file the frame names (its name and size), or ''. */
-    function handle(name, size) {
+    /** The handle of the file this frame names (its name and size), or ''. */
+    function handle(me, name, size) {
       const now = Date.now();
       const p = picks
         .filter(
-          (x) => now - x.at < PICK_MS && x.name === name && x.size === size
+          (x) =>
+            x.me === me &&
+            now - x.at < PICK_MS &&
+            x.name === name &&
+            x.size === size
         )
         .pop();
       return p ? p.h : '';
@@ -133,7 +159,7 @@
         /^[0-9a-f]{16,64}$/.test(d.live) &&
         typeof d.name === 'string' &&
         d.size > 0 &&
-        handle(d.name, d.size) &&
+        handle(me, d.name, d.size) &&
         self.sofaHome &&
         self.sofaHome.ask;
       const to = ok ? await direct() : null;
@@ -159,7 +185,7 @@
           do: 'serve',
           id,
           live: d.live,
-          h: handle(d.name, d.size),
+          h: handle(me, d.name, d.size),
           ip: to.ip,
           port: to.port,
           p: to.p,
@@ -171,6 +197,7 @@
     /** A message from the frame: true when it was one of these. */
     function msg(me, f, d, live) {
       if (d.kind === 'serve') serve(me, f, d, live);
+      else if (d.kind === 'serve-pick') opener = { me, live };
       else if (d.kind === 'serve-stop') {
         const id = serving[d.live];
         const port = api.port();
