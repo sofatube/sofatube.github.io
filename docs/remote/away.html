@@ -21,6 +21,19 @@
       content="#170e08"
       media="(prefers-color-scheme: dark)"
     />
+    <script>
+      // the look chosen on this phone (theme.js) before the first paint
+      (function () {
+        try {
+          var t = localStorage.getItem('ytx-theme');
+          if (t !== 'light' && t !== 'dark') return;
+          document.documentElement.setAttribute('data-theme', t);
+          var m = document.querySelectorAll('meta[name="theme-color"]');
+          for (var i = 0; i < m.length; i++)
+            m[i].setAttribute('content', t === 'dark' ? '#170e08' : '#fbf4e8');
+        } catch (e) {}
+      })();
+    </script>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Sofa Tube" />
     <style>
@@ -38,8 +51,9 @@
         --ok: #1b7f37;
         --bad: #c62828;
       }
+      /* dark: the phone's setting, or the person's choice (theme.js) */
       @media (prefers-color-scheme: dark) {
-        :root {
+        :root:not([data-theme='light']) {
           --bg: #170e08;
           --card: #24180f;
           --line: #3a2819;
@@ -53,6 +67,47 @@
           --ok: #4cc26a;
           --bad: #ff6b6b;
         }
+      }
+      :root[data-theme='dark'] {
+        --bg: #170e08;
+        --card: #24180f;
+        --line: #3a2819;
+        --text: #fbf4e8;
+        --muted: #b9a690;
+        --field: #2f2015;
+        --field-line: #4e3624;
+        --accent: #ff8a00;
+        --accent-ink: #1f140d;
+        --title: #fbf4e8;
+        --ok: #4cc26a;
+        --bad: #ff6b6b;
+      }
+      /* the page's own controls and scroll bars follow the choice too (the
+         frame of the TV's page keeps its own, #full iframe) */
+      :root[data-theme='light'] {
+        color-scheme: light;
+      }
+      :root[data-theme='dark'] {
+        color-scheme: dark;
+      }
+      /* the light or dark button: a 44 px touch target */
+      #theme {
+        background: none;
+        border: 1px solid var(--field-line);
+        color: var(--text);
+        border-radius: 999px;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex: 0 0 auto;
+      }
+      #theme svg {
+        width: 22px;
+        height: 22px;
       }
       * {
         box-sizing: border-box;
@@ -215,9 +270,12 @@
         flex: 1;
         border: 0;
         width: 100%;
-        /* see-through while the TV's page is on its way, not white in dark
-           mode (index.html) */
-        color-scheme: light;
+        /* no color-scheme here: the TV's page takes its light or dark
+           from it (index.html); hidden until that page is in */
+      }
+      /* no page in it yet (the TV's page comes over the channel first) */
+      #full iframe:not([srcdoc]) {
+        visibility: hidden;
       }
       /* 0.9.7: the paired TVs */
       #tvs {
@@ -328,6 +386,7 @@
       <header>
         <img src="icon-192.png" alt="" />
         <h1 id="title"></h1>
+        <button id="theme" type="button"></button>
         <button id="lang" type="button"></button>
       </header>
       <p id="status" role="status" aria-live="polite"></p>
@@ -524,6 +583,7 @@
       ></iframe>
     </div>
     <script src="away-crypto.js"></script>
+    <script src="theme.js"></script>
     <script src="tv-more.js"></script>
     <script src="tv-voice.js"></script>
     <script src="tv-frame.js"></script>

@@ -23,6 +23,19 @@
       content="#170e08"
       media="(prefers-color-scheme: dark)"
     />
+    <script>
+      // the look chosen on this phone (theme.js) before the first paint
+      (function () {
+        try {
+          var t = localStorage.getItem('ytx-theme');
+          if (t !== 'light' && t !== 'dark') return;
+          document.documentElement.setAttribute('data-theme', t);
+          var m = document.querySelectorAll('meta[name="theme-color"]');
+          for (var i = 0; i < m.length; i++)
+            m[i].setAttribute('content', t === 'dark' ? '#170e08' : '#fbf4e8');
+        } catch (e) {}
+      })();
+    </script>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Sofa Tube" />
     <style>
@@ -41,8 +54,9 @@
         --ok: #1b7f37;
         --bad: #c62828;
       }
+      /* dark: the phone's setting, or the person's choice (theme.js) */
       @media (prefers-color-scheme: dark) {
-        :root {
+        :root:not([data-theme='light']) {
           --bg: #170e08;
           --card: #24180f;
           --line: #3a2819;
@@ -56,6 +70,47 @@
           --ok: #4cc26a;
           --bad: #ff6b6b;
         }
+      }
+      :root[data-theme='dark'] {
+        --bg: #170e08;
+        --card: #24180f;
+        --line: #3a2819;
+        --text: #fbf4e8;
+        --muted: #b9a690;
+        --field: #2f2015;
+        --field-line: #4e3624;
+        --accent: #ff8a00;
+        --accent-ink: #1f140d;
+        --title: #fbf4e8;
+        --ok: #4cc26a;
+        --bad: #ff6b6b;
+      }
+      /* the page's own controls and scroll bars follow the choice too (the
+         frame of the TV's page keeps its own, #full iframe) */
+      :root[data-theme='light'] {
+        color-scheme: light;
+      }
+      :root[data-theme='dark'] {
+        color-scheme: dark;
+      }
+      /* the light or dark button: a 44 px touch target */
+      #theme {
+        background: none;
+        border: 1px solid var(--field-line);
+        color: var(--text);
+        border-radius: 999px;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex: 0 0 auto;
+      }
+      #theme svg {
+        width: 22px;
+        height: 22px;
       }
       * {
         box-sizing: border-box;
@@ -332,14 +387,15 @@
         border: 0;
         width: 100%;
         height: 100%;
-        /* the frame's empty page (the TV's page still on its way) says no
-           color scheme: with the same one here it is see-through, not a
-           white sheet in dark mode (Galaxy, 2026-11-27) */
-        color-scheme: light;
+        /* no color-scheme here: Chrome gives the frame's page its light
+           or dark from it (a forced light made the TV's page light in a
+           dark phone, Galaxy 2026-11-28). The white sheet while it loads:
+           hidden, below */
       }
       /* ...and the frame shows once the TV's page is in: "Connecting…"
          until then */
-      #full.loading {
+      #full.loading,
+      #full iframe:not([srcdoc]) {
         visibility: hidden;
       }
       /* 0.9.6: the code the TV shows too (Join with OK on the TV) */
@@ -358,6 +414,7 @@
       <header>
         <img src="icon-192.png" alt="" />
         <h1 id="title"></h1>
+        <button id="theme" type="button"></button>
         <button id="lang" type="button"></button>
       </header>
       <p id="lead" class="muted"></p>
@@ -509,6 +566,7 @@
     </div>
     <script src="share-link.js"></script>
     <script src="away-crypto.js"></script>
+    <script src="theme.js"></script>
     <script src="tv-more.js"></script>
     <script src="tv-voice.js"></script>
     <script src="tv-frame.js"></script>
